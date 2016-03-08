@@ -1,4 +1,4 @@
-# ProjetM1 concernant les matière : Génie Logiciel, Réseaux et Java
+# ProjetM1 concernant les matières : Génie Logiciel, Réseaux et Java
 # Contributeurs :
 ## Alexandre GINGEMBRE
 ## Arthur MOUREY

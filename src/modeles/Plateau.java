@@ -14,7 +14,7 @@ public class Plateau {
 	private ArrayList<Route> routes ;
 	private static Plateau INSTANCE = null;
 	
-	private static final int SIZE = 50;
+	private static final int SIZE = 60;
 	
 	
 	private Plateau(){	

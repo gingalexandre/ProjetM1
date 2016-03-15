@@ -14,14 +14,14 @@ public class VueHexagone extends Polygon {
 	Hexagone hexagone;
 	
 	
-	public final static String carriere 	= "file:Ressources/carriere.jpg";
-	public final static String champs 		= "file:Ressources/champs.jpg";
-	public final static String foret		= "file:Ressources/foret.jpg";
-	public final static String montagne 	= "file:Ressources/montagne.jpg";
-	public final static String prairie		= "file:Ressources/prairie.jpg";
-	public final static String mer 			= "file:Ressources/mer.png";
-	public final static String dunevoleur 	= "file:Ressources/dune.png";
-	public final static String load 		= "file:Ressources/loading.gif"; 
+	public final static String carriere 	= "file:Ressources/cases/carriere.png";
+	public final static String champs 		= "file:Ressources/cases/champs.png";
+	public final static String foret		= "file:Ressources/cases/foret.png";
+	public final static String montagne 	= "file:Ressources/cases/montagne.png";
+	public final static String prairie		= "file:Ressources/cases/plaine.png";
+	public final static String mer 			= "file:Ressources/cases/mer.png";
+	public final static String dunevoleur 	= "file:Ressources/cases/dune.png";
+	public final static String load 		= "file:Ressources/cases/loading.gif"; 
 	
 
 	public VueHexagone(Hexagone hexagone) {

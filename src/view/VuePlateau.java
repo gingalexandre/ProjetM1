@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import commun.DistributeurMap;
@@ -26,8 +28,12 @@ public class VuePlateau {
    
 
     public VuePlateau() {
+    	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    	double width = screenSize.getWidth();
+    	double height = screenSize.getHeight();
+    	
         Pane p = new Pane();
-        scene = new Scene(p, 662, 600);
+        scene = new Scene(p, width, height);
         plateau = Plateau.getInstance();
         p.getChildren().addAll(VueHexagone.transformVueHexagone(plateau.getHexagones()));
         Circle[] t = Ville.transformVilleVueVille(plateau.getVilles());

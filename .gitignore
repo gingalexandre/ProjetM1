@@ -1,4 +1,5 @@
 .DS_STORE
 .git/
 /nbproject/private/
-/bin/
+bin/
+psd/

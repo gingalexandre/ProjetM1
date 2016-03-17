@@ -47,9 +47,8 @@ public class VueHexagone extends Polygon {
 			return new ImagePattern(new Image(prairie));
 		case Hexagone.DESERT:
 			return new ImagePattern(new Image(dunevoleur));
-		default :
-			return Color.RED;
 		}
+		return null;
 		
 	}
 	

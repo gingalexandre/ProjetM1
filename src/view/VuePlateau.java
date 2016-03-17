@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 
-import commun.DistributeurMap;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -52,7 +51,7 @@ public class VuePlateau {
 
     
 
-    public Paint getPaintValue(int i) {
+    /*public Paint getPaintValue(int i) {
         Paint res = null;
         switch (i) {
             case 0:
@@ -73,15 +72,16 @@ public class VuePlateau {
             case 34:
             case 35:
             case 36:
-                res = new ImagePattern(new Image(DistributeurMap.mer));
+                res = new ImagePattern(new Image(VueHexagone.mer));
                 break;
             case 18:
-                res = new ImagePattern(new Image(DistributeurMap.dunevoleur));
+                res = new ImagePattern(new Image(VueHexagone.dunevoleur));
                 break;
             default:
-                res = new ImagePattern(DistributeurMap.getInstance().donnerImage());
+                res = VueHexagone.getPaint(i);
         }
         return res;
-    }
+    }*/
+    
 
 }

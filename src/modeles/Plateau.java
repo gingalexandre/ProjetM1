@@ -3,7 +3,6 @@ package modeles;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import commun.DistributeurMap;
 import commun.Fonction;
 import view.VueHexagone;
 

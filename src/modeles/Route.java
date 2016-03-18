@@ -11,6 +11,7 @@ public class Route {
 	
 	private Point depart;
 	private Point arrive;
+	private Joueur oqp;
 	
 	
 	public Route(Point depart, Point arrive) {
@@ -25,6 +26,10 @@ public class Route {
 			vueRoutes[i] =  new VueRoute(routes.get(i).depart,routes.get(i).arrive).getRoute();
 		}
 		return vueRoutes;
+	}
+	
+	public Joueur getOqp(){
+		return this.oqp;
 	}
 	
 	

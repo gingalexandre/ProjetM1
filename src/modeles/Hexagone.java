@@ -3,6 +3,11 @@ package modeles;
 import commun.DistributeurType;
 
 public class Hexagone {
+	private int indexHexagone;
+	private Ressource ressource;
+	private int numero;
+	private Ville[] villeAdj = new Ville[6];
+	
 	public final static int FORET = 1;
 	public final static int CHAMPS = 2;
 	public final static int CARRIERE = 3;
@@ -12,8 +17,6 @@ public class Hexagone {
 	public final static int MER = 6;
 	public final static int DESERT = 7;
 
-	private int indexHexagone;
-	
 	private Point a;
 	private Point b;
 	private Point c;

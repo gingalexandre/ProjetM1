@@ -9,6 +9,18 @@ public class Ville {
 	
 	private Point emplacement;
 	
+	private Ville ville_adj1;
+	private Ville ville_adj2;
+	private Ville ville_adj3;
+	private Route route_adj1;
+	private Route route_adj2;
+	private Route route_adj3;
+	
+	private Joueur oqp;
+	
+	private int gain;
+	
+	private boolean colonieVille;
 	
 	public Ville(Point emplacement){
 		this.emplacement = emplacement;
@@ -27,7 +39,15 @@ public class Ville {
 		return vueVille;
 	}
 
-
+	public boolean estLibre(Joueur proprio){
+		return ((this.oqp == null)&&
+				((this.ville_adj1.oqp == null)&&
+				(this.ville_adj2.oqp == null)&&
+				(this.ville_adj3.oqp == null))&&
+				((this.route_adj1.getOqp() == null)&&
+				(this.route_adj2.getOqp() == null)&&
+				(this.route_adj3.getOqp() == null)));
+	}
 
 	
 	

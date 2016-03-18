@@ -1,9 +1,13 @@
-package view;
+package client.view;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 
+import client.modeles.Plateau;
+import client.modeles.Point;
+import client.modeles.Route;
+import client.modeles.Ville;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -11,10 +15,6 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import modeles.Plateau;
-import modeles.Point;
-import modeles.Route;
-import modeles.Ville;
 
 public class VuePlateau {
 

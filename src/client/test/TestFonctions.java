@@ -1,10 +1,10 @@
-package test;
+package client.test;
 
 import static org.junit.Assert.*;
 
-import commun.*;
-
 import org.junit.Test;
+
+import client.commun.*;
 
 public class TestFonctions {
 	@Test

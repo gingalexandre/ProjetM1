@@ -1,6 +1,6 @@
-package modeles;
+package client.modeles;
 
-import commun.DistributeurType;
+import client.commun.DistributeurType;
 
 public class Hexagone {
 	private int indexHexagone;

@@ -1,9 +1,9 @@
-package modeles;
+package client.modeles;
 
 import java.util.ArrayList;
 
+import client.view.VueVille;
 import javafx.scene.shape.Circle;
-import view.VueVille;
 
 public class Ville {
 	

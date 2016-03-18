@@ -1,4 +1,4 @@
-package commun;
+package client.commun;
 
 public class Fonction {
 

@@ -1,13 +1,14 @@
-package test;
-
-import modeles.Joueur;
-import modeles.Ressource;
+package client.test;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import client.modeles.Joueur;
+import client.modeles.Ressource;
+
 import static org.junit.Assert.*;
 
 /**

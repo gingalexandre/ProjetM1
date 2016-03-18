@@ -1,10 +1,10 @@
-package modeles;
+package client.modeles;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import commun.Fonction;
-import view.VueHexagone;
+import client.commun.Fonction;
+import client.view.VueHexagone;
 
 public class Plateau {
 	

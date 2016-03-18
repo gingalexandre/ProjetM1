@@ -1,6 +1,7 @@
-package commun;
+package client.commun;
 import java.util.ArrayList;
 
+import client.view.VuePlateau;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -10,7 +11,6 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
-import view.VuePlateau;
 
 public class Main extends Application {
 	

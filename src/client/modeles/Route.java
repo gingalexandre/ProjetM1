@@ -1,11 +1,11 @@
-package modeles;
+package client.modeles;
 
 import java.util.ArrayList;
 
+import client.view.VueRoute;
+import client.view.VueVille;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import view.VueRoute;
-import view.VueVille;
 
 public class Route {
 	

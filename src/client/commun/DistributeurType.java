@@ -1,8 +1,8 @@
-package commun;
+package client.commun;
 import java.util.ArrayList;
 
+import client.modeles.Hexagone;
 import javafx.scene.image.Image;
-import modeles.Hexagone;
 
 public class DistributeurType {
 	

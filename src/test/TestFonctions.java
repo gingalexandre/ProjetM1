@@ -3,7 +3,6 @@ package test;
 import static org.junit.Assert.*;
 
 import commun.*;
-import controlers.*;
 
 import org.junit.Test;
 

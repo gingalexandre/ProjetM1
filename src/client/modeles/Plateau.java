@@ -8,9 +8,9 @@ import client.view.VueHexagone;
 
 public class Plateau {
 	
-	private ArrayList<Hexagone> hexagones ;
-	private ArrayList<Ville> villes ;
-	private ArrayList<Route> routes ;
+	private static ArrayList<Hexagone> hexagones ;
+	private static ArrayList<Ville> villes ;
+	private static ArrayList<Route> routes ;
 	private static Plateau INSTANCE = null;
 	
 	private static final int SIZE = 60;
@@ -28,20 +28,20 @@ public class Plateau {
 	
 	
 	
-	 public ArrayList<Hexagone> getHexagones() {
+	 public static ArrayList<Hexagone> getHexagones() {
 		return hexagones;
 	}
 
 	 
 
 
-	public ArrayList<Ville> getVilles() {
+	public static ArrayList<Ville> getVilles() {
 		return villes;
 	}
 
 
 
-	public ArrayList<Route> getRoutes() {
+	public static ArrayList<Route> getRoutes() {
 		return routes;
 	}
 

@@ -1,9 +1,7 @@
 package client.modeles;
 
-/**
-*
-* @author Arthur
-*/
-public class Carte {
-
+public interface Carte {
+	
+	public void action();
+	
 }

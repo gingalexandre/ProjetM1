@@ -22,6 +22,8 @@ public class Joueur {
     private HashMap<Integer, Integer> stockRessource = new HashMap<>();
     private ArrayList<Carte> cartes = new ArrayList();
     
+    private String couleur;
+    
     public Joueur(String n){
     	compteurDeJoueur++;
         this.id = compteurDeJoueur;
@@ -76,6 +78,10 @@ public class Joueur {
     
     public void ajouterPointVictoire(){
         this.pointVictoire++;
+    }
+    
+    public String getCouleur(){
+    	return this.couleur;
     }
     
 }

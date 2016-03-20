@@ -13,6 +13,10 @@ public class Route {
 	private Point arrive;
 	private Joueur oqp;
 	
+	private static int nbRouteBleu = 15;
+	private static int nbRouteBlanc = 15;
+	private static int nbRouteRouge = 15;
+	private static int nbRouteOrange = 15;
 	
 	public Route(Point depart, Point arrive) {
 		super();
@@ -32,6 +36,18 @@ public class Route {
 		return this.oqp;
 	}
 	
+	public boolean encoreAssez(Joueur joueur){
+		boolean assez = false;
+		switch (joueur.getCouleur()) {
+		case "Bleu": assez = (this.nbRouteBleu>0);
+		case "Blanc": assez = (this.nbRouteBlanc>0);
+		case "Rouge": assez = (this.nbRouteRouge>0);
+		case "Orange": assez = (this.nbRouteOrange>0);
+		default:
+			break;
+		}
+		return assez;
+	}
 	
 
 }

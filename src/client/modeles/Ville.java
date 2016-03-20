@@ -23,6 +23,15 @@ public class Ville {
 	
 	private boolean colonieVille;
 	
+	private static int nbColonieBleu = 5;
+	private static int nbVilleBleu = 4;
+	private static int nbColonieRouge = 5;
+	private static int nbVilleRouge = 4;
+	private static int nbColonieBlanc = 5;
+	private static int nbVilleBlanc = 4;
+	private static int nbColonieOrange = 5;
+	private static int nbVilleOrange = 4;
+	
 	public Ville(Point emplacement){
 		this.emplacement = emplacement;
 	}
@@ -54,7 +63,32 @@ public class Ville {
 				(this.route_adj2.getOqp() == null)&&
 				(this.route_adj3.getOqp() == null)));
 	}
+	
+	public boolean encoreAssezColonie(Joueur joueur){
+		boolean assez = false;
+		switch (joueur.getCouleur()) {
+		case "Bleu": assez = (this.nbColonieBleu>0);
+		case "Blanc": assez = (this.nbColonieBlanc>0);
+		case "Rouge": assez = (this.nbColonieRouge>0);
+		case "Orange": assez = (this.nbColonieOrange>0);
+		default:
+			break;
+		}
+		return assez;
+	}
 
+	public boolean encoreAssezVille(Joueur joueur){
+		boolean assez = false;
+		switch (joueur.getCouleur()) {
+		case "Bleu": assez = (this.nbVilleBleu>0);
+		case "Blanc": assez = (this.nbVilleBlanc>0);
+		case "Rouge": assez = (this.nbVilleRouge>0);
+		case "Orange": assez = (this.nbVilleOrange>0);
+		default:
+			break;
+		}
+		return assez;
+	}
 	
 	
 }

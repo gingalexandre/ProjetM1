@@ -20,8 +20,7 @@ public class VueHexagone extends Polygon {
 	public final static String montagne 	= "file:Ressources/cases/montagne.png";
 	public final static String prairie		= "file:Ressources/cases/plaine.png";
 	public final static String mer 			= "file:Ressources/cases/mer.png";
-	public final static String dunevoleur 	= "file:Ressources/cases/dune.png";
-	public final static String load 		= "file:Ressources/cases/loading.gif"; 
+	public final static String dunevoleur 	= "file:Ressources/cases/dune.png"; 
 	
 
 	public VueHexagone(Hexagone hexagone) {
@@ -33,8 +32,6 @@ public class VueHexagone extends Polygon {
 	
 	public Paint getPaint(int id){
 		switch(id){
-		case Hexagone.MER:
-			return new ImagePattern(new Image(mer));
 		case Hexagone.CARRIERE:
 			return new ImagePattern(new Image(carriere));
 		case Hexagone.CHAMPS:

@@ -37,7 +37,8 @@ public class VuePlateau {
         p.getChildren().addAll(VueHexagone.transformVueHexagone(plateau.getHexagones()));
         Circle[] t = Ville.transformVilleVueVille(plateau.getVilles());
         p.getChildren().addAll(t);
-        p.getChildren().addAll(Route.transformRouteVueRoute(plateau.getRoutes()));
+        //Aucune route pour le moment
+        //p.getChildren().addAll(Route.transformRouteVueRoute(plateau.getRoutes()));
         p.setStyle("-fx-background-color: #CEE4FF");
 
     }

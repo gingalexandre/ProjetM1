@@ -16,13 +16,14 @@ public class Plateau {
 	
 	private static final int SIZE = 60;
 	
-	private Plateau(){	
+	private Plateau(){
+		points = new ArrayList<Point>();
 		hexagones = new ArrayList<Hexagone>(Arrays.asList(this.getAllHexagone()));
 		for(Hexagone hex : hexagones){
 			setPoints(hex);
 		}
-		setRoutes();
 		setVilles();
+		setRoutes();
 	}
 	
 	 public static ArrayList<Hexagone> getHexagones() {
@@ -109,17 +110,9 @@ public class Plateau {
 	 
 
 	public void setPoints(Hexagone hex) {
-	        if ((hex.getIndexHexagone() == 1) || (hex.getIndexHexagone() == 2) || (hex.getIndexHexagone() == 5) || (hex.getIndexHexagone() == 6) || (hex.getIndexHexagone() == 7)) {
-	            points.add((new Point(hex.getA().getX(),hex.getA().getY())));
-	        } else if ((hex.getIndexHexagone() == 29) || (hex.getIndexHexagone() == 30) || (hex.getIndexHexagone() == 31) || (hex.getIndexHexagone() == 34) || (hex.getIndexHexagone() == 35)) {
-	        	points.add((new Point(hex.getD().getX(),hex.getD().getY())));
-	        } else if ((hex.getIndexHexagone() == 0) || (hex.getIndexHexagone() == 3) || (hex.getIndexHexagone() == 4) || (hex.getIndexHexagone() == 8) || (hex.getIndexHexagone() == 9) || (hex.getIndexHexagone() == 14) || (hex.getIndexHexagone() == 15) || (hex.getIndexHexagone() == 21) || (hex.getIndexHexagone() == 22) || (hex.getIndexHexagone() == 27) || (hex.getIndexHexagone() == 28) || (hex.getIndexHexagone() == 32) || (hex.getIndexHexagone() == 33) || (hex.getIndexHexagone() == 36)) {
-
-	        } else {
-	        	points.add((new Point(hex.getD().getX(),hex.getD().getY())));
-	        	points.add((new Point(hex.getA().getX(),hex.getA().getY())));
-	        }
-	    }
+	    points.add((new Point(hex.getD().getX(),hex.getD().getY())));
+	    points.add((new Point(hex.getA().getX(),hex.getA().getY())));
+	}
 	
 	public synchronized static Plateau getInstance(){
 		if (INSTANCE == null){ 	
@@ -129,21 +122,21 @@ public class Plateau {
 	}
 	
 	public Hexagone[] getAllHexagone() {
-        Hexagone[] res = new Hexagone[37];
+        Hexagone[] res = new Hexagone[19];
         /* CREATION DES HEXAGONES */
         int ligne = 0;
         int index = 0;
         double decalage = SIZE * 2 * Math.sqrt(3);
-        for (int i = 0; i < 37; i++) {  
+        for (int i = 0; i < 19; i++) {  
             Hexagone hex = new Hexagone(7.5 * SIZE + Math.sqrt(3) * index * SIZE - decalage, 1.5 * SIZE + ligne * 1.5 * SIZE, SIZE, i);
             res[i] = hex;
-            if (i == 3 || i == 8 || i == 14) {
+            if (i == 2 || i == 6) {
                 ligne++;
                 index = 0;
                 decalage += SIZE * Math.sqrt(3) / 2;
                 continue;
             }
-            if (i == 21 || i == 27 || i == 32) {
+            if (i == 11 || i == 15) {
                 ligne++;
                 index = 0;
                 decalage -= SIZE * Math.sqrt(3) / 2;
@@ -152,6 +145,7 @@ public class Plateau {
             index++;
 
         }
+        
         return res;
     }
 

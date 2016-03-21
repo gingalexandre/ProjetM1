@@ -23,15 +23,15 @@ public class Joueur {
     private int nbVille = 4;
 
 	private HashMap<Integer, Integer> stockRessource = new HashMap<>();
-    private ArrayList<Carte> cartes = new ArrayList();
+    private ArrayList<Carte> cartes = new ArrayList<Carte>();
     
     private String couleur;
     
     public Joueur(String n){
     	compteurDeJoueur++;
         this.id = compteurDeJoueur;
-        this.nom = n;
-        this.pointVictoire = 0;
+        this.setNom(n);
+        this.setPointVictoire(0);
         this.stockRessource.put(Ressource.BOIS, 0);
         this.stockRessource.put(Ressource.BLE, 0);
         this.stockRessource.put(Ressource.ARGILE, 0);
@@ -71,16 +71,16 @@ public class Joueur {
         
     }
     
-    public void jouerCarteDevelopement(){
+    public void jouerCarteDevelopement(Carte carte){
         
     }
     
-    public void joueurCarteSpeciale(){
+    public void joueurCarteSpeciale(Carte carte){
         
     }
     
     public void ajouterPointVictoire(){
-        this.pointVictoire++;
+        this.setPointVictoire(this.getPointVictoire() + 1);
     }
     
     public String getCouleur(){
@@ -109,6 +109,30 @@ public class Joueur {
 	
 	public boolean encoreAssezColonie(){
 		return (this.nbVille>0);
+	}
+
+	public int getPointVictoire() {
+		return pointVictoire;
+	}
+
+	public void setPointVictoire(int pointVictoire) {
+		this.pointVictoire = pointVictoire;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public ArrayList<Carte> getCartes() {
+		return cartes;
+	}
+
+	public void addCartes(Carte carte) {
+		this.cartes.add(carte);
 	}
     
 }

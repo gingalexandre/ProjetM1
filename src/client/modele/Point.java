@@ -1,4 +1,4 @@
-package client.modeles;
+package client.modele;
 
 public class Point {
 	double x;

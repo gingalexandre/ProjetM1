@@ -4,10 +4,10 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 
-import client.modeles.Plateau;
-import client.modeles.Point;
-import client.modeles.Route;
-import client.modeles.Ville;
+import client.modele.Plateau;
+import client.modele.Point;
+import client.modele.Route;
+import client.modele.Ville;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;

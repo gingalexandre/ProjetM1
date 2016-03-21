@@ -19,7 +19,10 @@ public class Joueur {
     private String nom;
     private int pointVictoire;
     
-    private HashMap<Integer, Integer> stockRessource = new HashMap<>();
+    private int nbColonie = 5;
+    private int nbVille = 4;
+
+	private HashMap<Integer, Integer> stockRessource = new HashMap<>();
     private ArrayList<Carte> cartes = new ArrayList();
     
     private String couleur;
@@ -83,5 +86,29 @@ public class Joueur {
     public String getCouleur(){
     	return this.couleur;
     }
+    
+    public int getNbColonie() {
+		return nbColonie;
+	}
+
+	public void setNbColonie(int nbColonie) {
+		this.nbColonie = nbColonie;
+	}
+
+	public int getNbVille() {
+		return nbVille;
+	}
+
+	public void setNbVille(int nbVille) {
+		this.nbVille = nbVille;
+	}
+	
+	public boolean encoreAssezVille(){
+		return (this.nbVille>0);
+	}
+	
+	public boolean encoreAssezColonie(){
+		return (this.nbVille>0);
+	}
     
 }

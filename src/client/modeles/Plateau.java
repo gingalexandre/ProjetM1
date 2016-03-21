@@ -26,19 +26,13 @@ public class Plateau {
 		routes = getAllConstructRoute();
 	}
 	
-	
-	
 	 public static ArrayList<Hexagone> getHexagones() {
 		return hexagones;
 	}
 
-	 
-
-
 	public static ArrayList<Ville> getVilles() {
 		return villes;
 	}
-
 
 
 	public static ArrayList<Route> getRoutes() {

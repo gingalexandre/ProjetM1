@@ -52,7 +52,8 @@ public class Ville {
 	}
 	
 	public void colonieToVille(Joueur j){
-		//Réduire le nombre de ville du joueur concerné et augmenter le nombre de colonies
+		j.setNbColonie(j.getNbColonie()+1);
+		j.setNbVille(j.getNbVille()-1);
 		this.colonieVille = false;
 	}
 	

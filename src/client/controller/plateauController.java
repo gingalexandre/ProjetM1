@@ -3,9 +3,9 @@ package client.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import client.modeles.Plateau;
-import client.modeles.Route;
-import client.modeles.Ville;
+import client.modele.Plateau;
+import client.modele.Route;
+import client.modele.Ville;
 import client.view.VueHexagone;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

@@ -1,5 +1,6 @@
 package client.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
 
 public class VuePlateau {
 
@@ -36,6 +38,7 @@ public class VuePlateau {
         plateau = Plateau.getInstance();
         p.getChildren().addAll(VueHexagone.transformVueHexagone(plateau.getHexagones()));
         Circle[] t = Ville.transformVilleVueVille(plateau.getVilles());
+        
         p.getChildren().addAll(t);
         //Aucune route pour le moment
         //p.getChildren().addAll(Route.transformRouteVueRoute(plateau.getRoutes()));

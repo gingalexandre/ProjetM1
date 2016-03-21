@@ -37,47 +37,29 @@ public class Hexagone {
 		this.type = type;
 	}
 	
-	
-	
-	
 	public Point getB() {
 		return b;
 	}
-
-
-
 
 	public Point getC() {
 		return c;
 	}
 
-
-
 	public Point getE() {
 		return e;
 	}
-
-
 
 	public Point getF() {
 		return f;
 	}
 
-
-
 	public Point getA() {
 		return a;
 	}
 
-
-
-
 	public Point getD() {
 		return d;
 	}
-
-
-
 
 	public Hexagone(double xCentre, double yCentre, double size, int indexHexagone){
 	 double x1 = xCentre;
@@ -125,8 +107,5 @@ public class Hexagone {
 	public int getType() {
 		return type;
 	}
-	
-	
-	
 	
 }

@@ -2,9 +2,9 @@ package client.modeles;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import client.commun.Fonction;
-import client.view.VueHexagone;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Plateau {
 	
@@ -19,11 +19,9 @@ public class Plateau {
 	private Plateau(){
 		points = new ArrayList<Point>();
 		hexagones = new ArrayList<Hexagone>(Arrays.asList(this.getAllHexagone()));
-		for(Hexagone hex : hexagones){
-			setPoints(hex);
-		}
+		setPoints();
 		setVilles();
-		//setRoutes();
+		setRoutes();
 	}
 	
 	 public static ArrayList<Hexagone> getHexagones() {
@@ -38,38 +36,54 @@ public class Plateau {
 	public static ArrayList<Route> getRoutes() {
 		return routes;
 	}
+
+	public void setPoints() {
+		points = new ArrayList<Point>();
+		Set<Point> set = new HashSet<Point>() ;
+		for (Hexagone hex : hexagones){
+			set.add(hex.getA());
+			set.add(hex.getB());
+			set.add(hex.getC());
+			set.add(hex.getD());
+			set.add(hex.getE());
+			set.add(hex.getF());
+		}
+		
+        points = new ArrayList(set) ;
+        System.out.println(points.size());
+        
+        //Points qui posent problème à cause du type Double de Mathieu
+        /*points.remove(0);
+        points.remove(1);
+        points.remove(4);
+        points.remove(10);
+        points.remove(12);
+        points.remove(20);
+        points.remove(21);
+        points.remove(28);
+        points.remove(4);*/
+        
+        Comparator c = new Comparator<Point>() {
+            @Override
+            public int compare(Point p1, Point p2) {
+                return p1.compareTo(p2);
+            }
+        };
+        points.sort(c);
+        System.out.println(points.toString());
+	}
 	
 	public void setVilles(){
 		villes = new ArrayList<Ville>();
 		for (Point p : points){
 			villes.add(new Ville(p));
 		}
-		Ville port = new Ville(null);
 		
 		//Affectation des villes adjacentes
-		villes.get(0).setVillesAdj(port, villes.get(5), villes.get(4));
 	}
-
-
-	public void setPoints(Hexagone hex) {
-	    if((hex.getIndexHexagone() == 0)||(hex.getIndexHexagone() == 1)){
-	    	points.add((new Point(hex.getA().getX(),hex.getA().getY())));
-	    	points.add((new Point(hex.getC().getX(),hex.getC().getY())));
-	    }
-	    else if (hex.getIndexHexagone() == 2){
-	    	points.add((new Point(hex.getA().getX(),hex.getA().getY())));
-	    }
-	    else if((hex.getIndexHexagone() == 16)||(hex.getIndexHexagone() == 17)){
-	    	points.add((new Point(hex.getD().getX(),hex.getD().getY())));
-	    	points.add((new Point(hex.getB().getX(),hex.getB().getY())));
-	    }
-	    else if (hex.getIndexHexagone() == 18){
-	    	points.add((new Point(hex.getD().getX(),hex.getD().getY())));
-	    }
-	    else{
-	    	points.add((new Point(hex.getD().getX(),hex.getD().getY())));
-			points.add((new Point(hex.getA().getX(),hex.getA().getY())));
-	    }
+	
+	public void setRoutes(){
+		//A implémenter
 	}
 	
 	public synchronized static Plateau getInstance(){

@@ -6,8 +6,8 @@ public class Point {
 	
 	public Point(double x, double y) {
 		super();
-		this.x = x;
-		this.y = y;
+		this.x = ((double)((int) x));
+		this.y = ((double)((int) y));
 	}
 
     public double getX() {
@@ -20,14 +20,7 @@ public class Point {
    
     @Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		long temp;
-		temp = Double.doubleToLongBits(x);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(y);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		return result;
+		return ((int) x)*3+((int) y)*7;
 	}
 
 	@Override

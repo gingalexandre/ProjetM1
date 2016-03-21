@@ -52,17 +52,6 @@ public class Plateau {
         points = new ArrayList(set) ;
         System.out.println(points.size());
         
-        //Points qui posent problème à cause du type Double de Mathieu
-        /*points.remove(0);
-        points.remove(1);
-        points.remove(4);
-        points.remove(10);
-        points.remove(12);
-        points.remove(20);
-        points.remove(21);
-        points.remove(28);
-        points.remove(4);*/
-        
         Comparator c = new Comparator<Point>() {
             @Override
             public int compare(Point p1, Point p2) {
@@ -83,7 +72,7 @@ public class Plateau {
 	}
 	
 	public void setRoutes(){
-		//A implémenter
+		//A implï¿½menter
 	}
 	
 	public synchronized static Plateau getInstance(){

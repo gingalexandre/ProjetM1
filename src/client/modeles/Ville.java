@@ -64,5 +64,17 @@ public class Ville {
 		this.ville_adj3 = v3;
 	}
 	
+	public Ville getVilleAdj1(){
+		return this.ville_adj1;
+	}
+	
+	public Ville getVilleAdj2(){
+		return this.ville_adj2;
+	}
+	
+	public Ville getVilleAdj3(){
+		return this.ville_adj3;
+	}
+	
 	
 }

@@ -40,8 +40,7 @@ public class VuePlateau {
         Circle[] t = Ville.transformVilleVueVille(plateau.getVilles());
         
         p.getChildren().addAll(t);
-        //Aucune route pour le moment
-        //p.getChildren().addAll(Route.transformRouteVueRoute(plateau.getRoutes()));
+        p.getChildren().addAll(Route.transformRouteVueRoute(plateau.getRoutes()));
         p.setStyle("-fx-background-color: #CEE4FF");
 
     }

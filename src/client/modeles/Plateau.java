@@ -2,9 +2,12 @@ package client.modeles;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 public class Plateau {
 	
@@ -50,7 +53,6 @@ public class Plateau {
 		}
 		
         points = new ArrayList(set) ;
-        System.out.println(points.size());
         
         Comparator c = new Comparator<Point>() {
             @Override
@@ -59,7 +61,7 @@ public class Plateau {
             }
         };
         points.sort(c);
-        System.out.println(points.toString());
+        Collections.reverse(points);
 	}
 	
 	public void setVilles(){
@@ -69,10 +71,32 @@ public class Plateau {
 		}
 		
 		//Affectation des villes adjacentes
+		//Ligne 1 et 2
+		villes.get(0).setVillesAdj(null, villes.get(4), villes.get(3));
+		villes.get(1).setVillesAdj(null, villes.get(5), villes.get(4));
+		villes.get(2).setVillesAdj(null, villes.get(6), villes.get(5));
+		villes.get(3).setVillesAdj(null, villes.get(0), villes.get(7));
+		villes.get(4).setVillesAdj(villes.get(0), villes.get(1), villes.get(8));
+		villes.get(5).setVillesAdj(villes.get(1), villes.get(2), villes.get(9));
+		villes.get(6).setVillesAdj(villes.get(2), null, villes.get(10));
+		
+		//Ligne 3 et 4
+		
 	}
 	
 	public void setRoutes(){
-		//A impl�menter
+		routes = new ArrayList<Route>();
+		for(Ville v : villes){
+			if(v.getVilleAdj1() !=  null){
+				routes.add(new Route(v.getEmplacement(),v.getVilleAdj1().getEmplacement()));
+			}
+			if(v.getVilleAdj2() !=  null){
+				routes.add(new Route(v.getEmplacement(),v.getVilleAdj2().getEmplacement()));
+			}
+			if(v.getVilleAdj3() !=  null){
+				routes.add(new Route(v.getEmplacement(),v.getVilleAdj3().getEmplacement()));
+			}
+		}
 	}
 	
 	public synchronized static Plateau getInstance(){

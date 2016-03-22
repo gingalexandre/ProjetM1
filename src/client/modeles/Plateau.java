@@ -7,8 +7,6 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 public class Plateau {
 	
 	private static ArrayList<Hexagone> hexagones ;
@@ -52,9 +50,9 @@ public class Plateau {
 			set.add(hex.getF());
 		}
 		
-        points = new ArrayList(set) ;
+        points = new ArrayList<Point>(set) ;
         
-        Comparator c = new Comparator<Point>() {
+        Comparator<Point> c = new Comparator<Point>() {
             @Override
             public int compare(Point p1, Point p2) {
                 return p1.compareTo(p2);
@@ -71,17 +69,47 @@ public class Plateau {
 		}
 		
 		//Affectation des villes adjacentes
-		//Ligne 1 et 2
-		villes.get(0).setVillesAdj(null, villes.get(4), villes.get(3));
-		villes.get(1).setVillesAdj(null, villes.get(5), villes.get(4));
-		villes.get(2).setVillesAdj(null, villes.get(6), villes.get(5));
+		int i = 0;
+		for (Ville v : villes){
+			if(i<=2)
+				v.setVillesAdj(null, villes.get(i+4), villes.get(i+3));
+			else if ((i==4)||(i==5))
+				v.setVillesAdj(villes.get(i-4), villes.get(i-3), villes.get(i+4));
+			else if ((i>=7)&&(i<=10))
+				v.setVillesAdj(villes.get(i-4),villes.get(i+5), villes.get(i+4));
+			else if ((i>=12)&&(i<=14))
+				v.setVillesAdj(villes.get(i-5), villes.get(i-4), villes.get(i+5));
+			else if ((i>=16)&&(i<=20))
+				v.setVillesAdj(villes.get(i-5), villes.get(i+5), villes.get(i+6));
+			else if ((i>=22)&&(i<=25))
+				v.setVillesAdj(villes.get(i-6), villes.get(i-5), villes.get(i+6));
+			else if ((i>=28)&&(i<=31))
+				v.setVillesAdj(villes.get(i-6), villes.get(i+5), villes.get(i+6));
+			else if ((i>=33)&&(i<=37))
+				v.setVillesAdj(villes.get(i-6),villes.get(i-5),villes.get(i+5));
+			else if ((i>=39)&&(i<=41))
+				v.setVillesAdj(villes.get(i-5),villes.get(i+4),villes.get(i+5));
+			else if ((i>=43)&&(i<=46))
+				v.setVillesAdj(villes.get(i-5),villes.get(i-4),villes.get(i+4));
+			else if ((i==48)||(i==49))
+				v.setVillesAdj(villes.get(i-4),villes.get(i+3),villes.get(i+4));
+			else if (i>=51)
+				v.setVillesAdj(villes.get(i-4),villes.get(i-3),null);
+			i++;
+		}
+		
 		villes.get(3).setVillesAdj(null, villes.get(0), villes.get(7));
-		villes.get(4).setVillesAdj(villes.get(0), villes.get(1), villes.get(8));
-		villes.get(5).setVillesAdj(villes.get(1), villes.get(2), villes.get(9));
 		villes.get(6).setVillesAdj(villes.get(2), null, villes.get(10));
-		
-		//Ligne 3 et 4
-		
+		villes.get(11).setVillesAdj(null, villes.get(7), villes.get(16));
+	    villes.get(15).setVillesAdj(villes.get(10), null, villes.get(20));
+		villes.get(21).setVillesAdj(null, villes.get(16), villes.get(27));
+		villes.get(26).setVillesAdj(villes.get(20), null, villes.get(32));
+		villes.get(27).setVillesAdj(villes.get(21), villes.get(33), null);
+		villes.get(32).setVillesAdj(villes.get(26), null, villes.get(37));
+		villes.get(38).setVillesAdj(villes.get(33), villes.get(43), null);
+		villes.get(42).setVillesAdj(villes.get(37), null, villes.get(46));
+		villes.get(47).setVillesAdj(villes.get(43), villes.get(51), null);
+		villes.get(50).setVillesAdj(villes.get(46), null, villes.get(53));
 	}
 	
 	public void setRoutes(){

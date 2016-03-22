@@ -3,7 +3,6 @@ package client.modeles;
 import java.util.ArrayList;
 
 import client.view.VueVille;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class Ville {

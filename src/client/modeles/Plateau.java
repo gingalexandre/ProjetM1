@@ -110,20 +110,40 @@ public class Plateau {
 		villes.get(42).setVillesAdj(villes.get(37), null, villes.get(46));
 		villes.get(47).setVillesAdj(villes.get(43), villes.get(51), null);
 		villes.get(50).setVillesAdj(villes.get(46), null, villes.get(53));
+		
 	}
 	
 	public void setRoutes(){
 		routes = new ArrayList<Route>();
 		for(Ville v : villes){
 			if(v.getVilleAdj1() !=  null){
-				routes.add(new Route(v.getEmplacement(),v.getVilleAdj1().getEmplacement()));
+				ajoutListeRoute(new Route(v.getEmplacement(),v.getVilleAdj1().getEmplacement()));
 			}
 			if(v.getVilleAdj2() !=  null){
-				routes.add(new Route(v.getEmplacement(),v.getVilleAdj2().getEmplacement()));
+				ajoutListeRoute(new Route(v.getEmplacement(),v.getVilleAdj2().getEmplacement()));
 			}
 			if(v.getVilleAdj3() !=  null){
-				routes.add(new Route(v.getEmplacement(),v.getVilleAdj3().getEmplacement()));
+				ajoutListeRoute(new Route(v.getEmplacement(),v.getVilleAdj3().getEmplacement()));
 			}
+		}
+		/*Comparator<Route> c = new Comparator<Route>() {
+            @Override
+            public int compare(Route p1, Route p2) {
+                return p1.compareTo(p2);
+            }
+        };*/
+		System.out.println(routes.size());
+	}
+	
+	public void ajoutListeRoute(Route r){
+		boolean same = false;
+		for(Route ajoutees : routes){
+			if(ajoutees.equals(r)){
+				same = true;
+			}
+		}
+		if(!same){
+			routes.add(r);
 		}
 	}
 	
@@ -156,9 +176,7 @@ public class Plateau {
                 continue;
             }
             index++;
-
         }
-        
         return res;
     }
 

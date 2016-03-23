@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import client.modeles.Message;
 import exception.TooMuchPlayerException;
-import service.Communication;
+import service.Joueur;
 
 /**
  * 
@@ -19,8 +19,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	/**
 	 * Contient la liste 
 	 */
-	private ArrayList<Communication> communications = new ArrayList<Communication>();
-	
+	private ArrayList<Joueur> joueurs = new ArrayList<Joueur>();
 	
 	/**
 	 * Nombre max de joueurs 
@@ -36,9 +35,9 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 * @throws TooMuchPlayerException
 	 */
 	@Override
-	public void enregistrerCommunication(Communication joueur) throws RemoteException{
-		if(communications.size() < NOMBRE_MAX_JOUEURS){
-			communications.add(joueur);
+	public void enregistrerCommunication(Joueur joueur) throws RemoteException{
+		if(joueurs.size() < NOMBRE_MAX_JOUEURS){
+			joueurs.add(joueur);
 		}
 	}
 	
@@ -49,8 +48,8 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 */
 	@Override
 	public void diffuserMessage(Message message) throws RemoteException {
-		for(Communication communication : communications){
-			communication.recevoir(message);
+		for(Joueur joueur : joueurs){
+			joueur.recevoir(message);
 		}
 	}
 

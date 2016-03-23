@@ -4,8 +4,9 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
-import client.controller.rmi.ChatRMIController;
+import client.controller.rmi.Joueur;
 import client.modeles.Message;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -39,19 +40,19 @@ public class ChatApplicationController implements Initializable{
 	 * Indique au serveur le controller chat distant
 	 */
 	private void enregistrerController() {
-		ChatRMIController chatRMIController;
+		Joueur joueur;
 		try {
-			chatRMIController = new ChatRMIController();
-			chatRMIController.setChatController(this);
+			joueur = ConnexionManager.getStaticProxy();
+			joueur.setChatApplicationController(this);
 			Serveur serveur = ConnexionManager.getStaticServeur();
-			serveur.enregistrerCommunication(chatRMIController);
+			serveur.enregistrerCommunication(joueur);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	/**
-	 * Appelle les méthodes gérant les listener des composants de la vue
+	 * Appelle les mÃ©thodes gÃ©rant les listener des composants de la vue
 	 */
 	private void listenerVues() {
 		nombreCharMaxTextField();
@@ -76,15 +77,15 @@ public class ChatApplicationController implements Initializable{
 	
 	/**
 	 * Affiche le message dans les TextArea correspondantes
-	 * @param message - Message à afficher
+	 * @param message - Message Ã  afficher
 	 */
 	public void afficherMessage(Message message){
-		principal.appendText(message.getAuteur() + " : "+message.getMessage() + "\n");
-		joueurs.appendText(message.getAuteur() + " : "+message.getMessage() + "\n");
+		Platform.runLater(() -> principal.appendText(message.getAuteur() + " : "+message.getMessage() + "\n"));
+		Platform.runLater(() -> joueurs.appendText(message.getAuteur() + " : "+message.getMessage() + "\n"));
 	}
 	
 	/**
-	 * Se déclenche quand l'utilisateur appuie sur la touche "Entrée" lorsqu'il se trouve dans le TextField
+	 * Se dÃ©clenche quand l'utilisateur appuie sur la touche "EntrÃ©e" lorsqu'il se trouve dans le TextField
 	 */
 	@FXML
 	public void onEnter(){

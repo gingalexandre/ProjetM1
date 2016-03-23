@@ -5,10 +5,6 @@ import java.rmi.RemoteException;
 
 import client.modeles.Message;
 
-/**
- * Interface permettant de communiquer
- * @author jerome
- */
-public interface Communication extends Remote{
+public interface Joueur extends Remote{
 	void recevoir(Message message) throws RemoteException;
 }

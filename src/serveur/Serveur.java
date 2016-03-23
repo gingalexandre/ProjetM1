@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 
 import client.modeles.Message;
 import exception.TooMuchPlayerException;
-import service.Communication;
+import service.Joueur;
 
 /**
  * Classe principale pour les communications entre client et serveur
@@ -20,7 +20,7 @@ public interface Serveur extends Remote{
 	 * @throws RemoteException
 	 * @throws TooMuchPlayerException
 	 */
-	void enregistrerCommunication(Communication communication) throws RemoteException;
+	void enregistrerCommunication(Joueur joueur) throws RemoteException;
 	
 	
 	/**

@@ -5,6 +5,8 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import client.controller.rmi.Joueur;
+
 /**
  * Singleton gérant la connexion au serveur
  * @author jerome
@@ -22,12 +24,18 @@ public class ConnexionManager {
 	private Serveur serveur;
 	
 	/**
+	 * Joueur connecté au serveur
+	 */
+	private Joueur proxy;
+	
+	/**
 	 * Constructeur privé se connectant au serveur
 	 */
 	private ConnexionManager(){
 		String serveurURL = "rmi://127.0.0.1:42000/serveur";
 		try {
 			this.serveur = (Serveur) Naming.lookup(serveurURL);
+			this.proxy = new Joueur();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {
@@ -63,4 +71,17 @@ public class ConnexionManager {
 	public static Serveur getStaticServeur(){
 		return ConnexionManager.getInstance().getServeur();
 	}
+	
+	public Joueur getProxy(){
+		return this.proxy;
+	}
+	
+	/**
+	 * Permet d'obtenir le serveur de manière static
+	 * @return le serveur
+	 */
+	public static Joueur getStaticProxy(){
+		return ConnexionManager.getInstance().getProxy();
+	}
+	
 }

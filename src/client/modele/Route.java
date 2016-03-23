@@ -1,10 +1,8 @@
-package client.modeles;
+package client.modele;
 
 import java.util.ArrayList;
 
 import client.view.VueRoute;
-import client.view.VueVille;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
 public class Route {
@@ -12,7 +10,6 @@ public class Route {
 	private Point depart;
 	private Point arrive;
 	private Joueur oqp;
-	
 	
 	public Route(Point depart, Point arrive) {
 		super();
@@ -31,7 +28,26 @@ public class Route {
 	public Joueur getOqp(){
 		return this.oqp;
 	}
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((arrive == null) ? 0 : arrive.hashCode());
+		result = prime * result + ((depart == null) ? 0 : depart.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Route){
+			Route r = (Route)obj;
+			if(((this.depart.equals(r.depart))||(this.depart.equals(r.arrive)))&&(this.arrive.equals(r.arrive)||(this.arrive.equals(r.depart)))){
+				return true;
+			}
+		}
+		return false;
+	}
 	
 
 }

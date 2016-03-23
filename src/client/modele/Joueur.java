@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package client.modeles;
+package client.modele;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,14 +19,20 @@ public class Joueur {
     private String nom;
     private int pointVictoire;
     
-    private HashMap<Integer, Integer> stockRessource = new HashMap<>();
-    private ArrayList<Carte> cartes = new ArrayList();
+    private int nbColonie = 5;
+    private int nbVille = 4;
+    private int nbRoute = 15;
+
+	private HashMap<Integer, Integer> stockRessource = new HashMap<>();
+    private ArrayList<Carte> cartes = new ArrayList<Carte>();
+    
+    private String couleur;
     
     public Joueur(String n){
     	compteurDeJoueur++;
         this.id = compteurDeJoueur;
-        this.nom = n;
-        this.pointVictoire = 0;
+        this.setNom(n);
+        this.setPointVictoire(0);
         this.stockRessource.put(Ressource.BOIS, 0);
         this.stockRessource.put(Ressource.BLE, 0);
         this.stockRessource.put(Ressource.ARGILE, 0);
@@ -66,16 +72,72 @@ public class Joueur {
         
     }
     
-    public void jouerCarteDevelopement(){
+    public void jouerCarteDevelopement(Carte carte){
         
     }
     
-    public void joueurCarteSpeciale(){
+    public void joueurCarteSpeciale(Carte carte){
         
     }
     
     public void ajouterPointVictoire(){
-        this.pointVictoire++;
+        this.setPointVictoire(this.getPointVictoire() + 1);
     }
+    
+    public String getCouleur(){
+    	return this.couleur;
+    }
+    
+    public int getNbColonie() {
+		return nbColonie;
+	}
+
+	public void setNbColonie(int nbColonie) {
+		this.nbColonie = nbColonie;
+	}
+
+	public int getNbVille() {
+		return nbVille;
+	}
+
+	public void setNbVille(int nbVille) {
+		this.nbVille = nbVille;
+	}
+	
+	public boolean encoreAssezVille(){
+		return (this.nbVille>0);
+	}
+	
+	public boolean encoreAssezColonie(){
+		return (this.nbVille>0);
+	}
+	
+	public boolean encoreAssezRoute(){
+		return (this.nbRoute>0);
+	}
+
+	public int getPointVictoire() {
+		return pointVictoire;
+	}
+
+	public void setPointVictoire(int pointVictoire) {
+		this.pointVictoire = pointVictoire;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public ArrayList<Carte> getCartes() {
+		return cartes;
+	}
+
+	public void addCartes(Carte carte) {
+		this.cartes.add(carte);
+	}
     
 }

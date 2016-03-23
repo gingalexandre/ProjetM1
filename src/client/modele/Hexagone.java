@@ -1,4 +1,4 @@
-package client.modeles;
+package client.modele;
 
 import client.commun.DistributeurType;
 
@@ -14,8 +14,7 @@ public class Hexagone {
 	public final static int MONTAGNE = 4;
 	public final static int PRAIRIE = 5;
 	
-	public final static int MER = 6;
-	public final static int DESERT = 7;
+	public final static int DESERT = 6;
 
 	private Point a;
 	private Point b;
@@ -38,22 +37,29 @@ public class Hexagone {
 		this.type = type;
 	}
 	
-	
-	
-	
+	public Point getB() {
+		return b;
+	}
+
+	public Point getC() {
+		return c;
+	}
+
+	public Point getE() {
+		return e;
+	}
+
+	public Point getF() {
+		return f;
+	}
+
 	public Point getA() {
 		return a;
 	}
 
-
-
-
 	public Point getD() {
 		return d;
 	}
-
-
-
 
 	public Hexagone(double xCentre, double yCentre, double size, int indexHexagone){
 	 double x1 = xCentre;
@@ -82,33 +88,11 @@ public class Hexagone {
      
      this.indexHexagone = indexHexagone;
      
-     switch(indexHexagone){
-     	case 0:
-     	case 1:
-     	case 2:
-     	case 3:	
-     	case 4:
-     	case 8:
-     	case 9:
-     	case 14:
-     	case 15:
-     	case 21:
-     	case 22:
-     	case 27:
-     	case 28:
-     	case 32:
-     	case 33:
-     	case 34:
-     	case 35:
-     	case 36:
-     		this.type = MER;
-     		break;
-     	case 18:
-     		this.type = DESERT;
-     		break;
-     	default:
-     		this.type = DistributeurType.getInstance().donnerType();
-     	
+     if(this.indexHexagone != 9){
+    	 this.type = DistributeurType.getInstance().donnerType();
+     }
+     else{
+    	 this.type = Hexagone.DESERT;
      }
      
  }
@@ -123,8 +107,5 @@ public class Hexagone {
 	public int getType() {
 		return type;
 	}
-	
-	
-	
 	
 }

@@ -33,7 +33,6 @@ public class Plateau {
 		return villes;
 	}
 
-
 	public static ArrayList<Route> getRoutes() {
 		return routes;
 	}
@@ -126,13 +125,6 @@ public class Plateau {
 				ajoutListeRoute(new Route(v.getEmplacement(),v.getVilleAdj3().getEmplacement()));
 			}
 		}
-		/*Comparator<Route> c = new Comparator<Route>() {
-            @Override
-            public int compare(Route p1, Route p2) {
-                return p1.compareTo(p2);
-            }
-        };*/
-		System.out.println(routes.size());
 	}
 	
 	public void ajoutListeRoute(Route r){

@@ -25,9 +25,6 @@ public class VuePlateau {
     ArrayList<Ville> villeConstructible = new ArrayList<>();
     Plateau plateau;
 
-
-   
-
     public VuePlateau() {
     	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     	double width = screenSize.getWidth();

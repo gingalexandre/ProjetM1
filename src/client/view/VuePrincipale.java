@@ -8,11 +8,15 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author jerome
+ */
 public class VuePrincipale extends Application{
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/mainView.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Game.fxml"));
 		Parent root = loader.load();
 	    
 		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();

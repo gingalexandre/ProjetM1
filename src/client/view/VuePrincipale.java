@@ -18,15 +18,12 @@ public class VuePrincipale extends Application{
 	public void start(Stage stage) throws Exception {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Game.fxml"));
 		Parent root = loader.load();
-	    
-		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 		
-        Scene scene = new Scene(root, primaryScreenBounds.getMaxX(), primaryScreenBounds.getMaxY());
+        Scene scene = new Scene(root);
     
         stage.setTitle("Les Colons de Catanes");
         stage.setScene(scene);
         stage.setMaximized(true);
-        System.out.println(scene.getWindow());
         stage.show();	
 	}
 }

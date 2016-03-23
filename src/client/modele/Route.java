@@ -49,5 +49,27 @@ public class Route {
 		return false;
 	}
 	
+	public int compareTo(Route r){
+		int pmx1 = ((int)(this.arrive.x+this.depart.x)/2);
+		int pmy1 = ((int)(this.depart.y+this.arrive.y)/2);
+		int pmx2 = ((int)(r.arrive.x+r.depart.x)/2);
+	    int pmy2 = ((int)(r.depart.y+r.arrive.y)/2);
+	    if(pmy1>pmy2){
+	    	return -10;
+	    }
+	    else if (pmy1<pmy2){
+	    	return 10;
+	    }
+	    else{
+	    	if(pmx1>pmx2){
+		    	return -10;
+		    }
+		    else if (pmx1<pmx2){
+		    	return 10;
+		    }
+	    }
+	    return 0;
+	}
+	
 
 }

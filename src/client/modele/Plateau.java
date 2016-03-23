@@ -125,6 +125,17 @@ public class Plateau {
 				ajoutListeRoute(new Route(v.getEmplacement(),v.getVilleAdj3().getEmplacement()));
 			}
 		}
+		
+		Comparator<Route> c = new Comparator<Route>() {
+            @Override
+            public int compare(Route r1, Route r2) {
+                return r1.compareTo(r2);
+            }
+        };
+        
+        routes.sort(c);
+        Collections.reverse(routes);
+        
 	}
 	
 	public void ajoutListeRoute(Route r){

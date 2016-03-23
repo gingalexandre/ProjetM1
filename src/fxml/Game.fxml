@@ -7,13 +7,19 @@
    <children>
       <VBox fx:id="plateau" prefHeight="900.0" prefWidth="931.0">
       	<children>
-      		<fx:include source="plateau.fxml" />
+      		<fx:include source="Plateau.fxml" />
       	</children>
       </VBox>
       
       <VBox fx:id="chat" layoutX="1000.0" prefHeight="430.0" prefWidth="550.0">
       	<children>
-      		<fx:include source="chat.fxml" />
+      		<fx:include source="Chat.fxml" />
+      	</children>
+      </VBox>
+      
+      <VBox fx:id="des" layoutX="970.0" layoutY="120.0" prefHeight="40.0" prefWidth="50.0">
+      	<children>
+      		<fx:include source="Des.fxml" />
       	</children>
       </VBox>
    </children>

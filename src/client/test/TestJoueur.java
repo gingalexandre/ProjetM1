@@ -6,8 +6,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import client.modeles.Joueur;
-import client.modeles.Ressource;
+import client.modele.Joueur;
+import client.modele.Ressource;
 
 import static org.junit.Assert.*;
 

@@ -1,7 +1,7 @@
 package client.commun;
 import java.util.ArrayList;
 
-import client.modeles.Hexagone;
+import client.modele.Hexagone;
 import javafx.scene.image.Image;
 
 public class DistributeurType {

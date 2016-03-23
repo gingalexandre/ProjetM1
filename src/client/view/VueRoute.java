@@ -1,6 +1,6 @@
 package client.view;
 
-import client.modeles.Point;
+import client.modele.Point;
 import javafx.scene.shape.Line;
 
 public class VueRoute extends Line {

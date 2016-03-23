@@ -6,11 +6,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import client.modeles.Joueur;
-import client.modeles.Plateau;
-import client.modeles.Point;
-import client.modeles.Ressource;
-import client.modeles.Ville;
+import client.modele.Joueur;
+import client.modele.Plateau;
+import client.modele.Point;
+import client.modele.Ressource;
+import client.modele.Ville;
 
 import static org.junit.Assert.*;
 

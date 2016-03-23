@@ -26,7 +26,6 @@ public class VuePrincipale extends Application{
         stage.setTitle("Les Colons de Catanes");
         stage.setScene(scene);
         stage.setMaximized(true);
-        System.out.println(scene.getWindow());
         stage.show();	
 	}
 }

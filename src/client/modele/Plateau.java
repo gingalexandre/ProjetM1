@@ -153,7 +153,7 @@ public class Plateau {
         int index = 0;
         double decalage = SIZE * 2 * Math.sqrt(3);
         for (int i = 0; i < 19; i++) {  
-            Hexagone hex = new Hexagone(7.5 * SIZE + Math.sqrt(3) * index * SIZE - decalage, 1.5 * SIZE + ligne * 1.5 * SIZE, SIZE, i);
+            Hexagone hex = new Hexagone(8 * SIZE + Math.sqrt(3) * index * SIZE - decalage, 3 * SIZE + ligne * 1.5 * SIZE, SIZE, i);
             res[i] = hex;
             if (i == 2 || i == 6) {
                 ligne++;

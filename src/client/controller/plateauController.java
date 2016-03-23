@@ -26,6 +26,8 @@ public class plateauController implements Initializable{
 		plateau = Plateau.getInstance();
 		Image img = new Image("file:Ressources/cases/mer.png");
 		ImageView imgView = new ImageView(img);
+		imgView.setFitHeight(700);
+		imgView.setFitWidth(650);
 		mainPane.getChildren().add(imgView);
 		mainPane.getChildren().addAll(VueHexagone.transformVueHexagone(plateau.getHexagones()));
         Circle[] t = Ville.transformVilleVueVille(plateau.getVilles());

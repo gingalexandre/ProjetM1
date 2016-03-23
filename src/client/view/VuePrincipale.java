@@ -17,7 +17,7 @@ public class VuePrincipale extends Application{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Game.fxml"));
 		Parent root = loader.load();
 		
-        Scene scene = new Scene(root, 0, 0);
+        Scene scene = new Scene(root);
     
         stage.setTitle("Les Colons de Catanes");
         stage.setScene(scene);

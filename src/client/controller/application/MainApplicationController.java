@@ -10,7 +10,7 @@ import serveur.ConnexionManager;
 import serveur.Serveur;
 
 /**
- * 
+ * Controller principale 
  * @author jerome
  */
 public class MainApplicationController implements Initializable{

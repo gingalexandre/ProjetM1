@@ -8,7 +8,7 @@ import exception.TooMuchPlayerException;
 import service.Communication;
 
 /**
- * 
+ * Classe principale pour les communications entre client et serveur
  * @author jerome
  */
 public interface Serveur extends Remote{

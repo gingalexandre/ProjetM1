@@ -8,7 +8,7 @@ import client.modeles.Message;
 import service.Communication;
 
 /**
- * Classe principale pour les communications entre client et serveur
+ * 
  * @author jerome
  */
 public class ServeurImpl extends UnicastRemoteObject implements Serveur {

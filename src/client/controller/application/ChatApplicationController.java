@@ -29,30 +29,6 @@ public class ChatApplicationController implements Initializable{
 	@FXML
 	private TextField saisie;
 	
-	/**
-	 * Se déclenche quand l'utilisateur appuie sur la touche "Entrée" lorsqu'il se trouve dans le TextField
-	 */
-	@FXML
-	public void onEnter(){
-		String messageUtilisateur = saisie.getText();
-		if(!messageUtilisateur.equals("")){
-			Message message = new Message("Pierre", messageUtilisateur);
-			try{
-				Serveur serveur = ConnexionManager.getStaticServeur();
-				serveur.diffuserMessage(message);
-			}
-			catch (RemoteException e){
-				e.printStackTrace();
-			}
-			saisie.setText("");
-		}
-	}
-	
-	public void afficherMessage(Message message){
-		principal.appendText(message.getAuteur() + " : "+message.getMessage() + "\n");
-		joueurs.appendText(message.getAuteur() + " : "+message.getMessage() + "\n");
-	}
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		enregistrerController();
@@ -96,5 +72,33 @@ public class ChatApplicationController implements Initializable{
 	            }
 	        }
 		);
+	}
+	
+	/**
+	 * Affiche le message dans les TextArea correspondantes
+	 * @param message - Message à afficher
+	 */
+	public void afficherMessage(Message message){
+		principal.appendText(message.getAuteur() + " : "+message.getMessage() + "\n");
+		joueurs.appendText(message.getAuteur() + " : "+message.getMessage() + "\n");
+	}
+	
+	/**
+	 * Se déclenche quand l'utilisateur appuie sur la touche "Entrée" lorsqu'il se trouve dans le TextField
+	 */
+	@FXML
+	public void onEnter(){
+		String messageUtilisateur = saisie.getText();
+		if(!messageUtilisateur.equals("")){
+			Message message = new Message("Pierre", messageUtilisateur);
+			try{
+				Serveur serveur = ConnexionManager.getStaticServeur();
+				serveur.diffuserMessage(message);
+			}
+			catch (RemoteException e){
+				e.printStackTrace();
+			}
+			saisie.setText("");
+		}
 	}
 }

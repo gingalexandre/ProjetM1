@@ -19,7 +19,6 @@ public class VueHexagone extends Polygon {
 	public final static String foret		= "file:Ressources/cases/foret.png";
 	public final static String montagne 	= "file:Ressources/cases/montagne.png";
 	public final static String prairie		= "file:Ressources/cases/plaine.png";
-	public final static String mer 			= "file:Ressources/cases/mer.png";
 	public final static String dunevoleur 	= "file:Ressources/cases/dune.png"; 
 	
 

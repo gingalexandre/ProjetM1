@@ -1,4 +1,4 @@
-package client.controller;
+package client.controller.application;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,7 +14,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 
-public class plateauController implements Initializable{
+/**
+ * 
+ * @author jerome
+ */
+public class PlateauController implements Initializable{
 
 	@FXML
 	Pane mainPane;

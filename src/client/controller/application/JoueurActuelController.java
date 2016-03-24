@@ -8,7 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
-public class JoueurActuelApplicationController implements Initializable {
+public class JoueurActuelController implements Initializable {
 
 	@FXML
 	private ImageView imageBle, imageArgile, imageCaillou, imageLaine, imageBois;

@@ -9,7 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class DesApplicationController implements Initializable {
+public class DesController implements Initializable {
 
 	private static final String numeroUn = "file:Ressources/des/dice1.png";
 	private static final String numeroDeux = "file:Ressources/des/dice2.png";

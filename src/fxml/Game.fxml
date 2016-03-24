@@ -27,7 +27,7 @@
 			</children>
 		</VBox>
 		
-		<VBox fx:id="joueurActuel" layoutX="970.0" layoutY="120.0" prefHeight="40.0"
+		<VBox fx:id="joueurActuel" layoutX="5.0" layoutY="5.0" prefHeight="40.0"
 			prefWidth="50.0">
 			<children>
 				<fx:include source="JoueurActuel.fxml" />

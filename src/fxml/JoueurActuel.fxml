@@ -1,40 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-	minWidth="-Infinity" prefHeight="124.0" prefWidth="412.0"
-	xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="client.controller.application.JoueurActuelApplicationController">
-	<children>
-		<Pane prefHeight="122.0" prefWidth="118.0"
-			style="-fx-background-color: yellow;" />
-		<Pane layoutX="118.0" layoutY="10.0" prefHeight="101.0"
-			prefWidth="290.0" style="-fx-background-color: yellow;">
-			<children>
-				<ImageView id="imageBois" fitHeight="45.0" fitWidth="43.0"
-					layoutX="21.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
-				<TextField id="nbBois" editable="false" layoutX="29.0"
-					layoutY="46.0" prefHeight="28.0" prefWidth="28.0" />
-				<ImageView id="imageLaine" fitHeight="45.0" fitWidth="43.0"
-					layoutX="73.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
-				<TextField id="nbLaine" editable="false" layoutX="81.0"
-					layoutY="46.0" prefHeight="28.0" prefWidth="28.0" />
-				<ImageView id="imageCaillou" fitHeight="45.0" fitWidth="43.0"
-					layoutX="124.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
-				<TextField id="nbCaillou" editable="false" layoutX="132.0"
-					layoutY="46.0" prefHeight="28.0" prefWidth="28.0" />
-				<ImageView id="imageArgile" fitHeight="45.0" fitWidth="43.0"
-					layoutX="175.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
-				<TextField id="nbArgile" editable="false" layoutX="183.0"
-					layoutY="46.0" prefHeight="28.0" prefWidth="28.0" />
-				<ImageView id="imageBle" fitHeight="45.0" fitWidth="43.0"
-					layoutX="227.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
-				<TextField id="nbBle" editable="false" layoutX="235.0"
-					layoutY="46.0" prefHeight="28.0" prefWidth="28.0" />
-			</children>
-		</Pane>
-	</children>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.application.JoueurActuelApplicationController">
+   <children>
+      <Pane layoutY="18.0" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: yellow;" />
+      <Pane layoutX="50.0" layoutY="23.0" prefHeight="50.0" prefWidth="290.0" style="-fx-background-color: yellow;">
+         <children>
+            <ImageView fx:id="imageBois" fitHeight="45.0" fitWidth="43.0" layoutX="14.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="nbBois" layoutX="19.0" layoutY="16.0" text="Label" />
+            <ImageView fx:id="imageLaine" fitHeight="45.0" fitWidth="43.0" layoutX="66.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="nbLaine" layoutX="71.0" layoutY="16.0" text="Label" />
+            <ImageView fx:id="imageCaillou" fitHeight="45.0" fitWidth="43.0" layoutX="117.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="nbCaillou" layoutX="121.0" layoutY="16.0" text="Label" />
+            <ImageView fx:id="imageArgile" fitHeight="45.0" fitWidth="43.0" layoutX="168.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="nbArgile" layoutX="173.0" layoutY="16.0" text="Label" />
+            <ImageView fx:id="imageBle" fitHeight="45.0" fitWidth="43.0" layoutX="220.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="nbBle" layoutX="225.0" layoutY="16.0" text="Label" />
+         </children>
+      </Pane>
+   </children>
 </Pane>

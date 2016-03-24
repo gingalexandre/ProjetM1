@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 import client.controller.rmi.Joueur;
-import client.modeles.Message;
+import client.modele.Message;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -20,7 +20,7 @@ import serveur.Serveur;
  * Controller du chat
  * @author jerome
  */
-public class ChatApplicationController implements Initializable{
+public class ChatController implements Initializable{
 	
 	private static final int TAILLE_MAX_MESSAGE = 150;
 
@@ -40,19 +40,12 @@ public class ChatApplicationController implements Initializable{
 	 * Indique au serveur le controller chat distant
 	 */
 	private void enregistrerController() {
-		Joueur joueur;
-		try {
-			joueur = ConnexionManager.getStaticProxy();
-			joueur.setChatApplicationController(this);
-			Serveur serveur = ConnexionManager.getStaticServeur();
-			serveur.enregistrerCommunication(joueur);
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
+		Joueur joueur = ConnexionManager.getStaticProxy();
+		joueur.setChatController(this);
 	}
 	
 	/**
-	 * Appelle les mÃ©thodes gÃ©rant les listener des composants de la vue
+	 * Appelle les méthodes gérant les listener des composants de la vue
 	 */
 	private void listenerVues() {
 		nombreCharMaxTextField();
@@ -77,7 +70,7 @@ public class ChatApplicationController implements Initializable{
 	
 	/**
 	 * Affiche le message dans les TextArea correspondantes
-	 * @param message - Message Ã  afficher
+	 * @param message - Message à afficher
 	 */
 	public void afficherMessage(Message message){
 		Platform.runLater(() -> principal.appendText(message.getAuteur() + " : "+message.getMessage() + "\n"));
@@ -85,7 +78,7 @@ public class ChatApplicationController implements Initializable{
 	}
 	
 	/**
-	 * Se dÃ©clenche quand l'utilisateur appuie sur la touche "EntrÃ©e" lorsqu'il se trouve dans le TextField
+	 * Se déclenche quand l'utilisateur appuie sur la touche "Entrée" lorsqu'il se trouve dans le TextField
 	 */
 	@FXML
 	public void onEnter(){

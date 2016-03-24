@@ -22,10 +22,10 @@ import java.util.ArrayList;
  */
 public class TestVille {
 	
-	ArrayList<Ville> listeVilles = Plateau.getVilles();
+/*	ArrayList<Ville> listeVilles = Plateau.getVilles();
 	Joueur j1 = new Joueur ("Joueur 1");
 	Joueur j2 = new Joueur ("Joueur 2");
-	Joueur j3 = new Joueur ("Joueur 3");
+	Joueur j3 = new Joueur ("Joueur 3");*/
 	
 
 	@Test

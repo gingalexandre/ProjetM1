@@ -10,10 +10,10 @@ import serveur.ConnexionManager;
 import serveur.Serveur;
 
 /**
- * Controller principale 
+ * Controller principal
  * @author jerome
  */
-public class MainApplicationController implements Initializable{
+public class MainController implements Initializable{
 	
 	@FXML
 	public VBox plateau, chat; 
@@ -23,6 +23,6 @@ public class MainApplicationController implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// Connexion au serveur
-		ConnexionManager.getInstance();
+		ConnexionManager.getInstance();		
 	}
 }

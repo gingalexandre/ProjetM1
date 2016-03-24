@@ -6,6 +6,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import client.controller.rmi.Joueur;
+import exception.TooMuchPlayerException;
 
 /**
  * Singleton gérant la connexion au serveur
@@ -36,11 +37,15 @@ public class ConnexionManager {
 		try {
 			this.serveur = (Serveur) Naming.lookup(serveurURL);
 			this.proxy = new Joueur();
+			// Enregistrement du joueur sur le serveur
+			this.serveur.enregistrerJoueur(this.proxy);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (NotBoundException e) {
+			e.printStackTrace();
+		} catch (TooMuchPlayerException e) {
 			e.printStackTrace();
 		}
 	}
@@ -83,5 +88,4 @@ public class ConnexionManager {
 	public static Joueur getStaticProxy(){
 		return ConnexionManager.getInstance().getProxy();
 	}
-	
 }

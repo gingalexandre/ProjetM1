@@ -31,7 +31,7 @@ public class DesApplicationController implements Initializable {
 		des2.setImage(new Image(initGif));		
 	}
 
-	public void lancerDes() {
+	public void actionLancerDes() {
 		Des des = new Des();
 		Integer[] resultats = des.lancerDes();
 

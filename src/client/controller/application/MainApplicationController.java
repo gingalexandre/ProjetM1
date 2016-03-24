@@ -16,7 +16,7 @@ import serveur.Serveur;
 public class MainApplicationController implements Initializable{
 	
 	@FXML
-	public VBox plateau, chat; 
+	public VBox plateau, chat, des, joueurActuel; 
 	
 	public Serveur serveur;
 	

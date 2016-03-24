@@ -4,12 +4,13 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-import client.modeles.Message;
+import client.modele.Message;
+import client.modele.Plateau;
 import exception.TooMuchPlayerException;
 import service.Joueur;
 
 /**
- * 
+ * Classe implémentant le serveur, qui communique avec le proxy des joueurs 
  * @author jerome
  */
 public class ServeurImpl extends UnicastRemoteObject implements Serveur {
@@ -26,7 +27,14 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 */
 	private final static int NOMBRE_MAX_JOUEURS = 4;
 	
-	public ServeurImpl() throws RemoteException{};
+	/**
+	 * Plateau de jeu 
+	 */
+	private Plateau plateau;
+	
+	public ServeurImpl() throws RemoteException{
+		this.plateau = Plateau.getInstance();
+	}
 	
 	/**
 	 * Enregistre une communication au serveur
@@ -35,9 +43,12 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 * @throws TooMuchPlayerException
 	 */
 	@Override
-	public void enregistrerCommunication(Joueur joueur) throws RemoteException{
+	public void enregistrerJoueur(Joueur joueur) throws RemoteException, TooMuchPlayerException{
 		if(joueurs.size() < NOMBRE_MAX_JOUEURS){
 			joueurs.add(joueur);
+		}
+		else{
+			throw new TooMuchPlayerException("Connexion impossible. Il y a déjà 4 joueurs connectés sur le serveur. ");
 		}
 	}
 	
@@ -49,8 +60,17 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	@Override
 	public void diffuserMessage(Message message) throws RemoteException {
 		for(Joueur joueur : joueurs){
-			joueur.recevoir(message);
+			joueur.recevoirMessage(message);
 		}
 	}
 
+	/**
+	 * Envoie le plateau de jeu au joueur passé en paramètre
+	 * @param proxy
+	 * @throws RemoteException 
+	 */
+	@Override
+	public void envoyerPlateau(Joueur proxy) throws RemoteException {
+		proxy.envoyerPlateau(this.plateau);
+	}
 }

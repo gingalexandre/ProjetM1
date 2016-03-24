@@ -1,11 +1,14 @@
 package client.modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import client.view.VueRoute;
 import javafx.scene.shape.Line;
 
-public class Route {
+public class Route implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private Point depart;
 	private Point arrive;

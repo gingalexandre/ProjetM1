@@ -1,12 +1,15 @@
 package client.modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import client.view.VueVille;
 import javafx.scene.shape.Circle;
 
-public class Ville {
+public class Ville implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	private Point emplacement;
 	
 	private Ville ville_adj1;

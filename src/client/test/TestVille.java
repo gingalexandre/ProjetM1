@@ -22,10 +22,11 @@ import java.util.ArrayList;
  */
 public class TestVille {
 	
-/*	ArrayList<Ville> listeVilles = Plateau.getVilles();
-	JoueurServeur j1 = new JoueurServeur ("JoueurServeur 1");
-	JoueurServeur j2 = new JoueurServeur ("JoueurServeur 2");
-	JoueurServeur j3 = new JoueurServeur ("JoueurServeur 3");*/
+	Plateau plateau = Plateau.getInstance();
+	ArrayList<Ville> listeVilles = plateau.getVilles();
+	Joueur j1 = new Joueur ("Joueur 1");
+	Joueur j2 = new Joueur ("Joueur 2");
+	Joueur j3 = new Joueur ("Joueur 3");
 	
 
 	@Test

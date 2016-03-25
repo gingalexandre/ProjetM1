@@ -21,7 +21,8 @@
         <children>
 	          <fx:include source="Plateau.fxml" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 			  <fx:include source="Chat.fxml" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-			  <fx:include source="Des.fxml" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+			  <fx:include source="Des.fxml" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+			  <fx:include source="Menu.fxml" GridPane.columnIndex="2" GridPane.rowIndex="1" />
 			  <fx:include source="JoueurActuel.fxml" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
 		</children>
       </GridPane>

@@ -5,7 +5,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-import client.controller.rmi.Joueur;
+import client.controller.rmi.JoueurServeur;
 import exception.TooMuchPlayerException;
 
 /**
@@ -25,9 +25,9 @@ public class ConnexionManager {
 	private Serveur serveur;
 	
 	/**
-	 * Joueur connecté au serveur
+	 * JoueurServeur connecté au serveur
 	 */
-	private Joueur proxy;
+	private JoueurServeur proxy;
 	
 	/**
 	 * Constructeur privé se connectant au serveur
@@ -36,7 +36,7 @@ public class ConnexionManager {
 		String serveurURL = "rmi://127.0.0.1:42000/serveur";
 		try {
 			this.serveur = (Serveur) Naming.lookup(serveurURL);
-			this.proxy = new Joueur();
+			this.proxy = new JoueurServeur();
 			// Enregistrement du joueur sur le serveur
 			this.serveur.enregistrerJoueur(this.proxy);
 		} catch (MalformedURLException e) {
@@ -77,7 +77,7 @@ public class ConnexionManager {
 		return ConnexionManager.getInstance().getServeur();
 	}
 	
-	public Joueur getProxy(){
+	public JoueurServeur getProxy(){
 		return this.proxy;
 	}
 	
@@ -85,7 +85,7 @@ public class ConnexionManager {
 	 * Permet d'obtenir le serveur de manière static
 	 * @return le serveur
 	 */
-	public static Joueur getStaticProxy(){
+	public static JoueurServeur getStaticProxy(){
 		return ConnexionManager.getInstance().getProxy();
 	}
 }

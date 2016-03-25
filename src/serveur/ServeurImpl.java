@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import client.modele.Message;
 import client.modele.Plateau;
 import exception.TooMuchPlayerException;
-import service.Joueur;
+import service.JoueurServeur;
 
 /**
- * Classe implémentant le serveur, qui communique avec le proxy des joueurs 
+ * Classe implémentant le serveur, qui communique avec le proxy des joueurServeurs 
  * @author jerome
  */
 public class ServeurImpl extends UnicastRemoteObject implements Serveur {
@@ -20,10 +20,10 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	/**
 	 * Contient la liste 
 	 */
-	private ArrayList<Joueur> joueurs = new ArrayList<Joueur>();
+	private ArrayList<JoueurServeur> joueurServeurs = new ArrayList<JoueurServeur>();
 	
 	/**
-	 * Nombre max de joueurs 
+	 * Nombre max de joueurServeurs 
 	 */
 	private final static int NOMBRE_MAX_JOUEURS = 4;
 	
@@ -43,24 +43,40 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 * @throws TooMuchPlayerException
 	 */
 	@Override
-	public void enregistrerJoueur(Joueur joueur) throws RemoteException, TooMuchPlayerException{
-		if(joueurs.size() < NOMBRE_MAX_JOUEURS){
-			joueurs.add(joueur);
+	public void enregistrerJoueur(JoueurServeur joueurServeur) throws RemoteException, TooMuchPlayerException{
+		if(joueurServeurs.size() < NOMBRE_MAX_JOUEURS){
+			joueurServeurs.add(joueurServeur);
+			switch(joueurServeurs.size()){
+				case 1:
+					joueurServeur.setCouleur("rouge");
+					break;
+				case 2:
+					joueurServeur.setCouleur("bleu");
+					break;
+				case 3:
+					joueurServeur.setCouleur("vert");
+					break;
+				case 4:
+					joueurServeur.setCouleur("orange");
+					break;
+				default: 
+					break;
+			}
 		}
 		else{
-			throw new TooMuchPlayerException("Connexion impossible. Il y a déjà 4 joueurs connectés sur le serveur. ");
+			throw new TooMuchPlayerException("Connexion impossible. Il y a déjà 4 joueurServeurs connectés sur le serveur.");
 		}
 	}
 	
 	/**
-	 * Diffuse un message envoyé par un joueur à tous les autre joueurs
+	 * Diffuse un message envoyé par un joueur à tous les autre joueurServeurs
 	 * @param message
 	 * @throws RemoteException
 	 */
 	@Override
 	public void diffuserMessage(Message message) throws RemoteException {
-		for(Joueur joueur : joueurs){
-			joueur.recevoirMessage(message);
+		for(JoueurServeur joueurServeur : joueurServeurs){
+			joueurServeur.recevoirMessage(message);
 		}
 	}
 
@@ -70,7 +86,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 * @throws RemoteException 
 	 */
 	@Override
-	public void envoyerPlateau(Joueur proxy) throws RemoteException {
+	public void envoyerPlateau(JoueurServeur proxy) throws RemoteException {
 		proxy.envoyerPlateau(this.plateau);
 	}
 }

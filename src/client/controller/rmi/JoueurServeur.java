@@ -7,12 +7,16 @@ import client.controller.application.ChatController;
 import client.controller.application.PlateauController;
 import client.modele.Message;
 import client.modele.Plateau;
-import javafx.scene.layout.Pane;
 
-public class Joueur extends UnicastRemoteObject implements service.Joueur{
+public class JoueurServeur extends UnicastRemoteObject implements service.JoueurServeur{
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Couleur de jeu du joueur
+	 */
+	private String couleur;
+	
 	/**
 	 * 	Controller du chat
 	 */
@@ -23,8 +27,16 @@ public class Joueur extends UnicastRemoteObject implements service.Joueur{
 	 */
 	private PlateauController plateauController;
 	
-	public Joueur() throws RemoteException{
+	public JoueurServeur() throws RemoteException{
 		
+	}
+	
+	/**
+	 * Recupère la couleur de jeu du joueur
+	 * @param color
+	 */
+	public String getCouleur(){
+		return this.couleur;
 	}
 	
 	/**
@@ -59,5 +71,14 @@ public class Joueur extends UnicastRemoteObject implements service.Joueur{
 	@Override
 	public void envoyerPlateau(Plateau plateau) throws RemoteException {
 		this.plateauController.setPlateau(plateau);
+	}
+	
+	/**
+	 * Indique la couleur de jeu du joueur
+	 * @param color
+	 */
+	@Override
+	public void setCouleur(String couleur) throws RemoteException{
+		this.couleur = couleur;
 	}
 }

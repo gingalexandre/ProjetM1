@@ -24,7 +24,7 @@ public class Partie {
         this.listeJoueurs = new ArrayList();
         for (int i=0; i<nbJoueurs; i++){
             //Il faut les noms des joueurs avant...
-            //listeJoueurs.add(new Joueur());
+            //listeJoueurs.add(new JoueurServeur());
         }
         this.ressources = new Ressource();
     }

@@ -4,7 +4,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
-import client.controller.rmi.Joueur;
+import client.controller.rmi.JoueurServeur;
 import client.modele.Plateau;
 import client.modele.Route;
 import client.modele.Ville;
@@ -41,7 +41,7 @@ public class PlateauController implements Initializable{
 	/**
 	 * Proxy avec le serveur
 	 */
-	private Joueur proxy;
+	private JoueurServeur proxy;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -68,8 +68,8 @@ public class PlateauController implements Initializable{
 	 * Indique au proxy que cette classe est le controller du plateau
 	 */
 	private void enregistrerController() {
-		Joueur joueur = ConnexionManager.getStaticProxy();
-		joueur.setPlateauController(this);
+		JoueurServeur joueurServeur = ConnexionManager.getStaticProxy();
+		joueurServeur.setPlateauController(this);
 	}
 
 	/**

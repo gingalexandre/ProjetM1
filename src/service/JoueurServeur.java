@@ -10,7 +10,7 @@ import client.modele.Plateau;
  * Interface du proxy entre client et serveur
  * @author jerome
  */
-public interface Joueur extends Remote{
+public interface JoueurServeur extends Remote{
 	
 	/**
 	 * Reçoit le message transmit par le serveur et l'envoie au joueur et l'envoie au controller du chat
@@ -25,4 +25,10 @@ public interface Joueur extends Remote{
 	 * @throws RemoteException
 	 */
 	void envoyerPlateau(Plateau plateau) throws RemoteException;
+	
+	/**
+	 * Indique la couleur de jeu du joueur
+	 * @param color
+	 */
+	void setCouleur(String couleur) throws RemoteException;
 }

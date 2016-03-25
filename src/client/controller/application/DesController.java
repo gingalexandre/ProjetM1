@@ -18,9 +18,9 @@ public class DesController implements Initializable {
 	private static final String numeroCinq = "file:Ressources/des/dice5.png";
 	private static final String numeroSix = "file:Ressources/des/dice6.png";
 	
-	private static final String enAttente = "file:Ressources/des/dices.gif";
+	private static final String enAttente = "file:Ressources/des/lancer_des.gif";
 	
-	private static final String initGif = "file:Ressources/autres/stack.gif";
+	private static final String initGif = "file:Ressources/des/lancer_des_version_infinie.gif";
 
 	@FXML
 	private ImageView des1, des2;

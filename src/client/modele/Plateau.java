@@ -1,41 +1,67 @@
 package client.modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 
-import client.commun.Fonction;
-import client.view.VueHexagone;
-
-public class Plateau {
+public class Plateau implements Serializable{
 	
-	private static ArrayList<Hexagone> hexagones ;
-	private static ArrayList<Point> points;
-	private static ArrayList<Ville> villes ;
-	private static ArrayList<Route> routes ;
+	private static final long serialVersionUID = 1L;
+	
+	private ArrayList<Hexagone> hexagones ;
+	private ArrayList<Point> points;
+	private ArrayList<Ville> villes ;
+	private ArrayList<Route> routes ;
 	private static Plateau INSTANCE = null;
 	
 	private static final int SIZE = 60;
 	
-	private Plateau(){	
+	private Plateau(){
+		points = new ArrayList<Point>();
 		hexagones = new ArrayList<Hexagone>(Arrays.asList(this.getAllHexagone()));
-		for(Hexagone hex : hexagones){
-			setPoints(hex);
-		}
-		setRoutes();
+		setPoints();
 		setVilles();
+		setRoutes();
 	}
 	
-	 public static ArrayList<Hexagone> getHexagones() {
+	 public ArrayList<Hexagone> getHexagones() {
 		return hexagones;
 	}
 
-	public static ArrayList<Ville> getVilles() {
+	public ArrayList<Ville> getVilles() {
 		return villes;
 	}
 
-
-	public static ArrayList<Route> getRoutes() {
+	public ArrayList<Route> getRoutes() {
 		return routes;
+	}
+
+	public void setPoints() {
+		points = new ArrayList<Point>();
+		Set<Point> set = new HashSet<Point>() ;
+		for (Hexagone hex : hexagones){
+			set.add(hex.getA());
+			set.add(hex.getB());
+			set.add(hex.getC());
+			set.add(hex.getD());
+			set.add(hex.getE());
+			set.add(hex.getF());
+		}
+		
+        points = new ArrayList<Point>(set) ;
+        
+        Comparator<Point> c = new Comparator<Point>() {
+            @Override
+            public int compare(Point p1, Point p2) {
+                return p1.compareTo(p2);
+            }
+        };
+        points.sort(c);
+        Collections.reverse(points);
 	}
 	
 	public void setVilles(){
@@ -43,85 +69,91 @@ public class Plateau {
 		for (Point p : points){
 			villes.add(new Ville(p));
 		}
-		Ville port = new Ville(null);
 		
 		//Affectation des villes adjacentes
-		villes.get(0).setVillesAdj(port, villes.get(5), villes.get(4));
+		int i = 0;
+		for (Ville v : villes){
+			if(i<=2)
+				v.setVillesAdj(null, villes.get(i+4), villes.get(i+3));
+			else if ((i==4)||(i==5))
+				v.setVillesAdj(villes.get(i-4), villes.get(i-3), villes.get(i+4));
+			else if ((i>=7)&&(i<=10))
+				v.setVillesAdj(villes.get(i-4),villes.get(i+5), villes.get(i+4));
+			else if ((i>=12)&&(i<=14))
+				v.setVillesAdj(villes.get(i-5), villes.get(i-4), villes.get(i+5));
+			else if ((i>=16)&&(i<=20))
+				v.setVillesAdj(villes.get(i-5), villes.get(i+5), villes.get(i+6));
+			else if ((i>=22)&&(i<=25))
+				v.setVillesAdj(villes.get(i-6), villes.get(i-5), villes.get(i+6));
+			else if ((i>=28)&&(i<=31))
+				v.setVillesAdj(villes.get(i-6), villes.get(i+5), villes.get(i+6));
+			else if ((i>=33)&&(i<=37))
+				v.setVillesAdj(villes.get(i-6),villes.get(i-5),villes.get(i+5));
+			else if ((i>=39)&&(i<=41))
+				v.setVillesAdj(villes.get(i-5),villes.get(i+4),villes.get(i+5));
+			else if ((i>=43)&&(i<=46))
+				v.setVillesAdj(villes.get(i-5),villes.get(i-4),villes.get(i+4));
+			else if ((i==48)||(i==49))
+				v.setVillesAdj(villes.get(i-4),villes.get(i+3),villes.get(i+4));
+			else if (i>=51)
+				v.setVillesAdj(villes.get(i-4),villes.get(i-3),null);
+			i++;
+		}
+		
+		villes.get(3).setVillesAdj(null, villes.get(0), villes.get(7));
+		villes.get(6).setVillesAdj(villes.get(2), null, villes.get(10));
+		villes.get(11).setVillesAdj(null, villes.get(7), villes.get(16));
+	    villes.get(15).setVillesAdj(villes.get(10), null, villes.get(20));
+		villes.get(21).setVillesAdj(null, villes.get(16), villes.get(27));
+		villes.get(26).setVillesAdj(villes.get(20), null, villes.get(32));
+		villes.get(27).setVillesAdj(villes.get(21), villes.get(33), null);
+		villes.get(32).setVillesAdj(villes.get(26), null, villes.get(37));
+		villes.get(38).setVillesAdj(villes.get(33), villes.get(43), null);
+		villes.get(42).setVillesAdj(villes.get(37), null, villes.get(46));
+		villes.get(47).setVillesAdj(villes.get(43), villes.get(51), null);
+		villes.get(50).setVillesAdj(villes.get(46), null, villes.get(53));
+		
 	}
-
-	 public void setRoutes() {
-		 routes = new ArrayList<Route>();
-		 	
-	     // Construction des lignes sur diagonales
-	     // Première série d'hexagone
-	     routes.add(new Route(villes.get(2).getEmplacement(), villes.get(5).getEmplacement()));
-	     routes.add(new Route(villes.get(2).getEmplacement(), villes.get(7).getEmplacement()));
-	     routes.add(new Route(villes.get(7).getEmplacement(), villes.get(3).getEmplacement()));
-	     routes.add(new Route(villes.get(3).getEmplacement(), villes.get(9).getEmplacement()));
-	     routes.add(new Route(villes.get(9).getEmplacement(), villes.get(4).getEmplacement()));
-	     routes.add(new Route(villes.get(4).getEmplacement(), villes.get(11).getEmplacement()));
-	        
-	     // Seconde série d'hexagone
-	     routes.add(new Route(villes.get(13).getEmplacement(), villes.get(6).getEmplacement()));
-	     routes.add(new Route(villes.get(6).getEmplacement(),  villes.get(15).getEmplacement()));
-	     routes.add(new Route(villes.get(15).getEmplacement(), villes.get(8).getEmplacement()));
-	     routes.add(new Route(villes.get(8).getEmplacement(),  villes.get(17).getEmplacement()));
-	     routes.add(new Route(villes.get(17).getEmplacement(), villes.get(10).getEmplacement()));
-	     routes.add(new Route(villes.get(10).getEmplacement(), villes.get(19).getEmplacement()));
-	     routes.add(new Route(villes.get(19).getEmplacement(), villes.get(12).getEmplacement()));
-	     routes.add(new Route(villes.get(12).getEmplacement(), villes.get(21).getEmplacement()));
-
-	     // Troisième série d'hexagone
-	     routes.add(new Route(villes.get(14).getEmplacement(), villes.get(23).getEmplacement()));
-	     routes.add(new Route(villes.get(23).getEmplacement(), villes.get(16).getEmplacement()));
-	     routes.add(new Route(villes.get(16).getEmplacement(), villes.get(25).getEmplacement()));
-	     routes.add(new Route(villes.get(25).getEmplacement(), villes.get(18).getEmplacement()));
-	     routes.add(new Route(villes.get(18).getEmplacement(), villes.get(27).getEmplacement()));
-	     routes.add(new Route(villes.get(27).getEmplacement(), villes.get(20).getEmplacement()));
-	     routes.add(new Route(villes.get(20).getEmplacement(), villes.get(29).getEmplacement()));
-	     routes.add(new Route(villes.get(29).getEmplacement(), villes.get(22).getEmplacement()));
-	     
-	     // Quatrième série d'hexagone
-	     routes.add(new Route(villes.get(24).getEmplacement(), villes.get(31).getEmplacement()));
-	     routes.add(new Route(villes.get(31).getEmplacement(), villes.get(26).getEmplacement()));
-	     routes.add(new Route(villes.get(26).getEmplacement(), villes.get(32).getEmplacement()));
-	     routes.add(new Route(villes.get(32).getEmplacement(), villes.get(28).getEmplacement()));
-	     routes.add(new Route(villes.get(28).getEmplacement(), villes.get(33).getEmplacement()));
-	     routes.add(new Route(villes.get(33).getEmplacement(), villes.get(30).getEmplacement()));
- 
-	     // Construction des routes verticales
-	     routes.add(new Route(villes.get(0).getEmplacement(), villes.get(7).getEmplacement()));
-	     routes.add(new Route(villes.get(1).getEmplacement(), villes.get(9).getEmplacement()));
-	     routes.add(new Route(villes.get(2).getEmplacement(), villes.get(15).getEmplacement()));
-	     routes.add(new Route(villes.get(3).getEmplacement(), villes.get(17).getEmplacement()));
-	     routes.add(new Route(villes.get(4).getEmplacement(), villes.get(19).getEmplacement()));
-	     routes.add(new Route(villes.get(6).getEmplacement(), villes.get(6).getEmplacement()));
-	     routes.add(new Route(villes.get(8).getEmplacement(), villes.get(25).getEmplacement()));
-	     routes.add(new Route(villes.get(10).getEmplacement(), villes.get(27).getEmplacement()));
-	     routes.add(new Route(villes.get(12).getEmplacement(), villes.get(29).getEmplacement()));
-	     routes.add(new Route(villes.get(16).getEmplacement(), villes.get(31).getEmplacement()));
-	     routes.add(new Route(villes.get(18).getEmplacement(), villes.get(32).getEmplacement()));
-	     routes.add(new Route(villes.get(20).getEmplacement(), villes.get(33).getEmplacement()));
-	     routes.add(new Route(villes.get(26).getEmplacement(), villes.get(34).getEmplacement()));
-	     routes.add(new Route(villes.get(28).getEmplacement(),villes.get(35).getEmplacement()));
-	       
-	    }
-	 
-
-	public void setPoints(Hexagone hex) {
-	        if ((hex.getIndexHexagone() == 1) || (hex.getIndexHexagone() == 2) || (hex.getIndexHexagone() == 5) || (hex.getIndexHexagone() == 6) || (hex.getIndexHexagone() == 7)) {
-	            points.add((new Point(hex.getA().getX(),hex.getA().getY())));
-	        } else if ((hex.getIndexHexagone() == 29) || (hex.getIndexHexagone() == 30) || (hex.getIndexHexagone() == 31) || (hex.getIndexHexagone() == 34) || (hex.getIndexHexagone() == 35)) {
-	        	points.add((new Point(hex.getD().getX(),hex.getD().getY())));
-	        } else if ((hex.getIndexHexagone() == 0) || (hex.getIndexHexagone() == 3) || (hex.getIndexHexagone() == 4) || (hex.getIndexHexagone() == 8) || (hex.getIndexHexagone() == 9) || (hex.getIndexHexagone() == 14) || (hex.getIndexHexagone() == 15) || (hex.getIndexHexagone() == 21) || (hex.getIndexHexagone() == 22) || (hex.getIndexHexagone() == 27) || (hex.getIndexHexagone() == 28) || (hex.getIndexHexagone() == 32) || (hex.getIndexHexagone() == 33) || (hex.getIndexHexagone() == 36)) {
-
-	        } else {
-	        	points.add((new Point(hex.getD().getX(),hex.getD().getY())));
-	        	points.add((new Point(hex.getA().getX(),hex.getA().getY())));
-	        }
-	    }
 	
-	public synchronized static Plateau getInstance(){
+	public void setRoutes(){
+		routes = new ArrayList<Route>();
+		for(Ville v : villes){
+			if(v.getVilleAdj1() !=  null){
+				ajoutListeRoute(new Route(v.getEmplacement(),v.getVilleAdj1().getEmplacement()));
+			}
+			if(v.getVilleAdj2() !=  null){
+				ajoutListeRoute(new Route(v.getEmplacement(),v.getVilleAdj2().getEmplacement()));
+			}
+			if(v.getVilleAdj3() !=  null){
+				ajoutListeRoute(new Route(v.getEmplacement(),v.getVilleAdj3().getEmplacement()));
+			}
+		}
+		
+		Comparator<Route> c = new Comparator<Route>() {
+            @Override
+            public int compare(Route r1, Route r2) {
+                return r1.compareTo(r2);
+            }
+        };
+        
+        routes.sort(c);
+        Collections.reverse(routes);
+        
+	}
+	
+	public void ajoutListeRoute(Route r){
+		boolean same = false;
+		for(Route ajoutees : routes){
+			if(ajoutees.equals(r)){
+				same = true;
+			}
+		}
+		if(!same){
+			routes.add(r);
+		}
+	}
+	
+	public static Plateau getInstance(){
 		if (INSTANCE == null){ 	
 			INSTANCE = new Plateau();	
 		}
@@ -129,28 +161,27 @@ public class Plateau {
 	}
 	
 	public Hexagone[] getAllHexagone() {
-        Hexagone[] res = new Hexagone[37];
+        Hexagone[] res = new Hexagone[19];
         /* CREATION DES HEXAGONES */
         int ligne = 0;
         int index = 0;
         double decalage = SIZE * 2 * Math.sqrt(3);
-        for (int i = 0; i < 37; i++) {  
-            Hexagone hex = new Hexagone(7.5 * SIZE + Math.sqrt(3) * index * SIZE - decalage, 1.5 * SIZE + ligne * 1.5 * SIZE, SIZE, i);
+        for (int i = 0; i < 19; i++) {  
+            Hexagone hex = new Hexagone(8 * SIZE + Math.sqrt(3) * index * SIZE - decalage, 3 * SIZE + ligne * 1.5 * SIZE, SIZE, i);
             res[i] = hex;
-            if (i == 3 || i == 8 || i == 14) {
+            if (i == 2 || i == 6) {
                 ligne++;
                 index = 0;
                 decalage += SIZE * Math.sqrt(3) / 2;
                 continue;
             }
-            if (i == 21 || i == 27 || i == 32) {
+            if (i == 11 || i == 15) {
                 ligne++;
                 index = 0;
                 decalage -= SIZE * Math.sqrt(3) / 2;
                 continue;
             }
             index++;
-
         }
         return res;
     }

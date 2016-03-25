@@ -14,10 +14,13 @@ public class Des {
     private int de1;
     private int de2;
     
-    public void lancerDes(){
+    public Integer[] lancerDes(){
         this.de1 = (int) (Math.random() * (6-1) + 1);
         this.de2 = (int) (Math.random() * (6-1) + 1);
-        actionDes(de1+de2);
+        Integer[] res = new Integer[2];
+        res[0] = de1;
+        res[1] = de2;
+        return res;
     }
     
     public void actionDes(int scoreDe){

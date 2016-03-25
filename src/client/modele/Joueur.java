@@ -19,10 +19,10 @@ public class Joueur {
     private static int compteurDeJoueur = 0;
     private String nom;
     private int pointVictoire;
-    
-    private int nbColonie = 2;
-    private int nbVille = 0;
-    private int nbRoute = 2;
+
+    private int nbColonie = 5;
+    private int nbVille = 4;
+    private int nbRoute = 15;
 
     private HashMap<Integer, Integer> stockRessource = new HashMap<>();
     private ArrayList<Carte> cartes = new ArrayList<Carte>();
@@ -116,6 +116,10 @@ public class Joueur {
 	
 	public boolean encoreAssezColonie(){
 		return (this.nbVille>0);
+	}
+	
+	public boolean encoreAssezRoute(){
+		return (this.nbRoute>0);
 	}
 
 	public int getPointVictoire() {

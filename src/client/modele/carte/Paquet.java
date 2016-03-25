@@ -3,10 +3,7 @@ package client.modele.carte;
 /**
  * @author Yohann Hugo
  */
-public class BestChevalier {
+public class Paquet {
 
-    /**
-     * Attribut de
-     */
 
 }

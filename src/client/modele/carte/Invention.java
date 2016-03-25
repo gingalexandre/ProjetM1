@@ -3,16 +3,16 @@ package client.modele.carte;
 import client.modele.Joueur;
 
 /**
- * Carte progrès ressources : ces cartes permettent d'obtenir deux d'une ressource.
+ * Carte d'innovation : ces cartes permettent d'obtenir deux d'une ressource.
  *
  * @author Yohann Hugo
  */
-public class Ressource extends Carte {
+public class Invention extends Carte {
 
     /**
      * Constructeur
      */
-    public Ressource(){
+    public Invention(){
         super(2);
     }
 

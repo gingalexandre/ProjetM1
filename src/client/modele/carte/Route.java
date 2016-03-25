@@ -7,12 +7,12 @@ import client.modele.Joueur;
  *
  * @author Yohann Hugo
  */
-public class Construction extends Carte{
+public class Route extends Carte{
 
     /**
      * Constructeur
      */
-    public Construction(){
+    public Route(){
         super(2);
     }
 

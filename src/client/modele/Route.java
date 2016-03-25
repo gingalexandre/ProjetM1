@@ -1,22 +1,18 @@
 package client.modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import client.view.VueRoute;
-import client.view.VueVille;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
-public class Route {
+public class Route implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private Point depart;
 	private Point arrive;
 	private Joueur oqp;
-	
-	private static int nbRouteBleu = 15;
-	private static int nbRouteBlanc = 15;
-	private static int nbRouteRouge = 15;
-	private static int nbRouteOrange = 15;
 	
 	public Route(Point depart, Point arrive) {
 		super();
@@ -35,18 +31,47 @@ public class Route {
 	public Joueur getOqp(){
 		return this.oqp;
 	}
-	
-	public boolean encoreAssez(Joueur joueur){
-		boolean assez = false;
-		switch (joueur.getCouleur()) {
-		case "Bleu": assez = (this.nbRouteBleu>0);
-		case "Blanc": assez = (this.nbRouteBlanc>0);
-		case "Rouge": assez = (this.nbRouteRouge>0);
-		case "Orange": assez = (this.nbRouteOrange>0);
-		default:
-			break;
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((arrive == null) ? 0 : arrive.hashCode());
+		result = prime * result + ((depart == null) ? 0 : depart.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Route){
+			Route r = (Route)obj;
+			if(((this.depart.equals(r.depart))||(this.depart.equals(r.arrive)))&&(this.arrive.equals(r.arrive)||(this.arrive.equals(r.depart)))){
+				return true;
+			}
 		}
-		return assez;
+		return false;
+	}
+	
+	public int compareTo(Route r){
+		int pmx1 = ((int)(this.arrive.x+this.depart.x)/2);
+		int pmy1 = ((int)(this.depart.y+this.arrive.y)/2);
+		int pmx2 = ((int)(r.arrive.x+r.depart.x)/2);
+	    int pmy2 = ((int)(r.depart.y+r.arrive.y)/2);
+	    if(pmy1>pmy2){
+	    	return -10;
+	    }
+	    else if (pmy1<pmy2){
+	    	return 10;
+	    }
+	    else{
+	    	if(pmx1>pmx2){
+		    	return -10;
+		    }
+		    else if (pmx1<pmx2){
+		    	return 10;
+		    }
+	    }
+	    return 0;
 	}
 	
 

@@ -1,6 +1,6 @@
 package client.modele.carte;
 /**
- * SuperClasse des cartes de developpement.
+ * SuperClasse des cartes.
  *
  * @author Yohann Hugo
 */
@@ -17,7 +17,7 @@ public class Carte {
 	private static int PIOCHER=0;
 
     /**
-     * Constructeur
+     * Constructeurs
      */
     public Carte(){
         NOMBREMAX = 25;

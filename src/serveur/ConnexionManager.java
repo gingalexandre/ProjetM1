@@ -5,32 +5,55 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import client.controller.rmi.Joueur;
+import exception.TooMuchPlayerException;
+
 /**
- * 
+ * Singleton gérant la connexion au serveur
  * @author jerome
  */
 public class ConnexionManager {
 	
+	/**
+	 * Instance de la classe
+	 */
 	private static ConnexionManager INSTANCE = null;
 	
+	/**
+	 * Serveur de connexion
+	 */
 	private Serveur serveur;
 	
+	/**
+	 * Joueur connecté au serveur
+	 */
+	private Joueur proxy;
+	
+	/**
+	 * Constructeur privé se connectant au serveur
+	 */
 	private ConnexionManager(){
 		String serveurURL = "rmi://127.0.0.1:42000/serveur";
 		try {
 			this.serveur = (Serveur) Naming.lookup(serveurURL);
+			this.proxy = new Joueur();
+			// Enregistrement du joueur sur le serveur
+			this.serveur.enregistrerJoueur(this.proxy);
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NotBoundException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TooMuchPlayerException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	/**
+	 * Permet de récupérer l'instance unique
+	 * @return l'instance unique
+	 */
 	public static ConnexionManager getInstance(){
 		if (INSTANCE == null){ 	
 			INSTANCE = new ConnexionManager();	
@@ -38,11 +61,31 @@ public class ConnexionManager {
 		return INSTANCE;
 	}
 	
+	/**
+	 * Permet d'obtenir le serveur
+	 * @return le serveur
+	 */
 	public Serveur getServeur(){
 		return this.serveur;
 	}
 	
+	/**
+	 * Permet d'obtenir le serveur de manière static
+	 * @return le serveur
+	 */
 	public static Serveur getStaticServeur(){
 		return ConnexionManager.getInstance().getServeur();
+	}
+	
+	public Joueur getProxy(){
+		return this.proxy;
+	}
+	
+	/**
+	 * Permet d'obtenir le serveur de manière static
+	 * @return le serveur
+	 */
+	public static Joueur getStaticProxy(){
+		return ConnexionManager.getInstance().getProxy();
 	}
 }

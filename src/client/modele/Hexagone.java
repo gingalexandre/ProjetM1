@@ -1,8 +1,13 @@
 package client.modele;
 
+import java.io.Serializable;
+
 import client.commun.DistributeurType;
 
-public class Hexagone {
+public class Hexagone implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
 	private int indexHexagone;
 	private Ressource ressource;
 	private int numero;

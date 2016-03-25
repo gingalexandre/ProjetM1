@@ -1,5 +1,6 @@
 package client.modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -7,12 +8,14 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Plateau {
+public class Plateau implements Serializable{
 	
-	private static ArrayList<Hexagone> hexagones ;
-	private static ArrayList<Point> points;
-	private static ArrayList<Ville> villes ;
-	private static ArrayList<Route> routes ;
+	private static final long serialVersionUID = 1L;
+	
+	private ArrayList<Hexagone> hexagones ;
+	private ArrayList<Point> points;
+	private ArrayList<Ville> villes ;
+	private ArrayList<Route> routes ;
 	private static Plateau INSTANCE = null;
 	
 	private static final int SIZE = 60;
@@ -25,15 +28,15 @@ public class Plateau {
 		setRoutes();
 	}
 	
-	 public static ArrayList<Hexagone> getHexagones() {
+	 public ArrayList<Hexagone> getHexagones() {
 		return hexagones;
 	}
 
-	public static ArrayList<Ville> getVilles() {
+	public ArrayList<Ville> getVilles() {
 		return villes;
 	}
 
-	public static ArrayList<Route> getRoutes() {
+	public ArrayList<Route> getRoutes() {
 		return routes;
 	}
 
@@ -125,6 +128,17 @@ public class Plateau {
 				ajoutListeRoute(new Route(v.getEmplacement(),v.getVilleAdj3().getEmplacement()));
 			}
 		}
+		
+		Comparator<Route> c = new Comparator<Route>() {
+            @Override
+            public int compare(Route r1, Route r2) {
+                return r1.compareTo(r2);
+            }
+        };
+        
+        routes.sort(c);
+        Collections.reverse(routes);
+        
 	}
 	
 	public void ajoutListeRoute(Route r){
@@ -139,7 +153,7 @@ public class Plateau {
 		}
 	}
 	
-	public synchronized static Plateau getInstance(){
+	public static Plateau getInstance(){
 		if (INSTANCE == null){ 	
 			INSTANCE = new Plateau();	
 		}

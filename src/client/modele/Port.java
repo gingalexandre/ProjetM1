@@ -5,6 +5,8 @@ package client.modele;
 */
 public class Port extends Ville {
 	
+	private static final long serialVersionUID = 1L;
+	
 	private Ressource ressourceEchangeable;
 
 	public Port(Point emplacement) {

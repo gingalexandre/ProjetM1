@@ -3,9 +3,9 @@ package serveur;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-import client.modeles.Message;
+import client.modele.Message;
 import exception.TooMuchPlayerException;
-import service.Communication;
+import service.Joueur;
 
 /**
  * Classe principale pour les communications entre client et serveur
@@ -15,12 +15,12 @@ public interface Serveur extends Remote{
 	
 	
 	/**
-	 * Enregistre une communication au serveur
+	 * Enregistre un joueur au serveur
 	 * @param communication
 	 * @throws RemoteException
 	 * @throws TooMuchPlayerException
 	 */
-	void enregistrerCommunication(Communication communication) throws RemoteException;
+	void enregistrerJoueur(Joueur joueur) throws RemoteException, TooMuchPlayerException;
 	
 	
 	/**
@@ -29,4 +29,10 @@ public interface Serveur extends Remote{
 	 * @throws RemoteException
 	 */
 	void diffuserMessage(Message message) throws RemoteException;
+	
+	/**
+	 * Envoie le plateau de jeu au joueur passé en paramètre
+	 * @param proxy
+	 */
+	void envoyerPlateau(Joueur proxy) throws RemoteException;
 }

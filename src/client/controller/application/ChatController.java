@@ -4,8 +4,9 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
-import client.controller.rmi.ChatRMIController;
-import client.modeles.Message;
+import client.controller.rmi.Joueur;
+import client.modele.Message;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -19,7 +20,7 @@ import serveur.Serveur;
  * Controller du chat
  * @author jerome
  */
-public class ChatApplicationController implements Initializable{
+public class ChatController implements Initializable{
 	
 	private static final int TAILLE_MAX_MESSAGE = 150;
 
@@ -29,30 +30,6 @@ public class ChatApplicationController implements Initializable{
 	@FXML
 	private TextField saisie;
 	
-	/**
-	 * Se déclenche quand l'utilisateur appuie sur la touche "Entrée" lorsqu'il se trouve dans le TextField
-	 */
-	@FXML
-	public void onEnter(){
-		String messageUtilisateur = saisie.getText();
-		if(!messageUtilisateur.equals("")){
-			Message message = new Message("Pierre", messageUtilisateur);
-			try{
-				Serveur serveur = ConnexionManager.getStaticServeur();
-				serveur.diffuserMessage(message);
-			}
-			catch (RemoteException e){
-				e.printStackTrace();
-			}
-			saisie.setText("");
-		}
-	}
-	
-	public void afficherMessage(Message message){
-		principal.appendText(message.getAuteur() + " : "+message.getMessage() + "\n");
-		joueurs.appendText(message.getAuteur() + " : "+message.getMessage() + "\n");
-	}
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		enregistrerController();
@@ -63,15 +40,8 @@ public class ChatApplicationController implements Initializable{
 	 * Indique au serveur le controller chat distant
 	 */
 	private void enregistrerController() {
-		ChatRMIController chatRMIController;
-		try {
-			chatRMIController = new ChatRMIController();
-			chatRMIController.setChatController(this);
-			Serveur serveur = ConnexionManager.getStaticServeur();
-			serveur.enregistrerCommunication(chatRMIController);
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
+		Joueur joueur = ConnexionManager.getStaticProxy();
+		joueur.setChatController(this);
 	}
 	
 	/**
@@ -96,5 +66,33 @@ public class ChatApplicationController implements Initializable{
 	            }
 	        }
 		);
+	}
+	
+	/**
+	 * Affiche le message dans les TextArea correspondantes
+	 * @param message - Message à afficher
+	 */
+	public void afficherMessage(Message message){
+		Platform.runLater(() -> principal.appendText(message.getAuteur() + " : "+message.getMessage() + "\n"));
+		Platform.runLater(() -> joueurs.appendText(message.getAuteur() + " : "+message.getMessage() + "\n"));
+	}
+	
+	/**
+	 * Se déclenche quand l'utilisateur appuie sur la touche "Entrée" lorsqu'il se trouve dans le TextField
+	 */
+	@FXML
+	public void onEnter(){
+		String messageUtilisateur = saisie.getText();
+		if(!messageUtilisateur.equals("")){
+			Message message = new Message("Pierre", messageUtilisateur);
+			try{
+				Serveur serveur = ConnexionManager.getStaticServeur();
+				serveur.diffuserMessage(message);
+			}
+			catch (RemoteException e){
+				e.printStackTrace();
+			}
+			saisie.setText("");
+		}
 	}
 }

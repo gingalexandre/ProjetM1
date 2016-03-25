@@ -3,18 +3,36 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.application.MainApplicationController">
-   <children>
-      <VBox fx:id="plateau" prefHeight="900.0" prefWidth="931.0">
-      	<children>
-      		<fx:include source="plateau.fxml" />
-      	</children>
-      </VBox>
-      
-      <VBox fx:id="chat" layoutX="1000.0" prefHeight="430.0" prefWidth="550.0">
-      	<children>
-      		<fx:include source="chat.fxml" />
-      	</children>
-      </VBox>
-   </children>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+	minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0"
+	xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="client.controller.application.MainController">
+	<children>
+		<VBox fx:id="plateau" prefHeight="900.0" prefWidth="931.0">
+			<children>
+				<fx:include source="Plateau.fxml" />
+			</children>
+		</VBox>
+
+		<VBox fx:id="chat" layoutX="1000.0" prefHeight="430.0" prefWidth="550.0">
+			<children>
+				<fx:include source="Chat.fxml" />
+			</children>
+		</VBox>
+
+		<VBox fx:id="des" layoutX="970.0" layoutY="120.0" prefHeight="40.0"
+			prefWidth="50.0">
+			<children>
+				<fx:include source="Des.fxml" />
+			</children>
+		</VBox>
+		<VBox fx:id="joueurActuel" layoutX="5.0" layoutY="5.0"
+			prefHeight="40.0" prefWidth="50.0">
+			<children>
+				<fx:include source="JoueurActuel.fxml" />
+			</children>
+		</VBox>
+	</children>
+
 </Pane>

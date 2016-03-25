@@ -9,6 +9,8 @@ public class ServeurMain {
 
 	public static void main(String[] args) throws RemoteException, MalformedURLException {
 		LocateRegistry.createRegistry(42000);
-		Naming.rebind("rmi://0.0.0.0:42000/serveur", new ServeurImpl());
+		System.setProperty("java.rmi.server.hostname", "127.0.0.1");
+		Naming.rebind("rmi://127.0.0.1:42000/serveur", new ServeurImpl());
+		System.out.println("Serveur lancé correctement");
 	}
 }

@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
@@ -29,6 +30,9 @@ public class AccueilController implements Initializable {
 	@FXML
 	private Button inscription, connexion;
 	
+	@FXML
+	private Label utilisateurErreur;
+	
 	private Pane page = null;
 	private FXMLLoader inscriptionChargement, gameChargement;
 	public static Stage inscriptionFenetre, gameFenetre;
@@ -39,6 +43,9 @@ public class AccueilController implements Initializable {
 
 	}
 	
+	/**
+	 * Méthode vérifiant la connexion. Si elle fonctionne, alors la méthode lance le jeu
+	 */
 	@FXML
 	public void connexion() {
 		Utilisateur user = new Utilisateur(utilisateur.getText(), mdp.getText());
@@ -56,8 +63,14 @@ public class AccueilController implements Initializable {
 			lancerJeu();
 			
 		}
+		else{
+			utilisateurErreur.setText("Erreur, utilisateur inconnu, inscrivez-vous.");
+		}
 	}
 	
+	/**
+	 * Méthode permettant de lancer le jeu une fois connecté
+	 */
 	public void lancerJeu(){
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Game.fxml"));
 		try {
@@ -75,6 +88,9 @@ public class AccueilController implements Initializable {
 		}
 	}
 	
+	/**
+	 * Méthode permettant d'afficher la fenêtre d'inscription
+	 */
 	@FXML
 	public void inscription() {
 		inscriptionChargement = new FXMLLoader(getClass().getResource("/fxml/Inscription.fxml"));

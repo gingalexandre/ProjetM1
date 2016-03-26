@@ -14,7 +14,7 @@ public class JoueurActuelController implements Initializable {
 	private ImageView imageBle, imageArgile, imageCaillou, imageLaine, imageBois;
 	
 	@FXML
-	private Label nbBle, nbArgile, nbCaillou, nbLaine, nbBois;
+	private Label nbBle, nbArgile, nbCaillou, nbLaine, nbBois, nomJoueur;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -23,6 +23,7 @@ public class JoueurActuelController implements Initializable {
 		nbCaillou.setText("0");
 		nbLaine.setText("0");
 		nbBois.setText("0");
+		nomJoueur.setText(AccueilController.nomJoueur);
 		
 	}
 

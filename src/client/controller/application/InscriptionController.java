@@ -34,6 +34,10 @@ public class InscriptionController implements Initializable {
 
 	}
 
+	/**
+	 * Méthode permettant de valider une inscription, si c'est bon elle ferme la fenêtre inscription
+	 * @throws InterruptedException
+	 */
 	@FXML
 	public void validationInscription() throws InterruptedException {
 		if (mdp.getText().equals(mdpVerif.getText()) && mdp.getText().length() < MAXSIZE

@@ -10,13 +10,23 @@ public class Utilisateur {
 	private String nomUtilisateur;
 
 	private String mdp;
-
+/**
+ * Constructeur
+ * @param nomUtilisateur : String : pseudo de l'utilisateur
+ * @param mdp : String : mot de passe de l'utilisateur
+ */
 	public Utilisateur(String nomUtilisateur, String mdp) {
 		super();
 		this.nomUtilisateur = nomUtilisateur;
 		this.mdp = mdp;
 	}
 
+	/**
+	 * Méthode permettant la vérification de la connexion
+	 * 
+	 * @return
+	 * @throws InterruptedException
+	 */
 	public boolean verificationConnexion() throws InterruptedException {
 
 		try {
@@ -26,11 +36,11 @@ public class Utilisateur {
 			prestmt = connection.prepareStatement(query);
 			prestmt.setString(1, nomUtilisateur);
 			prestmt.setString(2, mdp);
-			ResultSet rs = prestmt.executeQuery();			
+			ResultSet rs = prestmt.executeQuery();
 			connection.close();
 			// On test si la taille est égale à 1, si c'est le cas c'est qu'on a
 			// bien l'utilisateur d'inscrit
-			
+
 			if (rs.next()) {
 				return true;
 			} else {
@@ -44,22 +54,22 @@ public class Utilisateur {
 
 		return false;
 	}
-	
-	
-	public int inscription() throws InterruptedException{
-		Connection connection = Base.connexion();
-		PreparedStatement prestmt = null;
-		String query = "SELECT * FROM Joueur WHERE pseudo=?;";
-		
-		try {
-			prestmt = connection.prepareStatement(query);
-			prestmt.setString(1, nomUtilisateur);
-			ResultSet rs = prestmt.executeQuery();
-			if(rs.next()){
-				return 1;
-			}
-			else{
-				query = "INSERT INTO Joueur(idJoueur, pseudo, mdp, nombrePartieGagnee, nombrePartieJouee) VALUES (NULL,?,?,0,0)";
+
+	/**
+	 * Méthode permettant l'inscription d'un utilisateur
+	 * 
+	 * @return int : 1 = nom déjà existant ; 0 = problème avec la Base ; 2 =
+	 *         inscription Ok
+	 * @throws InterruptedException
+	 */
+	public int inscription() throws InterruptedException {
+		if (this.verificationConnexion()) {
+			return 1;
+		} else {
+			Connection connection = Base.connexion();
+			String query = "INSERT INTO Joueur(idJoueur, pseudo, mdp, nombrePartieGagnee, nombrePartieJouee) VALUES (NULL,?,?,0,0)";
+			PreparedStatement prestmt;
+			try {
 				prestmt = connection.prepareStatement(query);
 				prestmt.setString(1, nomUtilisateur);
 				prestmt.setString(2, mdp);
@@ -67,14 +77,15 @@ public class Utilisateur {
 				connection.commit();
 				connection.close();
 				return 2;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		}
-		
-		return 0;
-		
-	}
+	
+	return 0;
+
+}
 
 }

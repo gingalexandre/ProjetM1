@@ -34,7 +34,7 @@
       </GridPane>
 	          <fx:include source="Plateau.fxml" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 			  <fx:include source="Chat.fxml" GridPane.columnIndex="0" GridPane.rowIndex="1" />			  
-			  <fx:include source="JoueurActuel.fxml" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+			  <fx:include fx:id="joueurActuel" source="JoueurActuel.fxml" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
 		</children>
       </GridPane>
    </children>

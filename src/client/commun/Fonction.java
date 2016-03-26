@@ -1,5 +1,7 @@
 package client.commun;
 
+import javafx.scene.paint.Color;
+
 public class Fonction {
 
 	public static int getIndexMinValue(Double[] tab){
@@ -22,5 +24,25 @@ public class Fonction {
 			}
 		}
 		return res;
+	}
+	
+	/**
+	 * Obtient la couleur FXML adéquate en fonction d'une chaine de caractère
+	 * @param couleur
+	 * @return la couleur FXML correspondante
+	 */
+	public static Color getCouleurFromString(String couleur){
+		switch(couleur){
+			case "rouge":
+				return Color.RED;
+			case "bleu":
+				return Color.BLUE;
+			case "vert":
+				return Color.GREEN;
+			case "orange":
+				return Color.ORANGE;
+			default: 
+				return Color.BLACK;
+		}
 	}
 }

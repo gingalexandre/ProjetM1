@@ -4,6 +4,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
+import client.commun.Fonction;
 import client.controller.rmi.JoueurServeur;
 import client.modele.Message;
 import javafx.application.Platform;
@@ -18,7 +19,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import serveur.ConnexionManager;
 import serveur.Serveur;
-import service.StringCouleur;
 
 /**
  * Controller du chat
@@ -105,7 +105,7 @@ public class ChatController implements Initializable{
 	public Text creerStyleTexteAuteur(Message message){
 		Text auteur = new Text(message.getAuteur() + " : ");
 		auteur.setFont(Font.font("Verdana, FontWeight.BOLD, 20"));
-		auteur.setFill(StringCouleur.couleur(message.getCouleur()).getCouleur());
+		auteur.setFill(Fonction.getCouleurFromString(message.getCouleur()));
 		return auteur;
 	}
 	

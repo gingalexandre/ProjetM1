@@ -12,16 +12,26 @@ import javafx.stage.Stage;
  */
 public class VuePrincipale extends Application{
 	
+	
+	public static Scene scene;
+	public static Stage stagePrincipal;
+
+	
 	@Override
 	public void start(Stage stage) throws Exception {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Game.fxml"));
-		Parent root = loader.load();
+		FXMLLoader preloader = new FXMLLoader(getClass().getResource("/fxml/Accueil.fxml"));
 		
-        Scene scene = new Scene(root,0,0);
+		
+		Parent root = preloader.load();
+
+		
+        scene = new Scene(root,0,0);
     
+        
         stage.setTitle("Les Colons de Catanes");
-        stage.setScene(scene);
+        stage.setScene(scene);   
         stage.setMaximized(true);
+        stagePrincipal = stage;
         stage.show();	
 	}
 }

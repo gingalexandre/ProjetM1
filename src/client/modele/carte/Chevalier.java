@@ -1,31 +1,40 @@
 package client.modele.carte;
 
-import client.modele.Hexagone;
-
 /**
  * Carte chevalier du jeu : ces cartes permettent de déplacer le voleur d'une case à l'autre.
  *
  * @author Yohann Hugo
  */
-public class Chevalier extends Carte{
+public class Chevalier implements Carte{
+
+    /**
+     * Attribut chemin vers la ressources image.
+     */
+    private static String CHEMIN = "/Ressources/cartes/carte_chevalier.png";
 
     /**
      * Constructeur
      */
     public Chevalier(){
-        super(14);
     }
 
     /**
      * Action provoquer lorsqu'un joueur utilise la carte de type de chevalier.
-     *
-     * @param params Todo
      */
-
-    public void doAction(Object... params) {
-        // TODO: 21/03/2016 Quand voleur implémenter.
-
-        //Voleur.hexagone = position_voleur;
+    @Override
+    public void doAction() {
+        /*
+        TODO nécessite la séléction d'hexagone.
+         */
     }
 
+    /**
+     * Méthode de l'interface Carte qui permet de récupérer le chemin de la ressources image d'une carte.
+     *
+     * @return chemin de la ressource de l'image.
+     */
+    @Override
+    public String getCheminImage() {
+        return CHEMIN;
+    }
 }

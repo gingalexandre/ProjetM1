@@ -7,25 +7,39 @@ import client.modele.Joueur;
  *
  * @author Yohann Hugo
  */
-public class Invention extends Carte {
+public class Invention implements Carte {
+
+
+    /**
+     * Attribut chemin vers la ressources image.
+     */
+    private static String CHEMIN = "/Ressources/cartes/carte_progres_invention.png";
+
 
     /**
      * Constructeur
      */
     public Invention(){
-        super(2);
     }
 
     /**
      * Action provoquer lorsqu'un joueur utilise la carte de type de progrès ressource.
-     *
-     * @param currentPlayer Joueur déclanchant l'action.
-     * @param ressourceChoisie c'est la ressource que l'on souhaite augmenter.
      */
-    public void doAction(Joueur currentPlayer, Integer ressourceChoisie) {
-        currentPlayer.getStockRessource().put(ressourceChoisie, currentPlayer.getStockRessource().get(ressourceChoisie)+2);
+    @Override
+    public void doAction() {
+        /*
+         currentPlayer.getStockRessource().put(ressourceChoisie, currentPlayer.getStockRessource().get(ressourceChoisie)+2);
+         */
     }
 
-
+    /**
+     * Méthode de l'interface Carte qui permet de récupérer le chemin de la ressources image d'une carte.
+     *
+     * @return chemin de la ressource de l'image.
+     */
+    @Override
+    public String getCheminImage() {
+        return CHEMIN;
+    }
 
 }

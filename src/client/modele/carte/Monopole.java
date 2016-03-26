@@ -7,23 +7,36 @@ import client.modele.Joueur;
  *
  * @author Yohann Hugo
  */
-public class Monopole extends Carte{
+public class Monopole implements Carte{
+
+    /**
+     * Attribut chemin vers la ressources image.
+     */
+    private static String CHEMIN = "/Ressources/cartes/carte_progres_monopole.png";
 
     /**
      * Constructeur
      */
     public Monopole(){
-        super(2);
     }
 
     /**
      * Action provoquer lorsqu'un joueur utilise la carte de type de Monopole.
-     *
-     * @param currentPlayer Joueur déclanchant l'action.
-     * @param ressourceChoisie C'est la ressource que l'on souhaite augmenter.
-     * @param quantite C'est la quantite que l'on possède.
      */
-    public void doAction(Joueur currentPlayer, Integer ressourceChoisie, Integer quantite) {
-        currentPlayer.getStockRessource().put(ressourceChoisie, currentPlayer.getStockRessource().get(ressourceChoisie)+quantite);
+    @Override
+    public void doAction() {
+        /*
+         currentPlayer.getStockRessource().put(ressourceChoisie, currentPlayer.getStockRessource().get(ressourceChoisie)+quantite);
+         */
+    }
+
+    /**
+     * Méthode de l'interface Carte qui permet de récupérer le chemin de la ressources image d'une carte.
+     *
+     * @return chemin de la ressource de l'image.
+     */
+    @Override
+    public String getCheminImage() {
+        return CHEMIN;
     }
 }

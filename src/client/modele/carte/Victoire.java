@@ -7,22 +7,36 @@ import client.modele.Joueur;
  *
  * @author Yohann Hugo
  */
-public class Victoire extends Carte{
+public class Victoire implements Carte{
+
+    /**
+     * Attribut chemin vers la ressources image.
+     */
+    private static String CHEMIN = "/Ressources/cartes/armee_puissante.png";
 
     /**
      * Constructeur
      */
     public Victoire(){
-        super(5);
     }
 
     /**
      * Action provoquer lorsqu'un joueur utilise la carte de type de progrès victoire.
-     *
-     * @param currentPlayer Joueur déclanchant l'action.
      */
-
-    public void doAction(Joueur currentPlayer ) {
+    @Override
+    public void doAction() {
+        /*
         currentPlayer.setPointVictoire(currentPlayer.getPointVictoire()+2);
+         */
+    }
+
+    /**
+     * Méthode de l'interface Carte qui permet de récupérer le chemin de la ressources image d'une carte.
+     *
+     * @return chemin de la ressource de l'image.
+     */
+    @Override
+    public String getCheminImage() {
+        return CHEMIN;
     }
 }

@@ -6,13 +6,17 @@ import client.modele.Joueur;
  * Classe représente la Carte de l'armee la plus puissante.
  * @author Yohann Hugo
  */
-public class ArmeePuissante{
+public class ArmeePuissante implements Carte {
 
     /**
      * Attribut : condition minimal requise.
      */
     private static int NB_CHEVALIER_MINIMAL = 3;
 
+    /**
+     * Attribut chemin vers la ressources image.
+     */
+    private static String CHEMIN = "/Ressources/cartes/armee_puissante.png";
 
     /**
      * Constructeur
@@ -22,13 +26,21 @@ public class ArmeePuissante{
 
     /**
      * Action provoquer lorsqu'un joueur reçoit la carte d'armée la plus puissant.
-     *
-     * @param currentPlayer Joueur déclanchant l'action.
-     * @param Player Joueur qui perds la carte. Peut être null si aucun joueur ne la possède auparavant.
      */
-
-    public void doAction(Joueur currentPlayer, Joueur Player) {
+    @Override
+    public void doAction(){
+    /*
         currentPlayer.setPointVictoire(currentPlayer.getPointVictoire()+2);
-        if(Player!=null) Player.setPointVictoire(Player.getPointVictoire()-2);
+        f(Player!=null) Player.setPointVictoire(Player.getPointVictoire()-2);*/
+    }
+
+    /**
+     * Méthode de l'interface Carte qui permet de récupérer le chemin de la ressources image d'une carte.
+     *
+     * @return chemin de la ressource de l'image.
+     */
+    @Override
+    public String getCheminImage() {
+        return CHEMIN;
     }
 }

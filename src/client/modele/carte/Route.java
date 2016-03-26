@@ -7,21 +7,36 @@ import client.modele.Joueur;
  *
  * @author Yohann Hugo
  */
-public class Route extends Carte{
+public class Route implements Carte{
+
+    /**
+     * Attribut chemin vers la ressources image.
+     */
+    private static String CHEMIN = "/Ressources/cartes/carte_progres_route.png";
 
     /**
      * Constructeur
      */
     public Route(){
-        super(2);
     }
 
     /**
      * Action provoquer lorsqu'un joueur utilise la carte de type de progrès construction.
-     *
-     * @param currentPlayer Joueur déclanchant l'action.
      */
-    public void doAction(Joueur currentPlayer) {
+    @Override
+    public void doAction() {
+        /*
         currentPlayer.setNbRoute(currentPlayer.getNbRoute()+2);
+         */
+    }
+
+    /**
+     * Méthode de l'interface Carte qui permet de récupérer le chemin de la ressources image d'une carte.
+     *
+     * @return chemin de la ressource de l'image.
+     */
+    @Override
+    public String getCheminImage() {
+        return CHEMIN;
     }
 }

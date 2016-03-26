@@ -6,6 +6,7 @@
 package client.modele;
 
 import client.modele.carte.Carte;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 

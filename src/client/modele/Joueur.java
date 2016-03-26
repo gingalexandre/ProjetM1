@@ -5,6 +5,8 @@
  */
 package client.modele;
 
+import client.modele.carte.Carte;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,12 +20,12 @@ public class Joueur {
     private static int compteurDeJoueur = 0;
     private String nom;
     private int pointVictoire;
-    
+
     private int nbColonie = 5;
     private int nbVille = 4;
     private int nbRoute = 15;
 
-	private HashMap<Integer, Integer> stockRessource = new HashMap<>();
+    private HashMap<Integer, Integer> stockRessource = new HashMap<>();
     private ArrayList<Carte> cartes = new ArrayList<Carte>();
     
     private String couleur;
@@ -43,7 +45,12 @@ public class Joueur {
     public HashMap<Integer, Integer> getStockRessource(){
     	return this.stockRessource;
     }
-    
+
+    public void setStockRessource(HashMap<Integer, Integer> stockRessource) {
+        this.stockRessource = stockRessource;
+    }
+
+
     public int getId(){
     	return this.id;
     }
@@ -139,5 +146,12 @@ public class Joueur {
 	public void addCartes(Carte carte) {
 		this.cartes.add(carte);
 	}
-    
+
+    public int getNbRoute() {
+        return nbRoute;
+    }
+
+    public void setNbRoute(int nbRoute) {
+        this.nbRoute = nbRoute;
+    }
 }

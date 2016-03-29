@@ -48,12 +48,13 @@ public class InscriptionController implements Initializable {
 			switch (erreur) {
 			case 0:
 				utilisateurErreur.setText("Erreur d'accès à la base de données. Veuillez recommencer plus tard.");
-
+				break;
 			case 1:
 				utilisateurErreur.setText("Nom d'utilisateur déjà existant, veuillez recommencer.");
+				break;
 			case 2 :
 				AccueilController.inscriptionFenetre.close();
-				
+				break;
 			default:
 				utilisateurErreur.setText("Erreur d'accès à la base de données. Veuillez recommencer plus tard.");
 			}

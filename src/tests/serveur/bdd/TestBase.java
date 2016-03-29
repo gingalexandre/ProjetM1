@@ -1,6 +1,6 @@
 package tests.serveur.bdd;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -30,6 +30,7 @@ public class TestBase {
     public void connexionTest() throws InterruptedException{
         assertNotNull(Base.connexion());
     }
+   
 
 
 }

@@ -22,13 +22,12 @@ public class Utilisateur {
 	}
 
 	/**
-	 * MÃ©thode permettant la vÃ©rification de la connexion
+	 * Méthode permettant la vérification de la connexion
 	 * 
 	 * @return boolean : Vrai si la connexion est effective, faux sinon
 	 * @throws InterruptedException
 	 */
 	public boolean verificationConnexion() throws InterruptedException {
-
 		try {
 			Connection connection = Base.connexion();
 			PreparedStatement prestmt = null;
@@ -62,9 +61,9 @@ public class Utilisateur {
 	 *         inscription Ok
 	 * @throws InterruptedException
 	 */
-	public int inscription() throws InterruptedException {
+	public boolean inscription() throws InterruptedException {
 		if (this.verificationConnexion()) {
-			return 1;
+			return true;
 		} else {
 			Connection connection = Base.connexion();
 			String query = "INSERT INTO Joueur(idJoueur, pseudo, mdp, nombrePartieGagnee, nombrePartieJouee) VALUES (NULL,?,?,0,0)";
@@ -76,16 +75,13 @@ public class Utilisateur {
 				prestmt.executeUpdate();
 				connection.commit();
 				connection.close();
-				return 2;
+				return false;
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 		}
-	
-	return 0;
-
-}
+		return true;
+	}
 
 }

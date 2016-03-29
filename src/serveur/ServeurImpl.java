@@ -98,7 +98,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 * @throws InterruptedException 
 	 */
 	@Override
-	public int inscriptionBDD(String nomUtilisateur, String motDePasse) throws InterruptedException, RemoteException{
+	public boolean inscriptionBDD(String nomUtilisateur, String motDePasse) throws InterruptedException, RemoteException{
 		Utilisateur utilisateur = new Utilisateur(nomUtilisateur, motDePasse);
 		return utilisateur.inscription();
 	}

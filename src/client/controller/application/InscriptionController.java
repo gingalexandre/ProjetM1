@@ -46,16 +46,12 @@ public class InscriptionController implements Initializable {
 				&& mdp.getText().length() > MINSIZE && nomUtilisateur.getText().length() < MAXSIZE
 				&& nomUtilisateur.getText().length() > MINSIZE) {
 			Serveur serveur = ConnexionManager.getStaticServeur();
-			int erreur = serveur.inscriptionBDD(nomUtilisateur.getText(), mdp.getText());
-			switch (erreur) {
-			case 0:
+			boolean erreur = serveur.inscriptionBDD(nomUtilisateur.getText(), mdp.getText());
+			if(erreur){
 				utilisateurErreur.setText("Erreur d'accès à la base de données. Veuillez recommencer plus tard.");
-				break;
-			case 1:
-				utilisateurErreur.setText("Nom d'utilisateur dÃ©jÃ  existant, veuillez recommencer.");
-				break;
-			default:
-				utilisateurErreur.setText("Erreur d'accès à la base de données. Veuillez recommencer plus tard.");
+			}
+			else{
+				utilisateurErreur.setText("Inscription réussie");
 			}
 		} else {
 			mdpErreur.setText("Mot de passe non identique ou pas assez long ou trop court. Vérifiez également la taille du nom d'utilisateur.");

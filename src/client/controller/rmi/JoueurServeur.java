@@ -27,6 +27,11 @@ public class JoueurServeur extends UnicastRemoteObject implements service.Joueur
 	 */
 	private PlateauController plateauController;
 	
+	/**
+	 * Nom de l'utilisateur dans la base de données
+	 */
+	private String nomUtilisateur;
+	
 	public JoueurServeur() throws RemoteException{
 		
 	}
@@ -80,5 +85,21 @@ public class JoueurServeur extends UnicastRemoteObject implements service.Joueur
 	@Override
 	public void setCouleur(String couleur) throws RemoteException{
 		this.couleur = couleur;
+	}
+	
+	/**
+	 * Permet d'obtenir le nom de l'utilisateur
+	 * @return le nom de l'utilisateur
+	 */
+	public String getNomUtilisateur(){
+		return this.nomUtilisateur;
+	}
+	
+	/**
+	 * Permet de donner le nom de login de l'utilisateur
+	 * @param nom - nom de l'utilisateur
+	 */
+	public void setNomUtilisateur(String nomUtilisateur){
+		this.nomUtilisateur = nomUtilisateur;
 	}
 }

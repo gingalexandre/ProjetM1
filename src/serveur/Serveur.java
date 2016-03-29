@@ -42,7 +42,7 @@ public interface Serveur extends Remote{
 	 * @param utilisateur - utilisateur à inscrire
 	 * @return true si inscription réussie, false sinon
 	 */
-	int inscriptionBDD(String nomUtilisateur, String motDePasse) throws InterruptedException, RemoteException;
+	boolean inscriptionBDD(String nomUtilisateur, String motDePasse) throws InterruptedException, RemoteException;
 	
 	/**
 	 * Vérifie que l'utilisateur est dans la base de données

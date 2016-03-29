@@ -5,6 +5,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
+import client.controller.rmi.JoueurServeur;
 import client.view.VuePrincipale;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -61,6 +62,8 @@ public class ConnexionController implements Initializable {
 		}
 		if(connexionOk){
 			nomJoueur = nomUtilisateur.getText(); 
+			JoueurServeur joueur = ConnexionManager.getStaticProxy();
+			joueur.setNomUtilisateur(nomJoueur);
 			lancerJeu();
 		}
 		else{

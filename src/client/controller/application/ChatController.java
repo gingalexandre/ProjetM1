@@ -127,7 +127,7 @@ public class ChatController implements Initializable{
 	public void onEnter(){
 		String messageUtilisateur = saisie.getText();
 		if(!messageUtilisateur.equals("")){
-			Message message = new Message("Pierre", messageUtilisateur, joueur.getCouleur());
+			Message message = new Message(joueur.getNomUtilisateur(), messageUtilisateur, joueur.getCouleur());
 			try{
 				Serveur serveur = ConnexionManager.getStaticServeur();
 				serveur.diffuserMessage(message);

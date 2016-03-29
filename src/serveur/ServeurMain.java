@@ -11,6 +11,6 @@ public class ServeurMain {
 		LocateRegistry.createRegistry(42000);
 		System.setProperty("java.rmi.server.hostname", "127.0.0.1");
 		Naming.rebind("rmi://127.0.0.1:42000/serveur", new ServeurImpl());
-		System.out.println("Serveur lancé correctement");
+		System.out.println("Serveur lancï¿½ correctement");
 	}
 }

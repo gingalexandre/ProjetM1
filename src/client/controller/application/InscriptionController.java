@@ -9,11 +9,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import serveur.ConnexionManager;
 import serveur.Serveur;
-import serveur.bdd.Utilisateur;
 
 public class InscriptionController implements Initializable {
 
@@ -52,12 +50,10 @@ public class InscriptionController implements Initializable {
 			switch (erreur) {
 			case 0:
 				utilisateurErreur.setText("Erreur d'accès à la base de données. Veuillez recommencer plus tard.");
-
+				break;
 			case 1:
-				utilisateurErreur.setText("Nom d'utilisateur déjà  existant, veuillez recommencer.");
-			case 2 :
-				ConnexionController.inscriptionFenetre.close();
-				
+				utilisateurErreur.setText("Nom d'utilisateur dÃ©jÃ  existant, veuillez recommencer.");
+				break;
 			default:
 				utilisateurErreur.setText("Erreur d'accès à la base de données. Veuillez recommencer plus tard.");
 			}

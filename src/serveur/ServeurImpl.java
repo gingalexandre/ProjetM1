@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import client.modele.Message;
 import client.modele.Plateau;
 import exception.TooMuchPlayerException;
+import serveur.bdd.Utilisateur;
 import service.JoueurServeur;
 
 /**
@@ -88,5 +89,29 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	@Override
 	public void envoyerPlateau(JoueurServeur proxy) throws RemoteException {
 		proxy.envoyerPlateau(this.plateau);
+	}
+	
+	/**
+	 * Inscription l'utilisateur dans la base de données
+	 * @param utilisateur - utilisateur à inscrire
+	 * @return true si inscription réussie, false sinon
+	 * @throws InterruptedException 
+	 */
+	@Override
+	public int inscriptionBDD(String nomUtilisateur, String motDePasse) throws InterruptedException, RemoteException{
+		Utilisateur utilisateur = new Utilisateur(nomUtilisateur, motDePasse);
+		return utilisateur.inscription();
+	}
+	
+	/**
+	 * Vérifie que l'utilisateur est dans la base de données
+	 * @param nomUtilisateur - nom de l'utilisateur
+	 * @param motDePasse - mot de passe de l'utilisateur
+	 *  @return true si connexion possible, false sinon
+	 */
+	@Override
+	public boolean verificationConnexion(String nomUtilisateur, String motDePasse) throws InterruptedException, RemoteException{
+		Utilisateur utilisateur = new Utilisateur(nomUtilisateur, motDePasse);
+		return utilisateur.verificationConnexion();
 	}
 }

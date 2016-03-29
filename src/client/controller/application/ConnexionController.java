@@ -2,6 +2,7 @@ package client.controller.application;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 import client.view.VuePrincipale;
@@ -12,29 +13,30 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import serveur.bdd.Utilisateur;
+import serveur.ConnexionManager;
+import serveur.Serveur;
 
-public class AccueilController implements Initializable {
+public class ConnexionController implements Initializable {
 
 	@FXML
-	private TextArea utilisateur;
+	private TextField nomUtilisateur;
 	
 	@FXML
 	private PasswordField mdp;
 	
 	@FXML
-	private Button inscription, connexion;
+	private Button connexion;
 	
 	@FXML
 	private Label utilisateurErreur;
 	
 	private Pane page = null;
-	private FXMLLoader inscriptionChargement, gameChargement;
+	private FXMLLoader inscriptionChargement;
 	public static Stage inscriptionFenetre, gameFenetre;
 	
 	public static String nomJoueur;
@@ -44,24 +46,22 @@ public class AccueilController implements Initializable {
 	}
 	
 	/**
-	 * MÃ©thode vÃ©rifiant la connexion. Si elle fonctionne, alors la mÃ©thode lance le jeu
+	 * Méthode vérifiant la connexion. Si elle fonctionne, alors la méthode lance le jeu
+	 * @throws RemoteException 
 	 */
 	@FXML
-	public void connexion() {
-		Utilisateur user = new Utilisateur(utilisateur.getText(), mdp.getText());
+	public void connexion() throws RemoteException {
 		boolean connexionOk = false;
+		Serveur serveur = null;
 		try {
-			connexionOk = user.verificationConnexion();
+			serveur = ConnexionManager.getStaticServeur();
+			connexionOk = serveur.verificationConnexion(nomUtilisateur.getText(), mdp.getText());
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		System.out.println(connexionOk);
 		if(connexionOk){
-			
-			nomJoueur = utilisateur.getText(); 
-			
+			nomJoueur = nomUtilisateur.getText(); 
 			lancerJeu();
-			
 		}
 		else{
 			utilisateurErreur.setText("Erreur, utilisateur inconnu, inscrivez-vous.");
@@ -69,7 +69,7 @@ public class AccueilController implements Initializable {
 	}
 	
 	/**
-	 * MÃ©thode permettant de lancer le jeu une fois connectÃ©
+	 * Méthode permettant de lancer le jeu une fois connecté
 	 */
 	public void lancerJeu(){
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Game.fxml"));
@@ -89,7 +89,7 @@ public class AccueilController implements Initializable {
 	}
 	
 	/**
-	 * MÃ©thode permettant d'afficher la fenÃªtre d'inscription
+	 * Méthode permettant d'afficher la fenêtre d'inscription
 	 */
 	@FXML
 	public void inscription() {
@@ -106,12 +106,6 @@ public class AccueilController implements Initializable {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		
-		
-		
+		}	
 	}
-
-
 }

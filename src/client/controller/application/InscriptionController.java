@@ -1,15 +1,18 @@
 package client.controller.application;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
-import client.view.VuePrincipale;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import serveur.ConnexionManager;
+import serveur.Serveur;
 import serveur.bdd.Utilisateur;
 
 public class InscriptionController implements Initializable {
@@ -18,7 +21,7 @@ public class InscriptionController implements Initializable {
 	private static final int MINSIZE = 2;
 
 	@FXML
-	private TextArea utilisateur;
+	private TextField nomUtilisateur;
 
 	@FXML
 	private PasswordField mdp, mdpVerif;
@@ -35,31 +38,31 @@ public class InscriptionController implements Initializable {
 	}
 
 	/**
-	 * MÃ©thode permettant de valider une inscription, si c'est bon elle ferme la fenÃªtre inscription
+	 * Méthode permettant de valider une inscription, si c'est bon elle ferme la fenêtre inscription
 	 * @throws InterruptedException
+	 * @throws RemoteException 
 	 */
 	@FXML
-	public void validationInscription() throws InterruptedException {
+	public void validationInscription() throws InterruptedException, RemoteException {
 		if (mdp.getText().equals(mdpVerif.getText()) && mdp.getText().length() < MAXSIZE
-				&& mdp.getText().length() > MINSIZE && utilisateur.getText().length() < MAXSIZE
-				&& utilisateur.getText().length() > MINSIZE) {
-			Utilisateur user = new Utilisateur(utilisateur.getText(), mdp.getText());
-			int erreur = user.inscription();
+				&& mdp.getText().length() > MINSIZE && nomUtilisateur.getText().length() < MAXSIZE
+				&& nomUtilisateur.getText().length() > MINSIZE) {
+			Serveur serveur = ConnexionManager.getStaticServeur();
+			int erreur = serveur.inscriptionBDD(nomUtilisateur.getText(), mdp.getText());
 			switch (erreur) {
 			case 0:
-				utilisateurErreur.setText("Erreur d'accÃ¨s Ã  la base de donnÃ©es. Veuillez recommencer plus tard.");
+				utilisateurErreur.setText("Erreur d'accès à la base de données. Veuillez recommencer plus tard.");
 
 			case 1:
-				utilisateurErreur.setText("Nom d'utilisateur dÃ©jÃ  existant, veuillez recommencer.");
+				utilisateurErreur.setText("Nom d'utilisateur déjà  existant, veuillez recommencer.");
 			case 2 :
-				AccueilController.inscriptionFenetre.close();
+				ConnexionController.inscriptionFenetre.close();
 				
 			default:
-				utilisateurErreur.setText("Erreur d'accÃ¨s Ã  la base de donnÃ©es. Veuillez recommencer plus tard.");
+				utilisateurErreur.setText("Erreur d'accès à la base de données. Veuillez recommencer plus tard.");
 			}
 		} else {
-			mdpErreur.setText("Mot de passe non identique ou pas assez long ou trop court. VÃ©rifiez Ã©galement la taille du nom d'utilisateur.");
+			mdpErreur.setText("Mot de passe non identique ou pas assez long ou trop court. Vérifiez également la taille du nom d'utilisateur.");
 		}
 	}
-
 }

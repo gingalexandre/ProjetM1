@@ -23,7 +23,7 @@ public class JoueurActuelController implements Initializable {
 		nbCaillou.setText("0");
 		nbLaine.setText("0");
 		nbBois.setText("0");
-		nomJoueur.setText(AccueilController.nomJoueur);
+		nomJoueur.setText(ConnexionController.nomJoueur);
 		
 	}
 

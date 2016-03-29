@@ -14,7 +14,7 @@ import org.junit.Test;
 import serveur.bdd.Base;
 import serveur.bdd.Utilisateur;
 
-public class testUtilisateurBDD {
+public class TestUtilisateurBDD {
 	
 	/**
 	 * Méthode permettant d'insérer un utilisateur pour tester la méthode d'inscription

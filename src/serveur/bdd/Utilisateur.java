@@ -24,7 +24,7 @@ public class Utilisateur {
 	/**
 	 * M√©thode permettant la v√©rification de la connexion
 	 * 
-	 * @return bool√©en : Vrai si la connexion est effective, faux sinon
+	 * @return boolean : Vrai si la connexion est effective, faux sinon
 	 * @throws InterruptedException
 	 */
 	public boolean verificationConnexion() throws InterruptedException {
@@ -38,7 +38,7 @@ public class Utilisateur {
 			prestmt.setString(2, mdp);
 			ResultSet rs = prestmt.executeQuery();
 			connection.close();
-			// On test si la taille est √©gale √† 1, si c'est le cas c'est qu'on a
+			// On test si la taille est Ègale ‡ 1, si c'est le cas c'est qu'on a
 			// bien l'utilisateur d'inscrit
 
 			if (rs.next()) {
@@ -58,7 +58,7 @@ public class Utilisateur {
 	/**
 	 * M√©thode permettant l'inscription d'un utilisateur
 	 * 
-	 * @return int : 1 = nom d√©j√† existant ; 0 = probl√®me avec la Base ; 2 =
+	 * @return int : 1 = nom dÈj‡† existant ; 0 = problËme avec la Base ; 2 =
 	 *         inscription Ok
 	 * @throws InterruptedException
 	 */

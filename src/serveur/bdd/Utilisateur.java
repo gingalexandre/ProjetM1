@@ -24,7 +24,7 @@ public class Utilisateur {
 	/**
 	 * Méthode permettant la vérification de la connexion
 	 * 
-	 * @return
+	 * @return booléen : Vrai si la connexion est effective, faux sinon
 	 * @throws InterruptedException
 	 */
 	public boolean verificationConnexion() throws InterruptedException {

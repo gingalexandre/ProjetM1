@@ -9,7 +9,7 @@
   <children>
     <GridPane style="-fx-background-color: #4e6c91" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <columnConstraints>
-        <ColumnConstraints percentWidth="20.0" />
+        <ColumnConstraints percentWidth="20.0"/>
         <ColumnConstraints percentWidth="60.0"/>
         <ColumnConstraints percentWidth="20.0"/>
       </columnConstraints>

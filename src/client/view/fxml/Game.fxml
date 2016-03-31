@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <GridPane style="-fx-background-color: #4e6c91" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <columnConstraints>
+        <ColumnConstraints percentWidth="20.0"/>
+        <ColumnConstraints percentWidth="60.0"/>
+        <ColumnConstraints percentWidth="20.0"/>
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints percentHeight="10.0" />
+        <RowConstraints percentHeight="80.0" />
+        <RowConstraints percentHeight="10.0" />
+      </rowConstraints>
+      <children>
+        <GridPane GridPane.columnIndex="2" GridPane.rowIndex="1" alignment="CENTER" >
+          <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" />
+            <ColumnConstraints hgrow="ALWAYS"/>
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints vgrow="ALWAYS" />
+          </rowConstraints>
+          <children>
+            <fx:include source="Construction.fxml" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <fx:include source="Menu.fxml" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+          </children>
+        </GridPane>
+        <fx:include source="Plateau.fxml" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <fx:include source="Chat.fxml" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <fx:include source="JoueurActuel.fxml" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+      </children>
+    </GridPane>
+  </children>
+</AnchorPane>
+

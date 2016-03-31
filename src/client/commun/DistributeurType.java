@@ -1,7 +1,7 @@
 package client.commun;
 import java.util.ArrayList;
 
-import client.modele.Hexagone;
+import serveur.modele.Hexagone;
 import javafx.scene.image.Image;
 
 public class DistributeurType {
@@ -38,6 +38,4 @@ public class DistributeurType {
 		territoiredispo.remove(i);
 		return res;
 	}
-	
-	
 }

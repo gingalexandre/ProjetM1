@@ -38,14 +38,12 @@ public class ChatController implements Initializable{
 	/**
 	 * Proxy client
 	 */
-	private Proxy joueur;
+	private Proxy proxy;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		enregistrerController();
 		listenerVues();
-		
-		joueur = ConnexionManager.getStaticProxy();
 	}
 	
 	/**
@@ -57,7 +55,7 @@ public class ChatController implements Initializable{
 	 * Indique au serveur le controller chat distant
 	 */
 	private void enregistrerController() {
-		Proxy proxy = ConnexionManager.getStaticProxy();
+		proxy = ConnexionManager.getStaticProxy();
 		// Indique au proxy que le ChatController du joueur est cette classe
 		proxy.setChatController(this);
 	}
@@ -128,7 +126,7 @@ public class ChatController implements Initializable{
 	public void onEnter(){
 		String messageUtilisateur = saisie.getText();
 		if(!messageUtilisateur.equals("")){
-			Message message = new Message(joueur.getNomUtilisateur(), messageUtilisateur, joueur.getCouleur());
+			Message message = new Message(proxy.getNomUtilisateur(), messageUtilisateur, proxy.getCouleur());
 			try{
 				// Récupération du serveur en passant par le singleton ConnexionManager
 				Serveur serveur = ConnexionManager.getStaticServeur();

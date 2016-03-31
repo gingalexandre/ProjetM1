@@ -5,6 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 import client.controller.ChatController;
 import client.controller.PlateauController;
+import serveur.modele.Joueur;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
 
@@ -26,7 +27,7 @@ public class Proxy extends UnicastRemoteObject implements serveur.reseau.JoueurS
 	 * Controller du plateau
 	 */
 	private PlateauController plateauController;
-	
+
 	/**
 	 * Nom de l'utilisateur dans la base de données
 	 */

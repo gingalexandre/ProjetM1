@@ -19,15 +19,12 @@ public class VuePrincipale extends Application{
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-		FXMLLoader preloader = new FXMLLoader(getClass().getResource("/fxml/Accueil.fxml"));
-		
+		FXMLLoader preloader = new FXMLLoader(getClass().getResource("fxml/Accueil.fxml"));
 		
 		Parent root = preloader.load();
-
 		
         scene = new Scene(root,0,0);
     
-        
         stage.setTitle("Les Colons de Catanes");
         stage.setScene(scene);   
         stage.setMaximized(true);

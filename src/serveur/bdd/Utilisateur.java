@@ -61,9 +61,9 @@ public class Utilisateur {
 	 *         inscription Ok
 	 * @throws InterruptedException
 	 */
-	public boolean inscription() throws InterruptedException {
+	public String inscription() throws InterruptedException {
 		if (this.verificationConnexion()) {
-			return true;
+			return "Nom d'utilisateur déjà existant, veuillez recommencer.";
 		} else {
 			Connection connection = Base.connexion();
 			String query = "INSERT INTO Joueur(idJoueur, pseudo, mdp, nombrePartieGagnee, nombrePartieJouee) VALUES (NULL,?,?,0,0)";
@@ -75,13 +75,13 @@ public class Utilisateur {
 				prestmt.executeUpdate();
 				connection.commit();
 				connection.close();
-				return false;
+
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			return "Inscription réussie";
 		}
-		return true;
 	}
 
 }

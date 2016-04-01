@@ -23,7 +23,7 @@ public class TestUtilisateurBDD {
 	@Before
 	public void creerUtilisateur() throws InterruptedException{
 		Utilisateur test = new Utilisateur("testtest", "azerty");
-		assertEquals(test.inscription(),2);
+		assertEquals(test.inscription(),"Inscription rï¿½ussie");
 	}
 	
 	@Test
@@ -33,7 +33,7 @@ public class TestUtilisateurBDD {
 	 */
 	public void inscriptionIdentiqueTest() throws InterruptedException{
 		Utilisateur test = new Utilisateur("testtest", "azerty");
-		assertEquals(test.inscription(),1);
+		assertEquals(test.inscription(),"Nom d'utilisateur dï¿½jï¿½ existant, veuillez recommencer.");
 	}
 
 	/**
@@ -44,10 +44,11 @@ public class TestUtilisateurBDD {
 	public void connexionUtilisateurTest() throws InterruptedException {
 		Utilisateur test = new Utilisateur("testtest", "azerty");
 		assertTrue(test.verificationConnexion());
+		
 	}
 	
 	/**
-	 * Méthode permettant de supprimer un utilisateur
+	 * Mï¿½thode permettant de supprimer un utilisateur
 	 * @throws InterruptedException
 	 * @throws SQLException
 	 */

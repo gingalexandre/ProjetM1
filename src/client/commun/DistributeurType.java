@@ -38,4 +38,10 @@ public class DistributeurType {
 		territoiredispo.remove(i);
 		return res;
 	}
+
+	public ArrayList<Integer> getTerritoiredispo() {
+		return territoiredispo;
+	}
+	
+	
 }

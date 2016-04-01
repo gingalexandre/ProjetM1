@@ -2,6 +2,7 @@ package serveur.reseau;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.sql.Date;
 
 import serveur.modele.Message;
 import serveur.modele.Plateau;
@@ -13,14 +14,16 @@ import serveur.modele.Plateau;
 public interface JoueurServeur extends Remote{
 	
 	/**
-	 * Reçoit le message transmit par le serveur et l'envoie au joueur et l'envoie au controller du chat
+	 * Reï¿½oit le message transmit par le serveur et l'envoie au joueur et l'envoie au controller du chat
 	 * @param message
 	 * @throws RemoteException
 	 */
 	void recevoirMessage(Message message) throws RemoteException;
 	
+	Date getDateNaissance(String nom) throws RemoteException;
+	
 	/**
-	 * Reçoit le plateau envoyé par le serveur et l'envoie au controller du plateau
+	 * Reï¿½oit le plateau envoyï¿½ par le serveur et l'envoie au controller du plateau
 	 * @param plateau
 	 * @throws RemoteException
 	 */

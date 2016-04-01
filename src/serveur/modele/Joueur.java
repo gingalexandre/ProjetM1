@@ -15,87 +15,87 @@ import java.util.HashMap;
  * @author Arthur
  */
 public class Joueur {
-    
-    private int id;
-    private static int compteurDeJoueur = 0;
-    private String nom;
-    private int pointVictoire;
 
-    private int nbColonie = 5;
-    private int nbVille = 4;
-    private int nbRoute = 15;
+	private int id;
+	private static int compteurDeJoueur = 0;
+	private String nom;
+	private int pointVictoire;
 
-    private HashMap<Integer, Integer> stockRessource = new HashMap<>();
-    private ArrayList<Carte> cartes = new ArrayList<Carte>();
-    
-    private String couleur;
-    
-    public Joueur(String n){
-    	compteurDeJoueur++;
-        this.id = compteurDeJoueur;
-        this.setNom(n);
-        this.setPointVictoire(0);
-        this.stockRessource.put(Ressource.BOIS, 0);
-        this.stockRessource.put(Ressource.BLE, 0);
-        this.stockRessource.put(Ressource.ARGILE, 0);
-        this.stockRessource.put(Ressource.MINERAIE, 0);
-        this.stockRessource.put(Ressource.LAINE, 0);
-    }
-    
-    public HashMap<Integer, Integer> getStockRessource(){
-    	return this.stockRessource;
-    }
+	private int nbColonie = 5;
+	private int nbVille = 4;
+	private int nbRoute = 15;
 
-    public void setStockRessource(HashMap<Integer, Integer> stockRessource) {
-        this.stockRessource = stockRessource;
-    }
+	private HashMap<Integer, Integer> stockRessource = new HashMap<>();
+	private ArrayList<Carte> cartes = new ArrayList<Carte>();
 
+	private String couleur;
 
-    public int getId(){
-    	return this.id;
-    }
-    
-    public void construireRoute(){
-        
-    }
-    
-    public void construireColonie(){
-        
-    }
-    
-    public void construireVille(){
-        
-    }
-    
-    public void ajoutRessource(int typeRessource, int value){
-        this.stockRessource.put(typeRessource, this.stockRessource.get(typeRessource) + value);
-    }
-    
-    public void supprimerRessource(int typeRessource, int value){
-    	this.stockRessource.put(typeRessource, this.stockRessource.get(typeRessource) - value);
-    }
-    
-    public void echangerRessource(int typeRessourceDonnee, int quantiteDonnee, Joueur partenaireEchange, int typeRessourceRecup, int quantiteRecup){
-        
-    }
-    
-    public void jouerCarteDevelopement(Carte carte){
-        
-    }
-    
-    public void joueurCarteSpeciale(Carte carte){
-        
-    }
-    
-    public void ajouterPointVictoire(){
-        this.setPointVictoire(this.getPointVictoire() + 1);
-    }
-    
-    public String getCouleur(){
-    	return this.couleur;
-    }
-    
-    public int getNbColonie() {
+	public Joueur(String n) {
+		compteurDeJoueur++;
+		this.id = compteurDeJoueur;
+		this.setNom(n);
+		this.setPointVictoire(0);
+		this.stockRessource.put(Ressource.BOIS, 0);
+		this.stockRessource.put(Ressource.BLE, 0);
+		this.stockRessource.put(Ressource.ARGILE, 0);
+		this.stockRessource.put(Ressource.MINERAIE, 0);
+		this.stockRessource.put(Ressource.LAINE, 0);
+	}
+
+	public HashMap<Integer, Integer> getStockRessource() {
+		return this.stockRessource;
+	}
+
+	public void setStockRessource(HashMap<Integer, Integer> stockRessource) {
+		this.stockRessource = stockRessource;
+	}
+
+	public int getId() {
+		return this.id;
+	}
+
+	public void construireRoute() {
+
+	}
+
+	public void construireColonie() {
+
+	}
+
+	public void construireVille() {
+
+	}
+
+	public void ajoutRessource(int typeRessource, int value) {
+		this.stockRessource.put(typeRessource, this.stockRessource.get(typeRessource) + value);
+	}
+
+	public void supprimerRessource(int typeRessource, int value) {
+		this.stockRessource.put(typeRessource, this.stockRessource.get(typeRessource) - value);
+	}
+
+	public void echangerRessource(int typeRessourceDonnee, int quantiteDonnee, Joueur partenaireEchange,
+			int typeRessourceRecup, int quantiteRecup) {
+
+	}
+
+	public void jouerCarteDevelopement(Carte carte) {
+
+	}
+
+	public void joueurCarteSpeciale(Carte carte) {
+
+	}
+
+	public void ajouterPointVictoire() {
+		this.setPointVictoire(this.getPointVictoire() + 1);
+	}
+
+	public String getCouleur() {
+		return this.couleur;
+	}
+
+	public int getNbColonie() {
 		return nbColonie;
 	}
 
@@ -110,17 +110,17 @@ public class Joueur {
 	public void setNbVille(int nbVille) {
 		this.nbVille = nbVille;
 	}
-	
-	public boolean encoreAssezVille(){
-		return (this.nbVille>0);
+
+	public boolean encoreAssezVille() {
+		return (this.nbVille > 0);
 	}
-	
-	public boolean encoreAssezColonie(){
-		return (this.nbVille>0);
+
+	public boolean encoreAssezColonie() {
+		return (this.nbVille > 0);
 	}
-	
-	public boolean encoreAssezRoute(){
-		return (this.nbRoute>0);
+
+	public boolean encoreAssezRoute() {
+		return (this.nbRoute > 0);
 	}
 
 	public int getPointVictoire() {
@@ -147,11 +147,11 @@ public class Joueur {
 		this.cartes.add(carte);
 	}
 
-    public int getNbRoute() {
-        return nbRoute;
-    }
+	public int getNbRoute() {
+		return nbRoute;
+	}
 
-    public void setNbRoute(int nbRoute) {
-        this.nbRoute = nbRoute;
-    }
+	public void setNbRoute(int nbRoute) {
+		this.nbRoute = nbRoute;
+	}
 }

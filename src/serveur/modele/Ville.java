@@ -60,6 +60,10 @@ public class Ville implements Serializable{
 		this.colonieVille = false;
 	}
 	
+	public void setOQP(Joueur j){
+		this.oqp = j;
+	}
+	
 	public void setVillesAdj(Ville v1, Ville v2, Ville v3){
 		this.ville_adj1 = v1;
 		this.ville_adj2 = v2;
@@ -77,6 +81,23 @@ public class Ville implements Serializable{
 	public Ville getVilleAdj3(){
 		return this.ville_adj3;
 	}
+
+
+	public Route getRoute_adj1() {
+		return route_adj1;
+	}
+
+
+	public Route getRoute_adj2() {
+		return route_adj2;
+	}
+
+
+	public Route getRoute_adj3() {
+		return route_adj3;
+	}
+	
+	
 	
 	
 }

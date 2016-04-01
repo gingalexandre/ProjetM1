@@ -12,12 +12,18 @@ import static org.junit.Assert.assertTrue;
  */
 public class TestPaquet {
 
+	/**
+	 * Test de la méthode de création des Paquets
+	 */
     @Test
     public void testCreationPaquet(){
         Paquet paquet = new Paquet();
         assertTrue(paquet.getDeck().size() == 25);
     }
 
+    /**
+     * Test de la méthode de pioche
+     */
     @Test
     public void testPioche(){
         Paquet paquet = new Paquet();

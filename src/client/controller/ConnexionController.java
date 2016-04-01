@@ -3,6 +3,7 @@ package client.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.sql.Date;
 import java.util.ResourceBundle;
 
 import client.view.VuePrincipale;
@@ -40,6 +41,8 @@ public class ConnexionController implements Initializable {
 	private FXMLLoader inscriptionChargement;
 	public static Stage inscriptionFenetre, gameFenetre;
 	
+	public Date dateNaissance;
+	
 	public static String nomJoueur;
 	
 	public void initialize(URL location, ResourceBundle resources) {
@@ -47,11 +50,11 @@ public class ConnexionController implements Initializable {
 	}
 	
 	/**
-	 * Méthode vérifiant la connexion. Si elle fonctionne, alors la méthode lance le jeu
+	 * Mï¿½thode vï¿½rifiant la connexion. Si elle fonctionne, alors la mï¿½thode lance le jeu
 	 * @throws RemoteException 
 	 */
 	@FXML
-	public void connexion() throws RemoteException {
+	public void connexion() throws RemoteException, InterruptedException {
 		boolean connexionOk = false;
 		Serveur serveur = null;
 		try {
@@ -60,10 +63,12 @@ public class ConnexionController implements Initializable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		// Si le Joueur existe
 		if(connexionOk){
 			nomJoueur = nomUtilisateur.getText(); 
 			Proxy joueur = ConnexionManager.getStaticProxy();
 			joueur.setNomUtilisateur(nomJoueur);
+			dateNaissance = joueur.getDateNaissance(nomJoueur);
 			lancerJeu();
 		}
 		else{
@@ -72,7 +77,7 @@ public class ConnexionController implements Initializable {
 	}
 	
 	/**
-	 * Méthode permettant de lancer le jeu une fois connecté
+	 * Mï¿½thode permettant de lancer le jeu une fois connectï¿½
 	 */
 	public void lancerJeu(){
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Game.fxml"));
@@ -92,7 +97,7 @@ public class ConnexionController implements Initializable {
 	}
 	
 	/**
-	 * Méthode permettant d'afficher la fenêtre d'inscription
+	 * Mï¿½thode permettant d'afficher la fenï¿½tre d'inscription
 	 */
 	@FXML
 	public void inscription() {

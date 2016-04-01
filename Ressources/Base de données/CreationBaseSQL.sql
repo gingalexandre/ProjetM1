@@ -3,7 +3,8 @@ CREATE TABLE Joueur(
 	pseudo              TEXT NOT NULL ,
 	mdp                 TEXT NOT NULL ,
 	nombrePartieGagnee  INTEGER NOT NULL ,
-	nombrePartieJouee   INTEGER NOT NULL 
+	nombrePartieJouee   INTEGER NOT NULL ,
+	dateNaissance      Datetime NOT NULL  
 );
 
 

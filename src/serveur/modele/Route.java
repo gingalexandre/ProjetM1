@@ -74,5 +74,8 @@ public class Route implements Serializable{
 	    return 0;
 	}
 	
+	public void setOQP(Joueur j){
+		this.oqp = j;
+	}
 
 }

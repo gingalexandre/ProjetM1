@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import org.junit.After;
 import org.junit.Before;
@@ -22,8 +23,8 @@ public class TestUtilisateurBDD {
 	 */
 	@Before
 	public void creerUtilisateur() throws InterruptedException{
-		Utilisateur test = new Utilisateur("testtest", "azerty");
-		assertEquals(test.inscription(),2);
+		Utilisateur test = new Utilisateur("testtest", "azerty", LocalDate.now());
+		assertEquals(test.inscription(),"Inscription rï¿½ussie");
 	}
 	
 	@Test
@@ -32,8 +33,8 @@ public class TestUtilisateurBDD {
 	 * @throws InterruptedException
 	 */
 	public void inscriptionIdentiqueTest() throws InterruptedException{
-		Utilisateur test = new Utilisateur("testtest", "azerty");
-		assertEquals(test.inscription(),1);
+		Utilisateur test = new Utilisateur("testtest", "azerty", null);
+		assertEquals(test.inscription(),"Nom d'utilisateur dï¿½jï¿½ existant, veuillez recommencer.");
 	}
 
 	/**
@@ -42,12 +43,13 @@ public class TestUtilisateurBDD {
 	 */
 	@Test
 	public void connexionUtilisateurTest() throws InterruptedException {
-		Utilisateur test = new Utilisateur("testtest", "azerty");
+		Utilisateur test = new Utilisateur("testtest", "azerty", LocalDate.now());
 		assertTrue(test.verificationConnexion());
+		
 	}
 	
 	/**
-	 * Méthode permettant de supprimer un utilisateur
+	 * Mï¿½thode permettant de supprimer un utilisateur
 	 * @throws InterruptedException
 	 * @throws SQLException
 	 */

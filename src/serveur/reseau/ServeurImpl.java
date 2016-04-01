@@ -2,15 +2,16 @@ package serveur.reseau;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
-import serveur.modele.Message;
-import serveur.modele.Plateau;
 import exception.TooMuchPlayerException;
 import serveur.bdd.Utilisateur;
+import serveur.modele.Message;
+import serveur.modele.Plateau;
 
 /**
- * Classe implémentant le serveur, qui communique avec le proxy des joueurServeurs 
+ * Classe implï¿½mentant le serveur, qui communique avec le proxy des joueurServeurs 
  * @author jerome
  */
 public class ServeurImpl extends UnicastRemoteObject implements Serveur {
@@ -64,12 +65,12 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 			}
 		}
 		else{
-			throw new TooMuchPlayerException("Connexion impossible. Il y a déjà 4 joueurServeurs connectés sur le serveur.");
+			throw new TooMuchPlayerException("Connexion impossible. Il y a dï¿½jï¿½ 4 joueurServeurs connectï¿½s sur le serveur.");
 		}
 	}
 	
 	/**
-	 * Diffuse un message envoyé par un joueur à tous les autre joueurServeurs
+	 * Diffuse un message envoyï¿½ par un joueur ï¿½ tous les autre joueurServeurs
 	 * @param message
 	 * @throws RemoteException
 	 */
@@ -81,7 +82,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	}
 
 	/**
-	 * Envoie le plateau de jeu au joueur passé en paramètre
+	 * Envoie le plateau de jeu au joueur passï¿½ en paramï¿½tre
 	 * @param proxy
 	 * @throws RemoteException 
 	 */
@@ -91,26 +92,26 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	}
 	
 	/**
-	 * Inscription l'utilisateur dans la base de données
-	 * @param utilisateur - utilisateur à inscrire
-	 * @return true si inscription réussie, false sinon
+	 * Inscription l'utilisateur dans la base de donnï¿½es
+	 * @param utilisateur - utilisateur ï¿½ inscrire
+	 * @return true si inscription rï¿½ussie, false sinon
 	 * @throws InterruptedException 
 	 */
 	@Override
-	public String inscriptionBDD(String nomUtilisateur, String motDePasse) throws InterruptedException, RemoteException{
-		Utilisateur utilisateur = new Utilisateur(nomUtilisateur, motDePasse);
+	public String inscriptionBDD(String nomUtilisateur, String motDePasse, LocalDate dateNaissance) throws InterruptedException, RemoteException{
+		Utilisateur utilisateur = new Utilisateur(nomUtilisateur, motDePasse, dateNaissance);
 		return utilisateur.inscription();
 	}
 	
 	/**
-	 * Vérifie que l'utilisateur est dans la base de données
+	 * Vï¿½rifie que l'utilisateur est dans la base de donnï¿½es
 	 * @param nomUtilisateur - nom de l'utilisateur
 	 * @param motDePasse - mot de passe de l'utilisateur
 	 *  @return true si connexion possible, false sinon
 	 */
 	@Override
 	public boolean verificationConnexion(String nomUtilisateur, String motDePasse) throws InterruptedException, RemoteException{
-		Utilisateur utilisateur = new Utilisateur(nomUtilisateur, motDePasse);
+		Utilisateur utilisateur = new Utilisateur(nomUtilisateur, motDePasse, null);
 		return utilisateur.verificationConnexion();
 	}
 }

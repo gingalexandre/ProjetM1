@@ -57,7 +57,7 @@ public class PlateauController implements Initializable{
 
 	
 	/**
-	 * Récupère les attributs de ConnexionManager
+	 * Rï¿½cupï¿½re les attributs de ConnexionManager
 	 */
 	private void recupererAttributs() {
 		this.serveur = ConnexionManager.getStaticServeur();
@@ -100,7 +100,7 @@ public class PlateauController implements Initializable{
 	
 	/**
 	 * Permet de set l'attribut plateau
-	 * @param plateau - Plateau envoyé par le proxy RMI 
+	 * @param plateau - Plateau envoyï¿½ par le proxy RMI 
 	 */
 	public void setPlateau(Plateau plateau){
 		this.plateau = plateau;

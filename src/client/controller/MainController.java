@@ -15,11 +15,6 @@ import serveur.reseau.Serveur;
  */
 public class MainController implements Initializable{
 	
-	@FXML
-	public VBox plateau, chat, des, joueurActuel; 
-	
-	public Serveur serveur;
-	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// Connexion au serveur

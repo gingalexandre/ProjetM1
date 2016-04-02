@@ -2,6 +2,7 @@ package serveur.reseau;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.sql.Date;
 import java.time.LocalDate;
 
 import exception.TooMuchPlayerException;
@@ -44,10 +45,12 @@ public interface Serveur extends Remote{
 	String inscriptionBDD(String nomUtilisateur, String motDePasse, LocalDate dateNaissance) throws InterruptedException, RemoteException;
 	
 	/**
-	 * Vï¿½rifie que l'utilisateur est dans la base de donnï¿½es
+	 * Vérifie que l'utilisateur est dans la base de données
 	 * @param nomUtilisateur - nom de l'utilisateur
 	 * @param motDePasse - mot de passe de l'utilisateur
 	 *  @return true si connexion possible, false sinon
 	 */
 	boolean verificationConnexion(String nomUtilisateur, String motDePasse) throws InterruptedException, RemoteException;
+	
+	Date getDateNaissanceUtilisateur(String nomUtilisateur) throws InterruptedException, RemoteException;
 }

@@ -5,38 +5,57 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane style="-fx-background-color: #4e6c91" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="778.0" prefWidth="1336.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <GridPane layoutX="415.0" layoutY="204.0" prefHeight="778.0" prefWidth="1336.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="255.0" minHeight="0.0" prefHeight="126.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="604.0" minHeight="10.0" prefHeight="481.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="171.0" minHeight="10.0" prefHeight="171.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-         	<fx:include source="Joueurs.fxml" GridPane.rowIndex="0" />
-            <GridPane GridPane.rowIndex="1">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-              <children>
-              	<fx:include source="Chat.fxml" GridPane.columnIndex="0" />
-              	<fx:include source="Plateau.fxml" GridPane.columnIndex="1" />
-              	<fx:include source="Regles.fxml" GridPane.columnIndex="2" />
-              </children>
-            </GridPane>
-            <fx:include source="Menu.fxml" GridPane.rowIndex="2" />
-         </children>
-      </GridPane>
-   </children>
+<AnchorPane style="-fx-background-color: #4e6c91" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="100.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="85.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <AnchorPane GridPane.rowIndex="0">
+                    <children>
+                        <fx:include fx:id="joueurs" source="Joueurs.fxml" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+                <GridPane GridPane.rowIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints vgrow="SOMETIMES" minHeight="10.0"  prefHeight="100.0" percentHeight="100.0"/>
+                    </rowConstraints>
+                    <children>
+                        <AnchorPane GridPane.columnIndex="0" >
+                            <children>
+                                <fx:include fx:id="chat" source="Chat.fxml" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane GridPane.columnIndex="1">
+                            <children>
+                                <fx:include fx:id="plateau" source="Plateau.fxml" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"  />
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane GridPane.columnIndex="2">
+                            <children>
+                                <fx:include fx:id="regle" source="Regles.fxml" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </GridPane>
+                <AnchorPane GridPane.rowIndex="2">
+                    <children>
+                        <fx:include fx:id="menu" source="Menu.fxml" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+            </children>
+        </GridPane>
+    </children>
 </AnchorPane>
 

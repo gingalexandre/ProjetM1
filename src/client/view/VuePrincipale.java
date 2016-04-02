@@ -19,7 +19,7 @@ public class VuePrincipale extends Application{
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-		FXMLLoader preloader = new FXMLLoader(getClass().getResource("fxml/Accueil.fxml"));
+		FXMLLoader preloader = new FXMLLoader(getClass().getResource("fxml/Game.fxml"));
 		
 		Parent root = preloader.load();
 		

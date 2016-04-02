@@ -50,7 +50,7 @@ public class ConnexionController implements Initializable {
 	}
 	
 	/**
-	 * Mï¿½thode vï¿½rifiant la connexion. Si elle fonctionne, alors la mï¿½thode lance le jeu
+	 * Mï¿½thode vérifiant la connexion. Si elle fonctionne, alors la méthode lance le jeu
 	 * @throws RemoteException 
 	 */
 	@FXML
@@ -63,12 +63,13 @@ public class ConnexionController implements Initializable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		// Si le Joueur existe
+		// Si le joueur existe
 		if(connexionOk){
 			nomJoueur = nomUtilisateur.getText(); 
-			Proxy joueur = ConnexionManager.getStaticProxy();
-			joueur.setNomUtilisateur(nomJoueur);
-			dateNaissance = joueur.getDateNaissance(nomJoueur);
+			Proxy proxy = ConnexionManager.getStaticProxy();
+			// Set le nom du joueur. Pour récupérer le joueur n'importe où (et donc ses attributs), passer par proxy.getJoueur()
+			proxy.getJoueur().setNomUtilisateur(nomJoueur);
+			dateNaissance = serveur.getDateNaissanceUtilisateur(nomJoueur);
 			lancerJeu();
 		}
 		else{
@@ -77,7 +78,7 @@ public class ConnexionController implements Initializable {
 	}
 	
 	/**
-	 * Mï¿½thode permettant de lancer le jeu une fois connectï¿½
+	 * Méthode permettant de lancer le jeu une fois connecté
 	 */
 	public void lancerJeu(){
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Game.fxml"));
@@ -86,7 +87,6 @@ public class ConnexionController implements Initializable {
 			gameFenetre = new Stage();
 			gameFenetre.setTitle("Les Colons de Catanes");
 		    Scene scene = new Scene(page,0,0);
-		    gameFenetre.setFullScreen(true);
 		    gameFenetre.setScene(scene);
 		    VuePrincipale.stagePrincipal.close();
 		    gameFenetre.showAndWait();
@@ -97,7 +97,7 @@ public class ConnexionController implements Initializable {
 	}
 	
 	/**
-	 * Mï¿½thode permettant d'afficher la fenï¿½tre d'inscription
+	 * Méthode permettant d'afficher la fenêtre d'inscription
 	 */
 	@FXML
 	public void inscription() {
@@ -109,7 +109,7 @@ public class ConnexionController implements Initializable {
 			inscriptionFenetre.initModality(Modality.WINDOW_MODAL);
 		    Scene miniScene = new Scene(page);
 		    inscriptionFenetre.setScene(miniScene);
-		    
+		    gameFenetre.setFullScreen(true);
 		    inscriptionFenetre.showAndWait();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

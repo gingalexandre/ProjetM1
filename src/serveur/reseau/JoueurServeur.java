@@ -2,8 +2,8 @@ package serveur.reseau;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.sql.Date;
 
+import serveur.modele.Joueur;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
 
@@ -20,18 +20,21 @@ public interface JoueurServeur extends Remote{
 	 */
 	void recevoirMessage(Message message) throws RemoteException;
 	
-	Date getDateNaissance(String nom) throws RemoteException;
-	
 	/**
-	 * Reï¿½oit le plateau envoyï¿½ par le serveur et l'envoie au controller du plateau
+	 * Reçoit le plateau envoyé par le serveur et l'envoie au controller du plateau
 	 * @param plateau
 	 * @throws RemoteException
 	 */
 	void envoyerPlateau(Plateau plateau) throws RemoteException;
 	
 	/**
-	 * Indique la couleur de jeu du joueur
-	 * @param color
+	 * @return le joueur associé au proxy
 	 */
-	void setCouleur(String couleur) throws RemoteException;
+	Joueur getJoueur() throws RemoteException;
+	
+	/**
+	 * Permet d'indiquer le joueur associé au proxy
+	 * @param joueur
+	 */
+	void setJoueur(Joueur joueur) throws RemoteException;
 }

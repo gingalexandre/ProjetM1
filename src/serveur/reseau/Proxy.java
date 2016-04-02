@@ -2,27 +2,16 @@ package serveur.reseau;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.sql.Date;
 
 import client.controller.ChatController;
 import client.controller.PlateauController;
-import serveur.bdd.Utilisateur;
+import serveur.modele.Joueur;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
 
-public class Proxy extends UnicastRemoteObject implements serveur.reseau.JoueurServeur {
+public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Couleur de jeu du joueur
-	 */
-	private String couleur;
-
-	/**
-	 * Date de Naissance du joueur
-	 */
-	private Date dateNaissance;
 
 	/**
 	 * Controller du chat
@@ -35,21 +24,12 @@ public class Proxy extends UnicastRemoteObject implements serveur.reseau.JoueurS
 	private PlateauController plateauController;
 
 	/**
-	 * Nom de l'utilisateur dans la base de donnï¿½es
+	 * Joueur associé au proxy
 	 */
-	private String nomUtilisateur;
+	private Joueur joueur;
 
 	public Proxy() throws RemoteException {
 
-	}
-
-	/**
-	 * Recupï¿½re la couleur de jeu du joueur
-	 * 
-	 * @param color
-	 */
-	public String getCouleur() {
-		return this.couleur;
 	}
 
 	/**
@@ -67,7 +47,7 @@ public class Proxy extends UnicastRemoteObject implements serveur.reseau.JoueurS
 	}
 
 	/**
-	 * Reï¿½oit le message transmit par le serveur et l'envoie au joueur et
+	 * Reçoit le message transmit par le serveur et l'envoie au joueur et
 	 * l'envoie au controller du chat
 	 * 
 	 * @param message
@@ -79,7 +59,7 @@ public class Proxy extends UnicastRemoteObject implements serveur.reseau.JoueurS
 	}
 
 	/**
-	 * Reï¿½oit le plateau envoyï¿½ par le serveur et l'envoie au controller du
+	 * Reçoit le plateau envoyé par le serveur et l'envoie au controller du
 	 * plateau
 	 * 
 	 * @param plateau
@@ -91,46 +71,17 @@ public class Proxy extends UnicastRemoteObject implements serveur.reseau.JoueurS
 	}
 
 	/**
-	 * Indique la couleur de jeu du joueur
-	 * 
-	 * @param color
+	 * @return le joueur associé au proxy
 	 */
-	@Override
-	public void setCouleur(String couleur) throws RemoteException {
-		this.couleur = couleur;
+	public Joueur getJoueur() throws RemoteException {
+		return joueur;
 	}
 
 	/**
-	 * Permet d'obtenir le nom de l'utilisateur
-	 * 
-	 * @return le nom de l'utilisateur
+	 * Permet d'indiquer le joueur associé au proxy
+	 * @param joueur
 	 */
-	public String getNomUtilisateur() {
-		return this.nomUtilisateur;
+	public void setJoueur(Joueur joueur) throws RemoteException {
+		this.joueur = joueur;
 	}
-
-	/**
-	 * Permet de rÃ©cupÃ©rer la date de naissance de l'utilisateur Ã  partir de son
-	 * pseudo
-	 */
-	public Date getDateNaissance(String nom) {
-		try {
-			return Utilisateur.getDateNaissance(nom);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	/**
-	 * Permet de donner le nom de login de l'utilisateur
-	 * 
-	 * @param nom
-	 *            - nom de l'utilisateur
-	 */
-	public void setNomUtilisateur(String nomUtilisateur) {
-		this.nomUtilisateur = nomUtilisateur;
-	}
-
 }

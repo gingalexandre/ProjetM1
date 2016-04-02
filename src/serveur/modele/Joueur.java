@@ -7,6 +7,8 @@ package serveur.modele;
 
 import serveur.modele.carte.Carte;
 
+import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -14,11 +16,28 @@ import java.util.HashMap;
  *
  * @author Arthur
  */
-public class Joueur {
+public class Joueur implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private int id;
 	private static int compteurDeJoueur = 0;
-	private String nom;
+	
+	/**
+	 * Pseudo du joueur dans la base de données 
+	 */
+	private String nomUtilisateur;
+
+	/**
+	 * Date de naissance du joueur dans la base de données
+	 */
+	private Date dateDeNaissance;
+	
+	/**
+	 * Couleur de jeu du joueur
+	 */
+	private String couleur;
+	
 	private int pointVictoire;
 
 	private int nbColonie = 5;
@@ -28,12 +47,29 @@ public class Joueur {
 	private HashMap<Integer, Integer> stockRessource = new HashMap<>();
 	private ArrayList<Carte> cartes = new ArrayList<Carte>();
 
-	private String couleur;
+	/**
+	 * Constructeur de joueur
+	 * Est appelé lors de l'ajout d'un proxy sur le serveur
+	 */
+	public Joueur(){
+		initialisationAttributs();
+	}
+	
+	/**
+	 * Constructeur de joueur
+	 * @param nom - nom du joueur
+	 */
+	public Joueur(String nom) {
+		this.setNomUtilisateur(nomUtilisateur);
+		initialisationAttributs();
+	}
 
-	public Joueur(String n) {
+	/**
+	 * Permet d'initialiser des divers attributs d'un joueur
+	 */
+	private void initialisationAttributs(){
 		compteurDeJoueur++;
 		this.id = compteurDeJoueur;
-		this.setNom(n);
 		this.setPointVictoire(0);
 		this.stockRessource.put(Ressource.BOIS, 0);
 		this.stockRessource.put(Ressource.BLE, 0);
@@ -41,7 +77,7 @@ public class Joueur {
 		this.stockRessource.put(Ressource.MINERAIE, 0);
 		this.stockRessource.put(Ressource.LAINE, 0);
 	}
-
+	
 	public HashMap<Integer, Integer> getStockRessource() {
 		return this.stockRessource;
 	}
@@ -90,9 +126,29 @@ public class Joueur {
 	public void ajouterPointVictoire() {
 		this.setPointVictoire(this.getPointVictoire() + 1);
 	}
+	
+	public String getNomUtilisateur() {
+		return nomUtilisateur;
+	}
 
+	public void setNomUtilisateur(String nomUtilisateur) {
+		this.nomUtilisateur = nomUtilisateur;
+	}
+
+	public Date getDateDeNaissance() {
+		return dateDeNaissance;
+	}
+
+	public void setDateDeNaissance(Date dateDeNaissance) {
+		this.dateDeNaissance = dateDeNaissance;
+	}
+	
 	public String getCouleur() {
 		return this.couleur;
+	}
+
+	public void setCouleur(String couleur) {
+		this.couleur = couleur;
 	}
 
 	public int getNbColonie() {
@@ -129,14 +185,6 @@ public class Joueur {
 
 	public void setPointVictoire(int pointVictoire) {
 		this.pointVictoire = pointVictoire;
-	}
-
-	public String getNom() {
-		return nom;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
 	}
 
 	public ArrayList<Carte> getCartes() {

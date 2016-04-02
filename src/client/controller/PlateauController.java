@@ -77,7 +77,7 @@ public class PlateauController implements Initializable{
 	 * @throws RemoteException 
 	 */
 	private void recupererPlateau() throws RemoteException {
-		serveur.envoyerPlateau(proxy);
+		serveur.getGestionnaireUI().envoyerPlateau(proxy);
 	}
 	
 	/**

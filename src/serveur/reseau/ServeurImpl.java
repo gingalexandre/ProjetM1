@@ -2,16 +2,13 @@ package serveur.reseau;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import exception.TooMuchPlayerException;
-import serveur.bdd.Utilisateur;
 import serveur.modele.Joueur;
-import serveur.modele.Message;
-import serveur.modele.Partie;
-import serveur.modele.Plateau;
+import serveur.reseau.communicationClients.GestionnaireBDD;
+import serveur.reseau.communicationClients.GestionnairePartie;
+import serveur.reseau.communicationClients.GestionnaireUI;
 
 /**
  * Classe implémentant le serveur, qui communique avec les proxy
@@ -22,7 +19,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Contient la liste 
+	 * Contient la liste des joueurs connectés au serveur
 	 */
 	private ArrayList<JoueurServeur> joueurServeurs = new ArrayList<JoueurServeur>();
 	
@@ -32,18 +29,28 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	private final static int NOMBRE_MAX_JOUEURS = 4;
 	
 	/**
-	 * Plateau de jeu 
+	 * Gestionnaire de la base de données
 	 */
-	private Plateau plateau;
+	private GestionnaireBDD gestionnaireBDD;
 	
 	/**
-	 * Partie sur laquelle les joueurs jouent
+	 * Gestionnaire de la partie
 	 */
-	private Partie partie;
+	private GestionnairePartie gestionnairePartie;
 	
+	/**
+	 * Gestionnaire de l'interface
+	 */
+	private GestionnaireUI gestionnaireUI;
+	
+	/**
+	 * Constructeur de la classe ServeurImpl
+	 * @throws RemoteException
+	 */
 	public ServeurImpl() throws RemoteException{
-		this.plateau = Plateau.getInstance();
-		this.partie = new Partie(this.plateau);
+		this.gestionnaireBDD = new GestionnaireBDD();
+		this.gestionnaireUI = new GestionnaireUI();
+		this.gestionnairePartie = new GestionnairePartie(this.gestionnaireUI.getPlateau());
 	}
 	
 	/**
@@ -60,24 +67,25 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 			switch(joueurServeurs.size()){
 				case 1:
 					joueur.setCouleur("rouge");
-					this.partie.setJoueur1(joueur);
+					this.gestionnairePartie.getPartie().setJoueur1(joueur);
 					break;
 				case 2:
 					joueur.setCouleur("bleu");
-					this.partie.setJoueur2(joueur);
+					this.gestionnairePartie.getPartie().setJoueur2(joueur);
 					break;
 				case 3:
 					joueur.setCouleur("vert");
-					this.partie.setJoueur3(joueur);
+					this.gestionnairePartie.getPartie().setJoueur3(joueur);
 					break;
 				case 4:
 					joueur.setCouleur("orange");
-					this.partie.setJoueur4(joueur);
+					this.gestionnairePartie.getPartie().setJoueur4(joueur);
 					break;
 				default: 
 					break;
 			}
 			nouveauJoueurServeur.setJoueur(joueur);
+			envoyerJoueurAuGestionnaire(nouveauJoueurServeur);
 		}
 		else{
 			throw new TooMuchPlayerException("Connexion impossible. Il y a déjà 4 joueurs connectés sur le serveur.");
@@ -85,57 +93,41 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	}
 	
 	/**
-	 * Diffuse un message envoyé par un joueur à tous les autre joueurServeurs
-	 * @param message
+	 * Permet d'ajouter un joueur à la liste de joueurs des gestionnaires
+	 * @param nouveauJoueurServeur - joueur à envoyer
+	 */
+	private void envoyerJoueurAuGestionnaire(JoueurServeur nouveauJoueurServeur){
+		this.gestionnairePartie.enregistrerJoueur(nouveauJoueurServeur);
+		this.gestionnaireUI.enregistrerJoueur(nouveauJoueurServeur);
+	}
+	
+	/**
+	 * Permet d'obtenir le gestionnaire de base de données
+	 * @return le gestionnaire de base de données
 	 * @throws RemoteException
 	 */
 	@Override
-	public void diffuserMessage(Message message) throws RemoteException {
-		for(JoueurServeur joueurServeur : joueurServeurs){
-			joueurServeur.recevoirMessage(message);
-		}
+	public GestionnaireBDD getGestionnaireBDD() throws RemoteException {
+		return this.gestionnaireBDD;
 	}
 
 	/**
-	 * Envoie le plateau de jeu au joueur passé en paramètre
-	 * @param proxy
-	 * @throws RemoteException 
+	 * Permet d'obtenir le gestionnaire de partie
+	 * @return le gestionnaire de partie
+	 * @throws RemoteException
 	 */
 	@Override
-	public void envoyerPlateau(JoueurServeur proxy) throws RemoteException {
-		proxy.envoyerPlateau(this.plateau);
+	public GestionnairePartie getGestionnairePartie() throws RemoteException {
+		return this.gestionnairePartie;
 	}
-	
+
 	/**
-	 * Inscription l'utilisateur dans la base de donnï¿½es
-	 * @param utilisateur - utilisateur à inscrire
-	 * @return true si inscription réussie, false sinon
-	 * @throws InterruptedException 
+	 * Permet d'obtenir le gestionnaire de l'interface
+	 * @return le gestionnaire de base de l'interface
+	 * @throws RemoteException
 	 */
 	@Override
-	public String inscriptionBDD(String nomUtilisateur, String motDePasse, LocalDate dateNaissance) throws InterruptedException, RemoteException{
-		Utilisateur utilisateur = new Utilisateur(nomUtilisateur, motDePasse, dateNaissance);
-		return utilisateur.inscription();
-	}
-	
-	/**
-	 * Vérifie que l'utilisateur est dans la base de données
-	 * @param nomUtilisateur - nom de l'utilisateur
-	 * @param motDePasse - mot de passe de l'utilisateur
-	 *  @return true si connexion possible, false sinon
-	 */
-	@Override
-	public boolean verificationConnexion(String nomUtilisateur, String motDePasse) throws InterruptedException, RemoteException{
-		Utilisateur utilisateur = new Utilisateur(nomUtilisateur, motDePasse, null);
-		return utilisateur.verificationConnexion();
-	}
-	
-	/**
-	 * Permet de récupérer la date de naissance de l'utilisateur à partir de son
-	 * pseudo
-	 * @throws InterruptedException 
-	 */
-	public Date getDateNaissanceUtilisateur(String nomUtilisateur) throws InterruptedException, RemoteException {
-		return Utilisateur.getDateNaissance(nomUtilisateur);
+	public GestionnaireUI getGestionnaireUI() throws RemoteException {
+		return this.gestionnaireUI;
 	}
 }

@@ -132,7 +132,7 @@ public class ChatController implements Initializable{
 				// Récupération du serveur en passant par le singleton ConnexionManager
 				Serveur serveur = ConnexionManager.getStaticServeur();
 				// Appel de la méthode distante diffuserMessage du serveur pour envoyer le message à tous les controllers des joueurs
-				serveur.diffuserMessage(message);
+				serveur.getGestionnaireUI().diffuserMessage(message);
 			}
 			catch (RemoteException e){
 				e.printStackTrace();

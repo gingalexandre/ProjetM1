@@ -121,12 +121,13 @@ public class ChatController implements Initializable{
 	
 	/**
 	 * Se déclenche quand l'utilisateur appuie sur la touche "Entrée" lorsqu'il se trouve dans le TextField
+	 * @throws RemoteException 
 	 */
 	@FXML
-	public void onEnter(){
+	public void onEnter() throws RemoteException{
 		String messageUtilisateur = saisie.getText();
 		if(!messageUtilisateur.equals("")){
-			Message message = new Message(proxy.getNomUtilisateur(), messageUtilisateur, proxy.getCouleur());
+			Message message = new Message(proxy.getJoueur().getNomUtilisateur(), messageUtilisateur, proxy.getJoueur().getCouleur());
 			try{
 				// Récupération du serveur en passant par le singleton ConnexionManager
 				Serveur serveur = ConnexionManager.getStaticServeur();

@@ -18,10 +18,8 @@ public class Utilisateur {
 	/**
 	 * Constructeur
 	 * 
-	 * @param nomUtilisateur
-	 *            : String : pseudo de l'utilisateur
-	 * @param mdp
-	 *            : String : mot de passe de l'utilisateur
+	 * @param nomUtilisateur : String : pseudo de l'utilisateur
+	 * @param mdp : String : mot de passe de l'utilisateur
 	 */
 	public Utilisateur(String nomUtilisateur, String mdp, LocalDate dateNaissance) {
 		super();
@@ -31,8 +29,7 @@ public class Utilisateur {
 	}
 
 	/**
-	 * Mï¿½thode permettant la vï¿½rification de la connexion
-	 * 
+	 * Méthode permettant la vérification de la connexion
 	 * @return boolean : Vrai si la connexion est effective, faux sinon
 	 * @throws InterruptedException
 	 */
@@ -46,7 +43,7 @@ public class Utilisateur {
 			prestmt.setString(2, mdp);
 			ResultSet rs = prestmt.executeQuery();
 			connection.close();
-			// On test si la taille est ï¿½gale ï¿½ 1, si c'est le cas c'est qu'on a
+			// On test si la taille est égale à 1, si c'est le cas c'est qu'on a
 			// bien l'utilisateur d'inscrit
 
 			if (rs.next()) {
@@ -64,14 +61,14 @@ public class Utilisateur {
 	}
 
 	/**
-	 * MÃ©thode permettant l'inscription d'un utilisateur
+	 * Méthode permettant l'inscription d'un utilisateur
 	 * 
-	 * @return String : message Ã  afficher (erreur ou non)
+	 * @return String : message à afficher (erreur ou non)
 	 * @throws InterruptedException
 	 */
 	public String inscription() throws InterruptedException {
 		if (this.verificationConnexion()) {
-			return "Nom d'utilisateur dï¿½jï¿½ existant, veuillez recommencer.";
+			return "Nom d'utilisateur déjà existant, veuillez recommencer.";
 		} else {
 			Connection connection = Base.connexion();
 			String query = "INSERT INTO Joueur(idJoueur, pseudo, mdp, nombrePartieGagnee, nombrePartieJouee, dateNaissance) VALUES (NULL,?,?,0,0,?)";
@@ -89,7 +86,7 @@ public class Utilisateur {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return "Inscription rï¿½ussie";
+			return "Inscription réussie";
 		}
 	}
 

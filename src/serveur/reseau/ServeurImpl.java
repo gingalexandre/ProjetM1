@@ -2,16 +2,19 @@ package serveur.reseau;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 import exception.TooMuchPlayerException;
 import serveur.bdd.Utilisateur;
+import serveur.modele.Joueur;
 import serveur.modele.Message;
+import serveur.modele.Partie;
 import serveur.modele.Plateau;
 
 /**
- * Classe implï¿½mentant le serveur, qui communique avec le proxy des joueurServeurs 
+ * Classe implémentant le serveur, qui communique avec les proxy
  * @author jerome
  */
 public class ServeurImpl extends UnicastRemoteObject implements Serveur {
@@ -33,44 +36,56 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 */
 	private Plateau plateau;
 	
+	/**
+	 * Partie sur laquelle les joueurs jouent
+	 */
+	private Partie partie;
+	
 	public ServeurImpl() throws RemoteException{
 		this.plateau = Plateau.getInstance();
+		this.partie = new Partie(this.plateau);
 	}
 	
 	/**
-	 * Enregistre une communication au serveur
-	 * @param communication
+	 * Enregistre un joueur sur le serveur
+	 * @param nouveauJoueurServeur - joueur à ajouter
 	 * @throws RemoteException
 	 * @throws TooMuchPlayerException
 	 */
 	@Override
-	public void enregistrerJoueur(JoueurServeur joueurServeur) throws RemoteException, TooMuchPlayerException{
+	public void enregistrerJoueur(JoueurServeur nouveauJoueurServeur) throws RemoteException, TooMuchPlayerException{
 		if(joueurServeurs.size() < NOMBRE_MAX_JOUEURS){
-			joueurServeurs.add(joueurServeur);
+			Joueur joueur = new Joueur();
+			joueurServeurs.add(nouveauJoueurServeur);
 			switch(joueurServeurs.size()){
 				case 1:
-					joueurServeur.setCouleur("rouge");
+					joueur.setCouleur("rouge");
+					this.partie.setJoueur1(joueur);
 					break;
 				case 2:
-					joueurServeur.setCouleur("bleu");
+					joueur.setCouleur("bleu");
+					this.partie.setJoueur2(joueur);
 					break;
 				case 3:
-					joueurServeur.setCouleur("vert");
+					joueur.setCouleur("vert");
+					this.partie.setJoueur3(joueur);
 					break;
 				case 4:
-					joueurServeur.setCouleur("orange");
+					joueur.setCouleur("orange");
+					this.partie.setJoueur4(joueur);
 					break;
 				default: 
 					break;
 			}
+			nouveauJoueurServeur.setJoueur(joueur);
 		}
 		else{
-			throw new TooMuchPlayerException("Connexion impossible. Il y a dï¿½jï¿½ 4 joueurServeurs connectï¿½s sur le serveur.");
+			throw new TooMuchPlayerException("Connexion impossible. Il y a déjà 4 joueurs connectés sur le serveur.");
 		}
 	}
 	
 	/**
-	 * Diffuse un message envoyï¿½ par un joueur ï¿½ tous les autre joueurServeurs
+	 * Diffuse un message envoyé par un joueur à tous les autre joueurServeurs
 	 * @param message
 	 * @throws RemoteException
 	 */
@@ -82,7 +97,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	}
 
 	/**
-	 * Envoie le plateau de jeu au joueur passï¿½ en paramï¿½tre
+	 * Envoie le plateau de jeu au joueur passé en paramètre
 	 * @param proxy
 	 * @throws RemoteException 
 	 */
@@ -93,8 +108,8 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	
 	/**
 	 * Inscription l'utilisateur dans la base de donnï¿½es
-	 * @param utilisateur - utilisateur ï¿½ inscrire
-	 * @return true si inscription rï¿½ussie, false sinon
+	 * @param utilisateur - utilisateur à inscrire
+	 * @return true si inscription réussie, false sinon
 	 * @throws InterruptedException 
 	 */
 	@Override
@@ -104,7 +119,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	}
 	
 	/**
-	 * Vï¿½rifie que l'utilisateur est dans la base de donnï¿½es
+	 * Vérifie que l'utilisateur est dans la base de données
 	 * @param nomUtilisateur - nom de l'utilisateur
 	 * @param motDePasse - mot de passe de l'utilisateur
 	 *  @return true si connexion possible, false sinon
@@ -113,5 +128,14 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	public boolean verificationConnexion(String nomUtilisateur, String motDePasse) throws InterruptedException, RemoteException{
 		Utilisateur utilisateur = new Utilisateur(nomUtilisateur, motDePasse, null);
 		return utilisateur.verificationConnexion();
+	}
+	
+	/**
+	 * Permet de récupérer la date de naissance de l'utilisateur à partir de son
+	 * pseudo
+	 * @throws InterruptedException 
+	 */
+	public Date getDateNaissanceUtilisateur(String nomUtilisateur) throws InterruptedException, RemoteException {
+		return Utilisateur.getDateNaissance(nomUtilisateur);
 	}
 }

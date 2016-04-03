@@ -2,11 +2,12 @@ package serveur.reseau;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.sql.Date;
-import java.time.LocalDate;
 
 import exception.TooMuchPlayerException;
-import serveur.modele.Message;
+
+import serveur.reseau.communicationClients.GestionnaireBDD;
+import serveur.reseau.communicationClients.GestionnairePartie;
+import serveur.reseau.communicationClients.GestionnaireUI;
 
 /**
  * Classe principale pour les communications entre client et serveur
@@ -23,34 +24,24 @@ public interface Serveur extends Remote{
 	 */
 	void enregistrerJoueur(JoueurServeur joueurServeur) throws RemoteException, TooMuchPlayerException;
 	
-	
 	/**
-	 * Diffuse un message envoyï¿½ par un joueur ï¿½ tous les autre joueurs
-	 * @param message
+	 * Permet d'obtenir le gestionnaire de base de données
+	 * @return le gestionnaire de base de données
 	 * @throws RemoteException
 	 */
-	void diffuserMessage(Message message) throws RemoteException;
+	GestionnaireBDD getGestionnaireBDD() throws RemoteException;
 	
 	/**
-	 * Envoie le plateau de jeu au joueur passï¿½ en paramï¿½tre
-	 * @param proxy
+	 * Permet d'obtenir le gestionnaire de partie
+	 * @return le gestionnaire de partie
+	 * @throws RemoteException
 	 */
-	void envoyerPlateau(JoueurServeur proxy) throws RemoteException;
+	GestionnairePartie getGestionnairePartie() throws RemoteException;
 	
 	/**
-	 * Inscription l'utilisateur dans la base de donnï¿½es
-	 * @param utilisateur - utilisateur ï¿½ inscrire
-	 * @return true si inscription rï¿½ussie, false sinon
+	 * Permet d'obtenir le gestionnaire de l'interface
+	 * @return le gestionnaire de base de l'interface
+	 * @throws RemoteException
 	 */
-	String inscriptionBDD(String nomUtilisateur, String motDePasse, LocalDate dateNaissance) throws InterruptedException, RemoteException;
-	
-	/**
-	 * Vérifie que l'utilisateur est dans la base de données
-	 * @param nomUtilisateur - nom de l'utilisateur
-	 * @param motDePasse - mot de passe de l'utilisateur
-	 *  @return true si connexion possible, false sinon
-	 */
-	boolean verificationConnexion(String nomUtilisateur, String motDePasse) throws InterruptedException, RemoteException;
-	
-	Date getDateNaissanceUtilisateur(String nomUtilisateur) throws InterruptedException, RemoteException;
+	GestionnaireUI getGestionnaireUI() throws RemoteException;
 }

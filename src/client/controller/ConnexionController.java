@@ -59,7 +59,7 @@ public class ConnexionController implements Initializable {
 		Serveur serveur = null;
 		try {
 			serveur = ConnexionManager.getStaticServeur();
-			connexionOk = serveur.verificationConnexion(nomUtilisateur.getText(), mdp.getText());
+			connexionOk = serveur.getGestionnaireBDD().verificationConnexion(nomUtilisateur.getText(), mdp.getText());
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -69,7 +69,7 @@ public class ConnexionController implements Initializable {
 			Proxy proxy = ConnexionManager.getStaticProxy();
 			// Set le nom du joueur. Pour récupérer le joueur n'importe où (et donc ses attributs), passer par proxy.getJoueur()
 			proxy.getJoueur().setNomUtilisateur(nomJoueur);
-			dateNaissance = serveur.getDateNaissanceUtilisateur(nomJoueur);
+			dateNaissance = serveur.getGestionnaireBDD().getDateNaissanceUtilisateur(nomJoueur);
 			lancerJeu();
 		}
 		else{

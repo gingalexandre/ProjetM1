@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import serveur.modele.Des;
+import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
@@ -50,12 +51,9 @@ public class DesController implements Initializable {
 	
 	public void animateDes() {
 		RotateTransition rt1 = new RotateTransition(Duration.millis(2000), de1);
-	    rt1.setByAngle(180*24);
-	    rt1.setAutoReverse(true);
 	    RotateTransition rt2 = new RotateTransition(Duration.millis(2000), de2);
-	    rt2.setByAngle(180*24);
-	    rt2.setAutoReverse(true);
-	 
+	    rt1.setByAngle(180*12);
+	    rt2.setByAngle(180*12);
 	    rt1.play();
 	    rt2.play();
 	}

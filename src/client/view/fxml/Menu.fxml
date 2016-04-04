@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 
-<AnchorPane style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.DesController">
     <children>
         <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
@@ -32,17 +32,17 @@
             <children>
                 <AnchorPane GridPane.columnIndex="0">
                     <children>
-                        <Button mnemonicParsing="false" fx:id="boutonDes" text="Lancer les dés" onAction="#lancerDes" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0"/>
+                        <Button mnemonicParsing="false" fx:id="boutonDes" text="Lancer les dés" onAction="#lancerDes" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="1">
                     <children>
-                        <ImageView pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                        <ImageView fx:id="de1" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="2">
                     <children>
-                        <ImageView pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                        <ImageView fx:id="de2" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="3">

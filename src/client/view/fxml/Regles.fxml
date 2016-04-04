@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.image.Image?>
 
-
-<GridPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.ReglesController">
+<GridPane stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.ReglesController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="100.0" />
     </columnConstraints>
@@ -20,7 +17,7 @@
         <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <AnchorPane id="constructionrules" GridPane.rowIndex="0" GridPane.columnIndex="0" stylesheets="@rules.css">
+        <AnchorPane id="constructionrules" GridPane.rowIndex="0" GridPane.columnIndex="0">
         </AnchorPane>
         <AnchorPane GridPane.rowIndex="1" GridPane.columnIndex="0">
             <children>

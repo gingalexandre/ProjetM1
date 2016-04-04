@@ -7,14 +7,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 
 public class JoueurActuelController implements Initializable {
 
 	@FXML
-	private ImageView imageBle, imageArgile, imageCaillou, imageLaine, imageBois;
-	
-	@FXML
 	private Label nbBle, nbArgile, nbCaillou, nbLaine, nbBois, nomJoueur;
+
+	@FXML
+	private GridPane couleurJoueur;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -24,7 +25,7 @@ public class JoueurActuelController implements Initializable {
 		nbLaine.setText("0");
 		nbBois.setText("0");
 		nomJoueur.setText(ConnexionController.nomJoueur);
-		
+		couleurJoueur.setStyle("-fx-background-color: BLACK;");
 	}
 
 	/**

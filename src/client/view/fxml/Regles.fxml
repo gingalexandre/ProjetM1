@@ -16,20 +16,25 @@
     <rowConstraints>
         <RowConstraints minHeight="10.0" percentHeight="75.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" percentHeight="5.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <AnchorPane GridPane.rowIndex="0">
-            <children>
-                <ImageView preserveRatio="false" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0">
-                    <image>
-                    <Image url="@../../../../Ressources/autres/regles_construction.png" />
-                    </image>
-                </ImageView>
-            </children>
+        <AnchorPane id="constructionrules" GridPane.rowIndex="0" GridPane.columnIndex="0" stylesheets="@rules.css">
         </AnchorPane>
-        <AnchorPane GridPane.rowIndex="1">
+        <AnchorPane GridPane.rowIndex="1" GridPane.columnIndex="0">
             <children>
                 <Button fx:id="boutonRegles" onAction="#afficherRegles" mnemonicParsing="false" text="Afficher les Règles." AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+            </children>
+        </AnchorPane>
+        <AnchorPane GridPane.rowIndex="2" GridPane.columnIndex="0">
+            <children>
+                <Button fx:id="boutonStatistiques" mnemonicParsing="false" text="Statistiques." AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+            </children>
+        </AnchorPane>
+        <AnchorPane GridPane.rowIndex="3" GridPane.columnIndex="0">
+            <children>
+                <Button fx:id="boutonSauvegarde" mnemonicParsing="false" text="Sauvegarde." AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
             </children>
         </AnchorPane>
     </children>

@@ -8,6 +8,10 @@ public class ReglesController {
 	
 	@FXML
 	private Button boutonRegles;
+	@FXML
+	private Button boutonSatistiques;
+	@FXML
+	private Button boutonsauvegarde;
 	
 	public void afficherRegles(){
 				VuePrincipale v= new VuePrincipale();

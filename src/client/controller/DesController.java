@@ -4,10 +4,17 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import serveur.modele.Des;
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
+import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
 public class DesController implements Initializable {
 
@@ -18,46 +25,37 @@ public class DesController implements Initializable {
 	private static final String numeroCinq = "file:Ressources/des/dice5.png";
 	private static final String numeroSix = "file:Ressources/des/dice6.png";
 	
-	private static final String enAttente = "file:Ressources/des/lancer_des.gif";
-	
-	private static final String initGif = "file:Ressources/des/lancer_des_version_infinie.gif";
-
 	@FXML
-	private ImageView des1, des2;
+	private ImageView de1, de2;
+	
+	@FXML
+	private Button boutonDes;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		des1.setImage(new Image(initGif));
-		des2.setImage(new Image(initGif));		
+		de1.setImage(new Image(numeroSix));
+		de2.setImage(new Image(numeroSix));		
 	}
 
-	public void actionLancerDes() {
+	public void lancerDes() {
 		Des des = new Des();
 		Integer[] resultats = des.lancerDes();
-
-		des1.setImage(new Image(enAttente));
-		des2.setImage(new Image(enAttente));
 		
-		try {
-			// Attente volontaire pour simuler le lancé de dés
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		// Affectation de l'image selon le lancé
-		Image imageDe1 = new Image(distribuerDes(resultats[0]));
-		Image imageDe2 = new Image(distribuerDes(resultats[1]));
-		
+		animateDes();
 		
 		// Modification des images
-		des1.setImage(imageDe1);
-		des1.setImage(imageDe2);
-
-		// Action des dès
-		des.actionDes(resultats[0] + resultats[1]);
-
+		de1.setImage(new Image(distribuerDes(resultats[0])));
+		de2.setImage(new Image(distribuerDes(resultats[1])));
+		
+	}
+	
+	public void animateDes() {
+		RotateTransition rt1 = new RotateTransition(Duration.millis(2000), de1);
+	    RotateTransition rt2 = new RotateTransition(Duration.millis(2000), de2);
+	    rt1.setByAngle(180*12);
+	    rt2.setByAngle(180*12);
+	    rt1.play();
+	    rt2.play();
 	}
 
 	private String distribuerDes(Integer de) {
@@ -77,6 +75,5 @@ public class DesController implements Initializable {
 		default:
 			return null;
 		}
-
 	}
 }

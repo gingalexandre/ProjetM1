@@ -1,116 +1,168 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.AnchorPane?>
 
+<GridPane gridLinesVisible="true" stylesheets="@stylesheet.css"  xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" >
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" percentWidth="33.3"/>
+        <ColumnConstraints hgrow="SOMETIMES" percentWidth="33.3"/>
+        <ColumnConstraints hgrow="SOMETIMES" percentWidth="33.4"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="100.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <GridPane gridLinesVisible="true" visible="true" GridPane.columnIndex="0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" percentWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints percentHeight="50.0" vgrow="SOMETIMES" />
+                <RowConstraints percentHeight="50.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <AnchorPane GridPane.rowIndex="0">
+                    <children>
+                        <Label alignment="CENTER" text="Other Player" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+                <GridPane gridLinesVisible="true" GridPane.rowIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="16.5" />
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="16.5" />
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="16.5" />
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="16.5" />
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="17.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="17.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints percentHeight="100.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <AnchorPane id="imageVictoire" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                        </AnchorPane>
+                        <AnchorPane GridPane.rowIndex="0" GridPane.columnIndex="1">
+                            <children>
+                                <Label id="nbVictoire" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane id="imageCarte"  GridPane.rowIndex="0" GridPane.columnIndex="2">
+                        </AnchorPane>
+                        <AnchorPane GridPane.rowIndex="0" GridPane.columnIndex="3">
+                            <children>
+                                <Label id="nbcarte" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane id="imageRoute" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="4">
+                        </AnchorPane>
+                        <AnchorPane id="imageSoldat" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="5">
+                        </AnchorPane>
+                    </children>
+                </GridPane>
+            </children>
+        </GridPane>
+        <GridPane gridLinesVisible="true" visible="true" GridPane.columnIndex="1">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" percentWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints percentHeight="50.0" vgrow="SOMETIMES" />
+                <RowConstraints percentHeight="50.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <AnchorPane GridPane.rowIndex="0">
+                    <children>
+                        <Label alignment="CENTER" text="Other Player" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+                <GridPane gridLinesVisible="true" GridPane.rowIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="16.5" />
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="16.5" />
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="16.5" />
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="16.5" />
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="17.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="17.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints percentHeight="100.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <AnchorPane id="imageVictoire" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                        </AnchorPane>
+                        <AnchorPane GridPane.rowIndex="0" GridPane.columnIndex="1">
+                            <children>
+                                <Label id="nbVictoire" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane id="imageCarte"  GridPane.rowIndex="0" GridPane.columnIndex="2">
+                        </AnchorPane>
+                        <AnchorPane GridPane.rowIndex="0" GridPane.columnIndex="3">
+                            <children>
+                                <Label id="nbcarte" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane id="imageRoute" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="4">
+                        </AnchorPane>
+                        <AnchorPane id="imageSoldat" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="5">
+                        </AnchorPane>
+                    </children>
+                </GridPane>
+            </children>
+        </GridPane>
+        <GridPane gridLinesVisible="true" visible="true" GridPane.columnIndex="2">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" percentWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints percentHeight="50.0" vgrow="SOMETIMES" />
+                <RowConstraints percentHeight="50.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <AnchorPane GridPane.rowIndex="0">
+                    <children>
+                        <Label alignment="CENTER" text="Other Player" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+                <GridPane gridLinesVisible="true" GridPane.rowIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="16.5" />
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="16.5" />
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="16.5" />
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="16.5" />
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="17.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="17.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints percentHeight="100.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <AnchorPane id="imageVictoire" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                        </AnchorPane>
+                        <AnchorPane GridPane.rowIndex="0" GridPane.columnIndex="1">
+                            <children>
+                                <Label id="nbVictoire" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane id="imageCarte"  GridPane.rowIndex="0" GridPane.columnIndex="2">
+                        </AnchorPane>
+                        <AnchorPane GridPane.rowIndex="0" GridPane.columnIndex="3">
+                            <children>
+                                <Label id="nbcarte" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane id="imageRoute" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="4">
+                        </AnchorPane>
+                        <AnchorPane id="imageSoldat" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="5">
+                        </AnchorPane>
+                    </children>
+                </GridPane>
+            </children>
+        </GridPane>
+    </children>
+</GridPane>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="66.0" prefWidth="1340.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <GridPane layoutX="104.0" layoutY="-12.0" prefHeight="66.0" prefWidth="1340.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label prefHeight="191.0" prefWidth="584.0" style="-fx-alignment: center;" text="Joueur 1" />
-            <Label prefHeight="162.0" prefWidth="560.0" style="-fx-alignment: center;" text="Joueur 2" GridPane.columnIndex="1" />
-            <Label prefHeight="36.0" prefWidth="345.0" style="-fx-alignment: center;" text="Joueur 3" GridPane.columnIndex="2" />
-            <Label prefHeight="148.0" prefWidth="607.0" style="-fx-alignment: center;" text="Joueur 4" GridPane.columnIndex="3" />
-            <GridPane GridPane.rowIndex="1">
-              <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <ImageView fitHeight="37.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="41.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" />
-                  <ImageView fitHeight="37.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" />
-                  <ImageView fitHeight="37.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
-                  <Label prefHeight="122.0" prefWidth="152.0" style="-fx-alignment: center;" text="x 0" GridPane.columnIndex="1" />
-                  <Label prefHeight="149.0" prefWidth="180.0" style="-fx-alignment: center;" text="x 0" GridPane.columnIndex="3" />
-               </children>
-            </GridPane>
-            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <ImageView fitHeight="37.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="41.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" />
-                  <ImageView fitHeight="37.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" />
-                  <ImageView fitHeight="37.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
-                  <Label prefHeight="122.0" prefWidth="152.0" style="-fx-alignment: center;" text="x 0" GridPane.columnIndex="1" />
-                  <Label prefHeight="149.0" prefWidth="180.0" style="-fx-alignment: center;" text="x 0" GridPane.columnIndex="3" />
-               </children>
-            </GridPane>
-            <GridPane GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <ImageView fitHeight="37.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="41.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" />
-                  <ImageView fitHeight="37.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" />
-                  <ImageView fitHeight="37.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
-                  <Label prefHeight="122.0" prefWidth="152.0" style="-fx-alignment: center;" text="x 0" GridPane.columnIndex="1" />
-                  <Label prefHeight="149.0" prefWidth="180.0" style="-fx-alignment: center;" text="x 0" GridPane.columnIndex="3" />
-               </children>
-            </GridPane>
-            <GridPane GridPane.columnIndex="3" GridPane.rowIndex="1">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <ImageView fitHeight="37.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="41.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" />
-                  <ImageView fitHeight="37.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" />
-                  <ImageView fitHeight="37.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
-                  <Label prefHeight="122.0" prefWidth="152.0" style="-fx-alignment: center;" text="x 0" GridPane.columnIndex="1" />
-                  <Label prefHeight="149.0" prefWidth="180.0" style="-fx-alignment: center;" text="x 0" GridPane.columnIndex="3" />
-               </children>
-            </GridPane>
-         </children>
-      </GridPane>
-   </children>
-</AnchorPane>

@@ -1,9 +1,14 @@
 package client.controller;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 import serveur.modele.Des;
+import serveur.modele.Message;
+import serveur.reseau.ConnexionManager;
+import serveur.reseau.Proxy;
+import serveur.reseau.Serveur;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
@@ -30,11 +35,19 @@ public class DesController implements Initializable {
 	
 	@FXML
 	private Button boutonDes;
+	
+	/**
+	 * Proxy client
+	 */
+	private Proxy proxy;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		de1.setImage(new Image(numeroSix));
-		de2.setImage(new Image(numeroSix));		
+		de2.setImage(new Image(numeroSix));
+		proxy = ConnexionManager.getStaticProxy();
+		proxy.setDesController(this);
+		
 	}
 
 	public void lancerDes() {
@@ -47,13 +60,14 @@ public class DesController implements Initializable {
 		de1.setImage(new Image(distribuerDes(resultats[0])));
 		de2.setImage(new Image(distribuerDes(resultats[1])));
 		
+		notifierLancerDes(resultats);
 	}
 	
 	public void animateDes() {
-		RotateTransition rt1 = new RotateTransition(Duration.millis(2000), de1);
-	    RotateTransition rt2 = new RotateTransition(Duration.millis(2000), de2);
-	    rt1.setByAngle(180*12);
-	    rt2.setByAngle(180*12);
+		RotateTransition rt1 = new RotateTransition(Duration.millis(1000), de1);
+	    RotateTransition rt2 = new RotateTransition(Duration.millis(1000), de2);
+	    rt1.setByAngle(180*6);
+	    rt2.setByAngle(180*6);
 	    rt1.play();
 	    rt2.play();
 	}
@@ -74,6 +88,17 @@ public class DesController implements Initializable {
 			return numeroSix;
 		default:
 			return null;
+		}
+	}
+	
+	private void notifierLancerDes(Integer[] resultats){
+		try{
+			// Récupération du serveur en passant par le singleton ConnexionManager
+			Serveur serveur = ConnexionManager.getStaticServeur();
+			serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" a lancé les dés : "+resultats[0]+" | "+resultats[1]));
+		}
+		catch (RemoteException e){
+			e.printStackTrace();
 		}
 	}
 }

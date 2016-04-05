@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import client.controller.ChatController;
+import client.controller.DesController;
 import client.controller.PlateauController;
 import serveur.modele.Joueur;
 import serveur.modele.Message;
@@ -17,6 +18,11 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	 * Controller du chat
 	 */
 	private ChatController chatController;
+	
+	/**
+	 * Controller des dés
+	 */
+	private DesController desController;
 
 	/**
 	 * Controller du plateau
@@ -37,6 +43,13 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	 */
 	public void setChatController(ChatController chatController) {
 		this.chatController = chatController;
+	}
+	
+	/**
+	 * @param desController
+	 */
+	public void setDesController(DesController desController) {
+		this.desController = desController;
 	}
 
 	/**

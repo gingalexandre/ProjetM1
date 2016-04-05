@@ -5,11 +5,13 @@
  */
 package serveur.modele;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Arthur
  */
-public class Partie {
+public class Partie implements Serializable {
     
 	/**
 	 * Joueurs de la partie. Le joueur 4 peut être null.s
@@ -66,7 +68,7 @@ public class Partie {
    	 	this.ressources = new Ressource();
     }
 
-	public static Joueur getJoueur1() {
+	public Joueur getJoueur1() {
 		return joueur1;
 	}
 
@@ -74,7 +76,7 @@ public class Partie {
 		this.joueur1 = joueur1;
 	}
 
-	public static Joueur getJoueur2() {
+	public Joueur getJoueur2() {
 		return joueur2;
 	}
 
@@ -82,7 +84,7 @@ public class Partie {
 		this.joueur2 = joueur2;
 	}
 
-	public static Joueur getJoueur3() {
+	public Joueur getJoueur3() {
 		return joueur3;
 	}
 
@@ -90,7 +92,7 @@ public class Partie {
 		this.joueur3 = joueur3;
 	}
 
-	public static Joueur getJoueur4() {
+	public Joueur getJoueur4() {
 		return joueur4;
 	}
 

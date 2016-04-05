@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 import serveur.modele.Des;
+import serveur.modele.Joueur;
 import serveur.modele.Message;
 import serveur.modele.Partie;
 import serveur.reseau.ConnexionManager;
@@ -118,6 +119,14 @@ public class DesController implements Initializable {
 		//String[] listNom = Plateau.getJoueursCase(caseConcernee);
 		
 		//Faire une boucle foreach tous les joueurs consernés
-		//Partie.getJoueur1().ajoutRessource(1, 3);
+		try{
+			// Récupération du serveur en passant par le singleton ConnexionManager
+			Serveur serveur = ConnexionManager.getStaticServeur();
+			serveur.getGestionnairePartie().getPartie().getJoueur1().ajoutRessource(1, 3); //essaie d'ajout de ressource
+		}
+		catch (RemoteException e){
+			e.printStackTrace();
+		}
+		
 	}
 }

@@ -29,7 +29,7 @@ public class Utilisateur {
 	}
 
 	/**
-	 * Méthode permettant la vérification de la connexion
+	 * Mï¿½thode permettant la vï¿½rification de la connexion
 	 * @return boolean : Vrai si la connexion est effective, faux sinon
 	 * @throws InterruptedException
 	 */
@@ -42,13 +42,15 @@ public class Utilisateur {
 			prestmt.setString(1, nomUtilisateur);
 			prestmt.setString(2, mdp);
 			ResultSet rs = prestmt.executeQuery();
-			connection.close();
-			// On test si la taille est égale à 1, si c'est le cas c'est qu'on a
+			
+			// On test si la taille est ï¿½gale ï¿½ 1, si c'est le cas c'est qu'on a
 			// bien l'utilisateur d'inscrit
 
 			if (rs.next()) {
+				connection.close();
 				return true;
 			} else {
+				connection.close();
 				return false;
 			}
 
@@ -61,14 +63,14 @@ public class Utilisateur {
 	}
 
 	/**
-	 * Méthode permettant l'inscription d'un utilisateur
+	 * Mï¿½thode permettant l'inscription d'un utilisateur
 	 * 
-	 * @return String : message à afficher (erreur ou non)
+	 * @return String : message ï¿½ afficher (erreur ou non)
 	 * @throws InterruptedException
 	 */
 	public String inscription() throws InterruptedException {
 		if (this.verificationConnexion()) {
-			return "Nom d'utilisateur déjà existant, veuillez recommencer.";
+			return "Nom d'utilisateur dï¿½jï¿½ existant, veuillez recommencer.";
 		} else {
 			Connection connection = Base.connexion();
 			String query = "INSERT INTO Joueur(idJoueur, pseudo, mdp, nombrePartieGagnee, nombrePartieJouee, dateNaissance) VALUES (NULL,?,?,0,0,?)";
@@ -86,7 +88,7 @@ public class Utilisateur {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return "Inscription réussie";
+			return "Inscription rï¿½ussie";
 		}
 	}
 

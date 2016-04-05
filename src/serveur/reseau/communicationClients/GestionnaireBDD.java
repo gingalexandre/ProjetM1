@@ -5,10 +5,11 @@ import java.rmi.RemoteException;
 import java.sql.Date;
 import java.time.LocalDate;
 
+import serveur.bdd.Statistiques;
 import serveur.bdd.Utilisateur;
 
 /**
- * Classe qui s'occupe des échanges concernant la base de données entre les clients et le serveur
+ * Classe qui s'occupe des ï¿½changes concernant la base de donnï¿½es entre les clients et le serveur
  * @author jerome
  */
 public class GestionnaireBDD implements Serializable {
@@ -18,9 +19,9 @@ public class GestionnaireBDD implements Serializable {
 	public GestionnaireBDD(){};
 	
 	/**
-	 * Inscription l'utilisateur dans la base de données
-	 * @param utilisateur - utilisateur à inscrire
-	 * @return true si inscription réussie, false sinon
+	 * Inscription l'utilisateur dans la base de donnï¿½es
+	 * @param utilisateur - utilisateur ï¿½ inscrire
+	 * @return true si inscription rï¿½ussie, false sinon
 	 * @throws InterruptedException 
 	 */
 	public String inscriptionBDD(String nomUtilisateur, String motDePasse, LocalDate dateNaissance) throws InterruptedException, RemoteException{
@@ -29,7 +30,25 @@ public class GestionnaireBDD implements Serializable {
 	}
 	
 	/**
-	 * Vérifie que l'utilisateur est dans la base de données
+	 * Permet de rÃ©cupÃ©rer les statistiques Ã  partir du nom du Joueur
+	 * @param nomUtilisateur
+	 * @return un tableau de int [nombrePartieJouee, nombrePartieGagnee]
+	 */
+	public Integer[] getStatistiques(String nomUtilisateur){
+		return Statistiques.getStatistiques(nomUtilisateur);
+	}
+
+	/**
+	 * MÃ©thode permettant de mettre Ã  jour les stats d'un Joueur Ã  la fin de la partie
+	 * @param victoire : int 0 si perdu, 1 si victoire
+	 * @param nomUtilisateur : String : pseudo du Joueur
+	 */
+	public void getUpdateStatistiques(int victoire, String nomUtilisateur){
+		Statistiques.addStatistique(victoire, nomUtilisateur);
+	}
+	
+	/**
+	 * Vï¿½rifie que l'utilisateur est dans la base de donnï¿½es
 	 * @param nomUtilisateur - nom de l'utilisateur
 	 * @param motDePasse - mot de passe de l'utilisateur
 	 *  @return true si connexion possible, false sinon
@@ -40,7 +59,7 @@ public class GestionnaireBDD implements Serializable {
 	}
 	
 	/**
-	 * Permet de récupérer la date de naissance de l'utilisateur à partir de son
+	 * Permet de rï¿½cupï¿½rer la date de naissance de l'utilisateur ï¿½ partir de son
 	 * pseudo
 	 * @throws InterruptedException 
 	 */

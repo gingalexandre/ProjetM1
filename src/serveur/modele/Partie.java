@@ -14,7 +14,7 @@ public class Partie {
 	/**
 	 * Joueurs de la partie. Le joueur 4 peut être null.s
 	 */
-	private Joueur joueur1, joueur2, joueur3, joueur4;
+	private static Joueur joueur1, joueur2, joueur3, joueur4;
 	
 	/**
 	 * Plateau de la partie
@@ -60,7 +60,7 @@ public class Partie {
    	 	this.ressources = new Ressource();
     }
 
-	public Joueur getJoueur1() {
+	public static Joueur getJoueur1() {
 		return joueur1;
 	}
 
@@ -68,7 +68,7 @@ public class Partie {
 		this.joueur1 = joueur1;
 	}
 
-	public Joueur getJoueur2() {
+	public static Joueur getJoueur2() {
 		return joueur2;
 	}
 
@@ -76,7 +76,7 @@ public class Partie {
 		this.joueur2 = joueur2;
 	}
 
-	public Joueur getJoueur3() {
+	public static Joueur getJoueur3() {
 		return joueur3;
 	}
 
@@ -84,7 +84,7 @@ public class Partie {
 		this.joueur3 = joueur3;
 	}
 
-	public Joueur getJoueur4() {
+	public static Joueur getJoueur4() {
 		return joueur4;
 	}
 

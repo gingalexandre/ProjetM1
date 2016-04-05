@@ -6,19 +6,16 @@ import java.util.ResourceBundle;
 
 import serveur.modele.Des;
 import serveur.modele.Message;
+import serveur.modele.Partie;
 import serveur.reseau.ConnexionManager;
 import serveur.reseau.Proxy;
 import serveur.reseau.Serveur;
-import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 public class DesController implements Initializable {
@@ -61,6 +58,7 @@ public class DesController implements Initializable {
 		de2.setImage(new Image(distribuerDes(resultats[1])));
 		
 		notifierLancerDes(resultats);
+		extractionRessources(resultats);
 	}
 	
 	public void animateDes() {
@@ -91,6 +89,10 @@ public class DesController implements Initializable {
 		}
 	}
 	
+	/**
+	 * Affiche le resultat des dés dans le chat sous forme de message Système
+	 * @param Integer[] resultats (résultats des dés)
+	 */
 	private void notifierLancerDes(Integer[] resultats){
 		try{
 			// Récupération du serveur en passant par le singleton ConnexionManager
@@ -100,5 +102,22 @@ public class DesController implements Initializable {
 		catch (RemoteException e){
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Distribue à chaque joueurs les ressources associées à la case du numéro tombé
+	 * @param Integer[] resultats (résultats des dés)
+	 */
+	private void extractionRessources(Integer[] resultats){
+		Integer caseConsernee = resultats[0]+resultats[1];
+		
+		//Méthode (retournant le type de ressource) à implémenter
+		//int ressource = Plateau.getRessourceCase(caseConcernee);
+		
+		//Méthode (retournant la liste des noms de joueurs) à implémenter
+		//String[] listNom = Plateau.getJoueursCase(caseConcernee);
+		
+		//Faire une boucle foreach tous les joueurs consernés
+		//Partie.getJoueur1().ajoutRessource(1, 3);
 	}
 }

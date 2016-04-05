@@ -12,7 +12,6 @@ public class VueHexagone extends Polygon {
 	
 	Hexagone hexagone;
 	
-	
 	public final static String carriere 	= "file:Ressources/cases/carriere.png";
 	public final static String champs 		= "file:Ressources/cases/champs.png";
 	public final static String foret		= "file:Ressources/cases/foret.png";
@@ -20,7 +19,6 @@ public class VueHexagone extends Polygon {
 	public final static String prairie		= "file:Ressources/cases/plaine.png";
 	public final static String dunevoleur 	= "file:Ressources/cases/dune.png"; 
 	
-
 	public VueHexagone(Hexagone hexagone) {
 		super();
 		this.hexagone = hexagone;
@@ -47,8 +45,6 @@ public class VueHexagone extends Polygon {
 		
 	}
 	
-	
-	
 	public static VueHexagone[] transformVueHexagone(ArrayList<Hexagone> hexagones){
 		VueHexagone[] vueHexagones = new VueHexagone[hexagones.size()];
 		for(int i = 0; i < hexagones.size(); i ++){
@@ -56,9 +52,5 @@ public class VueHexagone extends Polygon {
 		}
 		return vueHexagones;
 	}
-	
-	
-	
-	
 
 }

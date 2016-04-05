@@ -5,11 +5,13 @@
  */
 package serveur.modele;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Arthur
  */
-public class Partie {
+public class Partie implements Serializable {
     
 	/**
 	 * Joueurs de la partie. Le joueur 4 peut être null.s
@@ -32,6 +34,7 @@ public class Partie {
      * @param plateau - plateau de la partie
      */
     public Partie(Plateau plateau){
+    	 this.plateau = plateau;
     	 this.ressources = new Ressource();
     }
     
@@ -64,6 +67,22 @@ public class Partie {
     	this.joueur4 = joueur4;
     	this.plateau = plateau;
    	 	this.ressources = new Ressource();
+    }
+    
+    public Joueur getJoueurByCouleur(String couleur){
+    	if(this.joueur1.getCouleur()==couleur){
+    		return this.joueur1;
+    	}
+    	else if(this.joueur2.getCouleur()==couleur){
+    		return this.joueur2;
+    	}
+    	else if(this.joueur3.getCouleur()==couleur){
+    		return this.joueur3;
+    	}
+    	else if(this.joueur4.getCouleur()==couleur){
+    		return this.joueur4;
+    	}
+    	return null;
     }
 
 	public Joueur getJoueur1() {

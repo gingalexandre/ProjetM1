@@ -2,6 +2,7 @@ package client.controller;
 
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import client.commun.Fonction;
@@ -12,6 +13,10 @@ import javafx.scene.layout.GridPane;
 import serveur.modele.Joueur;
 import serveur.reseau.ConnexionManager;
 import serveur.reseau.Proxy;
+import serveur.modele.Ressource;
+import serveur.reseau.ConnexionManager;
+import serveur.reseau.Proxy;
+import serveur.reseau.Serveur;
 
 public class JoueurActuelController implements Initializable {
 
@@ -57,6 +62,25 @@ public class JoueurActuelController implements Initializable {
 		// Appel de la méthode permettant de transformer la couleur de français à anglais pour pouvoir changer le style
 		String couleurAnglais = Fonction.couleurEnAnglais(joueur.getCouleur());
 		couleurJoueur.setStyle("-fx-background-color: "+couleurAnglais+";");
+		proxy = ConnexionManager.getStaticProxy();
+		proxy.setJoueurActuelController(this);
+		
+	}
+	
+	/**
+	 * Mise à jour de l'affichage des ressources du joueur actuel
+	 * @throws RemoteException
+	 */
+	
+	public void majRessource() throws RemoteException{
+		Serveur serveur = ConnexionManager.getStaticServeur();
+		HashMap<Integer, Integer> stockJoueur = proxy.getJoueur().getStockRessource();
+		this.nbArgile.setText(""+stockJoueur.get(Ressource.ARGILE));
+		this.nbBle.setText(""+stockJoueur.get(Ressource.BLE));
+		this.nbBois.setText(""+stockJoueur.get(Ressource.BOIS));
+		this.nbCaillou.setText(""+stockJoueur.get(Ressource.MINERAIE));
+		this.nbLaine.setText(""+stockJoueur.get(Ressource.LAINE));
+		
 	}
 
 	/**
@@ -65,11 +89,9 @@ public class JoueurActuelController implements Initializable {
 	 * @param nombre : int nombre Ã  modifier
 	 */
 	public void modifierRessource(String nomRessource, int nombre) {
-
 		Label ressource = distribuerLabelRessource(nomRessource);
 		int nbInitial = Integer.parseInt(ressource.getText());
 		ressource.setText(Integer.toString(nbInitial + nombre));
-		
 	}
 
 	/**

@@ -129,9 +129,9 @@ public class ChatController implements Initializable{
 		if(!messageUtilisateur.equals("")){
 			Message message = new Message(proxy.getJoueur().getNomUtilisateur(), messageUtilisateur, proxy.getJoueur().getCouleur());
 			try{
-				// Rï¿½cupï¿½ration du serveur en passant par le singleton ConnexionManager
+				// Récupération du serveur en passant par le singleton ConnexionManager
 				Serveur serveur = ConnexionManager.getStaticServeur();
-				// Appel de la mï¿½thode distante diffuserMessage du serveur pour envoyer le message ï¿½ tous les controllers des joueurs
+				// Appel de la méthode distante diffuserMessage du serveur pour envoyer le message à tous les controllers des joueurs
 				serveur.getGestionnaireUI().diffuserMessage(message);
 			}
 			catch (RemoteException e){

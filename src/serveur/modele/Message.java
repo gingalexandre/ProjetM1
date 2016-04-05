@@ -17,6 +17,13 @@ public class Message implements Serializable{
 		this.couleur = couleur;
 	}
 	
+	//Lorsqu'il s'agit d'un message Système
+	public Message(String message){
+		this.auteur = "Système";
+		this.message = message;
+		this.couleur = "Noir";
+	}
+	
 	public String getAuteur() {
 		return auteur;
 	}

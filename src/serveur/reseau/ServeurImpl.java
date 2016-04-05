@@ -95,9 +95,11 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	/**
 	 * Permet d'ajouter un joueur à la liste de joueurs des gestionnaires
 	 * @param nouveauJoueurServeur - joueur à envoyer
+	 * @throws RemoteException 
 	 */
-	private void envoyerJoueurAuGestionnaire(JoueurServeur nouveauJoueurServeur){
+	private void envoyerJoueurAuGestionnaire(JoueurServeur nouveauJoueurServeur) throws RemoteException{
 		this.gestionnairePartie.enregistrerJoueur(nouveauJoueurServeur);
+		this.gestionnairePartie.ajouterJoueurPartie(nouveauJoueurServeur.getJoueur());
 		this.gestionnaireUI.enregistrerJoueur(nouveauJoueurServeur);
 	}
 	

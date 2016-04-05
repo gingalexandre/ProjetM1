@@ -3,6 +3,8 @@ package serveur.reseau.communicationClients;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import exception.TooMuchPlayerException;
+import serveur.modele.Joueur;
 import serveur.modele.Partie;
 import serveur.modele.Plateau;
 import serveur.reseau.JoueurServeur;
@@ -38,7 +40,7 @@ public class GestionnairePartie implements Serializable{
 	 * @return la partie
 	 */
 	public Partie getPartie() {
-		return partie;
+		return this.partie;
 	}
 	
 	/**
@@ -47,5 +49,29 @@ public class GestionnairePartie implements Serializable{
 	 */
 	public void enregistrerJoueur(JoueurServeur nouveauJoueurServeur){
 		joueurServeurs.add(nouveauJoueurServeur);
+	}
+	
+	/**
+	 * Ajoute le joueur passé en paramètre à la partie
+	 * @param nouveauJoueur - joueur à ajouter à la partie
+	 * @throws TooMuchPlayerException
+	 */
+	public void ajouterJoueurPartie(Joueur nouveauJoueur){
+		switch(this.joueurServeurs.size()){
+			case 1:
+				this.partie.setJoueur1(nouveauJoueur);
+				break;
+			case 2:
+				this.partie.setJoueur2(nouveauJoueur);
+				break;
+			case 3:
+				this.partie.setJoueur3(nouveauJoueur);
+				break;
+			case 4:
+				this.partie.setJoueur4(nouveauJoueur);
+				break;
+			default: 
+				break;
+		}
 	}
 }

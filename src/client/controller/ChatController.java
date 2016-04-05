@@ -61,7 +61,7 @@ public class ChatController implements Initializable{
 	}
 	
 	/**
-	 * Appelle les méthodes gérant les listener des composants de la vue
+	 * Appelle les mï¿½thodes gï¿½rant les listener des composants de la vue
 	 */
 	private void listenerVues() {
 		nombreCharMaxTextField();
@@ -86,7 +86,7 @@ public class ChatController implements Initializable{
 	
 	/**
 	 * Affiche le message dans les TextArea correspondantes
-	 * @param message - Message à afficher
+	 * @param message - Message ï¿½ afficher
 	 */
 	public void afficherMessage(Message message){
 		Platform.runLater(() -> textFlowPrincipal.getChildren().add(creerStyleTexteAuteur(message)));
@@ -97,7 +97,7 @@ public class ChatController implements Initializable{
 	}
 	
 	/**
-	 * Renvoie un Text avec le style adéquat pour l'auteur du message
+	 * Renvoie un Text avec le style adï¿½quat pour l'auteur du message
 	 * @param message
 	 * @return
 	 */
@@ -109,7 +109,7 @@ public class ChatController implements Initializable{
 	}
 	
 	/**
-	 * Renvoie un Text avec le style adéquat pour le contenu du message
+	 * Renvoie un Text avec le style adï¿½quat pour le contenu du message
 	 * @param message
 	 * @return
 	 */
@@ -120,7 +120,7 @@ public class ChatController implements Initializable{
 	}
 	
 	/**
-	 * Se déclenche quand l'utilisateur appuie sur la touche "Entrée" lorsqu'il se trouve dans le TextField
+	 * Se dï¿½clenche quand l'utilisateur appuie sur la touche "Entrï¿½e" lorsqu'il se trouve dans le TextField
 	 * @throws RemoteException 
 	 */
 	@FXML
@@ -129,9 +129,9 @@ public class ChatController implements Initializable{
 		if(!messageUtilisateur.equals("")){
 			Message message = new Message(proxy.getJoueur().getNomUtilisateur(), messageUtilisateur, proxy.getJoueur().getCouleur());
 			try{
-				// Récupération du serveur en passant par le singleton ConnexionManager
+				// Rï¿½cupï¿½ration du serveur en passant par le singleton ConnexionManager
 				Serveur serveur = ConnexionManager.getStaticServeur();
-				// Appel de la méthode distante diffuserMessage du serveur pour envoyer le message à tous les controllers des joueurs
+				// Appel de la mï¿½thode distante diffuserMessage du serveur pour envoyer le message ï¿½ tous les controllers des joueurs
 				serveur.getGestionnaireUI().diffuserMessage(message);
 			}
 			catch (RemoteException e){
@@ -142,7 +142,7 @@ public class ChatController implements Initializable{
 	}
 	
 	/**
-	 * Place la barre de scroll à la valeur donnée
+	 * Place la barre de scroll ï¿½ la valeur donnï¿½e
 	 * @param scrollPane
 	 * @param value
 	 */

@@ -23,6 +23,11 @@ public class Partie {
 	
     private Ressource ressources;
     
+    /* De 1 à 3 si 3 joueurs
+     * De 1 à 4 si 4 joueurs
+     */
+    private int tour;
+    
     /**
      * @param plateau - plateau de la partie
      */
@@ -43,6 +48,7 @@ public class Partie {
     	this.plateau = plateau;
    	 	this.ressources = new Ressource();
     }
+    
     
     /**
      * @param joueur1 - joueur 1 de la partie 
@@ -99,4 +105,5 @@ public class Partie {
 	public void setRessources(Ressource ressources) {
 		this.ressources = ressources;
 	}
+	
 }

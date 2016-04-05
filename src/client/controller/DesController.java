@@ -49,7 +49,7 @@ public class DesController implements Initializable {
 		
 	}
 
-	public void lancerDes() {
+	public void lancerDes() throws RemoteException {
 		Des des = new Des();
 		Integer[] resultats = des.lancerDes();
 		
@@ -99,7 +99,8 @@ public class DesController implements Initializable {
 		try{
 			// Récupération du serveur en passant par le singleton ConnexionManager
 			Serveur serveur = ConnexionManager.getStaticServeur();
-			serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" a lancé les dés : "+resultats[0]+" | "+resultats[1]));
+			String nomJoueur = proxy.getJoueur().getNomUtilisateur();
+			serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" a lancé les dés : "+resultats[0]+" | "+resultats[1]));
 		}
 		catch (RemoteException e){
 			e.printStackTrace();
@@ -109,8 +110,9 @@ public class DesController implements Initializable {
 	/**
 	 * Distribue à chaque joueurs les ressources associées à la case du numéro tombé
 	 * @param Integer[] resultats (résultats des dés)
+	 * @throws RemoteException 
 	 */
-	private void extractionRessources(Integer[] resultats){
+	private void extractionRessources(Integer[] resultats) throws RemoteException{
 		Integer caseConsernee = resultats[0]+resultats[1];
 		
 		//Méthode (retournant le type de ressource) à implémenter
@@ -119,16 +121,13 @@ public class DesController implements Initializable {
 		//Méthode (retournant la liste des noms de joueurs) à implémenter
 		//String[] listNom = Plateau.getJoueursCase(caseConcernee);
 		
-		//Faire une boucle foreach tous les joueurs consernés
-		try{
-			// Récupération du serveur en passant par le singleton ConnexionManager
-			Serveur serveur = ConnexionManager.getStaticServeur();
-
-			serveur.getGestionnairePartie().getPartie().getJoueur1().ajoutRessource(1, 3); //essaie d'ajout de ressource
-		}
-		catch (RemoteException e){
-			e.printStackTrace();
-		}
+		// Récupération du serveur en passant par le singleton ConnexionManager
+		Serveur serveur = ConnexionManager.getStaticServeur();
 		
+		//Ajout des ressources aux joueurs de la liste
+		proxy.getJoueur().ajoutRessource(1, 1);
+		
+		//Actualisation de l'affichage
+		this.proxy.getJoueurActuelController().majRessource();
 	}
 }

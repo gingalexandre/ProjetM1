@@ -68,6 +68,22 @@ public class Partie implements Serializable {
     	this.plateau = plateau;
    	 	this.ressources = new Ressource();
     }
+    
+    public Joueur getJoueurByCouleur(String couleur){
+    	if(this.joueur1.getCouleur()==couleur){
+    		return this.joueur1;
+    	}
+    	else if(this.joueur2.getCouleur()==couleur){
+    		return this.joueur2;
+    	}
+    	else if(this.joueur3.getCouleur()==couleur){
+    		return this.joueur3;
+    	}
+    	else if(this.joueur4.getCouleur()==couleur){
+    		return this.joueur4;
+    	}
+    	return null;
+    }
 
 	public Joueur getJoueur1() {
 		return joueur1;

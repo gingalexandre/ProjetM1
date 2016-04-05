@@ -15,8 +15,8 @@ public class Des {
     private int de2;
     
     public Integer[] lancerDes(){
-        this.de1 = (int) (Math.random() * (6-1) + 1);
-        this.de2 = (int) (Math.random() * (6-1) + 1);
+        this.de1 = (int) (Math.random() * (7-1) + 1);
+        this.de2 = (int) (Math.random() * (7-1) + 1);
         Integer[] res = new Integer[2];
         res[0] = de1;
         res[1] = de2;

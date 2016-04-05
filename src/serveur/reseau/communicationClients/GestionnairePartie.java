@@ -40,7 +40,7 @@ public class GestionnairePartie implements Serializable{
 	 * @return la partie
 	 */
 	public Partie getPartie() {
-		return partie;
+		return this.partie;
 	}
 	
 	/**

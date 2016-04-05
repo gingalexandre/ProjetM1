@@ -5,14 +5,18 @@
  */
 package serveur.modele;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  *
  * @author Arthur
  */
-public class Ressource {
-    //Code pour faciliter l'identification des différentes ressources
+public class Ressource implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
+	//Code pour faciliter l'identification des différentes ressources
     public final static int BOIS = 1;
     public final static int BLE = 2;
     public final static int LAINE = 3;

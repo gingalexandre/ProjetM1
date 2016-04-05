@@ -16,7 +16,7 @@ public class Partie implements Serializable {
 	/**
 	 * Joueurs de la partie. Le joueur 4 peut être null.s
 	 */
-	private static Joueur joueur1, joueur2, joueur3, joueur4;
+	private Joueur joueur1, joueur2, joueur3, joueur4;
 	
 	/**
 	 * Plateau de la partie
@@ -34,6 +34,7 @@ public class Partie implements Serializable {
      * @param plateau - plateau de la partie
      */
     public Partie(Plateau plateau){
+    	 this.plateau = plateau;
     	 this.ressources = new Ressource();
     }
     

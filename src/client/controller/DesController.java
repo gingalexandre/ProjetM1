@@ -11,6 +11,7 @@ import serveur.modele.Partie;
 import serveur.reseau.ConnexionManager;
 import serveur.reseau.Proxy;
 import serveur.reseau.Serveur;
+import serveur.reseau.communicationClients.GestionnairePartie;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -122,6 +123,7 @@ public class DesController implements Initializable {
 		try{
 			// Récupération du serveur en passant par le singleton ConnexionManager
 			Serveur serveur = ConnexionManager.getStaticServeur();
+
 			serveur.getGestionnairePartie().getPartie().getJoueur1().ajoutRessource(1, 3); //essaie d'ajout de ressource
 		}
 		catch (RemoteException e){

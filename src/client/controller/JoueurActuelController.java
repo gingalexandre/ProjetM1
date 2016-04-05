@@ -1,12 +1,17 @@
 package client.controller;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
+import client.commun.Fonction;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import serveur.modele.Joueur;
+import serveur.reseau.ConnexionManager;
+import serveur.reseau.Proxy;
 
 public class JoueurActuelController implements Initializable {
 
@@ -15,17 +20,43 @@ public class JoueurActuelController implements Initializable {
 
 	@FXML
 	private GridPane couleurJoueur;
+	
+	/**
+	 * Proxy client, c'est avec ça qu'on peut accéder au joueur 
+	 */
+	private Proxy proxy;
+	
+	/**
+	 * Joueur actuel (correspond au model)
+	 */
+	private Joueur joueur;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		// Récupération du proxy via le singleton ConnexionManager
+		proxy = ConnexionManager.getStaticProxy();
+		// Indique au proxy que le JoueurActuelController du joueur est cette classe.
+		// Permet au proxy d'appeler des méthodes de cette classe
+		proxy.setJoueurActuelController(this);
+		
+		try {
+			// Récupération du joueur pour pouvoir obtenir ses informations
+			joueur = proxy.getJoueur();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
 		nbBle.setText("0");
 		nbArgile.setText("0");
 		nbCaillou.setText("0");
 		nbLaine.setText("0");
 		nbBois.setText("0");
-		nomJoueur.setText(ConnexionController.nomJoueur);
-		couleurJoueur.setStyle("-fx-background-color: BLACK;");
+		nomJoueur.setText(joueur.getNomUtilisateur());
 		nbVictoire.setText("2");
+		
+		// Appel de la méthode permettant de transformer la couleur de français à anglais pour pouvoir changer le style
+		String couleurAnglais = Fonction.couleurEnAnglais(joueur.getCouleur());
+		couleurJoueur.setStyle("-fx-background-color: "+couleurAnglais+";");
 	}
 
 	/**

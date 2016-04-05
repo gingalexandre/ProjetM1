@@ -45,4 +45,19 @@ public class Fonction {
 				return Color.BLACK;
 		}
 	}
+	
+	public static String couleurEnAnglais(String couleurEnFrancais){
+		switch(couleurEnFrancais){
+			case "rouge":
+				return "RED";
+			case "bleu":
+				return "BLUE";
+			case "vert":
+				return "GREEN";
+			case "orange":
+				return "ORANGE";
+			default: 
+				return "BLACK";
+		}
+	}
 }

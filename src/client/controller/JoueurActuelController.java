@@ -6,13 +6,12 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 public class JoueurActuelController implements Initializable {
 
 	@FXML
-	private Label nbBle, nbArgile, nbCaillou, nbLaine, nbBois, nomJoueur;
+	private Label nbBle, nbArgile, nbCaillou, nbLaine, nbBois, nomJoueur, nbVictoire;
 
 	@FXML
 	private GridPane couleurJoueur;
@@ -26,6 +25,7 @@ public class JoueurActuelController implements Initializable {
 		nbBois.setText("0");
 		nomJoueur.setText(ConnexionController.nomJoueur);
 		couleurJoueur.setStyle("-fx-background-color: BLACK;");
+		nbVictoire.setText("2");
 	}
 
 	/**

@@ -22,16 +22,18 @@
       </AnchorPane>
       <GridPane GridPane.rowIndex="1">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="8.3" />
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="8.3" />
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="8.3" />
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="8.3" />
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="8.3" />
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="8.3" />
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="8.3" />
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="8.3" />
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="8.3" />
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="8.3" />
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="8.5" />
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="8.5" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints percentHeight="100.0" vgrow="SOMETIMES" />
@@ -70,6 +72,13 @@
             <AnchorPane GridPane.rowIndex="0" GridPane.columnIndex="9">
                <children>
                   <Label fx:id="nbBle" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane id="imageVictoire" GridPane.rowIndex="0" GridPane.columnIndex="10">
+            </AnchorPane>
+            <AnchorPane GridPane.rowIndex="0" GridPane.columnIndex="11">
+               <children>
+                  <Label fx:id="nbVictoire" alignment="CENTER" text="2" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                </children>
             </AnchorPane>
          </children>

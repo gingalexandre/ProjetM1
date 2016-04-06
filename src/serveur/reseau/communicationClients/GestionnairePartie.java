@@ -1,8 +1,10 @@
 package serveur.reseau.communicationClients;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import serveur.modele.Joueur;
 import serveur.modele.Partie;
 import serveur.modele.Plateau;
 import serveur.reseau.JoueurServeur;
@@ -18,7 +20,7 @@ public class GestionnairePartie implements Serializable{
 	/**
 	 * Contient la liste des joueurs connectés au serveur
 	 */
-	private ArrayList<JoueurServeur> joueurServeurs = new ArrayList<JoueurServeur>();
+	private ArrayList<JoueurServeur> joueursServeur = new ArrayList<JoueurServeur>();
 	
 	/**
 	 * Partie sur laquelle les joueurs vont jouer
@@ -46,6 +48,34 @@ public class GestionnairePartie implements Serializable{
 	 * @param nouveauJoueurServeur - joueur à enregistrer
 	 */
 	public void enregistrerJoueur(JoueurServeur nouveauJoueurServeur){
-		joueurServeurs.add(nouveauJoueurServeur);
+		joueursServeur.add(nouveauJoueurServeur);
+	}
+	
+	public void envoyerAutresJoueurs() throws RemoteException{
+		ArrayList<Joueur> autresJoueurs = new ArrayList<Joueur>();
+		for(JoueurServeur joueurServeur : joueursServeur){
+			autresJoueurs = recupererAutresJoueurs(joueurServeur.getJoueur());
+			joueurServeur.envoyerAutresJoueurs(autresJoueurs);
+			
+			autresJoueurs.clear();
+		}
+	}
+	
+	/**
+	 * Méthode qui renvoie la liste des joueurs mis à part le joueur indiqué en paramètre
+	 * @param joueurQuiAppelle
+	 * @return la liste des autres joueurs connectés sur le serveur
+	 * @throws RemoteException
+	 */
+	public ArrayList<Joueur> recupererAutresJoueurs(Joueur joueurQuiAppelle) throws RemoteException{
+		ArrayList<Joueur> autresJoueurs = new ArrayList<Joueur>();
+		for(JoueurServeur joueurServeur : joueursServeur){
+			// Le nom d'utilisateur étant unique, on fait la vérification dessus
+			Joueur joueur = joueurServeur.getJoueur();
+			if(!joueurServeur.getJoueur().getNomUtilisateur().equals(joueurQuiAppelle.getNomUtilisateur())){
+				autresJoueurs.add(joueurServeur.getJoueur());
+			}
+		}
+		return autresJoueurs;
 	}
 }

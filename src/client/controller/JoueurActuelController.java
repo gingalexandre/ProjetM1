@@ -2,6 +2,7 @@ package client.controller;
 
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import client.commun.Fonction;
@@ -12,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import serveur.modele.Joueur;
 import serveur.reseau.ConnexionManager;
 import serveur.reseau.Proxy;
+import serveur.reseau.Serveur;
 
 public class JoueurActuelController implements Initializable {
 
@@ -22,6 +24,11 @@ public class JoueurActuelController implements Initializable {
 	private GridPane couleurJoueur;
 	
 	/**
+	 * Serveur de jeu
+	 */
+	private Serveur serveur;
+	
+	/**
 	 * Proxy client, c'est avec ça qu'on peut accéder au joueur 
 	 */
 	private Proxy proxy;
@@ -30,16 +37,28 @@ public class JoueurActuelController implements Initializable {
 	 * Joueur actuel (correspond au model)
 	 */
 	private Joueur joueur;
+	
+	/**
+	 * Liste des autres joueurs connectés au serveur
+	 */
+	private ArrayList<Joueur> autresJoueurs;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		autresJoueurs = new ArrayList<Joueur>();
+		
+		// Récupération du serveur via le singleton pour facilement le manipuler dans la classe
+		serveur = ConnexionManager.getStaticServeur();
 		// Récupération du proxy via le singleton ConnexionManager
 		proxy = ConnexionManager.getStaticProxy();
 		// Indique au proxy que le JoueurActuelController du joueur est cette classe.
 		// Permet au proxy d'appeler des méthodes de cette classe
 		proxy.setJoueurActuelController(this);
-		
+
 		try {
+			// Envoi à CHAQUE joueur la liste de tous les joueurs, sauf lui-même. Permet de réaliser correctement l'affichage
+			// des autres joueurs sur l'interface
+			serveur.getGestionnairePartie().envoyerAutresJoueurs();
 			// Récupération du joueur pour pouvoir obtenir ses informations
 			joueur = proxy.getJoueur();
 		} catch (RemoteException e) {
@@ -93,5 +112,16 @@ public class JoueurActuelController implements Initializable {
 			return null;
 		}
 	}
-
+	
+	/**
+	 * Reçoit la liste des autres joueurs connectés au serveur
+	 * @param autresJoueurs
+	 */
+	public void recevoirAutresJoueurs(ArrayList<Joueur> autresJoueurs) {
+		this.autresJoueurs.clear();
+		this.autresJoueurs = autresJoueurs;
+		for(Joueur joueur : this.autresJoueurs){
+			System.out.print(joueur.getNomUtilisateur());
+		}
+	}
 }

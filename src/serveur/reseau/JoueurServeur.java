@@ -2,6 +2,7 @@ package serveur.reseau;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import serveur.modele.Joueur;
 import serveur.modele.Message;
@@ -26,6 +27,13 @@ public interface JoueurServeur extends Remote{
 	 * @throws RemoteException
 	 */
 	void envoyerPlateau(Plateau plateau) throws RemoteException;
+	
+	/**
+	 * Reçoit la liste des autres joueurs envoyés par le serveur et l'envoie au controller adéquat
+	 * @param autresJoueurs
+	 * @throws RemoteException
+	 */
+	void envoyerAutresJoueurs(ArrayList<Joueur> autresJoueurs) throws RemoteException;
 	
 	/**
 	 * @return le joueur associé au proxy

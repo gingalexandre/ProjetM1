@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.util.ResourceBundle;
 
 import client.view.VuePrincipale;
+import exception.TooMuchPlayerException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -38,6 +39,11 @@ public class ConnexionController implements Initializable {
 	private Label utilisateurErreur;
 	
 	private Pane page = null;
+	
+	private Serveur serveur;
+	
+	private Proxy proxy;
+	
 	private FXMLLoader inscriptionChargement;
 	public static Stage inscriptionFenetre, gameFenetre;
 	
@@ -46,17 +52,18 @@ public class ConnexionController implements Initializable {
 	public static String nomJoueur;
 	
 	public void initialize(URL location, ResourceBundle resources) {
-
+		serveur = ConnexionManager.getStaticServeur();
+		proxy = ConnexionManager.getStaticProxy();
 	}
 	
 	/**
 	 * Mï¿½thode vérifiant la connexion. Si elle fonctionne, alors la méthode lance le jeu
 	 * @throws RemoteException 
+	 * @throws TooMuchPlayerException 
 	 */
 	@FXML
-	public void connexion() throws RemoteException, InterruptedException {
+	public void connexion() throws RemoteException, InterruptedException, TooMuchPlayerException {
 		boolean connexionOk = false;
-		Serveur serveur = null;
 		try {
 			serveur = ConnexionManager.getStaticServeur();
 			connexionOk = serveur.getGestionnaireBDD().verificationConnexion(nomUtilisateur.getText(), mdp.getText());
@@ -65,11 +72,10 @@ public class ConnexionController implements Initializable {
 		}
 		// Si le joueur existe
 		if(connexionOk){
-			nomJoueur = nomUtilisateur.getText(); 
-			Proxy proxy = ConnexionManager.getStaticProxy();
-			// Set le nom du joueur. Pour récupérer le joueur n'importe où (et donc ses attributs), passer par proxy.getJoueur()
-			proxy.getJoueur().setNomUtilisateur(nomJoueur);
+			nomJoueur = nomUtilisateur.getText();
+			enregistrerJoueur(nomJoueur);
 			dateNaissance = serveur.getGestionnaireBDD().getDateNaissanceUtilisateur(nomJoueur);
+			
 			lancerJeu();
 		}
 		else{
@@ -105,7 +111,7 @@ public class ConnexionController implements Initializable {
 		try {
 			page = (Pane) inscriptionChargement.load();
 			inscriptionFenetre = new Stage();
-			inscriptionFenetre.setTitle("FenÃªtre d'inscription");
+			inscriptionFenetre.setTitle("Fenêtre d'inscription");
 			inscriptionFenetre.initModality(Modality.WINDOW_MODAL);
 		    Scene miniScene = new Scene(page);
 		    inscriptionFenetre.setScene(miniScene);
@@ -115,5 +121,17 @@ public class ConnexionController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
+	}
+	
+	/**
+	 * Appel la méthode du serveur pour enregistrer le joueur 
+	 * @throws RemoteException
+	 * @throws TooMuchPlayerException
+	 */
+	public void enregistrerJoueur(String nomJoueur) throws RemoteException, TooMuchPlayerException{
+		// Enregistrement du joueur sur le serveur
+		serveur.enregistrerJoueur(proxy);
+		// Set le nom du joueur. Pour récupérer le joueur n'importe où (et donc ses attributs), passer par proxy.getJoueur()
+		proxy.getJoueur().setNomUtilisateur(nomJoueur);
 	}
 }

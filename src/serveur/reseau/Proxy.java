@@ -2,6 +2,7 @@ package serveur.reseau;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 import client.controller.ChatController;
 import client.controller.JoueurActuelController;
@@ -83,6 +84,16 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 		this.plateauController.setPlateau(plateau);
 	}
 
+	/**
+	 * Reçoit la liste des autres joueurs envoyés par le serveur et l'envoie au controller adéquat
+	 * @param autresJoueurs
+	 * @throws RemoteException
+	 */
+	@Override
+	public void envoyerAutresJoueurs(ArrayList<Joueur> autresJoueurs) throws RemoteException{
+		this.joueurActuelController.recevoirAutresJoueurs(autresJoueurs);
+	}
+	
 	/**
 	 * @return le joueur associé au proxy
 	 */

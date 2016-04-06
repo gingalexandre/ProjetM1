@@ -5,12 +5,16 @@
  */
 package serveur.modele;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Arthur
  */
-public class Partie {
+public class Partie implements Serializable{
     
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Joueurs de la partie. Le joueur 4 peut être null.s
 	 */

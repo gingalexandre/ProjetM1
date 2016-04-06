@@ -156,18 +156,21 @@ public class JoueursController implements Initializable {
 					if (i == 0) {
 						Joueur p = autresJoueurs.get(0);
 						autreUnName.setText(p.getNomUtilisateur());
+						autreUn.setVisible(true);
 						String couleurAnglais = Fonction.couleurEnAnglais(p.getCouleur());
 						autreUn.setStyle("-fx-background-color: " + couleurAnglais + ";");
 					}
 					if (i == 1) {
 						Joueur p = autresJoueurs.get(1);
 						autreDeuxName.setText(p.getNomUtilisateur());
+						autreDeux.setVisible(true);
 						String couleurAnglais = Fonction.couleurEnAnglais(p.getCouleur());
 						autreDeux.setStyle("-fx-background-color: " + couleurAnglais + ";");
 					}
 					if (i == 2) {
 						Joueur p = autresJoueurs.get(2);
 						autreTroisName.setText(p.getNomUtilisateur());
+						autreTrois.setVisible(true);
 						String couleurAnglais = Fonction.couleurEnAnglais(p.getCouleur());
 						autreTrois.setStyle("-fx-background-color: " + couleurAnglais + ";");
 					}

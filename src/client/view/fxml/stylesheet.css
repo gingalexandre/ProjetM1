@@ -42,3 +42,23 @@
     -fx-background-position: center center;
 }
 
+#imageRoute{
+    -fx-background-image: url(../../../../Ressources/autres/routes.png);
+    -fx-background-repeat: stretch;
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+}
+
+#imageSoldat{
+    -fx-background-image: url(../../../../Ressources/autres/soldats.png);
+    -fx-background-repeat: stretch;
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+}
+
+#imageCarte{
+    -fx-background-image: url(../../../../Ressources/autres/carte_icon.png);
+    -fx-background-repeat: stretch;
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+}

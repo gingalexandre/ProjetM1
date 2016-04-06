@@ -4,17 +4,15 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-<<<<<<< HEAD
 import exception.TooMuchPlayerException;
-=======
->>>>>>> 67cca76485891ac82cb032e07455220a20388921
+
 import serveur.modele.Joueur;
 import serveur.modele.Partie;
 import serveur.modele.Plateau;
 import serveur.reseau.JoueurServeur;
 
 /**
- * Classe qui s'occupe des échanges concernant la partie entre les clients et le serveur
+ * Classe qui s'occupe des ï¿½changes concernant la partie entre les clients et le serveur
  * @author jerome
  */
 public class GestionnairePartie implements Serializable{
@@ -22,7 +20,7 @@ public class GestionnairePartie implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Contient la liste des joueurs connectés au serveur
+	 * Contient la liste des joueurs connectï¿½s au serveur
 	 */
 	private ArrayList<JoueurServeur> joueursServeur = new ArrayList<JoueurServeur>();
 	
@@ -49,7 +47,7 @@ public class GestionnairePartie implements Serializable{
 	
 	/**
 	 * Enregistre un nouveau joueur dans la liste des joueurs
-	 * @param nouveauJoueurServeur - joueur à enregistrer
+	 * @param nouveauJoueurServeur - joueur ï¿½ enregistrer
 	 */
 	public void enregistrerJoueur(JoueurServeur nouveauJoueurServeur){
 		joueursServeur.add(nouveauJoueurServeur);
@@ -66,15 +64,15 @@ public class GestionnairePartie implements Serializable{
 	}
 	
 	/**
-	 * Méthode qui renvoie la liste des joueurs mis à part le joueur indiqué en paramètre
+	 * Mï¿½thode qui renvoie la liste des joueurs mis ï¿½ part le joueur indiquï¿½ en paramï¿½tre
 	 * @param joueurQuiAppelle
-	 * @return la liste des autres joueurs connectés sur le serveur
+	 * @return la liste des autres joueurs connectï¿½s sur le serveur
 	 * @throws RemoteException
 	 */
 	public ArrayList<Joueur> recupererAutresJoueurs(Joueur joueurQuiAppelle) throws RemoteException{
 		ArrayList<Joueur> autresJoueurs = new ArrayList<Joueur>();
 		for(JoueurServeur joueurServeur : joueursServeur){
-			// Le nom d'utilisateur étant unique, on fait la vérification dessus
+			// Le nom d'utilisateur ï¿½tant unique, on fait la vï¿½rification dessus
 			Joueur joueur = joueurServeur.getJoueur();
 			if(!joueurServeur.getJoueur().getNomUtilisateur().equals(joueurQuiAppelle.getNomUtilisateur())){
 				autresJoueurs.add(joueurServeur.getJoueur());
@@ -84,12 +82,12 @@ public class GestionnairePartie implements Serializable{
 	}
 	
 	/**
-	 * Ajoute le joueur passé en paramètre à la partie
-	 * @param nouveauJoueur - joueur à ajouter à la partie
+	 * Ajoute le joueur passï¿½ en paramï¿½tre ï¿½ la partie
+	 * @param nouveauJoueur - joueur ï¿½ ajouter ï¿½ la partie
 	 * @throws TooMuchPlayerException
 	 */
 	public void ajouterJoueurPartie(Joueur nouveauJoueur){
-		switch(this.joueurServeurs.size()){
+		switch(this.joueursServeur.size()){
 			case 1:
 				this.partie.setJoueur1(nouveauJoueur);
 				break;

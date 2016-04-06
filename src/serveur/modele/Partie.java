@@ -11,10 +11,12 @@ import java.io.Serializable;
  *
  * @author Arthur
  */
-public class Partie implements Serializable {
+public class Partie implements Serializable{
     
+	private static final long serialVersionUID = 1L;
+
 	/**
-	 * Joueurs de la partie. Le joueur 4 peut être null.s
+	 * Joueurs de la partie. Le joueur 4 peut ï¿½tre null.s
 	 */
 	private Joueur joueur1, joueur2, joueur3, joueur4;
 	
@@ -25,8 +27,8 @@ public class Partie implements Serializable {
 	
     private Ressource ressources;
     
-    /* De 1 à 3 si 3 joueurs
-     * De 1 à 4 si 4 joueurs
+    /* De 1 ï¿½ 3 si 3 joueurs
+     * De 1 ï¿½ 4 si 4 joueurs
      */
     private int tour;
     

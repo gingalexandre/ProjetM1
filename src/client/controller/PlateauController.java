@@ -85,17 +85,17 @@ public class PlateauController implements Initializable{
 	 * @throws RemoteException 
 	 */
 	public void dessinerPlateau() {
-		Image img = new Image("file:Ressources/cases/mer.png");
+/*		Image img = new Image("file:Ressources/cases/mer.png");
 		ImageView imgView = new ImageView(img);
 		imgView.setFitHeight(725);
 		imgView.setFitWidth(650);
 		imgView.setLayoutX(50);
-		mainPane.getChildren().add(imgView);
+		mainPane.getChildren().add(imgView);*/
 		mainPane.getChildren().addAll(VueHexagone.transformVueHexagone(plateau.getHexagones()));
         Circle[] t = Ville.transformVilleVueVille(plateau.getVilles());
         mainPane.getChildren().addAll(t);
         mainPane.getChildren().addAll(Route.transformRouteVueRoute(plateau.getRoutes()));
-        mainPane.setStyle("-fx-background-color: #4e6c91");
+    //    mainPane.setStyle("-fx-background-color: #4e6c91");
 	}
 	
 	/**

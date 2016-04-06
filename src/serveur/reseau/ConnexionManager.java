@@ -36,17 +36,13 @@ public class ConnexionManager {
 		try {
 			this.serveur = (Serveur) Naming.lookup(serveurURL);
 			this.proxy = new Proxy();
-			// Enregistrement du joueur sur le serveur
-			this.serveur.enregistrerJoueur(this.proxy);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (NotBoundException e) {
 			e.printStackTrace();
-		} catch (TooMuchPlayerException e) {
-			e.printStackTrace();
-		}
+		} 
 	}
 	
 	/**

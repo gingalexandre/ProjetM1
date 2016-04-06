@@ -3,8 +3,8 @@ package client.controller;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import client.commun.Fonction;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +16,7 @@ import serveur.reseau.Proxy;
 import serveur.modele.Ressource;
 import serveur.reseau.ConnexionManager;
 import serveur.reseau.Proxy;
+
 import serveur.reseau.Serveur;
 
 public class JoueurActuelController implements Initializable {
@@ -27,7 +28,12 @@ public class JoueurActuelController implements Initializable {
 	private GridPane couleurJoueur;
 	
 	/**
-	 * Proxy client, c'est avec ça qu'on peut accéder au joueur 
+	 * Serveur de jeu
+	 */
+	private Serveur serveur;
+	
+	/**
+	 * Proxy client, c'est avec ï¿½a qu'on peut accï¿½der au joueur 
 	 */
 	private Proxy proxy;
 	
@@ -35,17 +41,29 @@ public class JoueurActuelController implements Initializable {
 	 * Joueur actuel (correspond au model)
 	 */
 	private Joueur joueur;
+	
+	/**
+	 * Liste des autres joueurs connectï¿½s au serveur
+	 */
+	private ArrayList<Joueur> autresJoueurs;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// Récupération du proxy via le singleton ConnexionManager
+		autresJoueurs = new ArrayList<Joueur>();
+		
+		// Rï¿½cupï¿½ration du serveur via le singleton pour facilement le manipuler dans la classe
+		serveur = ConnexionManager.getStaticServeur();
+		// Rï¿½cupï¿½ration du proxy via le singleton ConnexionManager
 		proxy = ConnexionManager.getStaticProxy();
 		// Indique au proxy que le JoueurActuelController du joueur est cette classe.
-		// Permet au proxy d'appeler des méthodes de cette classe
+		// Permet au proxy d'appeler des mï¿½thodes de cette classe
 		proxy.setJoueurActuelController(this);
-		
+
 		try {
-			// Récupération du joueur pour pouvoir obtenir ses informations
+			// Envoi ï¿½ CHAQUE joueur la liste de tous les joueurs, sauf lui-mï¿½me. Permet de rï¿½aliser correctement l'affichage
+			// des autres joueurs sur l'interface
+			serveur.getGestionnairePartie().envoyerAutresJoueurs();
+			// Rï¿½cupï¿½ration du joueur pour pouvoir obtenir ses informations
 			joueur = proxy.getJoueur();
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -59,7 +77,7 @@ public class JoueurActuelController implements Initializable {
 		nomJoueur.setText(joueur.getNomUtilisateur());
 		nbVictoire.setText("2");
 		
-		// Appel de la méthode permettant de transformer la couleur de français à anglais pour pouvoir changer le style
+		// Appel de la mï¿½thode permettant de transformer la couleur de franï¿½ais ï¿½ anglais pour pouvoir changer le style
 		String couleurAnglais = Fonction.couleurEnAnglais(joueur.getCouleur());
 		couleurJoueur.setStyle("-fx-background-color: "+couleurAnglais+";");
 		proxy = ConnexionManager.getStaticProxy();
@@ -68,7 +86,7 @@ public class JoueurActuelController implements Initializable {
 	}
 	
 	/**
-	 * Mise à jour de l'affichage des ressources du joueur actuel
+	 * Mise ï¿½ jour de l'affichage des ressources du joueur actuel
 	 * @throws RemoteException
 	 */
 	
@@ -115,5 +133,16 @@ public class JoueurActuelController implements Initializable {
 			return null;
 		}
 	}
-
+	
+	/**
+	 * Reï¿½oit la liste des autres joueurs connectï¿½s au serveur
+	 * @param autresJoueurs
+	 */
+	public void recevoirAutresJoueurs(ArrayList<Joueur> autresJoueurs) {
+		this.autresJoueurs.clear();
+		this.autresJoueurs = autresJoueurs;
+		for(Joueur joueur : this.autresJoueurs){
+			System.out.print(joueur.getNomUtilisateur());
+		}
+	}
 }

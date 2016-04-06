@@ -57,7 +57,14 @@
 }
 
 #imageCarte{
-    -fx-background-image: url(../../../../Ressources/autres/carte_icon.png);
+     -fx-background-image: url(../../../../Ressources/autres/carte_icon.png);
+     -fx-background-repeat: stretch;
+     -fx-background-size: 100% 100%;
+     -fx-background-position: center center;
+ }
+
+#imageMer{
+    -fx-background-image: url(../../../../Ressources/cases/mer.png);
     -fx-background-repeat: stretch;
     -fx-background-size: 100% 100%;
     -fx-background-position: center center;

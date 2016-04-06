@@ -5,13 +5,10 @@ import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 import serveur.modele.Des;
-import serveur.modele.Joueur;
 import serveur.modele.Message;
-import serveur.modele.Partie;
 import serveur.reseau.ConnexionManager;
 import serveur.reseau.Proxy;
 import serveur.reseau.Serveur;
-import serveur.reseau.communicationClients.GestionnairePartie;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -92,15 +89,15 @@ public class DesController implements Initializable {
 	}
 	
 	/**
-	 * Affiche le resultat des dés dans le chat sous forme de message Système
-	 * @param Integer[] resultats (résultats des dés)
+	 * Affiche le resultat des dï¿½s dans le chat sous forme de message Systï¿½me
+	 * @param Integer[] resultats (rï¿½sultats des dï¿½s)
 	 */
 	private void notifierLancerDes(Integer[] resultats){
 		try{
-			// Récupération du serveur en passant par le singleton ConnexionManager
+			// Rï¿½cupï¿½ration du serveur en passant par le singleton ConnexionManager
 			Serveur serveur = ConnexionManager.getStaticServeur();
 			String nomJoueur = proxy.getJoueur().getNomUtilisateur();
-			serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" a lancé les dés : "+resultats[0]+" | "+resultats[1]));
+			serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" a lancï¿½ les dï¿½s : "+resultats[0]+" | "+resultats[1]));
 		}
 		catch (RemoteException e){
 			e.printStackTrace();
@@ -108,26 +105,26 @@ public class DesController implements Initializable {
 	}
 	
 	/**
-	 * Distribue à chaque joueurs les ressources associées à la case du numéro tombé
-	 * @param Integer[] resultats (résultats des dés)
+	 * Distribue ï¿½ chaque joueurs les ressources associï¿½es ï¿½ la case du numï¿½ro tombï¿½
+	 * @param Integer[] resultats (rï¿½sultats des dï¿½s)
 	 * @throws RemoteException 
 	 */
 	private void extractionRessources(Integer[] resultats) throws RemoteException{
 		Integer caseConsernee = resultats[0]+resultats[1];
 		
-		//Méthode (retournant le type de ressource) à implémenter
+		//Mï¿½thode (retournant le type de ressource) ï¿½ implï¿½menter
 		//int ressource = Plateau.getRessourceCase(caseConcernee);
 		
-		//Méthode (retournant la liste des noms de joueurs) à implémenter
+		//Mï¿½thode (retournant la liste des noms de joueurs) ï¿½ implï¿½menter
 		//String[] listNom = Plateau.getJoueursCase(caseConcernee);
 		
-		// Récupération du serveur en passant par le singleton ConnexionManager
+		// Rï¿½cupï¿½ration du serveur en passant par le singleton ConnexionManager
 		Serveur serveur = ConnexionManager.getStaticServeur();
 		
 		//Ajout des ressources aux joueurs de la liste
 		proxy.getJoueur().ajoutRessource(1, 1);
 		
 		//Actualisation de l'affichage
-		this.proxy.getJoueurActuelController().majRessource();
+		this.proxy.getJoueursController().majRessource();
 	}
 }

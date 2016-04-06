@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import client.commun.Fonction;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -14,18 +15,22 @@ import serveur.modele.Joueur;
 import serveur.reseau.ConnexionManager;
 import serveur.reseau.Proxy;
 import serveur.modele.Ressource;
-import serveur.reseau.ConnexionManager;
-import serveur.reseau.Proxy;
 
 import serveur.reseau.Serveur;
 
-public class JoueurActuelController implements Initializable {
+public class JoueursController implements Initializable {
 
 	@FXML
 	private Label nbBle, nbArgile, nbCaillou, nbLaine, nbBois, nomJoueur, nbVictoire;
 
 	@FXML
 	private GridPane couleurJoueur;
+
+	@FXML
+	private GridPane autreUn, autreDeux, autreTrois;
+
+	@FXML
+	private Label autreUnName, autreDeuxName, autreTroisName;
 	
 	/**
 	 * Serveur de jeu
@@ -55,9 +60,9 @@ public class JoueurActuelController implements Initializable {
 		serveur = ConnexionManager.getStaticServeur();
 		// R�cup�ration du proxy via le singleton ConnexionManager
 		proxy = ConnexionManager.getStaticProxy();
-		// Indique au proxy que le JoueurActuelController du joueur est cette classe.
+		// Indique au proxy que le JoueursController du joueur est cette classe.
 		// Permet au proxy d'appeler des m�thodes de cette classe
-		proxy.setJoueurActuelController(this);
+		proxy.setJoueursController(this);
 
 		try {
 			// Envoi � CHAQUE joueur la liste de tous les joueurs, sauf lui-m�me. Permet de r�aliser correctement l'affichage
@@ -81,7 +86,7 @@ public class JoueurActuelController implements Initializable {
 		String couleurAnglais = Fonction.couleurEnAnglais(joueur.getCouleur());
 		couleurJoueur.setStyle("-fx-background-color: "+couleurAnglais+";");
 		proxy = ConnexionManager.getStaticProxy();
-		proxy.setJoueurActuelController(this);
+		proxy.setJoueursController(this);
 		
 	}
 	
@@ -144,5 +149,51 @@ public class JoueurActuelController implements Initializable {
 		for(Joueur joueur : this.autresJoueurs){
 			System.out.print(joueur.getNomUtilisateur());
 		}
+		Platform.runLater(new Runnable(){
+			@Override
+			public void run() {
+				for(int i=0;i<autresJoueurs.size();i++) {
+					if (i == 0) {
+						Joueur p = autresJoueurs.get(0);
+						autreUnName.setText(p.getNomUtilisateur());
+						String couleurAnglais = Fonction.couleurEnAnglais(p.getCouleur());
+						autreUn.setStyle("-fx-background-color: " + couleurAnglais + ";");
+					}
+					if (i == 1) {
+						Joueur p = autresJoueurs.get(1);
+						autreDeuxName.setText(p.getNomUtilisateur());
+						String couleurAnglais = Fonction.couleurEnAnglais(p.getCouleur());
+						autreDeux.setStyle("-fx-background-color: " + couleurAnglais + ";");
+					}
+					if (i == 2) {
+						Joueur p = autresJoueurs.get(2);
+						autreTroisName.setText(p.getNomUtilisateur());
+						String couleurAnglais = Fonction.couleurEnAnglais(p.getCouleur());
+						autreTrois.setStyle("-fx-background-color: " + couleurAnglais + ";");
+					}
+				}
+			}
+		});
+		/*
+		for(int i=0;i<this.autresJoueurs.size();i++){
+			if(i==0){
+				Joueur p = autresJoueurs.get(0);
+				autreUnName.setText(p.getNomUtilisateur());
+				String couleurAnglais = Fonction.couleurEnAnglais(p.getCouleur());
+				autreUn.setStyle("-fx-background-color: "+couleurAnglais+";");
+			}
+			if(i==1){
+				Joueur p = autresJoueurs.get(1);
+				autreDeuxName.setText(p.getNomUtilisateur());
+				String couleurAnglais = Fonction.couleurEnAnglais(p.getCouleur());
+				autreDeux.setStyle("-fx-background-color: "+couleurAnglais+";");
+			}
+			if(i==2){
+				Joueur p = autresJoueurs.get(2);
+				autreTroisName.setText(p.getNomUtilisateur());
+				String couleurAnglais = Fonction.couleurEnAnglais(p.getCouleur());
+				autreTrois.setStyle("-fx-background-color: "+couleurAnglais+";");
+			}
+		}*/
 	}
 }

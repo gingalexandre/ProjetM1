@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import client.controller.ChatController;
 import client.controller.DesController;
-import client.controller.JoueurActuelController;
+import client.controller.JoueursController;
 import client.controller.PlateauController;
 import serveur.modele.Joueur;
 import serveur.modele.Message;
@@ -22,14 +22,14 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	private ChatController chatController;
 	
 	/**
-	 * Controller des dés
+	 * Controller des dï¿½s
 	 */
 	private DesController desController;
 	
 	/**
 	 * Controller du joueur actuel
 	 */
-	private JoueurActuelController joueurActuelController;
+	private JoueursController joueursController;
 
 	/**
 	 * Controller du plateau
@@ -37,7 +37,7 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	private PlateauController plateauController;
 	
 	/**
-	 * Joueur associé au proxy
+	 * Joueur associï¿½ au proxy
 	 */
 	private Joueur joueur;
 
@@ -67,18 +67,18 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	}
 	
 	/**
-	 * @param joueurActuelController
+	 * @param joueursController
 	 */
-	public void setJoueurActuelController(JoueurActuelController joueurActuelController) {
-		this.joueurActuelController = joueurActuelController;
+	public void setJoueursController(JoueursController joueursController) {
+		this.joueursController = joueursController;
 	}
 
-	public JoueurActuelController getJoueurActuelController() {
-		return joueurActuelController;
+	public JoueursController getJoueursController() {
+		return joueursController;
 	}
 
 	/**
-	 * Reçoit le message transmit par le serveur et l'envoie au joueur et
+	 * Reï¿½oit le message transmit par le serveur et l'envoie au joueur et
 	 * l'envoie au controller du chat
 	 * 
 	 * @param message
@@ -90,7 +90,7 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	}
 
 	/**
-	 * Reçoit le plateau envoyé par le serveur et l'envoie au controller du
+	 * Reï¿½oit le plateau envoyï¿½ par le serveur et l'envoie au controller du
 	 * plateau
 	 * 
 	 * @param plateau
@@ -102,24 +102,24 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	}
 
 	/**
-	 * Reçoit la liste des autres joueurs envoyés par le serveur et l'envoie au controller adéquat
+	 * Reï¿½oit la liste des autres joueurs envoyï¿½s par le serveur et l'envoie au controller adï¿½quat
 	 * @param autresJoueurs
 	 * @throws RemoteException
 	 */
 	@Override
 	public void envoyerAutresJoueurs(ArrayList<Joueur> autresJoueurs) throws RemoteException{
-		this.joueurActuelController.recevoirAutresJoueurs(autresJoueurs);
+		this.joueursController.recevoirAutresJoueurs(autresJoueurs);
 	}
 	
 	/**
-	 * @return le joueur associé au proxy
+	 * @return le joueur associï¿½ au proxy
 	 */
 	public Joueur getJoueur() throws RemoteException {
 		return joueur;
 	}
 
 	/**
-	 * Permet d'indiquer le joueur associé au proxy
+	 * Permet d'indiquer le joueur associï¿½ au proxy
 	 * @param joueur
 	 */
 	public void setJoueur(Joueur joueur) throws RemoteException {

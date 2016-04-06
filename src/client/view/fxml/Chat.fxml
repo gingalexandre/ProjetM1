@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<GridPane  xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.ChatController">
+<GridPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.ChatController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="100.0" />
     </columnConstraints>

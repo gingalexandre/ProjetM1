@@ -44,6 +44,14 @@ public class ChatController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		enregistrerController();
 		listenerVues();
+		
+		try{
+			Serveur serveur = ConnexionManager.getStaticServeur();
+			serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" vient de se connecter"));
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -92,8 +100,14 @@ public class ChatController implements Initializable{
 		Platform.runLater(() -> textFlowPrincipal.getChildren().add(creerStyleTexteAuteur(message)));
 		Platform.runLater(() -> textFlowPrincipal.getChildren().add(creerStyleTexteMessage(message)));
 		
-		Platform.runLater(() -> textFlowJoueurs.getChildren().add(creerStyleTexteAuteur(message)));
-		Platform.runLater(() -> textFlowJoueurs.getChildren().add(creerStyleTexteMessage(message)));
+		if(message.isSystem()){
+			Platform.runLater(() -> textFlowSysteme.getChildren().add(creerStyleTexteAuteur(message)));
+			Platform.runLater(() -> textFlowSysteme.getChildren().add(creerStyleTexteMessage(message)));
+		}
+		else{
+			Platform.runLater(() -> textFlowJoueurs.getChildren().add(creerStyleTexteAuteur(message)));
+			Platform.runLater(() -> textFlowJoueurs.getChildren().add(creerStyleTexteMessage(message)));
+		}
 	}
 	
 	/**

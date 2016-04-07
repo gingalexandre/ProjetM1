@@ -20,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import serveur.modele.Message;
 import serveur.reseau.ConnexionManager;
 import serveur.reseau.Proxy;
 import serveur.reseau.Serveur;

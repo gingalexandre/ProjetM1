@@ -146,9 +146,6 @@ public class JoueursController implements Initializable {
 	public void recevoirAutresJoueurs(ArrayList<Joueur> autresJoueurs) {
 		this.autresJoueurs.clear();
 		this.autresJoueurs = autresJoueurs;
-		for(Joueur joueur : this.autresJoueurs){
-			System.out.print(joueur.getNomUtilisateur());
-		}
 		Platform.runLater(new Runnable(){
 			@Override
 			public void run() {

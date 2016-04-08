@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import client.view.VuePrincipale;
 import exception.TooMuchPlayerException;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,6 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import serveur.modele.Message;
 import serveur.reseau.ConnexionManager;
 import serveur.reseau.Proxy;
@@ -58,7 +60,7 @@ public class ConnexionController implements Initializable {
 	}
 	
 	/**
-	 * Mï¿½thode vérifiant la connexion. Si elle fonctionne, alors la méthode lance le jeu
+	 * Mï¿½thode vï¿½rifiant la connexion. Si elle fonctionne, alors la mï¿½thode lance le jeu
 	 * @throws RemoteException 
 	 * @throws TooMuchPlayerException 
 	 */
@@ -85,7 +87,7 @@ public class ConnexionController implements Initializable {
 	}
 	
 	/**
-	 * Méthode permettant de lancer le jeu une fois connecté
+	 * Mï¿½thode permettant de lancer le jeu une fois connectï¿½
 	 */
 	public void lancerJeu(){
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Game.fxml"));
@@ -96,7 +98,18 @@ public class ConnexionController implements Initializable {
 		    Scene scene = new Scene(page,0,0);
 		    gameFenetre.setScene(scene);
 		    VuePrincipale.stagePrincipal.close();
+		    gameFenetre.setOnCloseRequest(new EventHandler<WindowEvent>() {
+	            public void handle(WindowEvent we) {
+	            	Serveur serveur = ConnexionManager.getStaticServeur();
+	            	try {
+						serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" s'est dÃ©connectÃ© de la partie"));
+					} catch (RemoteException e) {
+						e.printStackTrace();
+					}
+	            }
+	        });
 		    gameFenetre.showAndWait();
+		    
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -104,7 +117,7 @@ public class ConnexionController implements Initializable {
 	}
 	
 	/**
-	 * Méthode permettant d'afficher la fenêtre d'inscription
+	 * Mï¿½thode permettant d'afficher la fenï¿½tre d'inscription
 	 */
 	@FXML
 	public void inscription() {
@@ -112,7 +125,7 @@ public class ConnexionController implements Initializable {
 		try {
 			page = (Pane) inscriptionChargement.load();
 			inscriptionFenetre = new Stage();
-			inscriptionFenetre.setTitle("Fenêtre d'inscription");
+			inscriptionFenetre.setTitle("Fenï¿½tre d'inscription");
 			inscriptionFenetre.initModality(Modality.WINDOW_MODAL);
 		    Scene miniScene = new Scene(page);
 		    inscriptionFenetre.setScene(miniScene);
@@ -125,14 +138,14 @@ public class ConnexionController implements Initializable {
 	}
 	
 	/**
-	 * Appel la méthode du serveur pour enregistrer le joueur 
+	 * Appel la mï¿½thode du serveur pour enregistrer le joueur 
 	 * @throws RemoteException
 	 * @throws TooMuchPlayerException
 	 */
 	public void enregistrerJoueur(String nomJoueur) throws RemoteException, TooMuchPlayerException{
 		// Enregistrement du joueur sur le serveur
 		serveur.enregistrerJoueur(proxy);
-		// Set le nom du joueur. Pour récupérer le joueur n'importe où (et donc ses attributs), passer par proxy.getJoueur()
+		// Set le nom du joueur. Pour rï¿½cupï¿½rer le joueur n'importe oï¿½ (et donc ses attributs), passer par proxy.getJoueur()
 		proxy.getJoueur().setNomUtilisateur(nomJoueur);
 	}
 }

@@ -19,9 +19,9 @@ public class Message implements Serializable{
 		this.system = false;
 	}
 	
-	//Lorsqu'il s'agit d'un message Système
+	//Lorsqu'il s'agit d'un message Systï¿½me
 	public Message(String message){
-		this.auteur = "Système";
+		this.auteur = "SystÃ¨me";
 		this.message = message;
 		this.couleur = "Noir";
 		this.system = true;

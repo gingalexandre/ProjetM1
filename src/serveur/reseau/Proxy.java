@@ -8,6 +8,7 @@ import client.controller.ChatController;
 import client.controller.DesController;
 import client.controller.JoueursController;
 import client.controller.PlateauController;
+import client.view.VuePrincipale;
 import serveur.modele.Joueur;
 import serveur.modele.Message;
 import serveur.modele.Plateau;

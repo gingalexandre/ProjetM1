@@ -97,7 +97,7 @@ public class DesController implements Initializable {
 			// Rï¿½cupï¿½ration du serveur en passant par le singleton ConnexionManager
 			Serveur serveur = ConnexionManager.getStaticServeur();
 			String nomJoueur = proxy.getJoueur().getNomUtilisateur();
-			serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" a lancï¿½ les dï¿½s : "+resultats[0]+" | "+resultats[1]));
+			serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" a lancé les dés : "+resultats[0]+" | "+resultats[1]));
 		}
 		catch (RemoteException e){
 			e.printStackTrace();

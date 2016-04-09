@@ -57,7 +57,7 @@ public class PlateauController implements Initializable{
 
 	
 	/**
-	 * R�cup�re les attributs de ConnexionManager
+	 * Récupère les attributs de ConnexionManager
 	 */
 	private void recupererAttributs() {
 		this.serveur = ConnexionManager.getStaticServeur();

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="379.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="379.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.EchangeController">
    <children>
       <GridPane layoutX="1.0" layoutY="-1.0" prefHeight="400.0" prefWidth="379.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -29,13 +29,13 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" prefHeight="141.0" prefWidth="189.0" text="Proposer offre" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <Button mnemonicParsing="false" fx:id="boutonPropositionOffre" onAction="#proposerOffre" prefHeight="141.0" prefWidth="189.0" text="Proposer offre" GridPane.columnIndex="2" GridPane.rowIndex="6" />
             <ComboBox prefHeight="175.0" prefWidth="274.0" promptText="Choisir un joueur" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <ImageView fitHeight="67.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
-            <ImageView fitHeight="68.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3" />
-            <ImageView fitHeight="68.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4" />
-            <ImageView fitHeight="70.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5" />
-            <ImageView fitHeight="56.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+            <ImageView fx:id="imgBois" fitHeight="67.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+            <ImageView fx:id="imgLaine" fitHeight="68.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3" />
+            <ImageView fx:id="imgMineraie" fitHeight="68.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4" />
+            <ImageView fx:id="imgArgile" fitHeight="70.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5" />
+            <ImageView fx:id="imgBle" fitHeight="56.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
             <Label prefHeight="101.0" prefWidth="204.0" style="-fx-alignment: center;" text="Ressources" />
             <Label prefHeight="78.0" prefWidth="229.0" style="-fx-alignment: center;" text="Demande" GridPane.columnIndex="1" />
             <Label prefHeight="134.0" prefWidth="243.0" style="-fx-alignment: center;" text="Offre" GridPane.columnIndex="2" />

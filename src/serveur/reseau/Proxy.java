@@ -5,6 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import client.controller.ChatController;
+import client.controller.EchangeController;
 import client.controller.MenuController;
 import client.controller.JoueursController;
 import client.controller.MainController;
@@ -30,9 +31,9 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	private MenuController menuController;
 	
 	/**
-	 * Controller des d�s
+	 * Controller des échanges
 	 */
-	private MenuController desController;
+	private EchangeController echangeController;
 	
 	/**
 	 * Controller du joueur actuel
@@ -72,6 +73,13 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	 */
 	public void setMenuController(MenuController menuController) {
 		this.menuController = menuController;
+	}
+	
+	/**
+	 * @param echangeController
+	 */
+	public void setEchangeController(EchangeController echangeController) {
+		this.echangeController = echangeController;
 	}
 	
 	/**

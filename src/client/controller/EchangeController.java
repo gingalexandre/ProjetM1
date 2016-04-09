@@ -11,6 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import serveur.reseau.ConnexionManager;
@@ -24,42 +26,35 @@ import serveur.reseau.Serveur;
 public class EchangeController implements Initializable {
 
 	@FXML
-	private Button propositionOffre;
+	private Button boutonPropositionOffre;
+	
+	@FXML
+	private ImageView imgBois, imgLaine, imgMineraie, imgArgile, imgBle;
 	
 	private Proxy proxy;
 	
-	private Pane page = null;
-	public static Stage fenetreEchange;
 	
 	/**
 	 * Méthode d'initialisation
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
+		proxy = ConnexionManager.getStaticProxy();
+		proxy.setEchangeController(this);
 		
-		
-	}
-	
-	@FXML
-	private void afficherFenetreEchange(){
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Echange.fxml"));
-		try {
-			page = (Pane) loader.load();
-			fenetreEchange = new Stage();
-			fenetreEchange.setTitle("Les Colons de Catanes");
-		    Scene scene = new Scene(page,430,500);
-		    fenetreEchange.setScene(scene);
-		    fenetreEchange.showAndWait();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		imgLaine.setImage(new Image("file:Ressources/ressources/ressource_laine.png"));
+		imgBois.setImage(new Image("file:Ressources/ressources/ressource_Bois.png"));
+		imgMineraie.setImage(new Image("file:Ressources/ressources/ressource_Mineraie.png"));
+		imgArgile.setImage(new Image("file:Ressources/ressources/ressource_Argile.png"));
+		imgBle.setImage(new Image("file:Ressources/ressources/ressource_Ble.png"));
 	}
 	
 	/**
 	 * Méthode pour fermer la fenêtre des échanges
 	 */
 	@FXML
-	private void fermerFenetre(){
-		ReglesController.statsFenetre.close();
+	private void proposerOffre(){
+		//TODO méthode de proposition (pourquoi pas une popup de demande de validation au joueur concerné)
+		MenuController.fenetreEchange.close();
 	}
 	
 	

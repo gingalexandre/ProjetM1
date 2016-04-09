@@ -47,7 +47,7 @@ public class MenuController implements Initializable {
 	private Button boutonEchange;
 	
 	private Pane page = null;
-	public static Stage statsFenetre;
+	public static Stage fenetreEchange;
 	
 	/**
 	 * Proxy client
@@ -157,18 +157,19 @@ public class MenuController implements Initializable {
 	}
 	
 	/**
-	 * Méthode pour le lancement de la popup d'échange
+	 * Méthode pour permettre le lancement de la popup d'échange et laisser EchangeController prendre le relais pour les méthodes 
+	 * 
 	 */
 	@FXML
 	public void ouvrirEchange(){
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Echange.fxml"));
 		try {
 			page = (Pane) loader.load();
-			statsFenetre = new Stage();
-			statsFenetre.setTitle("Les Colons de Catanes");
+			fenetreEchange = new Stage();
+			fenetreEchange.setTitle("Les Colons de Catanes");
 		    Scene scene = new Scene(page,430,500);
-		    statsFenetre.setScene(scene);
-		    statsFenetre.showAndWait();
+		    fenetreEchange.setScene(scene);
+		    fenetreEchange.showAndWait();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

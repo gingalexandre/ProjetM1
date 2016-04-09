@@ -38,7 +38,7 @@ public class JoueursController implements Initializable {
 	private Serveur serveur;
 	
 	/**
-	 * Proxy client, c'est avec �a qu'on peut acc�der au joueur 
+	 * Proxy client, c'est avec ça qu'on peut accéder au joueur 
 	 */
 	private Proxy proxy;
 	
@@ -48,7 +48,7 @@ public class JoueursController implements Initializable {
 	private Joueur joueur;
 	
 	/**
-	 * Liste des autres joueurs connect�s au serveur
+	 * Liste des autres joueurs connectés au serveur
 	 */
 	private ArrayList<Joueur> autresJoueurs;
 
@@ -56,19 +56,19 @@ public class JoueursController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		autresJoueurs = new ArrayList<Joueur>();
 		
-		// R�cup�ration du serveur via le singleton pour facilement le manipuler dans la classe
+		// Récupération du serveur via le singleton pour facilement le manipuler dans la classe
 		serveur = ConnexionManager.getStaticServeur();
-		// R�cup�ration du proxy via le singleton ConnexionManager
+		// Récupération du proxy via le singleton ConnexionManager
 		proxy = ConnexionManager.getStaticProxy();
 		// Indique au proxy que le JoueursController du joueur est cette classe.
-		// Permet au proxy d'appeler des m�thodes de cette classe
+		// Permet au proxy d'appeler des méthodes de cette classe
 		proxy.setJoueursController(this);
 
 		try {
-			// Envoi � CHAQUE joueur la liste de tous les joueurs, sauf lui-m�me. Permet de r�aliser correctement l'affichage
+			// Envoi à CHAQUE joueur la liste de tous les joueurs, sauf lui-même. Permet de réaliser correctement l'affichage
 			// des autres joueurs sur l'interface
 			serveur.getGestionnairePartie().envoyerAutresJoueurs();
-			// R�cup�ration du joueur pour pouvoir obtenir ses informations
+			// Récupération du joueur pour pouvoir obtenir ses informations
 			joueur = proxy.getJoueur();
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -82,7 +82,7 @@ public class JoueursController implements Initializable {
 		nomJoueur.setText(joueur.getNomUtilisateur());
 		nbVictoire.setText("2");
 		
-		// Appel de la m�thode permettant de transformer la couleur de fran�ais � anglais pour pouvoir changer le style
+		// Appel de la méthode permettant de transformer la couleur de français à anglais pour pouvoir changer le style
 		String couleurAnglais = Fonction.couleurEnAnglais(joueur.getCouleur());
 		couleurJoueur.setStyle("-fx-background-color: "+couleurAnglais+";");
 		proxy = ConnexionManager.getStaticProxy();
@@ -91,7 +91,7 @@ public class JoueursController implements Initializable {
 	}
 	
 	/**
-	 * Mise � jour de l'affichage des ressources du joueur actuel
+	 * Mise à jour de l'affichage des ressources du joueur actuel
 	 * @throws RemoteException
 	 */
 	
@@ -140,7 +140,7 @@ public class JoueursController implements Initializable {
 	}
 	
 	/**
-	 * Re�oit la liste des autres joueurs connect�s au serveur
+	 * Reçoit la liste des autres joueurs connectés au serveur
 	 * @param autresJoueurs
 	 */
 	public void recevoirAutresJoueurs(ArrayList<Joueur> autresJoueurs) {

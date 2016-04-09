@@ -4,11 +4,6 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
-import serveur.modele.Des;
-import serveur.modele.Message;
-import serveur.reseau.ConnexionManager;
-import serveur.reseau.Proxy;
-import serveur.reseau.Serveur;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import serveur.modele.Des;
+import serveur.modele.Message;
+import serveur.reseau.ConnexionManager;
+import serveur.reseau.Proxy;
+import serveur.reseau.Serveur;
 
 public class DesController implements Initializable {
 
@@ -47,17 +47,18 @@ public class DesController implements Initializable {
 	}
 
 	public void lancerDes() throws RemoteException {
+		boutonDes.setDisable(true);
 		Des des = new Des();
 		Integer[] resultats = des.lancerDes();
 		
 		animateDes();
-		
 		// Modification des images
 		de1.setImage(new Image(distribuerDes(resultats[0])));
 		de2.setImage(new Image(distribuerDes(resultats[1])));
 		
 		notifierLancerDes(resultats);
 		extractionRessources(resultats);
+		
 	}
 	
 	public void animateDes() {
@@ -89,12 +90,12 @@ public class DesController implements Initializable {
 	}
 	
 	/**
-	 * Affiche le resultat des d�s dans le chat sous forme de message Syst�me
-	 * @param Integer[] resultats (r�sultats des d�s)
+	 * Affiche le resultat des dés dans le chat sous forme de message Système
+	 * @param Integer[] resultats (résultats des dés)
 	 */
 	private void notifierLancerDes(Integer[] resultats){
 		try{
-			// R�cup�ration du serveur en passant par le singleton ConnexionManager
+			// Récupération du serveur en passant par le singleton ConnexionManager
 			Serveur serveur = ConnexionManager.getStaticServeur();
 			String nomJoueur = proxy.getJoueur().getNomUtilisateur();
 			serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" a lancé les dés : "+resultats[0]+" | "+resultats[1]));
@@ -105,20 +106,20 @@ public class DesController implements Initializable {
 	}
 	
 	/**
-	 * Distribue � chaque joueurs les ressources associ�es � la case du num�ro tomb�
-	 * @param Integer[] resultats (r�sultats des d�s)
+	 * Distribue à chaque joueurs les ressources associées à la case du numéro tombé
+	 * @param Integer[] resultats (résultats des dés)
 	 * @throws RemoteException 
 	 */
 	private void extractionRessources(Integer[] resultats) throws RemoteException{
 		Integer caseConsernee = resultats[0]+resultats[1];
 		
-		//M�thode (retournant le type de ressource) � impl�menter
+		//Méthode (retournant le type de ressource) à implémenter
 		//int ressource = Plateau.getRessourceCase(caseConcernee);
 		
-		//M�thode (retournant la liste des noms de joueurs) � impl�menter
+		//Méthode (retournant la liste des noms de joueurs) à implémenter
 		//String[] listNom = Plateau.getJoueursCase(caseConcernee);
 		
-		// R�cup�ration du serveur en passant par le singleton ConnexionManager
+		// Récupération du serveur en passant par le singleton ConnexionManager
 		Serveur serveur = ConnexionManager.getStaticServeur();
 		
 		//Ajout des ressources aux joueurs de la liste

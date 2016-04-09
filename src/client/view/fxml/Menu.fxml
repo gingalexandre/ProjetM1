@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.DesController">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.MenuController">
     <children>
         <GridPane gridLinesVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
@@ -77,7 +77,7 @@
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="9">
                     <children>
-                        <Button mnemonicParsing="false" text="Echange"  AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                        <Button mnemonicParsing="false" fx:id="boutonEchange" onAction="#ouvrirEchange" text="Echange"  AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="10">

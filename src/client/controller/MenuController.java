@@ -1,5 +1,6 @@
 package client.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
@@ -11,14 +12,21 @@ import serveur.reseau.Proxy;
 import serveur.reseau.Serveur;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class DesController implements Initializable {
-
+public class MenuController implements Initializable {
+	
+	/**
+	 * Attributs concernants les dés
+	 */
 	private static final String numeroUn = "file:Ressources/des/dice1.png";
 	private static final String numeroDeux = "file:Ressources/des/dice2.png";
 	private static final String numeroTrois = "file:Ressources/des/dice3.png";
@@ -33,19 +41,39 @@ public class DesController implements Initializable {
 	private Button boutonDes;
 	
 	/**
+	 * Pour les échanges
+	 */
+	@FXML
+	private Button boutonEchange;
+	
+	private Pane page = null;
+	public static Stage statsFenetre;
+	
+	/**
 	 * Proxy client
 	 */
 	private Proxy proxy;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		//Initialisation des dés
 		de1.setImage(new Image(numeroSix));
 		de2.setImage(new Image(numeroSix));
+		
+		//Initialisation du proxy
 		proxy = ConnexionManager.getStaticProxy();
-		proxy.setDesController(this);
+		proxy.setMenuController(this);
 		
 	}
 
+	/**
+	 * Méthodes pour les dés
+	 * 
+	 * lancerDes()
+	 * animationDes()
+	 * distributionDes()
+	 * notifierLancerDes()
+	 */
 	public void lancerDes() throws RemoteException {
 		Des des = new Des();
 		Integer[] resultats = des.lancerDes();
@@ -127,4 +155,25 @@ public class DesController implements Initializable {
 		//Actualisation de l'affichage
 		this.proxy.getJoueursController().majRessource();
 	}
+	
+	/**
+	 * Méthode pour le lancement de la popup d'échange
+	 */
+	@FXML
+	public void ouvrirEchange(){
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Echange.fxml"));
+		try {
+			page = (Pane) loader.load();
+			statsFenetre = new Stage();
+			statsFenetre.setTitle("Les Colons de Catanes");
+		    Scene scene = new Scene(page,430,500);
+		    statsFenetre.setScene(scene);
+		    statsFenetre.showAndWait();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 }

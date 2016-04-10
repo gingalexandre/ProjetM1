@@ -112,5 +112,23 @@ public class Hexagone implements Serializable{
 	public int getType() {
 		return type;
 	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Ressource getRessource() {
+		return ressource;
+	}
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public Ville[] getVilleAdj() {
+		return villeAdj;
+	}
+	
+	
 	
 }

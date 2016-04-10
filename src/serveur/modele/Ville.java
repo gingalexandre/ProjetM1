@@ -96,6 +96,41 @@ public class Ville implements Serializable{
 	public Route getRoute_adj3() {
 		return route_adj3;
 	}
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
+	public Ville getVille_adj1() {
+		return ville_adj1;
+	}
+
+
+	public Ville getVille_adj2() {
+		return ville_adj2;
+	}
+
+
+	public Ville getVille_adj3() {
+		return ville_adj3;
+	}
+
+
+	public Joueur getOqp() {
+		return oqp;
+	}
+
+
+	public int getGain() {
+		return gain;
+	}
+
+
+	public boolean isColonieVille() {
+		return colonieVille;
+	}
 	
 	
 	

@@ -31,7 +31,7 @@
         </AnchorPane>
         <AnchorPane GridPane.rowIndex="3" GridPane.columnIndex="0">
             <children>
-                <Button fx:id="boutonSauvegarde" mnemonicParsing="false" text="Sauvegarde." AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                <Button fx:id="boutonSauvegarde" onAction="#sauvegarderPartie" mnemonicParsing="false" text="Sauvegarde." AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
             </children>
         </AnchorPane>
     </children>

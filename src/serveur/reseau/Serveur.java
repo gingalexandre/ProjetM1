@@ -25,6 +25,12 @@ public interface Serveur extends Remote{
 	void enregistrerJoueur(JoueurServeur joueurServeur) throws RemoteException, TooMuchPlayerException;
 	
 	/**
+	 * Enregistre la partie
+	 * @throws RemoteException
+	 */
+	void enregistrerPartie()  throws RemoteException;
+	
+	/**
 	 * Permet d'obtenir le gestionnaire de base de donn�es
 	 * @return le gestionnaire de base de donn�es
 	 * @throws RemoteException

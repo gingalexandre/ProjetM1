@@ -1,6 +1,7 @@
 package serveur.modele;
 
 import java.io.Serializable;
+import com.fasterxml.jackson.annotation.*;
 
 public class Point implements Serializable {
 
@@ -14,11 +15,13 @@ public class Point implements Serializable {
 		this.x = ((double)((int) x));
 		this.y = ((double)((int) y));
 	}
-
+	
+	@JsonGetter("x")
     public double getX() {
         return x;
     }
 
+	@JsonGetter("y")
     public double getY() {
         return y;
     }
@@ -62,5 +65,20 @@ public class Point implements Serializable {
     		return 0;
     	}
     }
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public void setY(double y) {
+		this.y = y;
+	}
+    
+	
+    
         
 }

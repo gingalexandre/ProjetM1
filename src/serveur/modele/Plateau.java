@@ -186,4 +186,10 @@ public class Plateau implements Serializable{
         return res;
     }
 
+	public ArrayList<Point> getPoints() {
+		return points;
+	}
+	
+	
+
 }

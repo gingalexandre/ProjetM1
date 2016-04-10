@@ -5,13 +5,14 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import exception.TooMuchPlayerException;
+import serveur.bdd.Sauvegarde;
 import serveur.modele.Joueur;
 import serveur.reseau.communicationClients.GestionnaireBDD;
 import serveur.reseau.communicationClients.GestionnairePartie;
 import serveur.reseau.communicationClients.GestionnaireUI;
 
 /**
- * Classe implémentant le serveur, qui communique avec les proxy
+ * Classe implï¿½mentant le serveur, qui communique avec les proxy
  * @author jerome
  */
 public class ServeurImpl extends UnicastRemoteObject implements Serveur {
@@ -19,7 +20,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Contient la liste des joueurs connectés au serveur
+	 * Contient la liste des joueurs connectï¿½s au serveur
 	 */
 	private ArrayList<JoueurServeur> joueurServeurs = new ArrayList<JoueurServeur>();
 	
@@ -29,7 +30,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	private final static int NOMBRE_MAX_JOUEURS = 4;
 	
 	/**
-	 * Gestionnaire de la base de données
+	 * Gestionnaire de la base de donnï¿½es
 	 */
 	private GestionnaireBDD gestionnaireBDD;
 	
@@ -55,7 +56,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	
 	/**
 	 * Enregistre un joueur sur le serveur
-	 * @param nouveauJoueurServeur - joueur à ajouter
+	 * @param nouveauJoueurServeur - joueur ï¿½ ajouter
 	 * @throws RemoteException
 	 * @throws TooMuchPlayerException
 	 */
@@ -88,13 +89,13 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 			envoyerJoueurAuGestionnaire(nouveauJoueurServeur);
 		}
 		else{
-			throw new TooMuchPlayerException("Connexion impossible. Il y a déjà 4 joueurs connectés sur le serveur.");
+			throw new TooMuchPlayerException("Connexion impossible. Il y a dï¿½jï¿½ 4 joueurs connectï¿½s sur le serveur.");
 		}
 	}
 	
 	/**
-	 * Permet d'ajouter un joueur à la liste de joueurs des gestionnaires
-	 * @param nouveauJoueurServeur - joueur à envoyer
+	 * Permet d'ajouter un joueur ï¿½ la liste de joueurs des gestionnaires
+	 * @param nouveauJoueurServeur - joueur ï¿½ envoyer
 	 * @throws RemoteException 
 	 */
 	private void envoyerJoueurAuGestionnaire(JoueurServeur nouveauJoueurServeur) throws RemoteException{
@@ -104,8 +105,8 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	}
 	
 	/**
-	 * Permet d'obtenir le gestionnaire de base de données
-	 * @return le gestionnaire de base de données
+	 * Permet d'obtenir le gestionnaire de base de donnï¿½es
+	 * @return le gestionnaire de base de donnï¿½es
 	 * @throws RemoteException
 	 */
 	@Override
@@ -131,5 +132,15 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	@Override
 	public GestionnaireUI getGestionnaireUI() throws RemoteException {
 		return this.gestionnaireUI;
+	}
+
+	/**
+	 * Permet de sauvegarder la partie
+	 */
+	@Override
+	public void enregistrerPartie() throws RemoteException {
+		Sauvegarde sauvegarde = new Sauvegarde();
+		sauvegarde.sauvegarderPartie();
+		
 	}
 }

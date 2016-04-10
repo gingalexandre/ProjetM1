@@ -138,7 +138,7 @@ public class ConnexionController implements Initializable {
 	}
 	
 	/**
-	 * Appel la m�thode du serveur pour enregistrer le joueur 
+	 * Appel la méthode du serveur pour enregistrer le joueur 
 	 * @throws RemoteException
 	 * @throws TooMuchPlayerException
 	 */

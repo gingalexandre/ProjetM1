@@ -4,5 +4,8 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="sqlite-jdbc-3.8.11.2.jar"/>
+	<classpathentry kind="lib" path="/Users/Alexandre/Desktop/workspace/ProjetM1/jackson-core-2.7.3.jar"/>
+	<classpathentry kind="lib" path="/Users/Alexandre/Desktop/workspace/ProjetM1/jackson-databind-2.7.3.jar"/>
+	<classpathentry kind="lib" path="/Users/Alexandre/Desktop/workspace/ProjetM1/jackson-annotations-2.2.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

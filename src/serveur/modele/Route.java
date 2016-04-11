@@ -89,6 +89,13 @@ public class Route implements Serializable{
 	public Point getArrive() {
 		return arrive;
 	}
+
+	@Override
+	public String toString() {
+		return "Route [depart=" + depart + ", arrive=" + arrive + ", oqp=" + oqp + "]";
+	}
+	
+	
 	
 	
 

@@ -6,17 +6,24 @@ import java.util.ArrayList;
 import javafx.scene.shape.Circle;
 import serveur.view.VueVille;
 
+import org.codehaus.jackson.annotate.*;
+
 public class Ville implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
 	private Point emplacement;
-	
+	@JsonIgnore
 	private Ville ville_adj1;
+	@JsonIgnore
 	private Ville ville_adj2;
+	@JsonIgnore
 	private Ville ville_adj3;
+	@JsonIgnore
 	private Route route_adj1;
+	@JsonIgnore
 	private Route route_adj2;
+	@JsonIgnore
 	private Route route_adj3;
 	
 	private Joueur oqp;
@@ -130,6 +137,13 @@ public class Ville implements Serializable{
 
 	public boolean isColonieVille() {
 		return colonieVille;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Ville [emplacement=" + emplacement + ", oqp=" + oqp + ", gain=" + gain + ", colonieVille=" + colonieVille
+				+ "]";
 	}
 	
 	

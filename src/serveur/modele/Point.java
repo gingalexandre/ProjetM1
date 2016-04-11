@@ -1,7 +1,8 @@
 package serveur.modele;
 
 import java.io.Serializable;
-import com.fasterxml.jackson.annotation.*;
+
+import org.codehaus.jackson.annotate.JsonGetter;
 
 public class Point implements Serializable {
 

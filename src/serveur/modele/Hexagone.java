@@ -1,6 +1,7 @@
 package serveur.modele;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 import client.commun.DistributeurType;
 
@@ -127,6 +128,13 @@ public class Hexagone implements Serializable{
 
 	public Ville[] getVilleAdj() {
 		return villeAdj;
+	}
+
+	@Override
+	public String toString() {
+		return "Hexagone [indexHexagone=" + indexHexagone + ", ressource=" + ressource + ", numero=" + numero
+				+ ", villeAdj=" + Arrays.toString(villeAdj) + ", a=" + a + ", b=" + b + ", c=" + c + ", d=" + d + ", e="
+				+ e + ", f=" + f + ", type=" + type + "]";
 	}
 	
 	

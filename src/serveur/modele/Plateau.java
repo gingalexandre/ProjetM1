@@ -189,6 +189,12 @@ public class Plateau implements Serializable{
 	public ArrayList<Point> getPoints() {
 		return points;
 	}
+
+	@Override
+	public String toString() {
+		return "Plateau [hexagones=" + hexagones + ", points=" + points + ", villes=" + villes + ", routes=" + routes
+				+ "]";
+	}
 	
 	
 

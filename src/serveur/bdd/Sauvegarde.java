@@ -4,9 +4,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.SerializationConfig;
 
 import serveur.modele.Joueur;
 import serveur.modele.Partie;
@@ -23,6 +24,15 @@ public class Sauvegarde {
 	
 	public Sauvegarde(){
 		plateauCourant = Plateau.getInstance();
+		System.out.println(plateauCourant);
+		try {
+			objectMapper.enable(SerializationConfig.Feature.INDENT_OUTPUT);
+			String jsonString = objectMapper.writeValueAsString(plateauCourant);
+			System.out.println(jsonString);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		/*
 		joueurs = Partie.getJoueurs();
 		// TODO : Ici avoir le Joueur Courant
 		// currentJoueur = Partie.getCurrentJoueur();
@@ -39,12 +49,12 @@ public class Sauvegarde {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 	
 	public void sauvegarderPartie(){
-		
+		/*
 		jsonOutputFile = new File("results.json");
 		try {
 			objectMapper.writeValue(jsonOutputFile, this);
@@ -53,6 +63,7 @@ public class Sauvegarde {
 			e.printStackTrace();
 			
 		}
+		*/
 	}
 
 	public static Plateau getPlateauCourant() {

@@ -14,12 +14,12 @@ public class ServeurMain {
 		System.setProperty("java.rmi.server.hostname", "127.0.0.1");
 		if(argumentCorrect(args)){
 			Naming.rebind("rmi://127.0.0.1:42000/serveur", new ServeurImpl(Integer.parseInt(args[0])));
-			System.out.println("Serveur lancé correctement");
+			System.out.println("Serveur lancÃ© correctement");
 		}
 	}
 	
 	/**
-	 * Vérifie que args a la bonne valeur
+	 * VÃ©rifie que args a la bonne valeur
 	 * @param args
 	 * @return
 	 */
@@ -30,23 +30,23 @@ public class ServeurMain {
 					return true;
 				}
 				else{
-					System.out.println("L'argument doit être un chiffre égal à 3 ou 4.\nRedémarrez le serveur et réessayer.");
+					System.out.println("L'argument doit ï¿½tre un chiffre ï¿½gal ï¿½ 3 ou 4.\nRedï¿½marrez le serveur et rï¿½essayer.");
 					return false;
 				}
 			}
 			else{
-				System.out.println("L'argument doit être un chiffre égal à 3 ou 4.\nRedémarrez le serveur et réessayer.");
+				System.out.println("L'argument doit ï¿½tre un chiffre ï¿½gal ï¿½ 3 ou 4.\nRedï¿½marrez le serveur et rï¿½essayer.");
 				return false;
 			}
 		}
 		else{
-			System.out.println("Veuillez rentrer un SEUL argument (un chiffre correspondant au nombre maximum de joueurs) lors du lancement du serveur.\nRedémarrez le serveur et réessayer.");
+			System.out.println("Veuillez rentrer un SEUL argument (un chiffre correspondant au nombre maximum de joueurs) lors du lancement du serveur.\nRedï¿½marrez le serveur et rï¿½essayer.");
 			return false;
 		}
 	}
 	
 	/**
-	 * Vérifie que le string est un nombre
+	 * VÃ©rifie que le string est un nombre
 	 * @param str
 	 * @return
 	 */

@@ -21,6 +21,8 @@ public class Hexagone implements Serializable{
 	
 	public final static int DESERT = 6;
 
+	public boolean VOLEUR = false;
+
 	private Point a;
 	private Point b;
 	private Point c;
@@ -98,6 +100,7 @@ public class Hexagone implements Serializable{
      }
      else{
     	 this.type = Hexagone.DESERT;
+		 VOLEUR = true;
      }
      
  }
@@ -112,5 +115,13 @@ public class Hexagone implements Serializable{
 	public int getType() {
 		return type;
 	}
-	
+
+
+	public boolean isVOLEUR() {
+		return VOLEUR;
+	}
+
+	public void setVOLEUR(boolean VOLEUR) {
+		this.VOLEUR = VOLEUR;
+	}
 }

@@ -2,6 +2,10 @@ package serveur.view;
 
 import java.util.ArrayList;
 
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.InnerShadow;
+import javafx.scene.paint.Color;
 import serveur.modele.Hexagone;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
@@ -24,6 +28,19 @@ public class VueHexagone extends Polygon {
 		this.hexagone = hexagone;
 		this.getPoints().addAll(hexagone.getPoints());
 		this.setFill(getPaint(hexagone.getType()));
+		if(this.hexagone.isVOLEUR() == true){
+
+	/*		InnerShadow is = new InnerShadow();
+			is.setColor(Color.BLACK);
+			is.setBlurType(BlurType.GAUSSIAN);
+			is.setOffsetX(300);
+			is.setOffsetY(300);
+			this.setEffect(is);*/
+
+			ColorAdjust colorAdjust = new ColorAdjust();
+			colorAdjust.setSaturation(-1);
+			this.setEffect(colorAdjust);
+		}
 	}
 	
 	public Paint getPaint(int id){

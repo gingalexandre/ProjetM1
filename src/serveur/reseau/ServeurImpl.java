@@ -26,7 +26,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	/**
 	 * Nombre max de joueurServeurs 
 	 */
-	private final static int NOMBRE_MAX_JOUEURS = 4;
+	private final static int NOMBRE_MAX_JOUEURS = 3;
 	
 	/**
 	 * Gestionnaire de la base de données
@@ -88,7 +88,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 			envoyerJoueurAuGestionnaire(nouveauJoueurServeur);
 		}
 		else{
-			throw new TooMuchPlayerException("Connexion impossible. Il y a déjà 4 joueurs connectés sur le serveur.");
+			throw new TooMuchPlayerException("Connexion impossible. Il y a déjà"+NOMBRE_MAX_JOUEURS+" joueurs connectés sur le serveur.");
 		}
 	}
 	

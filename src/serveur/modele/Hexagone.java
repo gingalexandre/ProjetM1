@@ -2,7 +2,7 @@ package serveur.modele;
 
 import java.io.Serializable;
 
-import client.commun.DistributeurType;
+import serveur.commun.DistributeurType;
 
 public class Hexagone implements Serializable{
 
@@ -28,7 +28,11 @@ public class Hexagone implements Serializable{
 	private Point e;
 	private Point f;
 	
+	private Point centre;
+	
 	private int type;
+	
+	private Jeton numeroJeton;
 
 	public Hexagone(int indexHexagone, Point a, Point b, Point c, Point d, Point e, Point f, int type) {
 		super();
@@ -91,10 +95,13 @@ public class Hexagone implements Serializable{
      double y6 = y2;
      f = new Point(x6,y6);
      
+     centre = new Point(xCentre,yCentre);
+     
      this.indexHexagone = indexHexagone;
      
      if(this.indexHexagone != 9){
     	 this.type = DistributeurType.getInstance().donnerType();
+    	 this.numeroJeton = new Jeton(this);
      }
      else{
     	 this.type = Hexagone.DESERT;
@@ -111,6 +118,14 @@ public class Hexagone implements Serializable{
 	}
 	public int getType() {
 		return type;
+	}
+	
+	public Point getCentre(){
+		return centre;
+	}
+	
+	public Jeton getJeton(){
+		return this.numeroJeton;
 	}
 	
 }

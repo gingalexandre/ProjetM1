@@ -12,6 +12,7 @@ public class VueHexagone extends Polygon {
 	
 	Hexagone hexagone;
 	
+	
 	public final static String carriere 	= "file:Ressources/cases/carriere.png";
 	public final static String champs 		= "file:Ressources/cases/champs.png";
 	public final static String foret		= "file:Ressources/cases/foret.png";

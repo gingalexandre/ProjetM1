@@ -13,6 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -34,6 +36,12 @@ public class MenuController implements Initializable {
 	private static final String numeroQuatre = "file:Ressources/des/dice4.png";
 	private static final String numeroCinq = "file:Ressources/des/dice5.png";
 	private static final String numeroSix = "file:Ressources/des/dice6.png";
+	
+	@FXML
+	private GridPane menuGridPane;
+	
+	@FXML
+	private GridPane pretGridPane;
 	
 	@FXML
 	private ImageView de1, de2;
@@ -70,7 +78,23 @@ public class MenuController implements Initializable {
 		//Initialisation du proxy
 		proxy = ConnexionManager.getStaticProxy();
 		proxy.setMenuController(this);
-		
+	}
+	
+	/**
+	 * Méthode de lancement de la partie
+	 */
+	public void joueurPret(){
+		pretGridPane.setVisible(false);
+		menuGridPane.setVisible(true);
+		try{
+			// Récupération du serveur en passant par le singleton ConnexionManager
+			Serveur serveur = ConnexionManager.getStaticServeur();
+			String nomJoueur = proxy.getJoueur().getNomUtilisateur();
+			serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" est prêt !"));
+		}
+		catch (RemoteException e){
+			e.printStackTrace();
+		}
 	}
 
 	/**

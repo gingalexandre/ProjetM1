@@ -17,6 +17,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import serveur.modele.Des;
+import serveur.modele.Joueur;
 import serveur.modele.Message;
 import serveur.reseau.ConnexionManager;
 import serveur.reseau.Proxy;
@@ -48,6 +49,12 @@ public class MenuController implements Initializable {
 	
 	private Pane page = null;
 	public static Stage fenetreEchange;
+	
+	/**
+	 * Pour finir le tour
+	 */
+	@FXML
+	private Button boutonFinTour;
 	
 	/**
 	 * Proxy client
@@ -177,5 +184,26 @@ public class MenuController implements Initializable {
 		}
 	}
 	
-	
+	/**
+	 * Méthode de fin de tour
+	 */
+	public void finirLeTour(){
+		try{
+			// Récupération du serveur en passant par le singleton ConnexionManager
+			Serveur serveur = ConnexionManager.getStaticServeur();
+			String nomJoueur = proxy.getJoueur().getNomUtilisateur();
+			serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" a fini son tour"));
+			
+			//Lancement du tour du joueur suivant
+			serveur.getGestionnairePartie().getPartie().incrementeTour();
+			Joueur joueurTour = serveur.getGestionnairePartie().getPartie().getJoueurTour();
+			
+			//TODO méthode qui dégrise les boutons du joueur séléctionné au dessus
+			
+			serveur.getGestionnaireUI().diffuserMessage(new Message("C'est à "+joueurTour.getNomUtilisateur()+" de jouer"));
+		}
+		catch (RemoteException e){
+			e.printStackTrace();
+		}
+	}
 }

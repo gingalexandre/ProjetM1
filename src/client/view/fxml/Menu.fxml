@@ -82,7 +82,7 @@
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="10">
                     <children>
-                        <Button mnemonicParsing="false" text="Fin du tour" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                        <Button mnemonicParsing="false" fx:id="boutonFinTour" onAction="#finirLeTour" text="Fin du tour" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                     </children>
                 </AnchorPane>
             </children>

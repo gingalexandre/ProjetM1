@@ -38,6 +38,29 @@ public class Partie implements Serializable{
      */
     private int tour;
     
+    public Joueur getJoueurTour(){
+    	return ordreJeu.get(tour);
+    }
+    
+    public void incrementeTour(){
+    	if(joueur4 != null){
+    		if(tour <= 3){
+    			this.tour++;
+    		}
+    		else{
+    			this.tour = 0;
+    		}
+    	}
+    	else{
+    		if(tour <= 2){
+    			this.tour++;
+    		}
+    		else{
+    			this.tour = 0;
+    		}
+    	}
+    }
+    
     /**
      * @param plateau - plateau de la partie
      */

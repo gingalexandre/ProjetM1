@@ -11,22 +11,22 @@ import serveur.modele.Point;
 
 public class VueJeton extends Circle {
 
-	public final static String UN = "file:Ressources/jetons/un.png";
-	public final static String DEUX = "file:Ressources/jetons/deux.png";
-	public final static String TROIS = "file:Ressources/jetons/trois.png";
-	public final static String QUATRE = "file:Ressources/jetons/quatre.png";
-	public final static String CINQ = "file:Ressources/jetons/cinq.png";
-	public final static String SIX = "file:Ressources/jetons/six.png";
-	public final static String HUIT = "file:Ressources/jetons/huit.png";
-	public final static String NEUF = "file:Ressources/jetons/neuf.png";
-	public final static String DIX = "file:Ressources/jetons/dix.png";
-	public final static String ONZE = "file:Ressources/jetons/onze.png";
-	public final static String DOUZE = "file:Ressources/jetons/douze.png";
+	public final static String UN = "file:Ressources/jetons/1.png";
+	public final static String DEUX = "file:Ressources/jetons/2.png";
+	public final static String TROIS = "file:Ressources/jetons/3.png";
+	public final static String QUATRE = "file:Ressources/jetons/4.png";
+	public final static String CINQ = "file:Ressources/jetons/5.png";
+	public final static String SIX = "file:Ressources/jetons/6.png";
+	public final static String HUIT = "file:Ressources/jetons/8.png";
+	public final static String NEUF = "file:Ressources/jetons/9.png";
+	public final static String DIX = "file:Ressources/jetons/10.png";
+	public final static String ONZE = "file:Ressources/jetons/11.png";
+	public final static String DOUZE = "file:Ressources/jetons/12.png";
 	private Circle circle;
 
 	public VueJeton(Jeton jeton) {
 		super();
-		circle = new Circle(jeton.getEmplacement().getX(), jeton.getEmplacement().getY(), 10);
+		circle = new Circle(jeton.getEmplacement().getX(), jeton.getEmplacement().getY(), 20);
 		circle.setFill(this.getPaint(jeton.getNumeroJeton()));
 	}
 

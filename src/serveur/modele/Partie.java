@@ -6,6 +6,10 @@
 package serveur.modele;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  *
@@ -26,6 +30,8 @@ public class Partie implements Serializable{
 	private Plateau plateau;
 	
     private Ressource ressources;
+    
+    private ArrayList<Joueur> ordreJeu = new ArrayList<Joueur>();
     
     /* De 1 � 3 si 3 joueurs
      * De 1 � 4 si 4 joueurs
@@ -125,6 +131,26 @@ public class Partie implements Serializable{
 
 	public void setRessources(Ressource ressources) {
 		this.ressources = ressources;
+	}
+	
+	public ArrayList<Joueur> getOrdreTour(){
+		ordreJeu.add(joueur1);
+		ordreJeu.add(joueur2);
+		ordreJeu.add(joueur3);
+		if (joueur4 != null){
+			ordreJeu.add(joueur4);
+		}
+		Comparator<Joueur> c = new Comparator<Joueur>() {
+            @Override
+            public int compare(Joueur j1, Joueur j2) {
+                return j1.compareTo(j2);
+            }
+        };
+        ordreJeu.sort(c);
+        for (Joueur j : ordreJeu){
+        	System.out.println(j.getNomUtilisateur());
+        }
+        return ordreJeu;
 	}
 	
 }

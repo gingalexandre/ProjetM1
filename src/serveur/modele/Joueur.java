@@ -24,12 +24,12 @@ public class Joueur implements Serializable{
 	private static int compteurDeJoueur = 0;
 	
 	/**
-	 * Pseudo du joueur dans la base de données 
+	 * Pseudo du joueur dans la base de donnï¿½es 
 	 */
 	private String nomUtilisateur;
 
 	/**
-	 * Date de naissance du joueur dans la base de données
+	 * Date de naissance du joueur dans la base de donnï¿½es
 	 */
 	private Date dateDeNaissance;
 	
@@ -49,7 +49,7 @@ public class Joueur implements Serializable{
 
 	/**
 	 * Constructeur de joueur
-	 * Est appelé lors de l'ajout d'un proxy sur le serveur
+	 * Est appelï¿½ lors de l'ajout d'un proxy sur le serveur
 	 */
 	public Joueur(){
 		initialisationAttributs();
@@ -201,5 +201,17 @@ public class Joueur implements Serializable{
 
 	public void setNbRoute(int nbRoute) {
 		this.nbRoute = nbRoute;
+	}
+	
+	public int compareTo(Joueur j){
+		if (this.dateDeNaissance.after(j.dateDeNaissance)){
+			return -10;
+		}
+		else if (this.dateDeNaissance.before(j.dateDeNaissance)){
+			return 10;
+		}
+		else{
+			return 0;
+		}
 	}
 }

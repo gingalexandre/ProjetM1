@@ -2,6 +2,7 @@ package serveur.reseau;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.sql.Date;
 
 import exception.TooMuchPlayerException;
 
@@ -22,7 +23,7 @@ public interface Serveur extends Remote{
 	 * @throws RemoteException
 	 * @throws TooMuchPlayerException
 	 */
-	void enregistrerJoueur(JoueurServeur joueurServeur) throws RemoteException, TooMuchPlayerException;
+	void enregistrerJoueur(JoueurServeur joueurServeur, String nom, Date date) throws RemoteException, TooMuchPlayerException;
 	
 	/**
 	 * Permet d'obtenir le gestionnaire de base de donn�es

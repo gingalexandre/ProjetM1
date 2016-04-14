@@ -16,6 +16,34 @@ import serveur.reseau.JoueurServeur;
  * Classe qui s'occupe des echanges concernant la partie entre les clients et le serveur
  * @author jerome
  */
+/**
+ * @author jerome
+ *
+ */
+/**
+ * @author jerome
+ *
+ */
+/**
+ * @author jerome
+ *
+ */
+/**
+ * @author jerome
+ *
+ */
+/**
+ * @author jerome
+ *
+ */
+/**
+ * @author jerome
+ *
+ */
+/**
+ * @author jerome
+ *
+ */
 public class GestionnairePartie implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -73,8 +101,6 @@ public class GestionnairePartie implements Serializable{
 	public ArrayList<Joueur> recupererAutresJoueurs(Joueur joueurQuiAppelle) throws RemoteException{
 		ArrayList<Joueur> autresJoueurs = new ArrayList<Joueur>();
 		for(JoueurServeur joueurServeur : joueursServeur){
-			// Le nom d'utilisateur �tant unique, on fait la v�rification dessus
-			Joueur joueur = joueurServeur.getJoueur();
 			if(!joueurServeur.getJoueur().getNomUtilisateur().equals(joueurQuiAppelle.getNomUtilisateur())){
 				autresJoueurs.add(joueurServeur.getJoueur());
 			}
@@ -119,7 +145,7 @@ public class GestionnairePartie implements Serializable{
 	}
 	
 	/**
-	 * Mets un joueur a pret
+	 * Met un joueur a pret
 	 * @param joueur
 	 * @throws RemoteException 
 	 */
@@ -141,7 +167,7 @@ public class GestionnairePartie implements Serializable{
 			}
 		}
 		// Tous les joueurs sont prets, la partie peut debuter
-		if(tousJoueursPrets){
+		if(tousJoueursPrets && partie.getNombreJoueurs() >= 3){
 			commencerPartie();
 		}
 	}
@@ -153,6 +179,21 @@ public class GestionnairePartie implements Serializable{
 	private void commencerPartie() throws RemoteException {
 		for(JoueurServeur joueurServeur : joueursServeur){
 			joueurServeur.recevoirMessage(new Message("La partie a commence ! "));
+		}
+		partie.arrangerOrdreTour();
+		lancerTourPremierJoueur();
+	}
+
+	/**
+	 * Lance le tour du premier joueur, le plus vieux
+	 * @throws RemoteException 
+	 */
+	private void lancerTourPremierJoueur() throws RemoteException {
+		Joueur joueurPlusVieux = partie.getJoueurLePlusVieux();
+		for(JoueurServeur joueurServeur : joueursServeur){
+			if(joueurPlusVieux.equals(joueurServeur.getJoueur())){
+				joueurServeur.enableBoutons();
+			}
 		}
 	}
 }

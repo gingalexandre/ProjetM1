@@ -16,7 +16,7 @@ import java.util.HashMap;
  *
  * @author Arthur
  */
-public class Joueur implements Serializable{
+public class Joueur implements Serializable, Comparable<Joueur>{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -65,7 +65,18 @@ public class Joueur implements Serializable{
 	 * @param nom - nom du joueur
 	 */
 	public Joueur(String nom) {
-		this.setNomUtilisateur(nomUtilisateur);
+		this.setNomUtilisateur(nom);
+		initialisationAttributs();
+	}
+	
+	/**
+	 * Constructeur de joueur
+	 * @param nom - nom du joueur
+	 * @param dateNaissance - date de naissance
+	 */
+	public Joueur(String nom, Date dateNaissance) {
+		this.setNomUtilisateur(nom);
+		this.setDateDeNaissance(dateNaissance);
 		initialisationAttributs();
 	}
 
@@ -225,10 +236,10 @@ public class Joueur implements Serializable{
 	
 	public int compareTo(Joueur j){
 		if (this.dateDeNaissance.after(j.dateDeNaissance)){
-			return -10;
+			return 1;
 		}
 		else if (this.dateDeNaissance.before(j.dateDeNaissance)){
-			return 10;
+			return -1;
 		}
 		else{
 			return 0;

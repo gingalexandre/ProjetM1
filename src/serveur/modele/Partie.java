@@ -15,12 +15,16 @@ import java.util.Comparator;
  *
  * @author Arthur
  */
+/**
+ * @author jerome
+ *
+ */
 public class Partie implements Serializable{
     
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Joueurs de la partie. Le joueur 4 peut �tre null.s
+	 * Joueurs de la partie. Le joueur 4 peut etre null.
 	 */
 	private Joueur joueur1, joueur2, joueur3, joueur4;
 	
@@ -33,33 +37,11 @@ public class Partie implements Serializable{
     
     private ArrayList<Joueur> ordreJeu = new ArrayList<Joueur>();
     
-    /* De 1 � 3 si 3 joueurs
-     * De 1 � 4 si 4 joueurs
+    /** 
+     * De 1 à 3 si 3 joueurs
+     * De 1 à 4 si 4 joueurs
      */
     private int tour = 0;
-    
-    public Joueur getJoueurTour(){
-    	return ordreJeu.get(tour);
-    }
-    
-    public void incrementeTour(){
-    	if(joueur4 != null){
-    		if(tour <= 3){
-    			this.tour++;
-    		}
-    		else{
-    			this.tour = 0;
-    		}
-    	}
-    	else{
-    		if(tour <= 2){
-    			this.tour++;
-    		}
-    		else{
-    			this.tour = 0;
-    		}
-    	}
-    }
     
     /**
      * @param plateau - plateau de la partie
@@ -98,6 +80,49 @@ public class Partie implements Serializable{
     	this.joueur4 = joueur4;
     	this.plateau = plateau;
    	 	this.ressources = new Ressource();
+    }
+    
+    /**
+     * @return le nombre de joueurs de la partie
+     */
+    public int getNombreJoueurs(){
+    	int compteur = 0;
+    	if(joueur1 != null){
+    		compteur++;
+    	}
+    	if(joueur2 != null){
+    		compteur++;
+    	}
+    	if(joueur3 != null){
+    		compteur++;
+    	}
+    	if(joueur4 != null){
+    		compteur++;
+    	}
+    	return compteur;
+    }
+    
+    public Joueur getJoueurTour(){
+    	return ordreJeu.get(tour);
+    }
+    
+    public void incrementeTour(){
+    	if(joueur4 != null){
+    		if(tour <= 3){
+    			this.tour++;
+    		}
+    		else{
+    			this.tour = 0;
+    		}
+    	}
+    	else{
+    		if(tour <= 2){
+    			this.tour++;
+    		}
+    		else{
+    			this.tour = 0;
+    		}
+    	}
     }
     
     public Joueur getJoueurByCouleur(String couleur){
@@ -156,14 +181,17 @@ public class Partie implements Serializable{
 		this.ressources = ressources;
 	}
 	
-	public ArrayList<Joueur> getOrdreTour(){
-		ordreJeu = new ArrayList<Joueur>();
-		ordreJeu.add(this.joueur1);
-		ordreJeu.add(this.joueur2);
-		ordreJeu.add(this.joueur3);
+	/**
+	 * Arrange la liste ordreJeu par ordre d'âge des joueurs
+	 */
+	public void arrangerOrdreTour(){
+		this.ordreJeu = new ArrayList<Joueur>();
+		this.ordreJeu.add(this.joueur1);
+		this.ordreJeu.add(this.joueur2);
+		this.ordreJeu.add(this.joueur3);
 		
 		if (this.joueur4 != null){
-			ordreJeu.add(this.joueur4);
+			this.ordreJeu.add(this.joueur4);
 		}
 		Comparator<Joueur> c = new Comparator<Joueur>() {
             @Override
@@ -171,12 +199,16 @@ public class Partie implements Serializable{
                 return j1.compareTo(j2);
             }
         };
-        ordreJeu.sort(c);
-        for (Joueur j : ordreJeu){
-        	System.out.println(j.getNomUtilisateur());
+        this.ordreJeu.sort(c);
+        for(int i=0;i<ordreJeu.size();i++){
+        	System.out.println(ordreJeu.get(i).getNomUtilisateur());
         }
-        return ordreJeu;
 	}
 	
-	
+	/**
+	 * @return le joueur le plus vieux de la partie
+	 */
+	public Joueur getJoueurLePlusVieux(){
+		return ordreJeu.get(0);
+	}
 }

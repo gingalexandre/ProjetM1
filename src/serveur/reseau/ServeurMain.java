@@ -30,7 +30,7 @@ public class ServeurMain {
 					return true;
 				}
 				else{
-					System.out.println("L'argument doit �tre un chiffre �gal � 3 ou 4.\nRed�marrez le serveur et r�essayer.");
+					System.out.println("L'argument doit etre un chiffre egal a 3 ou 4.\nRed�marrez le serveur et r�essayer.");
 					return false;
 				}
 			}

@@ -118,7 +118,7 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	}
 
 	/**
-	 * Re�oit la liste des autres joueurs envoyes par le serveur et l'envoie au controller ad�quat
+	 * Recoit la liste des autres joueurs envoyes par le serveur et l'envoie au controller adequat
 	 * @param autresJoueurs
 	 * @throws RemoteException
 	 */
@@ -149,6 +149,5 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	@Override
 	public void enableBoutons() throws RemoteException {
 		this.menuController.enableBoutons();
-		
 	}
 }

@@ -42,12 +42,12 @@ public interface JoueurServeur extends Remote{
 	void envoyerAutresJoueurs(ArrayList<Joueur> autresJoueurs) throws RemoteException;
 	
 	/**
-	 * @return le joueur associ� au proxy
+	 * @return le joueur associe au proxy
 	 */
 	Joueur getJoueur() throws RemoteException;
 	
 	/**
-	 * Permet d'indiquer le joueur associ� au proxy
+	 * Permet d'indiquer le joueur associe au proxy
 	 * @param joueur
 	 */
 	void setJoueur(Joueur joueur) throws RemoteException;

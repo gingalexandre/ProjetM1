@@ -2,6 +2,7 @@ package serveur.reseau;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import exception.TooMuchPlayerException;
@@ -11,7 +12,7 @@ import serveur.reseau.communicationClients.GestionnairePartie;
 import serveur.reseau.communicationClients.GestionnaireUI;
 
 /**
- * Classe implémentant le serveur, qui communique avec les proxy
+ * Classe implï¿½mentant le serveur, qui communique avec les proxy
  * @author jerome
  */
 public class ServeurImpl extends UnicastRemoteObject implements Serveur {
@@ -19,7 +20,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Contient la liste des joueurs connectés au serveur
+	 * Contient la liste des joueurs connectï¿½s au serveur
 	 */
 	private ArrayList<JoueurServeur> joueurServeurs = new ArrayList<JoueurServeur>();
 	
@@ -29,7 +30,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	private int nombre_max_joueurs;
 	
 	/**
-	 * Gestionnaire de la base de données
+	 * Gestionnaire de la base de donnees
 	 */
 	private GestionnaireBDD gestionnaireBDD;
 	
@@ -56,14 +57,14 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	
 	/**
 	 * Enregistre un joueur sur le serveur
-	 * @param nouveauJoueurServeur - joueur à ajouter
+	 * @param nouveauJoueurServeur - joueur a ajouter
 	 * @throws RemoteException
 	 * @throws TooMuchPlayerException
 	 */
 	@Override
-	public void enregistrerJoueur(JoueurServeur nouveauJoueurServeur) throws RemoteException, TooMuchPlayerException{
+	public void enregistrerJoueur(JoueurServeur nouveauJoueurServeur, String nom, Date date) throws RemoteException, TooMuchPlayerException{
 		if(joueurServeurs.size() < nombre_max_joueurs){
-			Joueur joueur = new Joueur();
+			Joueur joueur = new Joueur(nom, date);
 			joueurServeurs.add(nouveauJoueurServeur);
 			switch(joueurServeurs.size()){
 				case 1:
@@ -89,13 +90,13 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 			envoyerJoueurAuGestionnaire(nouveauJoueurServeur);
 		}
 		else{
-			throw new TooMuchPlayerException("Connexion impossible. Il y a déjà"+nombre_max_joueurs+" joueurs connectés sur le serveur.");
+			throw new TooMuchPlayerException("Connexion impossible. Il y a deja "+nombre_max_joueurs+" joueurs connectes sur le serveur.");
 		}
 	}
 	
 	/**
-	 * Permet d'ajouter un joueur à la liste de joueurs des gestionnaires
-	 * @param nouveauJoueurServeur - joueur à envoyer
+	 * Permet d'ajouter un joueur a la liste de joueurs des gestionnaires
+	 * @param nouveauJoueurServeur - joueur a envoyer
 	 * @throws RemoteException 
 	 */
 	private void envoyerJoueurAuGestionnaire(JoueurServeur nouveauJoueurServeur) throws RemoteException{
@@ -105,8 +106,8 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	}
 	
 	/**
-	 * Permet d'obtenir le gestionnaire de base de données
-	 * @return le gestionnaire de base de données
+	 * Permet d'obtenir le gestionnaire de base de donnees
+	 * @return le gestionnaire de base de donnees
 	 * @throws RemoteException
 	 */
 	@Override

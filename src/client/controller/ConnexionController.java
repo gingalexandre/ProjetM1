@@ -76,8 +76,8 @@ public class ConnexionController implements Initializable {
 		// Si le joueur existe
 		if(connexionOk){
 			nomJoueur = nomUtilisateur.getText();
-			enregistrerJoueur(nomJoueur);
 			dateNaissance = serveur.getGestionnaireBDD().getDateNaissanceUtilisateur(nomJoueur);
+			enregistrerJoueur(nomJoueur, dateNaissance);
 			
 			lancerJeu();
 		}
@@ -142,11 +142,12 @@ public class ConnexionController implements Initializable {
 	 * @throws RemoteException
 	 * @throws TooMuchPlayerException
 	 */
-	public void enregistrerJoueur(String nomJoueur) throws RemoteException, TooMuchPlayerException{
+	public void enregistrerJoueur(String nomJoueur, Date date) throws RemoteException, TooMuchPlayerException{
 		// Enregistrement du joueur sur le serveur
-		serveur.enregistrerJoueur(proxy);
-		// Set le nom du joueur. Pour r�cup�rer le joueur n'importe o� (et donc ses attributs), passer par proxy.getJoueur()
+		serveur.enregistrerJoueur(proxy, nomJoueur, date);
+		// Set le nom du joueur. Pour recuperer le joueur n'importe a (et donc ses attributs), passer par proxy.getJoueur()
 		proxy.getJoueur().setNomUtilisateur(nomJoueur);
+		proxy.getJoueur().setDateDeNaissance(date);
 	}
 	
 	/**

@@ -32,7 +32,13 @@ public interface JoueurServeur extends Remote{
 	 * Réactive les boutons d'un joueur
 	 * @throws RemoteException
 	 */
-	void enableBoutons() throws RemoteException;
+	void enableButtons() throws RemoteException;
+	
+	/**
+	 * Desactive les boutons d'un joueur
+	 * @throws RemoteException
+	 */
+	void disableButtons() throws RemoteException;
 	
 	/**
 	 * Re�oit la liste des autres joueurs envoy�s par le serveur et l'envoie au controller ad�quat

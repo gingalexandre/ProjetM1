@@ -139,7 +139,7 @@ public class GestionnairePartie implements Serializable{
 	public void enableBoutons(Joueur j) throws RemoteException {
 		for(JoueurServeur joueurServeur : joueursServeur){
 			if(joueurServeur.getJoueur().getNomUtilisateur().equals(j.getNomUtilisateur())){
-				joueurServeur.enableBoutons();
+				joueurServeur.enableButtons();
 			}
 		}
 	}
@@ -177,22 +177,27 @@ public class GestionnairePartie implements Serializable{
 	 * @throws RemoteException 
 	 */
 	private void commencerPartie() throws RemoteException {
-		for(JoueurServeur joueurServeur : joueursServeur){
-			joueurServeur.recevoirMessage(new Message("La partie a commence ! "));
-		}
 		partie.arrangerOrdreTour();
-		lancerTourPremierJoueur();
+		Joueur joueurPlusVieux = partie.getJoueurLePlusVieux();
+		for(JoueurServeur joueurServeur : joueursServeur){
+			joueurServeur.recevoirMessage(new Message("La partie a commence !\nComme c'est le plus âgé, c'est à +"+joueurPlusVieux.getNomUtilisateur()+" de jouer."));
+		}
+		
+		lancerTourPremierJoueur(joueurPlusVieux);
 	}
 
 	/**
 	 * Lance le tour du premier joueur, le plus vieux
 	 * @throws RemoteException 
 	 */
-	private void lancerTourPremierJoueur() throws RemoteException {
-		Joueur joueurPlusVieux = partie.getJoueurLePlusVieux();
+	private void lancerTourPremierJoueur(Joueur joueurPlusVieux) throws RemoteException {
 		for(JoueurServeur joueurServeur : joueursServeur){
-			if(joueurPlusVieux.equals(joueurServeur.getJoueur())){
-				joueurServeur.enableBoutons();
+			// On compare sur le nom d'utilisateur qui est unique
+			if(joueurPlusVieux.getNomUtilisateur().equals(joueurServeur.getJoueur().getNomUtilisateur())){
+				joueurServeur.enableButtons();
+			}
+			else{
+				joueurServeur.disableButtons();
 			}
 		}
 	}

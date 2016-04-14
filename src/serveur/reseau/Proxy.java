@@ -147,7 +147,16 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	 * @throws RemoteException
 	 */
 	@Override
-	public void enableBoutons() throws RemoteException {
-		this.menuController.enableBoutons();
+	public void enableButtons() throws RemoteException {
+		this.menuController.enableButtons();
+	}
+	
+	/**
+	 * Réactive les boutons d'un joueur
+	 * @throws RemoteException
+	 */
+	@Override
+	public void disableButtons() throws RemoteException {
+		this.menuController.disableButtons();
 	}
 }

@@ -103,6 +103,9 @@ public class Partie implements Serializable{
     }
     
     public Joueur getJoueurTour(){
+    	for(int i=0;i<ordreJeu.size();i++){
+        	System.out.println(ordreJeu.get(i).getNomUtilisateur());
+        }
     	return ordreJeu.get(tour);
     }
     
@@ -200,9 +203,6 @@ public class Partie implements Serializable{
             }
         };
         this.ordreJeu.sort(c);
-        for(int i=0;i<ordreJeu.size();i++){
-        	System.out.println(ordreJeu.get(i).getNomUtilisateur());
-        }
 	}
 	
 	/**

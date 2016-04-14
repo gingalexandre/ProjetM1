@@ -106,9 +106,17 @@ public class MenuController implements Initializable {
 	/**
 	 * Méthode de réactivation des boutons
 	 */
-	public void enableBoutons(){
+	public void enableButtons(){
 		boutonDes.setDisable(false);
 		boutonEchange.setDisable(false);
+	}
+	
+	/**
+	 * Méthode de réactivation des boutons
+	 */
+	public void disableButtons(){
+		boutonDes.setDisable(true);
+		boutonEchange.setDisable(true);
 	}
 
 	/**

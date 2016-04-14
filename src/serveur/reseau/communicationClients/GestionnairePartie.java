@@ -7,12 +7,13 @@ import java.util.ArrayList;
 import exception.TooMuchPlayerException;
 
 import serveur.modele.Joueur;
+import serveur.modele.Message;
 import serveur.modele.Partie;
 import serveur.modele.Plateau;
 import serveur.reseau.JoueurServeur;
 
 /**
- * Classe qui s'occupe des �changes concernant la partie entre les clients et le serveur
+ * Classe qui s'occupe des echanges concernant la partie entre les clients et le serveur
  * @author jerome
  */
 public class GestionnairePartie implements Serializable{
@@ -47,7 +48,7 @@ public class GestionnairePartie implements Serializable{
 	
 	/**
 	 * Enregistre un nouveau joueur dans la liste des joueurs
-	 * @param nouveauJoueurServeur - joueur � enregistrer
+	 * @param nouveauJoueurServeur - joueur a enregistrer
 	 */
 	public void enregistrerJoueur(JoueurServeur nouveauJoueurServeur){
 		joueursServeur.add(nouveauJoueurServeur);
@@ -64,7 +65,7 @@ public class GestionnairePartie implements Serializable{
 	}
 	
 	/**
-	 * M�thode qui renvoie la liste des joueurs mis � part le joueur indiqu� en param�tre
+	 * Methode qui renvoie la liste des joueurs mis a part le joueur indique en parametre
 	 * @param joueurQuiAppelle
 	 * @return la liste des autres joueurs connect�s sur le serveur
 	 * @throws RemoteException
@@ -82,8 +83,8 @@ public class GestionnairePartie implements Serializable{
 	}
 	
 	/**
-	 * Ajoute le joueur pass� en param�tre � la partie
-	 * @param nouveauJoueur - joueur � ajouter � la partie
+	 * Ajoute le joueur passe en parametre a la partie
+	 * @param nouveauJoueur - joueur a ajouter a la partie
 	 * @throws TooMuchPlayerException
 	 */
 	public void ajouterJoueurPartie(Joueur nouveauJoueur){
@@ -104,7 +105,7 @@ public class GestionnairePartie implements Serializable{
 				break;
 		}
 	}
-	
+
 	/**
 	 * Réactive les boutons d'un joueur
 	 * @throws RemoteException
@@ -114,6 +115,44 @@ public class GestionnairePartie implements Serializable{
 			if(joueurServeur.getJoueur().getNomUtilisateur().equals(j.getNomUtilisateur())){
 				joueurServeur.enableBoutons();
 			}
+		}
+	}
+	
+	/**
+	 * Mets un joueur a pret
+	 * @param joueur
+	 * @throws RemoteException 
+	 */
+	public void joueurPret(Joueur joueur) throws RemoteException{
+		joueur.setPret(true);
+		verifierJoueursPrets();
+	}
+	
+	/**
+	 * Verifie si tous les joueurs connectes sur le serveur sont prets a jouer. Si ils le sont tous, la partie commence.
+	 * @throws RemoteException 
+	 */
+	public void verifierJoueursPrets() throws RemoteException{
+		boolean tousJoueursPrets = true;
+		// Verifie si tous les joueurs sont pret. Si un seul ne l'est pas, la partie ne peut pas commencer
+		for(JoueurServeur joueurServeur : joueursServeur){
+			if(!joueurServeur.getJoueur().isPret()){
+				tousJoueursPrets = false;
+			}
+		}
+		// Tous les joueurs sont prets, la partie peut debuter
+		if(tousJoueursPrets){
+			commencerPartie();
+		}
+	}
+
+	/**
+	 * Commence la partie
+	 * @throws RemoteException 
+	 */
+	private void commencerPartie() throws RemoteException {
+		for(JoueurServeur joueurServeur : joueursServeur){
+			joueurServeur.recevoirMessage(new Message("La partie a commence ! "));
 		}
 	}
 }

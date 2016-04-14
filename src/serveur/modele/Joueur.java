@@ -24,12 +24,12 @@ public class Joueur implements Serializable{
 	private static int compteurDeJoueur = 0;
 	
 	/**
-	 * Pseudo du joueur dans la base de donn�es 
+	 * Pseudo du joueur dans la base de donnees 
 	 */
 	private String nomUtilisateur;
 
 	/**
-	 * Date de naissance du joueur dans la base de donn�es
+	 * Date de naissance du joueur dans la base de donnees
 	 */
 	private Date dateDeNaissance;
 	
@@ -38,6 +38,11 @@ public class Joueur implements Serializable{
 	 */
 	private String couleur;
 	
+	/**
+	 * Si le joueur est pret a jouer ou non
+	 */
+	private boolean pret;
+
 	private int pointVictoire;
 
 	private int nbColonie = 5;
@@ -49,7 +54,7 @@ public class Joueur implements Serializable{
 
 	/**
 	 * Constructeur de joueur
-	 * Est appel� lors de l'ajout d'un proxy sur le serveur
+	 * Est appele lors de l'ajout d'un proxy sur le serveur
 	 */
 	public Joueur(){
 		initialisationAttributs();
@@ -90,6 +95,21 @@ public class Joueur implements Serializable{
 		return this.id;
 	}
 
+	/**
+	 * @return si le joueur est pret a jouer ou non
+	 */
+	public boolean isPret() {
+		return pret;
+	}
+
+	/**
+	 * Permet de recuperer la valeur de l'attribut pret
+	 * @param pret
+	 */
+	public void setPret(boolean pret) {
+		this.pret = pret;
+	}
+	
 	public void construireRoute() {
 
 	}

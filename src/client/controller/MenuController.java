@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -68,6 +67,13 @@ public class MenuController implements Initializable {
 	 * Proxy client
 	 */
 	private Proxy proxy;
+	
+	/**
+	 * Serveur de jeu
+	 */
+	private Serveur serveur;
+	
+	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -78,23 +84,23 @@ public class MenuController implements Initializable {
 		//Initialisation du proxy
 		proxy = ConnexionManager.getStaticProxy();
 		proxy.setMenuController(this);
+		
+		serveur = ConnexionManager.getStaticServeur();
 	}
 	
 	/**
 	 * Méthode de lancement de la partie
+	 * @throws RemoteException 
 	 */
-	public void joueurPret(){
+	public void joueurPret() throws RemoteException{
 		pretGridPane.setVisible(false);
 		menuGridPane.setVisible(true);
-		try{
-			// Récupération du serveur en passant par le singleton ConnexionManager
-			Serveur serveur = ConnexionManager.getStaticServeur();
-			String nomJoueur = proxy.getJoueur().getNomUtilisateur();
-			serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" est prêt !"));
-		}
-		catch (RemoteException e){
-			e.printStackTrace();
-		}
+		
+		String nomJoueur = proxy.getJoueur().getNomUtilisateur();
+		serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" est prêt !"));
+		
+		Joueur joueur = proxy.getJoueur();
+		serveur.getGestionnairePartie().joueurPret(joueur);
 	}
 	
 	/**
@@ -159,17 +165,11 @@ public class MenuController implements Initializable {
 	/**
 	 * Affiche le resultat des dés dans le chat sous forme de message Système
 	 * @param Integer[] resultats (résultats des dés)
+	 * @throws RemoteException 
 	 */
-	private void notifierLancerDes(Integer[] resultats){
-		try{
-			// Récupération du serveur en passant par le singleton ConnexionManager
-			Serveur serveur = ConnexionManager.getStaticServeur();
-			String nomJoueur = proxy.getJoueur().getNomUtilisateur();
-			serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" a lancé les dés : "+resultats[0]+" | "+resultats[1]));
-		}
-		catch (RemoteException e){
-			e.printStackTrace();
-		}
+	private void notifierLancerDes(Integer[] resultats) throws RemoteException{
+		String nomJoueur = proxy.getJoueur().getNomUtilisateur();
+		serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" a lancé les dés : "+resultats[0]+" | "+resultats[1]));
 	}
 	
 	/**
@@ -185,9 +185,6 @@ public class MenuController implements Initializable {
 		
 		//Méthode (retournant la liste des noms de joueurs) à implémenter
 		//String[] listNom = Plateau.getJoueursCase(caseConcernee);
-		
-		// Récupération du serveur en passant par le singleton ConnexionManager
-		Serveur serveur = ConnexionManager.getStaticServeur();
 		
 		//Ajout des ressources aux joueurs de la liste
 		proxy.getJoueur().ajoutRessource(1, 1);
@@ -218,27 +215,20 @@ public class MenuController implements Initializable {
 	
 	/**
 	 * Méthode de fin de tour
+	 * @throws RemoteException 
 	 */
-	public void finirLeTour(){
-		try{
-			// Récupération du serveur en passant par le singleton ConnexionManager
-			Serveur serveur = ConnexionManager.getStaticServeur();
-			String nomJoueur = proxy.getJoueur().getNomUtilisateur();
-			serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" a fini son tour"));
-			
-			//Lancement du tour du joueur suivant
-			serveur.getGestionnairePartie().getPartie().incrementeTour();
-			Joueur joueurTour = serveur.getGestionnairePartie().getPartie().getJoueurTour();
-			
-			serveur.getGestionnairePartie().enableBoutons(serveur.getGestionnairePartie().getPartie().getJoueurTour());
-			
-			//TODO méthode qui dégrise les boutons du joueur séléctionné au dessus
-			
-			serveur.getGestionnaireUI().diffuserMessage(new Message("C'est à "+joueurTour.getNomUtilisateur()+" de jouer"));
-			
-		}
-		catch (RemoteException e){
-			e.printStackTrace();
-		}
+	public void finirLeTour() throws RemoteException{
+		String nomJoueur = proxy.getJoueur().getNomUtilisateur();
+		serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" a fini son tour"));
+		
+		//Lancement du tour du joueur suivant
+		serveur.getGestionnairePartie().getPartie().incrementeTour();
+		Joueur joueurTour = serveur.getGestionnairePartie().getPartie().getJoueurTour();
+		
+		serveur.getGestionnairePartie().enableBoutons(serveur.getGestionnairePartie().getPartie().getJoueurTour());
+		
+		//TODO méthode qui dégrise les boutons du joueur séléctionné au dessus
+		
+		serveur.getGestionnaireUI().diffuserMessage(new Message("C'est à "+joueurTour.getNomUtilisateur()+" de jouer"));
 	}
 }

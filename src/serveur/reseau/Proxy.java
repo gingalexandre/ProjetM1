@@ -46,7 +46,7 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	private PlateauController plateauController;
 	
 	/**
-	 * Joueur associ� au proxy
+	 * Joueur associe au proxy
 	 */
 	private Joueur joueur;
 
@@ -94,7 +94,7 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	}
 
 	/**
-	 * Re�oit le message transmit par le serveur et l'envoie au joueur et
+	 * Recoit le message transmit par le serveur et l'envoie au joueur et
 	 * l'envoie au controller du chat
 	 * 
 	 * @param message
@@ -106,7 +106,7 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	}
 
 	/**
-	 * Re�oit le plateau envoy� par le serveur et l'envoie au controller du
+	 * Re�oit le plateau envoye par le serveur et l'envoie au controller du
 	 * plateau
 	 * 
 	 * @param plateau
@@ -118,7 +118,7 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	}
 
 	/**
-	 * Re�oit la liste des autres joueurs envoy�s par le serveur et l'envoie au controller ad�quat
+	 * Re�oit la liste des autres joueurs envoyes par le serveur et l'envoie au controller ad�quat
 	 * @param autresJoueurs
 	 * @throws RemoteException
 	 */
@@ -128,14 +128,14 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	}
 	
 	/**
-	 * @return le joueur associ� au proxy
+	 * @return le joueur associe au proxy
 	 */
 	public Joueur getJoueur() throws RemoteException {
 		return joueur;
 	}
 
 	/**
-	 * Permet d'indiquer le joueur associ� au proxy
+	 * Permet d'indiquer le joueur associe au proxy
 	 * @param joueur
 	 */
 	public void setJoueur(Joueur joueur) throws RemoteException {

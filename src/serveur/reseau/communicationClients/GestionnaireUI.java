@@ -9,7 +9,7 @@ import serveur.modele.Plateau;
 import serveur.reseau.JoueurServeur;
 
 /**
- * Classe qui s'occupe des �changes concernant l'interface entre les clients et le serveur
+ * Classe qui s'occupe des echanges concernant l'interface entre les clients et le serveur
  * @author jerome
  */
 public class GestionnaireUI implements Serializable{
@@ -39,14 +39,14 @@ public class GestionnaireUI implements Serializable{
 	
 	/**
 	 * Enregistre un nouveau joueur dans la liste des joueurs
-	 * @param nouveauJoueurServeur - joueur � enregistrer
+	 * @param nouveauJoueurServeur - joueur a enregistrer
 	 */
 	public void enregistrerJoueur(JoueurServeur nouveauJoueurServeur){
 		joueurServeurs.add(nouveauJoueurServeur);
 	}
 	
 	/**
-	 * Envoie le plateau de jeu au joueur pass� en param�tre
+	 * Envoie le plateau de jeu au joueur pass� en parametre
 	 * @param proxy
 	 * @throws RemoteException 
 	 */
@@ -55,7 +55,7 @@ public class GestionnaireUI implements Serializable{
 	}
 	
 	/**
-	 * Diffuse un message envoy� par un joueur � tous les autre joueurServeurs
+	 * Diffuse un message envoy� par un joueur a tous les autre joueurServeurs
 	 * @param message
 	 * @throws RemoteException
 	 */

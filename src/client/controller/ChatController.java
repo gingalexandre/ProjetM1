@@ -97,14 +97,14 @@ public class ChatController implements Initializable{
 	 * @param message - Message ï¿½ afficher
 	 */
 	public void afficherMessage(Message message){
-		Platform.runLater(() -> textFlowPrincipal.getChildren().add(creerStyleTexteAuteur(message)));
-		Platform.runLater(() -> textFlowPrincipal.getChildren().add(creerStyleTexteMessage(message)));
-		
 		if(message.isSystem()){
-			Platform.runLater(() -> textFlowSysteme.getChildren().add(creerStyleTexteAuteur(message)));
+			Platform.runLater(() -> textFlowPrincipal.getChildren().add(creerStyleTexteMessage(message)));
 			Platform.runLater(() -> textFlowSysteme.getChildren().add(creerStyleTexteMessage(message)));
 		}
 		else{
+			Platform.runLater(() -> textFlowPrincipal.getChildren().add(creerStyleTexteAuteur(message)));
+			Platform.runLater(() -> textFlowPrincipal.getChildren().add(creerStyleTexteMessage(message)));
+			
 			Platform.runLater(() -> textFlowJoueurs.getChildren().add(creerStyleTexteAuteur(message)));
 			Platform.runLater(() -> textFlowJoueurs.getChildren().add(creerStyleTexteMessage(message)));
 		}
@@ -143,9 +143,9 @@ public class ChatController implements Initializable{
 		if(!messageUtilisateur.equals("")){
 			Message message = new Message(proxy.getJoueur().getNomUtilisateur(), messageUtilisateur, proxy.getJoueur().getCouleur());
 			try{
-				// Récupération du serveur en passant par le singleton ConnexionManager
+				// Rï¿½cupï¿½ration du serveur en passant par le singleton ConnexionManager
 				Serveur serveur = ConnexionManager.getStaticServeur();
-				// Appel de la méthode distante diffuserMessage du serveur pour envoyer le message à tous les controllers des joueurs
+				// Appel de la mï¿½thode distante diffuserMessage du serveur pour envoyer le message ï¿½ tous les controllers des joueurs
 				serveur.getGestionnaireUI().diffuserMessage(message);
 			}
 			catch (RemoteException e){

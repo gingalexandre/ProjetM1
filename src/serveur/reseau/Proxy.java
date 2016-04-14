@@ -141,4 +141,14 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	public void setJoueur(Joueur joueur) throws RemoteException {
 		this.joueur = joueur;
 	}
+
+	/**
+	 * Réactive les boutons d'un joueur
+	 * @throws RemoteException
+	 */
+	@Override
+	public void enableBoutons() throws RemoteException {
+		this.menuController.enableBoutons();
+		
+	}
 }

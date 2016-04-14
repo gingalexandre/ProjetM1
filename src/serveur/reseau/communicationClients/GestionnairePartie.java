@@ -104,4 +104,16 @@ public class GestionnairePartie implements Serializable{
 				break;
 		}
 	}
+	
+	/**
+	 * Réactive les boutons d'un joueur
+	 * @throws RemoteException
+	 */
+	public void enableBoutons(Joueur j) throws RemoteException {
+		for(JoueurServeur joueurServeur : joueursServeur){
+			if(joueurServeur.getJoueur().getNomUtilisateur().equals(j.getNomUtilisateur())){
+				joueurServeur.enableBoutons();
+			}
+		}
+	}
 }

@@ -96,6 +96,14 @@ public class MenuController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Méthode de réactivation des boutons
+	 */
+	public void enableBoutons(){
+		boutonDes.setDisable(false);
+		boutonEchange.setDisable(false);
+	}
 
 	/**
 	 * Méthodes pour les dés
@@ -222,9 +230,12 @@ public class MenuController implements Initializable {
 			serveur.getGestionnairePartie().getPartie().incrementeTour();
 			Joueur joueurTour = serveur.getGestionnairePartie().getPartie().getJoueurTour();
 			
+			serveur.getGestionnairePartie().enableBoutons(serveur.getGestionnairePartie().getPartie().getJoueurTour());
+			
 			//TODO méthode qui dégrise les boutons du joueur séléctionné au dessus
 			
 			serveur.getGestionnaireUI().diffuserMessage(new Message("C'est à "+joueurTour.getNomUtilisateur()+" de jouer"));
+			
 		}
 		catch (RemoteException e){
 			e.printStackTrace();

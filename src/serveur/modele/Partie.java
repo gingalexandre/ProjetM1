@@ -36,7 +36,7 @@ public class Partie implements Serializable{
     /* De 1 � 3 si 3 joueurs
      * De 1 � 4 si 4 joueurs
      */
-    private int tour;
+    private int tour = 0;
     
     public Joueur getJoueurTour(){
     	return ordreJeu.get(tour);
@@ -157,11 +157,13 @@ public class Partie implements Serializable{
 	}
 	
 	public ArrayList<Joueur> getOrdreTour(){
-		ordreJeu.add(joueur1);
-		ordreJeu.add(joueur2);
-		ordreJeu.add(joueur3);
-		if (joueur4 != null){
-			ordreJeu.add(joueur4);
+		ordreJeu = new ArrayList<Joueur>();
+		ordreJeu.add(this.joueur1);
+		ordreJeu.add(this.joueur2);
+		ordreJeu.add(this.joueur3);
+		
+		if (this.joueur4 != null){
+			ordreJeu.add(this.joueur4);
 		}
 		Comparator<Joueur> c = new Comparator<Joueur>() {
             @Override
@@ -175,5 +177,6 @@ public class Partie implements Serializable{
         }
         return ordreJeu;
 	}
+	
 	
 }

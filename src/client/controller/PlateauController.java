@@ -3,10 +3,12 @@ package client.controller;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
-
-import serveur.modele.Plateau;
-import serveur.modele.Route;
-import serveur.modele.Ville;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Polygon;
+import serveur.modele.*;
 import serveur.reseau.ConnexionManager;
 import serveur.reseau.Proxy;
 import serveur.reseau.Serveur;
@@ -47,6 +49,28 @@ public class PlateauController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		recupererAttributs();
 		enregistrerController();
+		mainPane.setOnMouseClicked(new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent event)
+			{
+				plateau.getVoleur().setVOLEUR(false);
+				Point2D point = new Point2D(event.getX(),event.getY());
+				int i = 0;
+				for (Hexagone hex: plateau.getHexagones()) {
+					Polygon polygon = new Polygon();
+					polygon.getPoints().addAll(hex.getPoints());
+					if(polygon.contains(point)){
+						break;
+					}else{
+						i++;
+					}
+				}
+				plateau.getHexagones().get(i).setVOLEUR(true);
+				mainPane.getChildren().clear();
+				dessinerPlateau();
+			}
+		});
 		try {
 			recupererPlateau();
 		} catch (RemoteException e) {
@@ -96,6 +120,7 @@ public class PlateauController implements Initializable{
         mainPane.getChildren().addAll(t);
         mainPane.getChildren().addAll(Route.transformRouteVueRoute(plateau.getRoutes()));
         mainPane.setStyle("-fx-background-color: #4e6c91");
+
 	}
 	
 	/**
@@ -105,4 +130,6 @@ public class PlateauController implements Initializable{
 	public void setPlateau(Plateau plateau){
 		this.plateau = plateau;
 	}
+
+
 }

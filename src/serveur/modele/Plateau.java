@@ -17,6 +17,7 @@ public class Plateau implements Serializable{
 	private ArrayList<Ville> villes ;
 	private ArrayList<Route> routes ;
 	private static Plateau INSTANCE = null;
+	private ArrayList<Jeton> jetons ;
 	
 	private static final int SIZE = 60;
 	
@@ -26,6 +27,18 @@ public class Plateau implements Serializable{
 		setPoints();
 		setVilles();
 		setRoutes();
+		setJetons();
+	}
+	
+	public void setJetons(){
+		jetons = new ArrayList<Jeton>();
+		for(Hexagone hex : hexagones){
+			jetons.add(hex.getJeton());
+		}
+	}
+	
+	public ArrayList<Jeton> getJetons(){
+		return jetons;
 	}
 	
 	 public ArrayList<Hexagone> getHexagones() {

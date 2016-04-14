@@ -3,7 +3,6 @@ package client.controller;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
@@ -20,6 +19,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import serveur.view.VueHexagone;
+import serveur.modele.Jeton;
+import serveur.modele.Plateau;
+import serveur.modele.Route;
+import serveur.modele.Ville;
+import serveur.view.VueJeton;
 
 /**
  * Controller du plateau
@@ -116,6 +120,8 @@ public class PlateauController implements Initializable{
 		imgView.setLayoutX(50);
 		mainPane.getChildren().add(imgView);
 		mainPane.getChildren().addAll(VueHexagone.transformVueHexagone(plateau.getHexagones()));
+		Circle[] jetons = Jeton.transformVueJeton(plateau.getJetons());
+		mainPane.getChildren().addAll(jetons);
         Circle[] t = Ville.transformVilleVueVille(plateau.getVilles());
         mainPane.getChildren().addAll(t);
         mainPane.getChildren().addAll(Route.transformRouteVueRoute(plateau.getRoutes()));

@@ -26,7 +26,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	/**
 	 * Nombre max de joueurServeurs 
 	 */
-	private final static int NOMBRE_MAX_JOUEURS = 3;
+	private int nombre_max_joueurs;
 	
 	/**
 	 * Gestionnaire de la base de données
@@ -47,7 +47,8 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 * Constructeur de la classe ServeurImpl
 	 * @throws RemoteException
 	 */
-	public ServeurImpl() throws RemoteException{
+	public ServeurImpl(int nombre_max_joueurs) throws RemoteException{
+		this.nombre_max_joueurs = nombre_max_joueurs;
 		this.gestionnaireBDD = new GestionnaireBDD();
 		this.gestionnaireUI = new GestionnaireUI();
 		this.gestionnairePartie = new GestionnairePartie(this.gestionnaireUI.getPlateau());
@@ -61,7 +62,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 */
 	@Override
 	public void enregistrerJoueur(JoueurServeur nouveauJoueurServeur) throws RemoteException, TooMuchPlayerException{
-		if(joueurServeurs.size() < NOMBRE_MAX_JOUEURS){
+		if(joueurServeurs.size() < nombre_max_joueurs){
 			Joueur joueur = new Joueur();
 			joueurServeurs.add(nouveauJoueurServeur);
 			switch(joueurServeurs.size()){
@@ -88,7 +89,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 			envoyerJoueurAuGestionnaire(nouveauJoueurServeur);
 		}
 		else{
-			throw new TooMuchPlayerException("Connexion impossible. Il y a déjà"+NOMBRE_MAX_JOUEURS+" joueurs connectés sur le serveur.");
+			throw new TooMuchPlayerException("Connexion impossible. Il y a déjà"+nombre_max_joueurs+" joueurs connectés sur le serveur.");
 		}
 	}
 	

@@ -1,4 +1,4 @@
-package client.commun;
+package serveur.commun;
 import java.util.ArrayList;
 
 import serveur.modele.Hexagone;

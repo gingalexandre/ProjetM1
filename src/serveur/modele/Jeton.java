@@ -49,8 +49,8 @@ public class Jeton implements Serializable {
 	}
 
 	public static Circle[] transformVueJeton(ArrayList<Jeton> jetons) {
-		Circle[] vueJetons = new Circle[jetons.size()-1];
 		jetons.remove(null);
+		Circle[] vueJetons = new Circle[jetons.size()];
 		for (int i = 0; i < jetons.size(); i++) {
 			if (jetons.get(i) != null) {
 				vueJetons[i] = new VueJeton(jetons.get(i)).getCircle();

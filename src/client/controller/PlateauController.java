@@ -5,6 +5,8 @@ import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.scene.Group;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Polygon;
 import serveur.modele.*;
@@ -48,6 +50,32 @@ public class PlateauController implements Initializable{
 	 * Proxy avec le serveur
 	 */
 	private Proxy proxy;
+
+	/**
+	 * Group rassemblant les hexagones dans le mainPane
+	 */
+	private Group hexagones;
+
+	/**
+	 * Group rassemblant les villes dans le mainPane
+	 */
+	private Group villes;
+
+	/**
+	 * Group rassemblant les routes dans le mainPane
+	 */
+	private Group routes;
+
+	/**
+	 * Group rassemblant les routes dans le mainPane
+	 */
+	private Group jetons;
+
+	/**
+	 *
+	 * @param location
+	 * @param resources
+     */
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -56,8 +84,8 @@ public class PlateauController implements Initializable{
 		mainPane.setOnMouseClicked(new EventHandler<MouseEvent>()
 		{
 			@Override
-			public void handle(MouseEvent event)
-			{
+			public void handle(MouseEvent event){
+				int depart = plateau.getHexagones().indexOf(plateau.getVoleur());
 				plateau.getVoleur().setVOLEUR(false);
 				Point2D point = new Point2D(event.getX(),event.getY());
 				int i = 0;
@@ -70,9 +98,10 @@ public class PlateauController implements Initializable{
 						i++;
 					}
 				}
-				plateau.getHexagones().get(i).setVOLEUR(true);
-				mainPane.getChildren().clear();
-				dessinerPlateau();
+				if(i<plateau.getHexagones().size()) plateau.getHexagones().get(i).setVOLEUR(true);
+				//mainPane.getChildren().clear();
+				int arrive = i;
+				Platform.runLater(() -> deplaceVoleur(depart,arrive));
 			}
 		});
 		try {
@@ -113,18 +142,38 @@ public class PlateauController implements Initializable{
 	 * @throws RemoteException 
 	 */
 	public void dessinerPlateau() {
+		//Dessin du fond
 		Image img = new Image("file:Ressources/cases/mer.png");
 		ImageView imgView = new ImageView(img);
 		imgView.setFitHeight(725);
 		imgView.setFitWidth(650);
 		imgView.setLayoutX(50);
 		mainPane.getChildren().add(imgView);
-		mainPane.getChildren().addAll(VueHexagone.transformVueHexagone(plateau.getHexagones()));
-		Circle[] jetons = Jeton.transformVueJeton(plateau.getJetons());
-		mainPane.getChildren().addAll(jetons);
+
+		// Ajout des hexagones
+		hexagones = new Group();
+		hexagones.getChildren().addAll(VueHexagone.transformVueHexagone(plateau.getHexagones()));
+
+		//Ajout des villes
+		villes = new Group();
         Circle[] t = Ville.transformVilleVueVille(plateau.getVilles());
-        mainPane.getChildren().addAll(t);
-        mainPane.getChildren().addAll(Route.transformRouteVueRoute(plateau.getRoutes()));
+		villes = new Group();
+		villes.getChildren().addAll(t);
+
+		//Ajout des routes
+		routes = new Group();
+        routes.getChildren().addAll(Route.transformRouteVueRoute(plateau.getRoutes()));
+
+		//Ajout des jetons
+		jetons = new Group();
+		Circle[] jetonsDessine = Jeton.transformVueJeton(plateau.getJetons());
+		jetons.getChildren().addAll(jetonsDessine);
+
+		// Construction du Pane principal
+		mainPane.getChildren().add(hexagones);
+		mainPane.getChildren().add(villes);
+		mainPane.getChildren().add(routes);
+		mainPane.getChildren().add(jetons);
         mainPane.setStyle("-fx-background-color: #4e6c91");
 
 	}
@@ -138,4 +187,15 @@ public class PlateauController implements Initializable{
 	}
 
 
+	/**
+	 * Update des hexagones concerné par le changement du voleur
+	 * @param depart hexagone de départ
+	 * @param arrive hexagone d'arrivé
+	 */
+	public void deplaceVoleur(int depart, int arrive){
+		ColorAdjust colorAdjust = new ColorAdjust();
+		hexagones.getChildren().get(depart).setEffect(null);
+		colorAdjust.setSaturation(-1);
+		hexagones.getChildren().get(arrive).setEffect(colorAdjust);
+	}
 }

@@ -21,7 +21,7 @@ public class Plateau implements Serializable{
 	
 	private static final int SIZE = 60;
 	
-	public Plateau(){
+	private Plateau(){
 		points = new ArrayList<Point>();
 		hexagones = new ArrayList<Hexagone>(Arrays.asList(this.getAllHexagone()));
 		setPoints();

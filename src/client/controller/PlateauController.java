@@ -85,23 +85,25 @@ public class PlateauController implements Initializable{
 		{
 			@Override
 			public void handle(MouseEvent event){
+				boolean trouve = false;
 				int depart = plateau.getHexagones().indexOf(plateau.getVoleur());
-				plateau.getVoleur().setVOLEUR(false);
 				Point2D point = new Point2D(event.getX(),event.getY());
 				int i = 0;
 				for (Hexagone hex: plateau.getHexagones()) {
 					Polygon polygon = new Polygon();
 					polygon.getPoints().addAll(hex.getPoints());
 					if(polygon.contains(point)){
+						plateau.getVoleur().setVOLEUR(false);
+						plateau.getHexagones().get(i).setVOLEUR(true);
+						trouve = true;
 						break;
 					}else{
 						i++;
 					}
 				}
-				if(i<plateau.getHexagones().size()) plateau.getHexagones().get(i).setVOLEUR(true);
 				//mainPane.getChildren().clear();
 				int arrive = i;
-				Platform.runLater(() -> deplaceVoleur(depart,arrive));
+				if(trouve) Platform.runLater(() -> deplaceVoleur(depart,arrive));
 			}
 		});
 		try {

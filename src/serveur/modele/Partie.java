@@ -35,7 +35,7 @@ public class Partie implements Serializable{
 	
     private Ressource ressources;
     
-    private ArrayList<Joueur> ordreJeu = new ArrayList<Joueur>();
+    private static ArrayList<Joueur> ordreJeu;
     
     /** 
      * De 1 à 3 si 3 joueurs
@@ -103,13 +103,18 @@ public class Partie implements Serializable{
     }
     
     public Joueur getJoueurTour(){
-    	for(int i=0;i<ordreJeu.size();i++){
-        	System.out.println(ordreJeu.get(i).getNomUtilisateur());
-        }
     	return ordreJeu.get(tour);
     }
     
-    public void incrementeTour(){
+    public ArrayList<Joueur> getOrdreJeu() {
+		return ordreJeu;
+	}
+
+	public void setOrdreJeu(ArrayList<Joueur> ordreJeu) {
+		this.ordreJeu = ordreJeu;
+	}
+
+	public void incrementeTour(){
     	if(joueur4 != null){
     		if(tour <= 3){
     			this.tour++;
@@ -188,13 +193,13 @@ public class Partie implements Serializable{
 	 * Arrange la liste ordreJeu par ordre d'âge des joueurs
 	 */
 	public void arrangerOrdreTour(){
-		this.ordreJeu = new ArrayList<Joueur>();
-		this.ordreJeu.add(this.joueur1);
-		this.ordreJeu.add(this.joueur2);
-		this.ordreJeu.add(this.joueur3);
+		ordreJeu = new ArrayList<Joueur>();
+		ordreJeu.add(this.joueur1);
+		ordreJeu.add(this.joueur2);
+		ordreJeu.add(this.joueur3);
 		
 		if (this.joueur4 != null){
-			this.ordreJeu.add(this.joueur4);
+			ordreJeu.add(this.joueur4);
 		}
 		Comparator<Joueur> c = new Comparator<Joueur>() {
             @Override
@@ -202,7 +207,7 @@ public class Partie implements Serializable{
                 return j1.compareTo(j2);
             }
         };
-        this.ordreJeu.sort(c);
+        ordreJeu.sort(c);
 	}
 	
 	/**

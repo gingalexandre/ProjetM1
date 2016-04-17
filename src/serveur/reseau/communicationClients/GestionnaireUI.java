@@ -9,7 +9,7 @@ import serveur.modele.Plateau;
 import serveur.reseau.JoueurServeur;
 
 /**
- * Classe qui s'occupe des échanges concernant l'interface entre les clients et le serveur
+ * Classe qui s'occupe des ï¿½changes concernant l'interface entre les clients et le serveur
  * @author jerome
  */
 public class GestionnaireUI implements Serializable{
@@ -22,7 +22,7 @@ public class GestionnaireUI implements Serializable{
 	private Plateau plateau;
 	
 	/**
-	 * Contient la liste des joueurs connectés au serveur
+	 * Contient la liste des joueurs connectï¿½s au serveur
 	 */
 	private ArrayList<JoueurServeur> joueurServeurs = new ArrayList<JoueurServeur>();
 	
@@ -39,23 +39,38 @@ public class GestionnaireUI implements Serializable{
 	
 	/**
 	 * Enregistre un nouveau joueur dans la liste des joueurs
-	 * @param nouveauJoueurServeur - joueur à enregistrer
+	 * @param nouveauJoueurServeur - joueur ï¿½ enregistrer
 	 */
 	public void enregistrerJoueur(JoueurServeur nouveauJoueurServeur){
 		joueurServeurs.add(nouveauJoueurServeur);
 	}
 	
 	/**
-	 * Envoie le plateau de jeu au joueur passé en paramètre
+	 * Envoie le plateau de jeu au joueur passï¿½ en paramï¿½tre
 	 * @param proxy
 	 * @throws RemoteException 
 	 */
 	public void envoyerPlateau(JoueurServeur proxy) throws RemoteException {
 		proxy.envoyerPlateau(this.plateau);
 	}
-	
+
 	/**
-	 * Diffuse un message envoyé par un joueur à tous les autre joueurServeurs
+	 * Diffuse les modifications du voleur aux joueurs
+	 * @param depart case de dÃ©part
+	 * @param arrive case d'arrivÃ©e
+	 * @throws RemoteException
+	 */
+	public void diffuserVoleur(int depart, int arrive) throws RemoteException {
+		plateau.getVoleur().setVOLEUR(false);
+		plateau.getHexagones().get(arrive).setVOLEUR(true);
+		// deux lignes du dessus ne marche pas car plateau semble diffÃ©rent pour chaque joueur...
+		for(JoueurServeur joueurServeur : joueurServeurs){
+			joueurServeur.envoyerPositionVoleur(depart,arrive);
+		}
+	}
+
+	/**
+	 * Diffuse les messages du chat aux joueurs
 	 * @param message
 	 * @throws RemoteException
 	 */

@@ -103,7 +103,14 @@ public class PlateauController implements Initializable{
 				}
 				//mainPane.getChildren().clear();
 				int arrive = i;
-				if(trouve) Platform.runLater(() -> deplaceVoleur(depart,arrive));
+				if(trouve){
+					//Platform.runLater(() -> deplaceVoleur(depart,arrive));
+					try {
+						serveur.getGestionnaireUI().diffuserVoleur(depart,arrive);
+					} catch (RemoteException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		});
 		try {
@@ -138,7 +145,7 @@ public class PlateauController implements Initializable{
 	private void recupererPlateau() throws RemoteException {
 		serveur.getGestionnaireUI().envoyerPlateau(proxy);
 	}
-	
+
 	/**
 	 * Dessine le plateau
 	 * @throws RemoteException 
@@ -195,9 +202,11 @@ public class PlateauController implements Initializable{
 	 * @param arrive hexagone d'arrivé
 	 */
 	public void deplaceVoleur(int depart, int arrive){
+		plateau.getVoleur().setVOLEUR(false);
+		plateau.getHexagones().get(arrive).setVOLEUR(true);
 		ColorAdjust colorAdjust = new ColorAdjust();
-		hexagones.getChildren().get(depart).setEffect(null);
+		Platform.runLater(() -> hexagones.getChildren().get(depart).setEffect(null));
 		colorAdjust.setSaturation(-1);
-		hexagones.getChildren().get(arrive).setEffect(colorAdjust);
+		Platform.runLater(() -> hexagones.getChildren().get(arrive).setEffect(colorAdjust));
 	}
 }

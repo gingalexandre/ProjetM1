@@ -1,6 +1,7 @@
 package serveur.modele;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javafx.scene.shape.Circle;
@@ -54,7 +55,7 @@ public class Ville implements Serializable{
 				(this.route_adj3.getOqp() == proprio)));
 	}
 	
-	public void colonieToVille(Joueur j){
+	public void colonieToVille(Joueur j) throws RemoteException{
 		j.setNbColonie(j.getNbColonie()+1);
 		j.setNbVille(j.getNbVille()-1);
 		this.colonieVille = false;

@@ -21,6 +21,7 @@ import javafx.util.Duration;
 import serveur.modele.Des;
 import serveur.modele.Joueur;
 import serveur.modele.Message;
+import serveur.modele.service.JoueurInterface;
 import serveur.reseau.ConnexionManager;
 import serveur.reseau.Proxy;
 import serveur.reseau.Serveur;
@@ -100,24 +101,16 @@ public class MenuController implements Initializable {
 		String nomJoueur = proxy.getJoueur().getNomUtilisateur();
 		serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" est prêt !"));
 		
-		Joueur joueur = proxy.getJoueur();
+		JoueurInterface joueur = proxy.getJoueur();
 		serveur.getGestionnairePartie().joueurPret(joueur);
 	}
 	
 	/**
 	 * Méthode de réactivation des boutons
 	 */
-	public void enableButtons(){
-		Platform.runLater(() -> boutonDes.setDisable(false));
-		Platform.runLater(() -> boutonEchange.setDisable(false));
-	}
-	
-	/**
-	 * Méthode de réactivation des boutons
-	 */
-	public void disableButtons(){
-		Platform.runLater(() -> boutonDes.setDisable(true));
-		Platform.runLater(() -> boutonEchange.setDisable(true));
+	public void setButtons(boolean boo){
+		Platform.runLater(() -> boutonDes.setDisable(boo));
+		Platform.runLater(() -> boutonEchange.setDisable(boo));
 	}
 
 	/**
@@ -229,9 +222,8 @@ public class MenuController implements Initializable {
 	public void finirLeTour() throws RemoteException{
 		String nomJoueur = proxy.getJoueur().getNomUtilisateur();
 		serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" a fini son tour"));
-		
 		//Lancement du tour du joueur suivant
-		Joueur joueurTour = serveur.getGestionnairePartie().finirTour();
+		JoueurInterface joueurTour = serveur.getGestionnairePartie().finirTour();
 		
 		serveur.getGestionnaireUI().diffuserMessage(new Message("C'est à "+joueurTour.getNomUtilisateur()+" de jouer"));
 	}

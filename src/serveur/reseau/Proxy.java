@@ -15,6 +15,7 @@ import client.view.VuePrincipale;
 import serveur.modele.Joueur;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
+import serveur.modele.service.JoueurInterface;
 
 public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 
@@ -48,7 +49,7 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	/**
 	 * Joueur associe au proxy
 	 */
-	private Joueur joueur;
+	private JoueurInterface joueur;
 
 	public Proxy() throws RemoteException {
 
@@ -57,7 +58,7 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	/**
 	 * @param chatController
 	 */
-	public void setChatController(ChatController chatController) {
+	public void setChatController(ChatController chatController){
 		this.chatController = chatController;
 	}
 
@@ -78,18 +79,18 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	/**
 	 * @param echangeController
 	 */
-	public void setEchangeController(EchangeController echangeController) {
+	public void setEchangeController(EchangeController echangeController){
 		this.echangeController = echangeController;
 	}
 	
 	/**
 	 * @param joueursController
 	 */
-	public void setJoueursController(JoueursController joueursController) {
+	public void setJoueursController(JoueursController joueursController){
 		this.joueursController = joueursController;
 	}
 
-	public JoueursController getJoueursController() {
+	public JoueursController getJoueursController(){
 		return joueursController;
 	}
 
@@ -123,14 +124,14 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	 * @throws RemoteException
 	 */
 	@Override
-	public void envoyerAutresJoueurs(ArrayList<Joueur> autresJoueurs) throws RemoteException{
+	public void envoyerAutresJoueurs(ArrayList<JoueurInterface> autresJoueurs) throws RemoteException{
 		this.joueursController.recevoirAutresJoueurs(autresJoueurs);
 	}
 	
 	/**
 	 * @return le joueur associe au proxy
 	 */
-	public Joueur getJoueur() throws RemoteException {
+	public JoueurInterface getJoueur(){
 		return joueur;
 	}
 
@@ -138,25 +139,16 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	 * Permet d'indiquer le joueur associe au proxy
 	 * @param joueur
 	 */
-	public void setJoueur(Joueur joueur) throws RemoteException {
+	public void setJoueur(JoueurInterface joueur) throws RemoteException {
 		this.joueur = joueur;
 	}
 
 	/**
-	 * Réactive les boutons d'un joueur
+	 * Set les boutons d'un joueur
 	 * @throws RemoteException
 	 */
 	@Override
-	public void enableButtons() throws RemoteException {
-		this.menuController.enableButtons();
-	}
-	
-	/**
-	 * Réactive les boutons d'un joueur
-	 * @throws RemoteException
-	 */
-	@Override
-	public void disableButtons() throws RemoteException {
-		this.menuController.disableButtons();
+	public void setButtons(boolean boo) throws RemoteException {
+		this.menuController.setButtons(boo);
 	}
 }

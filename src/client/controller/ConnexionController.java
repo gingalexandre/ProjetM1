@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import serveur.modele.Message;
 import serveur.reseau.ConnexionManager;
+import serveur.reseau.JoueurServeur;
 import serveur.reseau.Proxy;
 import serveur.reseau.Serveur;
 
@@ -144,10 +145,10 @@ public class ConnexionController implements Initializable {
 	 */
 	public void enregistrerJoueur(String nomJoueur, Date date) throws RemoteException, TooMuchPlayerException{
 		// Enregistrement du joueur sur le serveur
-		serveur.enregistrerJoueur(proxy, nomJoueur, date);
+		serveur.enregistrerJoueur(this.proxy, nomJoueur, date);
 		// Set le nom du joueur. Pour recuperer le joueur n'importe a (et donc ses attributs), passer par proxy.getJoueur()
-		proxy.getJoueur().setNomUtilisateur(nomJoueur);
-		proxy.getJoueur().setDateDeNaissance(date);
+		this.proxy.getJoueur().setNomUtilisateur(nomJoueur);
+		this.proxy.getJoueur().setDateDeNaissance(date);
 	}
 	
 	/**

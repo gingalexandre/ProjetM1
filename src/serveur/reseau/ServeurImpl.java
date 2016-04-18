@@ -7,9 +7,11 @@ import java.util.ArrayList;
 
 import exception.TooMuchPlayerException;
 import serveur.modele.Joueur;
+import serveur.modele.service.JoueurInterface;
 import serveur.reseau.communicationClients.GestionnaireBDD;
 import serveur.reseau.communicationClients.GestionnairePartie;
 import serveur.reseau.communicationClients.GestionnaireUI;
+import serveur.reseau.communicationClients.service.GestionnairePartieInterface;
 
 /**
  * Classe impl�mentant le serveur, qui communique avec les proxy
@@ -32,17 +34,17 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	/**
 	 * Gestionnaire de la base de donnees
 	 */
-	private static GestionnaireBDD gestionnaireBDD;
+	private GestionnaireBDD gestionnaireBDD;
 	
 	/**
 	 * Gestionnaire de la partie
 	 */
-	private static GestionnairePartie gestionnairePartie;
+	private GestionnairePartieInterface gestionnairePartie;
 	
 	/**
 	 * Gestionnaire de l'interface
 	 */
-	private static GestionnaireUI gestionnaireUI;
+	private GestionnaireUI gestionnaireUI;
 	
 	/**
 	 * Constructeur de la classe ServeurImpl
@@ -64,7 +66,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	@Override
 	public void enregistrerJoueur(JoueurServeur nouveauJoueurServeur, String nom, Date date) throws RemoteException, TooMuchPlayerException{
 		if(joueurServeurs.size() < nombre_max_joueurs){
-			Joueur joueur = new Joueur(nom, date);
+			JoueurInterface joueur = new Joueur(nom, date);
 			joueurServeurs.add(nouveauJoueurServeur);
 			switch(joueurServeurs.size()){
 				case 1:
@@ -117,8 +119,8 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 * @throws RemoteException
 	 */
 	@Override
-	public GestionnairePartie getGestionnairePartie() throws RemoteException {
-		return gestionnairePartie;
+	public GestionnairePartieInterface getGestionnairePartie() throws RemoteException {
+		return this.gestionnairePartie;
 	}
 
 	/**
@@ -129,5 +131,10 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	@Override
 	public GestionnaireUI getGestionnaireUI() throws RemoteException {
 		return gestionnaireUI;
+	}
+
+	@Override
+	public void enregistrerJoueur(JoueurServeur joueurServeur, Date date) throws RemoteException, TooMuchPlayerException {
+		System.out.println("Yoo");
 	}
 }

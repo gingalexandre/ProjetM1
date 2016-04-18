@@ -36,6 +36,11 @@ public class ChatController implements Initializable{
 	private TextField saisie;
 	
 	/**
+	 * Taille maximale d'un message
+	 */
+	private static final int TAILLE_MAX_MESSAGE = 150;
+	
+	/**
 	 * Proxy client
 	 */
 	private Proxy proxy;
@@ -53,11 +58,6 @@ public class ChatController implements Initializable{
 			e.printStackTrace();
 		}
 	}
-	
-	/**
-	 * Taille maximale d'un message
-	 */
-	private static final int TAILLE_MAX_MESSAGE = 150;
 	
 	/**
 	 * Indique au serveur le controller chat distant
@@ -97,17 +97,20 @@ public class ChatController implements Initializable{
 	 * @param message - Message ï¿½ afficher
 	 */
 	public void afficherMessage(Message message){
-		Platform.runLater(() -> textFlowPrincipal.getChildren().add(creerStyleTexteAuteur(message)));
-		Platform.runLater(() -> textFlowPrincipal.getChildren().add(creerStyleTexteMessage(message)));
-		
 		if(message.isSystem()){
-			Platform.runLater(() -> textFlowSysteme.getChildren().add(creerStyleTexteAuteur(message)));
+			Platform.runLater(() -> textFlowPrincipal.getChildren().add(creerStyleTexteMessage(message)));
 			Platform.runLater(() -> textFlowSysteme.getChildren().add(creerStyleTexteMessage(message)));
 		}
 		else{
+			Platform.runLater(() -> textFlowPrincipal.getChildren().add(creerStyleTexteAuteur(message)));
+			Platform.runLater(() -> textFlowPrincipal.getChildren().add(creerStyleTexteMessage(message)));
+			
 			Platform.runLater(() -> textFlowJoueurs.getChildren().add(creerStyleTexteAuteur(message)));
 			Platform.runLater(() -> textFlowJoueurs.getChildren().add(creerStyleTexteMessage(message)));
 		}
+		setScrollValue(scrollPanePrincipal, 1);
+		setScrollValue(scrollPaneJoueurs, 1);
+		setScrollValue(scrollPaneSysteme, 1);
 	}
 	
 	/**
@@ -143,9 +146,9 @@ public class ChatController implements Initializable{
 		if(!messageUtilisateur.equals("")){
 			Message message = new Message(proxy.getJoueur().getNomUtilisateur(), messageUtilisateur, proxy.getJoueur().getCouleur());
 			try{
-				// Récupération du serveur en passant par le singleton ConnexionManager
+				// Rï¿½cupï¿½ration du serveur en passant par le singleton ConnexionManager
 				Serveur serveur = ConnexionManager.getStaticServeur();
-				// Appel de la méthode distante diffuserMessage du serveur pour envoyer le message à tous les controllers des joueurs
+				// Appel de la mï¿½thode distante diffuserMessage du serveur pour envoyer le message ï¿½ tous les controllers des joueurs
 				serveur.getGestionnaireUI().diffuserMessage(message);
 			}
 			catch (RemoteException e){
@@ -161,6 +164,6 @@ public class ChatController implements Initializable{
 	 * @param value
 	 */
 	public void setScrollValue(ScrollPane scrollPane, double value){
-		scrollPane.setVvalue(value);
+		Platform.runLater(() -> scrollPane.setVvalue(value));
 	}
 }

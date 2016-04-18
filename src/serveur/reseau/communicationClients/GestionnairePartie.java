@@ -2,20 +2,24 @@ package serveur.reseau.communicationClients;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import exception.TooMuchPlayerException;
 
 import serveur.modele.Joueur;
+import serveur.modele.Message;
 import serveur.modele.Partie;
 import serveur.modele.Plateau;
+import serveur.modele.service.JoueurInterface;
 import serveur.reseau.JoueurServeur;
+import serveur.reseau.communicationClients.service.GestionnairePartieInterface;
 
 /**
- * Classe qui s'occupe des �changes concernant la partie entre les clients et le serveur
+ * Classe qui s'occupe des echanges concernant la partie entre les clients et le serveur
  * @author jerome
  */
-public class GestionnairePartie implements Serializable{
+public class GestionnairePartie extends UnicastRemoteObject implements GestionnairePartieInterface{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -33,7 +37,7 @@ public class GestionnairePartie implements Serializable{
 	 * Constructeur de la classe GestionnairePartie
 	 * @param plateau - plateau de jeu
 	 */
-	public GestionnairePartie(Plateau plateau){
+	public GestionnairePartie(Plateau plateau) throws RemoteException{
 		this.partie = new Partie(plateau);
 	}
 
@@ -46,15 +50,18 @@ public class GestionnairePartie implements Serializable{
 	}
 	
 	/**
-	 * Enregistre un nouveau joueur dans la liste des joueurs
-	 * @param nouveauJoueurServeur - joueur � enregistrer
+	 * Enregistre un nouveau JoueurInterface dans la liste des joueurs
+	 * @param nouveauJoueurServeur - JoueurInterface a enregistrer
 	 */
 	public void enregistrerJoueur(JoueurServeur nouveauJoueurServeur){
 		joueursServeur.add(nouveauJoueurServeur);
 	}
 	
+	/** 
+	 * Envoie la liste des autres joueurs
+	 */
 	public void envoyerAutresJoueurs() throws RemoteException{
-		ArrayList<Joueur> autresJoueurs = new ArrayList<Joueur>();
+		ArrayList<JoueurInterface> autresJoueurs = new ArrayList<JoueurInterface>();
 		for(JoueurServeur joueurServeur : joueursServeur){
 			autresJoueurs = recupererAutresJoueurs(joueurServeur.getJoueur());
 			joueurServeur.envoyerAutresJoueurs(autresJoueurs);
@@ -64,16 +71,14 @@ public class GestionnairePartie implements Serializable{
 	}
 	
 	/**
-	 * M�thode qui renvoie la liste des joueurs mis � part le joueur indiqu� en param�tre
+	 * Methode qui renvoie la liste des joueurs mis a part le JoueurInterface indique en parametre
 	 * @param joueurQuiAppelle
 	 * @return la liste des autres joueurs connect�s sur le serveur
 	 * @throws RemoteException
 	 */
-	public ArrayList<Joueur> recupererAutresJoueurs(Joueur joueurQuiAppelle) throws RemoteException{
-		ArrayList<Joueur> autresJoueurs = new ArrayList<Joueur>();
+	public ArrayList<JoueurInterface> recupererAutresJoueurs(JoueurInterface joueurQuiAppelle) throws RemoteException{
+		ArrayList<JoueurInterface> autresJoueurs = new ArrayList<JoueurInterface>();
 		for(JoueurServeur joueurServeur : joueursServeur){
-			// Le nom d'utilisateur �tant unique, on fait la v�rification dessus
-			Joueur joueur = joueurServeur.getJoueur();
 			if(!joueurServeur.getJoueur().getNomUtilisateur().equals(joueurQuiAppelle.getNomUtilisateur())){
 				autresJoueurs.add(joueurServeur.getJoueur());
 			}
@@ -82,26 +87,108 @@ public class GestionnairePartie implements Serializable{
 	}
 	
 	/**
-	 * Ajoute le joueur pass� en param�tre � la partie
-	 * @param nouveauJoueur - joueur � ajouter � la partie
+	 * Ajoute le JoueurInterface passe en parametre a la partie
+	 * @param nouveauJoueurInterface - JoueurInterface a ajouter a la partie
 	 * @throws TooMuchPlayerException
 	 */
-	public void ajouterJoueurPartie(Joueur nouveauJoueur){
+	public void ajouterJoueurPartie(JoueurInterface nouveauJoueur) throws RemoteException{
 		switch(this.joueursServeur.size()){
 			case 1:
-				this.partie.setJoueur1(nouveauJoueur);
+				partie.setJoueur1(nouveauJoueur);
 				break;
 			case 2:
-				this.partie.setJoueur2(nouveauJoueur);
+				partie.setJoueur2(nouveauJoueur);
 				break;
 			case 3:
-				this.partie.setJoueur3(nouveauJoueur);
+				partie.setJoueur3(nouveauJoueur);
 				break;
 			case 4:
-				this.partie.setJoueur4(nouveauJoueur);
+				partie.setJoueur4(nouveauJoueur);
 				break;
 			default: 
 				break;
 		}
+	}
+
+	/**
+	 * Réactive les boutons d'un joueur
+	 * @throws RemoteException
+	 */
+	public void enableBoutons(JoueurInterface j) throws RemoteException {
+		for(JoueurServeur joueurServeur : joueursServeur){
+			if(joueurServeur.getJoueur().getNomUtilisateur().equals(j.getNomUtilisateur())){
+				joueurServeur.setButtons(false);
+			}
+		}
+	}
+	
+	/**
+	 * Met un JoueurInterface a pret
+	 * @param joueur
+	 * @throws RemoteException 
+	 */
+	public void joueurPret(JoueurInterface joueur) throws RemoteException{
+		joueur.setPret(true);
+		verifierJoueursPrets();
+	}
+	
+	/**
+	 * Verifie si tous les joueurs connectes sur le serveur sont prets a jouer. Si ils le sont tous, la partie commence.
+	 * @throws RemoteException 
+	 */
+	public void verifierJoueursPrets() throws RemoteException{
+		boolean tousJoueursPrets = true;
+		// Verifie si tous les joueurs sont pret. Si un seul ne l'est pas, la partie ne peut pas commencer
+		for(JoueurServeur joueurServeur : joueursServeur){
+			if(!joueurServeur.getJoueur().isPret()){
+				tousJoueursPrets = false;
+			}
+		}
+		// Tous les joueurs sont prets, la partie peut debuter
+		if(tousJoueursPrets && partie.getNombreJoueurs() >= 3){
+			commencerPartie();
+		}
+	}
+
+	/**
+	 * Commence la partie
+	 * @throws RemoteException 
+	 */
+	private void commencerPartie() throws RemoteException {
+		getPartie().arrangerOrdreTour();
+		JoueurInterface joueurPlusVieux = partie.getJoueurLePlusVieux();
+		for(JoueurServeur joueurServeur : joueursServeur){
+			joueurServeur.recevoirMessage(new Message("La partie a commence !\nComme c'est le plus âgé, c'est à "+joueurPlusVieux.getNomUtilisateur()+" de jouer."));
+		}
+		
+		lancerTourPremierJoueur(joueurPlusVieux);
+	}
+
+	/**
+	 * Lance le tour du premier joueur, le plus vieux
+	 * @throws RemoteException 
+	 */
+	private void lancerTourPremierJoueur(JoueurInterface joueurPlusVieux) throws RemoteException {
+		for(JoueurServeur joueurServeur : joueursServeur){
+			// On compare sur le nom d'utilisateur qui est unique
+			if(joueurPlusVieux.getNomUtilisateur().equals(joueurServeur.getJoueur().getNomUtilisateur())){
+				joueurServeur.setButtons(false);
+			}
+			else{
+				joueurServeur.setButtons(true);
+			}
+		}
+	}
+
+	/**
+	 * Finit le tour d'un joueur et renvoie le joueur suivant
+	 * @throws RemoteException
+	 */
+	public JoueurInterface finirTour() throws RemoteException {
+		partie.incrementeTour();
+		
+		JoueurInterface joueurTour = this.partie.getJoueurTour();
+		enableBoutons(joueurTour);
+		return joueurTour;
 	}
 }

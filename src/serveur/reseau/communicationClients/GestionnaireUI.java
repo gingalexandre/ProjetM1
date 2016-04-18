@@ -1,18 +1,19 @@
 package serveur.reseau.communicationClients;
 
-import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import serveur.modele.Message;
 import serveur.modele.Plateau;
 import serveur.reseau.JoueurServeur;
+import serveur.reseau.communicationClients.service.GestionnaireUIInterface;
 
 /**
- * Classe qui s'occupe des échanges concernant l'interface entre les clients et le serveur
+ * Classe qui s'occupe des echanges concernant l'interface entre les clients et le serveur
  * @author jerome
  */
-public class GestionnaireUI implements Serializable{
+public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireUIInterface{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -22,31 +23,34 @@ public class GestionnaireUI implements Serializable{
 	private Plateau plateau;
 	
 	/**
-	 * Contient la liste des joueurs connectés au serveur
+	 * Contient la liste des joueurs connectï¿½s au serveur
 	 */
 	private ArrayList<JoueurServeur> joueurServeurs = new ArrayList<JoueurServeur>();
 	
 	/**
 	 * Constructeur de la classe GestionnaireUI
 	 */
-	public GestionnaireUI(){
+	public GestionnaireUI() throws RemoteException{
 		this.plateau = Plateau.getInstance();
 	}
 
-	public Plateau getPlateau() {
+	/**
+	 * @return le plateau de jeu
+	 */
+	public Plateau getPlateau() throws RemoteException{
 		return this.plateau;
 	}
 	
 	/**
 	 * Enregistre un nouveau joueur dans la liste des joueurs
-	 * @param nouveauJoueurServeur - joueur à enregistrer
+	 * @param nouveauJoueurServeur - joueur a enregistrer
 	 */
-	public void enregistrerJoueur(JoueurServeur nouveauJoueurServeur){
+	public void enregistrerJoueur(JoueurServeur nouveauJoueurServeur) throws RemoteException{
 		joueurServeurs.add(nouveauJoueurServeur);
 	}
 	
 	/**
-	 * Envoie le plateau de jeu au joueur passé en paramètre
+	 * Envoie le plateau de jeu au joueur passï¿½ en parametre
 	 * @param proxy
 	 * @throws RemoteException 
 	 */
@@ -55,7 +59,7 @@ public class GestionnaireUI implements Serializable{
 	}
 	
 	/**
-	 * Diffuse un message envoyé par un joueur à tous les autre joueurServeurs
+	 * Diffuse un message envoyï¿½ par un joueur a tous les autre joueurServeurs
 	 * @param message
 	 * @throws RemoteException
 	 */

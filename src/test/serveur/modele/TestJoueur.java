@@ -11,6 +11,8 @@ import serveur.modele.Ressource;
 
 import static org.junit.Assert.*;
 
+import java.rmi.RemoteException;
+
 /**
  * @author Arthur
  * Classe de test
@@ -40,7 +42,7 @@ public class TestJoueur {
      * Test de l'id des joueurs()
      */
      @Test
-    public void testIdJoueur() {
+    public void testIdJoueur() throws RemoteException{
   	   Joueur j1 = new Joueur("");
   	   Joueur j2 = new Joueur("");
   	   Joueur j3 = new Joueur("");
@@ -54,7 +56,7 @@ public class TestJoueur {
    * Test de la méthode ajoutRessource()
    */
    @Test
-  public void testAjoutRessource() {
+  public void testAjoutRessource() throws RemoteException{
 	   Joueur j = new Joueur("");
 	   j.ajoutRessource(Ressource.BOIS, 2);
 	   int bois1 = j.getStockRessource().get(Ressource.BOIS);
@@ -68,7 +70,7 @@ public class TestJoueur {
     * Test de la méthode suppressionRessource()
     */
    @Test
-   public void testSuppressionRessource() {
+   public void testSuppressionRessource() throws RemoteException{
 	   Joueur j = new Joueur("");
 	   j.ajoutRessource(Ressource.BOIS, 2);
 	   int bois1 = j.getStockRessource().get(Ressource.BOIS);

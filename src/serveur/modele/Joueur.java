@@ -46,13 +46,34 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface{
 	 */
 	private boolean pret;
 
+	/**
+	 * Point de victoires du joueur
+	 */
 	private int pointVictoire;
 
+	/**
+	 * Nombre de colonies du joueur
+	 */
 	private int nbColonie = 5;
+	
+	/**
+	 * Nombre de villes du joueur
+	 */
 	private int nbVille = 4;
+	
+	/**
+	 * Nombre de routes du joueur
+	 */
 	private int nbRoute = 15;
 
+	/**
+	 * Stock de ressources du joueur
+	 */
 	private HashMap<Integer, Integer> stockRessource = new HashMap<>();
+	
+	/**
+	 * Cartes du joueur
+	 */
 	private ArrayList<Carte> cartes = new ArrayList<Carte>();
 
 	/**
@@ -98,6 +119,10 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface{
 		this.stockRessource.put(Ressource.LAINE, 0);
 	}
 	
+	/**
+	 * Permet d'obtenir le stock de ressources du joueur
+	 * @return le stock de ressources du joueur
+	 */
 	public HashMap<Integer, Integer> getStockRessource() throws RemoteException{
 		return this.stockRessource;
 	}

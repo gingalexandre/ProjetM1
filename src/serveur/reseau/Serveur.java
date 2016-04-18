@@ -9,7 +9,9 @@ import serveur.modele.Joueur;
 import serveur.reseau.communicationClients.GestionnaireBDD;
 import serveur.reseau.communicationClients.GestionnairePartie;
 import serveur.reseau.communicationClients.GestionnaireUI;
+import serveur.reseau.communicationClients.service.GestionnaireBDDInterface;
 import serveur.reseau.communicationClients.service.GestionnairePartieInterface;
+import serveur.reseau.communicationClients.service.GestionnaireUIInterface;
 
 /**
  * Classe principale pour les communications entre client et serveur
@@ -35,11 +37,11 @@ public interface Serveur extends Remote{
 	void enregistrerJoueur(JoueurServeur joueurServeur, Date date) throws RemoteException, TooMuchPlayerException;
 	
 	/**
-	 * Permet d'obtenir le gestionnaire de base de donn�es
-	 * @return le gestionnaire de base de donn�es
+	 * Permet d'obtenir le gestionnaire de base de données
+	 * @return le gestionnaire de base de données
 	 * @throws RemoteException
 	 */
-	GestionnaireBDD getGestionnaireBDD() throws RemoteException;
+	GestionnaireBDDInterface getGestionnaireBDD() throws RemoteException;
 	
 	
 	/**
@@ -54,5 +56,5 @@ public interface Serveur extends Remote{
 	 * @return le gestionnaire de base de l'interface
 	 * @throws RemoteException
 	 */
-	GestionnaireUI getGestionnaireUI() throws RemoteException;
+	GestionnaireUIInterface getGestionnaireUI() throws RemoteException;
 }

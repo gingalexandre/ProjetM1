@@ -1,18 +1,19 @@
 package serveur.reseau.communicationClients;
 
-import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import serveur.modele.Message;
 import serveur.modele.Plateau;
 import serveur.reseau.JoueurServeur;
+import serveur.reseau.communicationClients.service.GestionnaireUIInterface;
 
 /**
  * Classe qui s'occupe des echanges concernant l'interface entre les clients et le serveur
  * @author jerome
  */
-public class GestionnaireUI implements Serializable{
+public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireUIInterface{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -29,11 +30,14 @@ public class GestionnaireUI implements Serializable{
 	/**
 	 * Constructeur de la classe GestionnaireUI
 	 */
-	public GestionnaireUI(){
+	public GestionnaireUI() throws RemoteException{
 		this.plateau = Plateau.getInstance();
 	}
 
-	public Plateau getPlateau() {
+	/**
+	 * @return le plateau de jeu
+	 */
+	public Plateau getPlateau() throws RemoteException{
 		return this.plateau;
 	}
 	
@@ -41,7 +45,7 @@ public class GestionnaireUI implements Serializable{
 	 * Enregistre un nouveau joueur dans la liste des joueurs
 	 * @param nouveauJoueurServeur - joueur a enregistrer
 	 */
-	public void enregistrerJoueur(JoueurServeur nouveauJoueurServeur){
+	public void enregistrerJoueur(JoueurServeur nouveauJoueurServeur) throws RemoteException{
 		joueurServeurs.add(nouveauJoueurServeur);
 	}
 	

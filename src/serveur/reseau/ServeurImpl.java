@@ -11,7 +11,9 @@ import serveur.modele.service.JoueurInterface;
 import serveur.reseau.communicationClients.GestionnaireBDD;
 import serveur.reseau.communicationClients.GestionnairePartie;
 import serveur.reseau.communicationClients.GestionnaireUI;
+import serveur.reseau.communicationClients.service.GestionnaireBDDInterface;
 import serveur.reseau.communicationClients.service.GestionnairePartieInterface;
+import serveur.reseau.communicationClients.service.GestionnaireUIInterface;
 
 /**
  * Classe impl�mentant le serveur, qui communique avec les proxy
@@ -34,7 +36,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	/**
 	 * Gestionnaire de la base de donnees
 	 */
-	private GestionnaireBDD gestionnaireBDD;
+	private GestionnaireBDDInterface gestionnaireBDD;
 	
 	/**
 	 * Gestionnaire de la partie
@@ -44,7 +46,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	/**
 	 * Gestionnaire de l'interface
 	 */
-	private GestionnaireUI gestionnaireUI;
+	private GestionnaireUIInterface gestionnaireUI;
 	
 	/**
 	 * Constructeur de la classe ServeurImpl
@@ -109,7 +111,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 * @throws RemoteException
 	 */
 	@Override
-	public GestionnaireBDD getGestionnaireBDD() throws RemoteException {
+	public GestionnaireBDDInterface getGestionnaireBDD() throws RemoteException {
 		return gestionnaireBDD;
 	}
 
@@ -129,7 +131,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 * @throws RemoteException
 	 */
 	@Override
-	public GestionnaireUI getGestionnaireUI() throws RemoteException {
+	public GestionnaireUIInterface getGestionnaireUI() throws RemoteException {
 		return gestionnaireUI;
 	}
 

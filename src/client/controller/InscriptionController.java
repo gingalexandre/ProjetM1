@@ -2,8 +2,6 @@ package client.controller;
 
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;

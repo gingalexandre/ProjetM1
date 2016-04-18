@@ -2,6 +2,7 @@ package client.controller;
 
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -15,7 +16,9 @@ import serveur.modele.Joueur;
 import serveur.reseau.ConnexionManager;
 import serveur.reseau.Proxy;
 import serveur.modele.Ressource;
-
+import serveur.modele.service.JoueurInterface;
+import serveur.reseau.communicationClients.*;
+import serveur.reseau.communicationClients.service.GestionnairePartieInterface;
 import serveur.reseau.Serveur;
 
 public class JoueursController implements Initializable {
@@ -45,16 +48,16 @@ public class JoueursController implements Initializable {
 	/**
 	 * Joueur actuel (correspond au model)
 	 */
-	private Joueur joueur;
+	private JoueurInterface joueur;
 	
 	/**
 	 * Liste des autres joueurs connectés au serveur
 	 */
-	private ArrayList<Joueur> autresJoueurs;
+	private ArrayList<JoueurInterface> autresJoueurs;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		autresJoueurs = new ArrayList<Joueur>();
+		autresJoueurs = new ArrayList<JoueurInterface>();
 		
 		// Récupération du serveur via le singleton pour facilement le manipuler dans la classe
 		serveur = ConnexionManager.getStaticServeur();
@@ -67,7 +70,7 @@ public class JoueursController implements Initializable {
 		try {
 			// Envoi à CHAQUE joueur la liste de tous les joueurs, sauf lui-même. Permet de réaliser correctement l'affichage
 			// des autres joueurs sur l'interface
-			serveur.getGestionnairePartie().envoyerAutresJoueurs();
+			((GestionnairePartieInterface)serveur.getGestionnairePartie()).envoyerAutresJoueurs();
 			// Récupération du joueur pour pouvoir obtenir ses informations
 			joueur = proxy.getJoueur();
 		} catch (RemoteException e) {
@@ -79,15 +82,18 @@ public class JoueursController implements Initializable {
 		nbCaillou.setText("0");
 		nbLaine.setText("0");
 		nbBois.setText("0");
-		nomJoueur.setText(joueur.getNomUtilisateur());
-		nbVictoire.setText("2");
-		
-		// Appel de la méthode permettant de transformer la couleur de français à anglais pour pouvoir changer le style
-		String couleurAnglais = Fonction.couleurEnAnglais(joueur.getCouleur());
-		couleurJoueur.setStyle("-fx-background-color: "+couleurAnglais+";");
-		proxy = ConnexionManager.getStaticProxy();
-		proxy.setJoueursController(this);
-		
+		try {
+			nomJoueur.setText(joueur.getNomUtilisateur());
+			nbVictoire.setText("2");
+			// Appel de la méthode permettant de transformer la couleur de français à anglais pour pouvoir changer le style
+			String couleurAnglais = Fonction.couleurEnAnglais(joueur.getCouleur());
+			couleurJoueur.setStyle("-fx-background-color: "+couleurAnglais+";");
+			proxy = ConnexionManager.getStaticProxy();
+			proxy.setJoueursController(this);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -143,34 +149,39 @@ public class JoueursController implements Initializable {
 	 * Reçoit la liste des autres joueurs connectés au serveur
 	 * @param autresJoueurs
 	 */
-	public void recevoirAutresJoueurs(ArrayList<Joueur> autresJoueurs) {
+	public void recevoirAutresJoueurs(ArrayList<JoueurInterface> autresJoueurs) throws RemoteException{
 		this.autresJoueurs.clear();
 		this.autresJoueurs = autresJoueurs;
 		Platform.runLater(new Runnable(){
 			@Override
 			public void run() {
-				for(int i=0;i<autresJoueurs.size();i++) {
-					if (i == 0) {
-						Joueur p = autresJoueurs.get(0);
-						autreUnName.setText(p.getNomUtilisateur());
-						autreUn.setVisible(true);
-						String couleurAnglais = Fonction.couleurEnAnglais(p.getCouleur());
-						autreUn.setStyle("-fx-background-color: " + couleurAnglais + ";");
+				try {
+					for(int i=0;i<autresJoueurs.size();i++) {
+						if (i == 0) {
+							JoueurInterface p = autresJoueurs.get(0);
+							autreUnName.setText(p.getNomUtilisateur());
+							autreUn.setVisible(true);
+							String couleurAnglais = Fonction.couleurEnAnglais(p.getCouleur());
+							autreUn.setStyle("-fx-background-color: " + couleurAnglais + ";");
+						}
+						if (i == 1) {
+							JoueurInterface p = autresJoueurs.get(1);
+							autreDeuxName.setText(p.getNomUtilisateur());
+							autreDeux.setVisible(true);
+							String couleurAnglais = Fonction.couleurEnAnglais(p.getCouleur());
+							autreDeux.setStyle("-fx-background-color: " + couleurAnglais + ";");
+						}
+						if (i == 2) {
+							JoueurInterface p = autresJoueurs.get(2);
+							autreTroisName.setText(p.getNomUtilisateur());
+							autreTrois.setVisible(true);
+							String couleurAnglais = Fonction.couleurEnAnglais(p.getCouleur());
+							autreTrois.setStyle("-fx-background-color: " + couleurAnglais + ";");
+						}
 					}
-					if (i == 1) {
-						Joueur p = autresJoueurs.get(1);
-						autreDeuxName.setText(p.getNomUtilisateur());
-						autreDeux.setVisible(true);
-						String couleurAnglais = Fonction.couleurEnAnglais(p.getCouleur());
-						autreDeux.setStyle("-fx-background-color: " + couleurAnglais + ";");
-					}
-					if (i == 2) {
-						Joueur p = autresJoueurs.get(2);
-						autreTroisName.setText(p.getNomUtilisateur());
-						autreTrois.setVisible(true);
-						String couleurAnglais = Fonction.couleurEnAnglais(p.getCouleur());
-						autreTrois.setStyle("-fx-background-color: " + couleurAnglais + ";");
-					}
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		});

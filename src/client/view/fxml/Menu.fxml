@@ -12,7 +12,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.MenuController">
     <children>
-        <GridPane gridLinesVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <GridPane fx:id="menuGridPane" visible="false" gridLinesVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints percentWidth="9.0" hgrow="SOMETIMES" />
                 <ColumnConstraints percentWidth="9.0" hgrow="SOMETIMES" />
@@ -32,7 +32,7 @@
             <children>
                 <AnchorPane GridPane.columnIndex="0">
                     <children>
-                        <Button mnemonicParsing="false" fx:id="boutonDes" text="Lancer les dés" onAction="#lancerDes" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                        <Button mnemonicParsing="false" disable="true" fx:id="boutonDes" text="Lancer les dés" onAction="#lancerDes" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="1">
@@ -52,17 +52,17 @@
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="4">
                     <children>
-                        <Button mnemonicParsing="false" text="Route" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                        <Button mnemonicParsing="false" disable="true" text="Route" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="5">
                     <children>
-                        <Button mnemonicParsing="false" text="Colonie" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                        <Button mnemonicParsing="false" disable="true" text="Colonie" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="6">
                     <children>
-                        <Button mnemonicParsing="false" text="Ville" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                        <Button mnemonicParsing="false" disable="true" text="Ville" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="7">
@@ -77,15 +77,30 @@
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="9">
                     <children>
-                        <Button mnemonicParsing="false" fx:id="boutonEchange" onAction="#ouvrirEchange" text="Echange"  AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                        <Button mnemonicParsing="false" disable="true" fx:id="boutonEchange" onAction="#ouvrirEchange" text="Echange"  AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="10">
                     <children>
-                        <Button mnemonicParsing="false" text="Fin du tour" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                        <Button mnemonicParsing="false" disable="true" fx:id="boutonFinTour" onAction="#finirLeTour" text="Fin du tour" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                     </children>
                 </AnchorPane>
             </children>
         </GridPane>
+        <GridPane fx:id="pretGridPane" layoutX="1.0" layoutY="-1.0" prefHeight="100.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <AnchorPane>
+		       <children>
+		           <Button mnemonicParsing="false" onAction="#joueurPret" fx:id="pret" text="Prêt !" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+		       </children>
+		    </AnchorPane>
+         </children>
+      </GridPane>
     </children>
 </AnchorPane>

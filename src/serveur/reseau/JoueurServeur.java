@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import serveur.modele.Joueur;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
+import serveur.modele.service.JoueurInterface;
 
 /**
  * Interface du proxy entre client et serveur
@@ -22,27 +23,33 @@ public interface JoueurServeur extends Remote{
 	void recevoirMessage(Message message) throws RemoteException;
 	
 	/**
-	 * Reçoit le plateau envoyé par le serveur et l'envoie au controller du plateau
+	 * Reï¿½oit le plateau envoyï¿½ par le serveur et l'envoie au controller du plateau
 	 * @param plateau
 	 * @throws RemoteException
 	 */
 	void envoyerPlateau(Plateau plateau) throws RemoteException;
 	
 	/**
-	 * Reçoit la liste des autres joueurs envoyés par le serveur et l'envoie au controller adéquat
+	 * Set les boutons d'un joueur
+	 * @throws RemoteException
+	 */
+	void setButtons(boolean boo) throws RemoteException;
+	
+	/**
+	 * Reï¿½oit la liste des autres joueurs envoyï¿½s par le serveur et l'envoie au controller adï¿½quat
 	 * @param autresJoueurs
 	 * @throws RemoteException
 	 */
-	void envoyerAutresJoueurs(ArrayList<Joueur> autresJoueurs) throws RemoteException;
+	void envoyerAutresJoueurs(ArrayList<JoueurInterface> autresJoueurs) throws RemoteException;
 	
 	/**
-	 * @return le joueur associé au proxy
+	 * @return le joueur associe au proxy
 	 */
-	Joueur getJoueur() throws RemoteException;
+	JoueurInterface getJoueur() throws RemoteException;
 	
 	/**
-	 * Permet d'indiquer le joueur associé au proxy
+	 * Permet d'indiquer le joueur associe au proxy
 	 * @param joueur
 	 */
-	void setJoueur(Joueur joueur) throws RemoteException;
+	void setJoueur(JoueurInterface joueur) throws RemoteException;
 }

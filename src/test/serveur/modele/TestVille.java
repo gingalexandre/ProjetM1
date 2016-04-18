@@ -20,9 +20,9 @@ public class TestVille {
 	Plateau plateau = Plateau.getInstance();
 	ArrayList<Ville> listeVilles = plateau.getVilles();
 	ArrayList<Route> listeRoutes = plateau.getRoutes();
-	Joueur j1 = new Joueur ("Joueur 1");
-	Joueur j2 = new Joueur ("Joueur 2");
-	Joueur j3 = new Joueur ("Joueur 3");
+	Joueur j1;
+	Joueur j2;
+	Joueur j3;
 	
 
 	/**

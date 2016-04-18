@@ -36,6 +36,11 @@ public class ChatController implements Initializable{
 	private TextField saisie;
 	
 	/**
+	 * Taille maximale d'un message
+	 */
+	private static final int TAILLE_MAX_MESSAGE = 150;
+	
+	/**
 	 * Proxy client
 	 */
 	private Proxy proxy;
@@ -53,11 +58,6 @@ public class ChatController implements Initializable{
 			e.printStackTrace();
 		}
 	}
-	
-	/**
-	 * Taille maximale d'un message
-	 */
-	private static final int TAILLE_MAX_MESSAGE = 150;
 	
 	/**
 	 * Indique au serveur le controller chat distant
@@ -97,17 +97,20 @@ public class ChatController implements Initializable{
 	 * @param message - Message � afficher
 	 */
 	public void afficherMessage(Message message){
-		Platform.runLater(() -> textFlowPrincipal.getChildren().add(creerStyleTexteAuteur(message)));
-		Platform.runLater(() -> textFlowPrincipal.getChildren().add(creerStyleTexteMessage(message)));
-		
 		if(message.isSystem()){
-			Platform.runLater(() -> textFlowSysteme.getChildren().add(creerStyleTexteAuteur(message)));
+			Platform.runLater(() -> textFlowPrincipal.getChildren().add(creerStyleTexteMessage(message)));
 			Platform.runLater(() -> textFlowSysteme.getChildren().add(creerStyleTexteMessage(message)));
 		}
 		else{
+			Platform.runLater(() -> textFlowPrincipal.getChildren().add(creerStyleTexteAuteur(message)));
+			Platform.runLater(() -> textFlowPrincipal.getChildren().add(creerStyleTexteMessage(message)));
+			
 			Platform.runLater(() -> textFlowJoueurs.getChildren().add(creerStyleTexteAuteur(message)));
 			Platform.runLater(() -> textFlowJoueurs.getChildren().add(creerStyleTexteMessage(message)));
 		}
+		setScrollValue(scrollPanePrincipal, 1);
+		setScrollValue(scrollPaneJoueurs, 1);
+		setScrollValue(scrollPaneSysteme, 1);
 	}
 	
 	/**
@@ -161,6 +164,6 @@ public class ChatController implements Initializable{
 	 * @param value
 	 */
 	public void setScrollValue(ScrollPane scrollPane, double value){
-		scrollPane.setVvalue(value);
+		Platform.runLater(() -> scrollPane.setVvalue(value));
 	}
 }

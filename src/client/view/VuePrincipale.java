@@ -1,21 +1,10 @@
 package client.view;
 
-import java.net.URL;
-import java.rmi.RemoteException;
-import java.util.ResourceBundle;
-
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import serveur.modele.Message;
-import serveur.reseau.ConnexionManager;
-import serveur.reseau.Proxy;
-import serveur.reseau.Serveur;
 
 /**
  * 

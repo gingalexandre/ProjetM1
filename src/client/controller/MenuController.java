@@ -6,6 +6,7 @@ import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 import javafx.animation.RotateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,11 +14,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import serveur.modele.Des;
+import serveur.modele.Joueur;
 import serveur.modele.Message;
+import serveur.modele.service.JoueurInterface;
 import serveur.reseau.ConnexionManager;
 import serveur.reseau.Proxy;
 import serveur.reseau.Serveur;
@@ -35,6 +39,12 @@ public class MenuController implements Initializable {
 	private static final String numeroSix = "file:Ressources/des/dice6.png";
 	
 	@FXML
+	private GridPane menuGridPane;
+	
+	@FXML
+	private GridPane pretGridPane;
+	
+	@FXML
 	private ImageView de1, de2;
 	
 	@FXML
@@ -50,9 +60,22 @@ public class MenuController implements Initializable {
 	public static Stage fenetreEchange;
 	
 	/**
+	 * Pour finir le tour
+	 */
+	@FXML
+	private Button boutonFinTour;
+	
+	/**
 	 * Proxy client
 	 */
 	private Proxy proxy;
+	
+	/**
+	 * Serveur de jeu
+	 */
+	private Serveur serveur;
+	
+	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -64,6 +87,31 @@ public class MenuController implements Initializable {
 		proxy = ConnexionManager.getStaticProxy();
 		proxy.setMenuController(this);
 		
+		serveur = ConnexionManager.getStaticServeur();
+	}
+	
+	/**
+	 * Méthode de lancement de la partie
+	 * @throws RemoteException 
+	 */
+	public void joueurPret() throws RemoteException{
+		pretGridPane.setVisible(false);
+		menuGridPane.setVisible(true);
+		
+		String nomJoueur = proxy.getJoueur().getNomUtilisateur();
+		serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" est prêt !"));
+		
+		JoueurInterface joueur = proxy.getJoueur();
+		serveur.getGestionnairePartie().joueurPret(joueur);
+	}
+	
+	/**
+	 * Méthode de réactivation des boutons
+	 */
+	public void setButtons(boolean boo){
+		Platform.runLater(() -> boutonDes.setDisable(boo));
+		Platform.runLater(() -> boutonEchange.setDisable(boo));
+		Platform.runLater(() -> boutonFinTour.setDisable(boo));
 	}
 
 	/**
@@ -120,17 +168,11 @@ public class MenuController implements Initializable {
 	/**
 	 * Affiche le resultat des dés dans le chat sous forme de message Système
 	 * @param Integer[] resultats (résultats des dés)
+	 * @throws RemoteException 
 	 */
-	private void notifierLancerDes(Integer[] resultats){
-		try{
-			// Récupération du serveur en passant par le singleton ConnexionManager
-			Serveur serveur = ConnexionManager.getStaticServeur();
-			String nomJoueur = proxy.getJoueur().getNomUtilisateur();
-			serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" a lancé les dés : "+resultats[0]+" | "+resultats[1]));
-		}
-		catch (RemoteException e){
-			e.printStackTrace();
-		}
+	private void notifierLancerDes(Integer[] resultats) throws RemoteException{
+		String nomJoueur = proxy.getJoueur().getNomUtilisateur();
+		serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" a lancé les dés : "+resultats[0]+" | "+resultats[1]));
 	}
 	
 	/**
@@ -146,9 +188,6 @@ public class MenuController implements Initializable {
 		
 		//Méthode (retournant la liste des noms de joueurs) à implémenter
 		//String[] listNom = Plateau.getJoueursCase(caseConcernee);
-		
-		// Récupération du serveur en passant par le singleton ConnexionManager
-		Serveur serveur = ConnexionManager.getStaticServeur();
 		
 		//Ajout des ressources aux joueurs de la liste
 		proxy.getJoueur().ajoutRessource(1, 1);
@@ -177,5 +216,18 @@ public class MenuController implements Initializable {
 		}
 	}
 	
-	
+	/**
+	 * Méthode de fin de tour
+	 * @throws RemoteException 
+	 */
+	public void finirLeTour() throws RemoteException{
+		String nomJoueur = proxy.getJoueur().getNomUtilisateur();
+		serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" a fini son tour"));
+		this.setButtons(true);
+		
+		//Lancement du tour du joueur suivant
+		JoueurInterface joueurTour = serveur.getGestionnairePartie().finirTour();
+		
+		serveur.getGestionnaireUI().diffuserMessage(new Message("C'est à "+joueurTour.getNomUtilisateur()+" de jouer"));
+	}
 }

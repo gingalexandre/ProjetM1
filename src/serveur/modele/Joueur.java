@@ -6,8 +6,11 @@
 package serveur.modele;
 
 import serveur.modele.carte.Carte;
+import serveur.modele.service.JoueurInterface;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +19,7 @@ import java.util.HashMap;
  *
  * @author Arthur
  */
-public class Joueur implements Serializable{
+public class Joueur extends UnicastRemoteObject implements JoueurInterface{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -24,12 +27,12 @@ public class Joueur implements Serializable{
 	private static int compteurDeJoueur = 0;
 	
 	/**
-	 * Pseudo du joueur dans la base de données 
+	 * Pseudo du joueur dans la base de donnees 
 	 */
 	private String nomUtilisateur;
 
 	/**
-	 * Date de naissance du joueur dans la base de données
+	 * Date de naissance du joueur dans la base de donnees
 	 */
 	private Date dateDeNaissance;
 	
@@ -38,20 +41,46 @@ public class Joueur implements Serializable{
 	 */
 	private String couleur;
 	
+	/**
+	 * Si le joueur est pret a jouer ou non
+	 */
+	private boolean pret;
+
+	/**
+	 * Point de victoires du joueur
+	 */
 	private int pointVictoire;
 
+	/**
+	 * Nombre de colonies du joueur
+	 */
 	private int nbColonie = 5;
+	
+	/**
+	 * Nombre de villes du joueur
+	 */
 	private int nbVille = 4;
+	
+	/**
+	 * Nombre de routes du joueur
+	 */
 	private int nbRoute = 15;
 
+	/**
+	 * Stock de ressources du joueur
+	 */
 	private HashMap<Integer, Integer> stockRessource = new HashMap<>();
+	
+	/**
+	 * Cartes du joueur
+	 */
 	private ArrayList<Carte> cartes = new ArrayList<Carte>();
 
 	/**
 	 * Constructeur de joueur
-	 * Est appelé lors de l'ajout d'un proxy sur le serveur
+	 * Est appele lors de l'ajout d'un proxy sur le serveur
 	 */
-	public Joueur(){
+	public Joueur() throws RemoteException{
 		initialisationAttributs();
 	}
 	
@@ -59,15 +88,27 @@ public class Joueur implements Serializable{
 	 * Constructeur de joueur
 	 * @param nom - nom du joueur
 	 */
-	public Joueur(String nom) {
-		this.setNomUtilisateur(nomUtilisateur);
+	public Joueur(String nom) throws RemoteException{
+		this.setNomUtilisateur(nom);
+		initialisationAttributs();
+	}
+	
+	/**
+	 * Constructeur de joueur
+	 * @param nom - nom du joueur
+	 * @param dateNaissance - date de naissance
+	 */
+	public Joueur(String nom, Date dateNaissance) throws RemoteException{
+		this.setNomUtilisateur(nom);
+		this.setDateDeNaissance(dateNaissance);
 		initialisationAttributs();
 	}
 
 	/**
 	 * Permet d'initialiser des divers attributs d'un joueur
+	 * @throws RemoteException 
 	 */
-	private void initialisationAttributs(){
+	private void initialisationAttributs() throws RemoteException{
 		compteurDeJoueur++;
 		this.id = compteurDeJoueur;
 		this.setPointVictoire(0);
@@ -78,128 +119,160 @@ public class Joueur implements Serializable{
 		this.stockRessource.put(Ressource.LAINE, 0);
 	}
 	
-	public HashMap<Integer, Integer> getStockRessource() {
+	/**
+	 * Permet d'obtenir le stock de ressources du joueur
+	 * @return le stock de ressources du joueur
+	 */
+	public HashMap<Integer, Integer> getStockRessource() throws RemoteException{
 		return this.stockRessource;
 	}
 
-	public void setStockRessource(HashMap<Integer, Integer> stockRessource) {
+	public void setStockRessource(HashMap<Integer, Integer> stockRessource) throws RemoteException{
 		this.stockRessource = stockRessource;
 	}
 
-	public int getId() {
+	public int getId() throws RemoteException{
 		return this.id;
 	}
 
-	public void construireRoute() {
+	/**
+	 * @return si le joueur est pret a jouer ou non
+	 */
+	public boolean isPret()  throws RemoteException{
+		return pret;
+	}
+
+	/**
+	 * Permet de recuperer la valeur de l'attribut pret
+	 * @param pret
+	 */
+	public void setPret(boolean pret)  throws RemoteException{
+		this.pret = pret;
+	}
+	
+	public void construireRoute()  throws RemoteException{
 
 	}
 
-	public void construireColonie() {
+	public void construireColonie()  throws RemoteException{
 
 	}
 
-	public void construireVille() {
+	public void construireVille()  throws RemoteException{
 
 	}
 
-	public void ajoutRessource(int typeRessource, int value) {
+	public void ajoutRessource(int typeRessource, int value)  throws RemoteException{
 		this.stockRessource.put(typeRessource, this.stockRessource.get(typeRessource) + value);
 	}
 
-	public void supprimerRessource(int typeRessource, int value) {
+	public void supprimerRessource(int typeRessource, int value)  throws RemoteException{
 		this.stockRessource.put(typeRessource, this.stockRessource.get(typeRessource) - value);
 	}
 
 	public void echangerRessource(int typeRessourceDonnee, int quantiteDonnee, Joueur partenaireEchange,
-			int typeRessourceRecup, int quantiteRecup) {
+			int typeRessourceRecup, int quantiteRecup)  throws RemoteException{
 
 	}
 
-	public void jouerCarteDevelopement(Carte carte) {
+	public void jouerCarteDevelopement(Carte carte)  throws RemoteException{
 
 	}
 
-	public void joueurCarteSpeciale(Carte carte) {
+	public void joueurCarteSpeciale(Carte carte)  throws RemoteException{
 
 	}
 
-	public void ajouterPointVictoire() {
+	public void ajouterPointVictoire()  throws RemoteException{
 		this.setPointVictoire(this.getPointVictoire() + 1);
 	}
 	
-	public String getNomUtilisateur() {
+	public String getNomUtilisateur()  throws RemoteException{
 		return nomUtilisateur;
 	}
 
-	public void setNomUtilisateur(String nomUtilisateur) {
+	public void setNomUtilisateur(String nomUtilisateur)  throws RemoteException{
 		this.nomUtilisateur = nomUtilisateur;
 	}
 
-	public Date getDateDeNaissance() {
+	public Date getDateDeNaissance()  throws RemoteException{
 		return dateDeNaissance;
 	}
 
-	public void setDateDeNaissance(Date dateDeNaissance) {
+	public void setDateDeNaissance(Date dateDeNaissance)  throws RemoteException{
 		this.dateDeNaissance = dateDeNaissance;
 	}
 	
-	public String getCouleur() {
+	public String getCouleur()  throws RemoteException{
 		return this.couleur;
 	}
 
-	public void setCouleur(String couleur) {
+	public void setCouleur(String couleur)  throws RemoteException{
 		this.couleur = couleur;
 	}
 
-	public int getNbColonie() {
+	public int getNbColonie()  throws RemoteException{
 		return nbColonie;
 	}
 
-	public void setNbColonie(int nbColonie) {
+	public void setNbColonie(int nbColonie)  throws RemoteException{
 		this.nbColonie = nbColonie;
 	}
 
-	public int getNbVille() {
+	public int getNbVille()  throws RemoteException{
 		return nbVille;
 	}
 
-	public void setNbVille(int nbVille) {
+	public void setNbVille(int nbVille)  throws RemoteException{
 		this.nbVille = nbVille;
 	}
 
-	public boolean encoreAssezVille() {
+	public boolean encoreAssezVille()  throws RemoteException{
 		return (this.nbVille > 0);
 	}
 
-	public boolean encoreAssezColonie() {
+	public boolean encoreAssezColonie()  throws RemoteException{
 		return (this.nbVille > 0);
 	}
 
-	public boolean encoreAssezRoute() {
+	public boolean encoreAssezRoute()  throws RemoteException{
 		return (this.nbRoute > 0);
 	}
 
-	public int getPointVictoire() {
+	public int getPointVictoire()  throws RemoteException{
 		return pointVictoire;
 	}
 
-	public void setPointVictoire(int pointVictoire) {
+	public void setPointVictoire(int pointVictoire)  throws RemoteException{
 		this.pointVictoire = pointVictoire;
 	}
 
-	public ArrayList<Carte> getCartes() {
+	public ArrayList<Carte> getCartes()  throws RemoteException{
 		return cartes;
 	}
 
-	public void addCartes(Carte carte) {
+	public void addCartes(Carte carte)  throws RemoteException{
 		this.cartes.add(carte);
 	}
 
-	public int getNbRoute() {
+	public int getNbRoute()  throws RemoteException{
 		return nbRoute;
 	}
 
-	public void setNbRoute(int nbRoute) {
+	public void setNbRoute(int nbRoute)  throws RemoteException{
 		this.nbRoute = nbRoute;
+	}
+
+	@Override
+	public int compareTo(JoueurInterface j) throws RemoteException{
+		if (this.dateDeNaissance.after(j.getDateDeNaissance())){
+			return 1;
+		}
+		else if (this.dateDeNaissance.before(j.getDateDeNaissance())){
+			return -1;
+		}
+		else{
+			return 0;
+		}
 	}
 }

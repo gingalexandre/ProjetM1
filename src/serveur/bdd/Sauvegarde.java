@@ -1,16 +1,15 @@
 package serveur.bdd;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.util.ArrayList;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
+import org.codehaus.jackson.annotate.JsonMethod;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
 
+import serveur.modele.Hexagone;
 import serveur.modele.Joueur;
-import serveur.modele.Partie;
 import serveur.modele.Plateau;
 import serveur.modele.Point;
 
@@ -18,13 +17,14 @@ public class Sauvegarde {
 	private static Plateau plateauCourant;
 	private static Joueur[] joueurs;
 	private static Joueur currentJoueur = null;
-	private static ObjectMapper objectMapper = new ObjectMapper();
+	private static ObjectMapper objectMapper = new ObjectMapper().setVisibility(JsonMethod.FIELD, Visibility.ANY);
+;
 	private static File jsonOutputFile;
 
 	
 	public Sauvegarde(){
 		plateauCourant = Plateau.getInstance();
-		System.out.println(plateauCourant);
+		//System.out.println(plateauCourant);
 		try {
 			objectMapper.enable(SerializationConfig.Feature.INDENT_OUTPUT);
 			String jsonString = objectMapper.writeValueAsString(plateauCourant);

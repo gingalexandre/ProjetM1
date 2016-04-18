@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.After;
 import org.junit.Test;
 
-import client.commun.DistributeurType;
+import serveur.commun.DistributeurType;
 
 public class TestDistributeurType {
 	private static int NBTUILEMIN = 3;

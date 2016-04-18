@@ -2,8 +2,6 @@ package serveur.modele;
 
 import java.io.Serializable;
 
-import org.codehaus.jackson.annotate.JsonGetter;
-
 public class Point implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -17,12 +15,10 @@ public class Point implements Serializable {
 		this.y = ((double)((int) y));
 	}
 	
-	@JsonGetter("x")
     public double getX() {
         return x;
     }
 
-	@JsonGetter("y")
     public double getY() {
         return y;
     }

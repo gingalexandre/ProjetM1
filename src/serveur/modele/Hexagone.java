@@ -3,24 +3,28 @@ package serveur.modele;
 import java.io.Serializable;
 import java.util.Arrays;
 
-import client.commun.DistributeurType;
+import serveur.commun.DistributeurType;
+import org.codehaus.jackson.annotate.*;
 
-public class Hexagone implements Serializable{
+public class Hexagone implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private int indexHexagone;
+
 	private Ressource ressource;
 	private int numero;
 	private Ville[] villeAdj = new Ville[6];
-	
+
 	public final static int FORET = 1;
 	public final static int CHAMPS = 2;
 	public final static int CARRIERE = 3;
 	public final static int MONTAGNE = 4;
 	public final static int PRAIRIE = 5;
-	
+
 	public final static int DESERT = 6;
+
+	public boolean VOLEUR = false;
 
 	private Point a;
 	private Point b;
@@ -28,9 +32,14 @@ public class Hexagone implements Serializable{
 	private Point d;
 	private Point e;
 	private Point f;
-	
+
+	private Point centre;
+
 	private int type;
 
+	private Jeton numeroJeton;
+
+	
 	public Hexagone(int indexHexagone, Point a, Point b, Point c, Point d, Point e, Point f, int type) {
 		super();
 		this.indexHexagone = indexHexagone;
@@ -42,7 +51,7 @@ public class Hexagone implements Serializable{
 		this.f = f;
 		this.type = type;
 	}
-	
+
 	public Point getB() {
 		return b;
 	}
@@ -67,49 +76,55 @@ public class Hexagone implements Serializable{
 		return d;
 	}
 
-	public Hexagone(double xCentre, double yCentre, double size, int indexHexagone){
-	 double x1 = xCentre;
-     double y1 = yCentre + size;
-     a = new Point(x1,y1);
-     
-     double x2 = xCentre + (Math.sqrt(3) / 2) * size;
-     double y2 = yCentre + size / 2;
-     b = new Point(x2,y2);
-     
-     double x3 = x2;
-     double y3 = yCentre - size / 2;
-     c = new Point(x3,y3);
-     
-     double x4 = x1;
-     double y4 = yCentre - size;
-     d = new Point(x4,y4);
-     
-     double x5 = xCentre - (Math.sqrt(3) / 2) * size;
-     double y5 = y3;
-     e = new Point(x5,y5);
-     
-     double x6 = x5;
-     double y6 = y2;
-     f = new Point(x6,y6);
-     
-     this.indexHexagone = indexHexagone;
-     
-     if(this.indexHexagone != 9){
-    	 this.type = DistributeurType.getInstance().donnerType();
-     }
-     else{
-    	 this.type = Hexagone.DESERT;
-     }
-     
- }
-	
-	public Double[] getPoints(){
-		Double[] res = {a.getX(), a.getY(), b.getX(), b.getY(), c.getX(), c.getY(), d.getX(), d.getY(), e.getX(), e.getY(), f.getX(), f.getY()};
+	public Hexagone(double xCentre, double yCentre, double size, int indexHexagone) {
+		double x1 = xCentre;
+		double y1 = yCentre + size;
+		a = new Point(x1, y1);
+
+		double x2 = xCentre + (Math.sqrt(3) / 2) * size;
+		double y2 = yCentre + size / 2;
+		b = new Point(x2, y2);
+
+		double x3 = x2;
+		double y3 = yCentre - size / 2;
+		c = new Point(x3, y3);
+
+		double x4 = x1;
+		double y4 = yCentre - size;
+		d = new Point(x4, y4);
+
+		double x5 = xCentre - (Math.sqrt(3) / 2) * size;
+		double y5 = y3;
+		e = new Point(x5, y5);
+
+		double x6 = x5;
+		double y6 = y2;
+		f = new Point(x6, y6);
+
+		centre = new Point(xCentre, yCentre);
+
+		this.indexHexagone = indexHexagone;
+
+		if (this.indexHexagone != 9) {
+			this.type = DistributeurType.getInstance().donnerType();
+			this.numeroJeton = new Jeton(this);
+		} else {
+			this.type = Hexagone.DESERT;
+			VOLEUR = true;
+		}
+
+	}
+
+	public Double[] getPoints() {
+		Double[] res = { a.getX(), a.getY(), b.getX(), b.getY(), c.getX(), c.getY(), d.getX(), d.getY(), e.getX(),
+				e.getY(), f.getX(), f.getY() };
 		return res;
 	}
+
 	public int getIndexHexagone() {
 		return indexHexagone;
 	}
+
 	public int getType() {
 		return type;
 	}
@@ -136,7 +151,20 @@ public class Hexagone implements Serializable{
 				+ ", villeAdj=" + Arrays.toString(villeAdj) + ", a=" + a + ", b=" + b + ", c=" + c + ", d=" + d + ", e="
 				+ e + ", f=" + f + ", type=" + type + "]";
 	}
-	
-	
-	
+
+	public Point getCentre() {
+		return centre;
+	}
+
+	public Jeton getJeton() {
+		return this.numeroJeton;
+	}
+
+	public boolean isVOLEUR() {
+		return VOLEUR;
+	}
+
+	public void setVOLEUR(boolean VOLEUR) {
+		this.VOLEUR = VOLEUR;
+	}
 }

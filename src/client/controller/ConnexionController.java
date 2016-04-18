@@ -60,7 +60,7 @@ public class ConnexionController implements Initializable {
 	}
 	
 	/**
-	 * M�thode v�rifiant la connexion. Si elle fonctionne, alors la m�thode lance le jeu
+	 * Méthode vérifiant la connexion. Si elle fonctionne, alors la m�thode lance le jeu
 	 * @throws RemoteException 
 	 * @throws TooMuchPlayerException 
 	 */
@@ -87,7 +87,7 @@ public class ConnexionController implements Initializable {
 	}
 	
 	/**
-	 * M�thode permettant de lancer le jeu une fois connect�
+	 * Méthode permettant de lancer le jeu une fois connect�
 	 */
 	public void lancerJeu(){
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Game.fxml"));
@@ -117,7 +117,7 @@ public class ConnexionController implements Initializable {
 	}
 	
 	/**
-	 * M�thode permettant d'afficher la fen�tre d'inscription
+	 * Méthode permettant d'afficher la fen�tre d'inscription
 	 */
 	@FXML
 	public void inscription() {
@@ -147,5 +147,15 @@ public class ConnexionController implements Initializable {
 		serveur.enregistrerJoueur(proxy);
 		// Set le nom du joueur. Pour r�cup�rer le joueur n'importe o� (et donc ses attributs), passer par proxy.getJoueur()
 		proxy.getJoueur().setNomUtilisateur(nomJoueur);
+	}
+	
+	/**
+	 * Se lance quand l'utilisateur appuie sur entrée lorsqu'il se trouve dans le PasswordField
+	 * @throws RemoteException
+	 * @throws InterruptedException
+	 * @throws TooMuchPlayerException
+	 */
+	public void onEnter() throws RemoteException, InterruptedException, TooMuchPlayerException{
+		connexion();
 	}
 }

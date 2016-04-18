@@ -1,6 +1,7 @@
 package serveur.modele;
 
 import java.io.Serializable;
+import org.codehaus.jackson.annotate.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -9,15 +10,22 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Plateau implements Serializable{
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private ArrayList<Hexagone> hexagones ;
+
 	private ArrayList<Point> points;
+
 	private ArrayList<Ville> villes ;
+
 	private ArrayList<Route> routes ;
-	private static Plateau INSTANCE = null;
 	
+
+	private static Plateau INSTANCE = null;
+
+	private ArrayList<Jeton> jetons ;
+
 	private static final int SIZE = 60;
 	
 	private Plateau(){
@@ -26,6 +34,18 @@ public class Plateau implements Serializable{
 		setPoints();
 		setVilles();
 		setRoutes();
+		setJetons();
+	}
+	
+	public void setJetons(){
+		jetons = new ArrayList<Jeton>();
+		for(Hexagone hex : hexagones){
+			jetons.add(hex.getJeton());
+		}
+	}
+	
+	public ArrayList<Jeton> getJetons(){
+		return jetons;
 	}
 	
 	 public ArrayList<Hexagone> getHexagones() {
@@ -118,14 +138,14 @@ public class Plateau implements Serializable{
 	public void setRoutes(){
 		routes = new ArrayList<Route>();
 		for(Ville v : villes){
-			if(v.getVilleAdj1() !=  null){
-				ajoutListeRoute(new Route(v.getEmplacement(),v.getVilleAdj1().getEmplacement()));
+			if(v.getVille_adj1() !=  null){
+				ajoutListeRoute(new Route(v.getEmplacement(),v.getVille_adj1().getEmplacement()));
 			}
-			if(v.getVilleAdj2() !=  null){
-				ajoutListeRoute(new Route(v.getEmplacement(),v.getVilleAdj2().getEmplacement()));
+			if(v.getVille_adj2() !=  null){
+				ajoutListeRoute(new Route(v.getEmplacement(),v.getVille_adj2().getEmplacement()));
 			}
-			if(v.getVilleAdj3() !=  null){
-				ajoutListeRoute(new Route(v.getEmplacement(),v.getVilleAdj3().getEmplacement()));
+			if(v.getVille_adj3() !=  null){
+				ajoutListeRoute(new Route(v.getEmplacement(),v.getVille_adj3().getEmplacement()));
 			}
 		}
 		
@@ -160,6 +180,7 @@ public class Plateau implements Serializable{
 		return INSTANCE;
 	}
 	
+	@JsonIgnore
 	public Hexagone[] getAllHexagone() {
         Hexagone[] res = new Hexagone[19];
         /* CREATION DES HEXAGONES */
@@ -197,5 +218,14 @@ public class Plateau implements Serializable{
 	}
 	
 	
+
+	public Hexagone getVoleur(){
+		for(Hexagone hex: hexagones) {
+			if(hex.isVOLEUR() == true){
+				return hex;
+			}
+		}
+		return null;
+	}
 
 }

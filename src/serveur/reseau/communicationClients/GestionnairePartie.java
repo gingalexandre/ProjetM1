@@ -173,4 +173,12 @@ public class GestionnairePartie implements Serializable{
 			}
 		}
 	}
+
+	public Joueur finirTour() throws RemoteException {
+		this.partie.incrementeTour();
+		
+		Joueur joueurTour = this.partie.getJoueurTour();
+		enableBoutons(joueurTour);
+		return joueurTour;
+	}
 }

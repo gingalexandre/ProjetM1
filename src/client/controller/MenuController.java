@@ -6,6 +6,7 @@ import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 import javafx.animation.RotateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -107,16 +108,16 @@ public class MenuController implements Initializable {
 	 * Méthode de réactivation des boutons
 	 */
 	public void enableButtons(){
-		boutonDes.setDisable(false);
-		boutonEchange.setDisable(false);
+		Platform.runLater(() -> boutonDes.setDisable(false));
+		Platform.runLater(() -> boutonEchange.setDisable(false));
 	}
 	
 	/**
 	 * Méthode de réactivation des boutons
 	 */
 	public void disableButtons(){
-		boutonDes.setDisable(true);
-		boutonEchange.setDisable(true);
+		Platform.runLater(() -> boutonDes.setDisable(true));
+		Platform.runLater(() -> boutonEchange.setDisable(true));
 	}
 
 	/**
@@ -230,10 +231,7 @@ public class MenuController implements Initializable {
 		serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" a fini son tour"));
 		
 		//Lancement du tour du joueur suivant
-		serveur.getGestionnairePartie().getPartie().incrementeTour();
-		
-		Joueur joueurTour = serveur.getGestionnairePartie().getPartie().getJoueurTour();
-		serveur.getGestionnairePartie().enableBoutons(serveur.getGestionnairePartie().getPartie().getJoueurTour());
+		Joueur joueurTour = serveur.getGestionnairePartie().finirTour();
 		
 		serveur.getGestionnaireUI().diffuserMessage(new Message("C'est à "+joueurTour.getNomUtilisateur()+" de jouer"));
 	}

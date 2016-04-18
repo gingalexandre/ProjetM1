@@ -31,7 +31,7 @@ public class Partie implements Serializable{
 	
     private Ressource ressources;
     
-    private static ArrayList<Joueur> ordreJeu;
+    private ArrayList<Joueur> ordreJeu;
     
     /** 
      * De 1 à 3 si 3 joueurs
@@ -46,7 +46,7 @@ public class Partie implements Serializable{
     	 this.plateau = plateau;
     	 this.ordreJeu = new ArrayList<Joueur>();
     	 this.ressources = new Ressource();
-    	 tour = 0;
+    	 tour = 1;
     }
     
     /**
@@ -62,7 +62,7 @@ public class Partie implements Serializable{
     	this.plateau = plateau;
     	this.ordreJeu = new ArrayList<Joueur>();
    	 	this.ressources = new Ressource();
-   	 	tour = 0;
+   	 	tour = 1;
     }
     
     
@@ -81,7 +81,7 @@ public class Partie implements Serializable{
     	this.plateau = plateau;
     	this.ordreJeu = new ArrayList<Joueur>();
    	 	this.ressources = new Ressource();
-   	 	tour = 0;
+   	 	tour = 1;
     }
     
     /**
@@ -105,7 +105,7 @@ public class Partie implements Serializable{
     }
     
     public Joueur getJoueurTour(){
-    	return ordreJeu.get(tour);
+    	return ordreJeu.get(tour-1);
     }
     
     public ArrayList<Joueur> getOrdreJeu() {
@@ -122,7 +122,7 @@ public class Partie implements Serializable{
     			tour++;
     		}
     		else{
-    			tour = 0;
+    			tour = 1;
     		}
     	}
     	else{
@@ -130,7 +130,7 @@ public class Partie implements Serializable{
     			tour++;
     		}
     		else{
-    			tour = 0;
+    			tour = 1;
     		}
     	}
     }

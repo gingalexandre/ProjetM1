@@ -32,17 +32,17 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	/**
 	 * Gestionnaire de la base de donnees
 	 */
-	private GestionnaireBDD gestionnaireBDD;
+	private static GestionnaireBDD gestionnaireBDD;
 	
 	/**
 	 * Gestionnaire de la partie
 	 */
-	private GestionnairePartie gestionnairePartie;
+	private static GestionnairePartie gestionnairePartie;
 	
 	/**
 	 * Gestionnaire de l'interface
 	 */
-	private GestionnaireUI gestionnaireUI;
+	private static GestionnaireUI gestionnaireUI;
 	
 	/**
 	 * Constructeur de la classe ServeurImpl
@@ -50,9 +50,9 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 */
 	public ServeurImpl(int nombre_max_joueurs) throws RemoteException{
 		this.nombre_max_joueurs = nombre_max_joueurs;
-		this.gestionnaireBDD = new GestionnaireBDD();
-		this.gestionnaireUI = new GestionnaireUI();
-		this.gestionnairePartie = new GestionnairePartie(this.gestionnaireUI.getPlateau());
+		gestionnaireBDD = new GestionnaireBDD();
+		gestionnaireUI = new GestionnaireUI();
+		gestionnairePartie = new GestionnairePartie(gestionnaireUI.getPlateau());
 	}
 	
 	/**
@@ -96,9 +96,9 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 * @throws RemoteException 
 	 */
 	private void envoyerJoueurAuGestionnaire(JoueurServeur nouveauJoueurServeur) throws RemoteException{
-		this.gestionnairePartie.enregistrerJoueur(nouveauJoueurServeur);
-		this.gestionnairePartie.ajouterJoueurPartie(nouveauJoueurServeur.getJoueur());
-		this.gestionnaireUI.enregistrerJoueur(nouveauJoueurServeur);
+		gestionnairePartie.enregistrerJoueur(nouveauJoueurServeur);
+		gestionnairePartie.ajouterJoueurPartie(nouveauJoueurServeur.getJoueur());
+		gestionnaireUI.enregistrerJoueur(nouveauJoueurServeur);
 	}
 	
 	/**
@@ -108,7 +108,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 */
 	@Override
 	public GestionnaireBDD getGestionnaireBDD() throws RemoteException {
-		return this.gestionnaireBDD;
+		return gestionnaireBDD;
 	}
 
 	/**
@@ -118,7 +118,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 */
 	@Override
 	public GestionnairePartie getGestionnairePartie() throws RemoteException {
-		return this.gestionnairePartie;
+		return gestionnairePartie;
 	}
 
 	/**
@@ -128,6 +128,6 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 */
 	@Override
 	public GestionnaireUI getGestionnaireUI() throws RemoteException {
-		return this.gestionnaireUI;
+		return gestionnaireUI;
 	}
 }

@@ -7,18 +7,20 @@ package serveur.modele;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 
 import serveur.modele.service.JoueurInterface;
+import serveur.modele.service.PartieInterface;
 
 /**
  *
  * @author Arthur
  */
-public class Partie implements Serializable{
+public class Partie extends UnicastRemoteObject implements Serializable, PartieInterface{
     
 	private static final long serialVersionUID = 1L;
 
@@ -45,52 +47,18 @@ public class Partie implements Serializable{
     /**
      * @param plateau - plateau de la partie
      */
-    public Partie(Plateau plateau){
+    public Partie(Plateau plateau) throws RemoteException{
     	 this.plateau = plateau;
     	 this.ordreJeu = new ArrayList<>();
     	 this.ressources = new Ressource();
     	 this.tour = 1;
     }
     
-    /**
-     * @param joueur1 - JoueurInterface 1 de la partie 
-     * @param joueur2 - JoueurInterface 2 de la partie 
-     * @param joueur3 - JoueurInterface 3 de la partie 
-     * @param plateau - plateau de la partie
-     */
-    public Partie(JoueurInterface joueur1, JoueurInterface joueur2, JoueurInterface joueur3, Plateau plateau){
-    	this.joueur1 = joueur1;
-    	this.joueur2 = joueur2;
-    	this.joueur3 = joueur3;
-    	this.plateau = plateau;
-    	this.ordreJeu = new ArrayList<>();
-   	 	this.ressources = new Ressource();
-   	 	tour = 1;
-    }
-    
-    
-    /**
-     * @param joueur1 - JoueurInterface 1 de la partie 
-     * @param joueur2 - JoueurInterface 2 de la partie 
-     * @param joueur3 - JoueurInterface 3 de la partie 
-     * @param joueur4 - JoueurInterface 4 de la partie 
-     * @param plateau - plateau de la partie
-     */
-    public Partie(JoueurInterface joueur1, JoueurInterface joueur2, JoueurInterface joueur3, JoueurInterface joueur4, Plateau plateau){
-    	this.joueur1 = joueur1;
-    	this.joueur2 = joueur2;
-    	this.joueur3 = joueur3;
-    	this.joueur4 = joueur4;
-    	this.plateau = plateau;
-    	this.ordreJeu = new ArrayList<>();
-   	 	this.ressources = new Ressource();
-   	 	tour = 1;
-    }
     
     /**
      * @return le nombre de joueurs de la partie
      */
-    public int getNombreJoueurs(){
+    public int getNombreJoueurs() throws RemoteException{
     	int compteur = 0;
     	if(joueur1 != null){
     		compteur++;
@@ -108,19 +76,19 @@ public class Partie implements Serializable{
     }
     
 
-    public JoueurInterface getJoueurTour(){
+    public JoueurInterface getJoueurTour() throws RemoteException{
     	return ordreJeu.get(tour-1);
     }
     
-    public ArrayList<JoueurInterface> getOrdreJeu() {
+    public ArrayList<JoueurInterface> getOrdreJeu() throws RemoteException{
 		return ordreJeu;
 	}
 
-	public void setOrdreJeu(ArrayList<JoueurInterface> ordreJeu) {
+	public void setOrdreJeu(ArrayList<JoueurInterface> ordreJeu) throws RemoteException{
 		this.ordreJeu = ordreJeu;
 	}
 
-	public void incrementeTour(){
+	public void incrementeTour() throws RemoteException{
     	tour = (tour+1)%(getNombreJoueurs()+1);
     	if (tour == 0) tour++;
     }
@@ -141,54 +109,54 @@ public class Partie implements Serializable{
     	return null;
     }
 
-	public JoueurInterface getJoueur1() {
+	public JoueurInterface getJoueur1() throws RemoteException{
 		return joueur1;
 	}
 
-	public void setJoueur1(JoueurInterface joueur1) {
+	public void setJoueur1(JoueurInterface joueur1) throws RemoteException{
 		this.joueur1 = joueur1;
 		this.ordreJeu.add(this.joueur1);
 	}
 
-	public JoueurInterface getJoueur2() {
+	public JoueurInterface getJoueur2() throws RemoteException{
 		return joueur2;
 	}
 
-	public void setJoueur2(JoueurInterface joueur2) {
+	public void setJoueur2(JoueurInterface joueur2) throws RemoteException{
 		this.joueur2 = joueur2;
 		this.ordreJeu.add(this.joueur2);
 	}
 
-	public JoueurInterface getJoueur3() {
+	public JoueurInterface getJoueur3() throws RemoteException{
 		return joueur3;
 	}
 
-	public void setJoueur3(JoueurInterface joueur3) {
+	public void setJoueur3(JoueurInterface joueur3) throws RemoteException{
 		this.joueur3 = joueur3;
 		this.ordreJeu.add(this.joueur3);
 	}
 
-	public JoueurInterface getJoueur4() {
+	public JoueurInterface getJoueur4() throws RemoteException{
 		return joueur4;
 	}
 
-	public void setJoueur4(JoueurInterface joueur4) {
+	public void setJoueur4(JoueurInterface joueur4) throws RemoteException{
 		this.joueur4 = joueur4;
 		this.ordreJeu.add(this.joueur4);
 	}
 
-	public Ressource getRessources() {
+	public Ressource getRessources() throws RemoteException{
 		return ressources;
 	}
 
-	public void setRessources(Ressource ressources) {
+	public void setRessources(Ressource ressources) throws RemoteException{
 		this.ressources = ressources;
 	}
 	
 	/**
 	 * Arrange la liste ordreJeu par ordre d'âge des joueurs
 	 */
-	public void arrangerOrdreTour(){
+	public void arrangerOrdreTour() throws RemoteException{
 		Comparator<JoueurInterface> c = new Comparator<JoueurInterface>() {
             @Override
             public int compare(JoueurInterface j1, JoueurInterface j2) {
@@ -207,7 +175,7 @@ public class Partie implements Serializable{
 	/**
 	 * @return le JoueurInterface le plus vieux de la partie
 	 */
-	public JoueurInterface getJoueurLePlusVieux(){
+	public JoueurInterface getJoueurLePlusVieux() throws RemoteException{
 		return ordreJeu.get(0);
 	}
 }

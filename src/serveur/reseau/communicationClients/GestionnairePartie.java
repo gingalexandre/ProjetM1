@@ -91,7 +91,7 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	 * @param nouveauJoueurInterface - JoueurInterface a ajouter a la partie
 	 * @throws TooMuchPlayerException
 	 */
-	public void ajouterJoueurPartie(JoueurInterface nouveauJoueur){
+	public void ajouterJoueurPartie(JoueurInterface nouveauJoueur) throws RemoteException{
 		switch(this.joueursServeur.size()){
 			case 1:
 				partie.setJoueur1(nouveauJoueur);

@@ -88,16 +88,16 @@ public class GestionnairePartie implements Serializable{
 	public void ajouterJoueurPartie(Joueur nouveauJoueur){
 		switch(this.joueursServeur.size()){
 			case 1:
-				this.partie.setJoueur1(nouveauJoueur);
+				partie.setJoueur1(nouveauJoueur);
 				break;
 			case 2:
-				this.partie.setJoueur2(nouveauJoueur);
+				partie.setJoueur2(nouveauJoueur);
 				break;
 			case 3:
-				this.partie.setJoueur3(nouveauJoueur);
+				partie.setJoueur3(nouveauJoueur);
 				break;
 			case 4:
-				this.partie.setJoueur4(nouveauJoueur);
+				partie.setJoueur4(nouveauJoueur);
 				break;
 			default: 
 				break;
@@ -149,10 +149,10 @@ public class GestionnairePartie implements Serializable{
 	 * @throws RemoteException 
 	 */
 	private void commencerPartie() throws RemoteException {
-		partie.arrangerOrdreTour();
+		getPartie().arrangerOrdreTour();
 		Joueur joueurPlusVieux = partie.getJoueurLePlusVieux();
 		for(JoueurServeur joueurServeur : joueursServeur){
-			joueurServeur.recevoirMessage(new Message("La partie a commence !\nComme c'est le plus âgé, c'est à +"+joueurPlusVieux.getNomUtilisateur()+" de jouer."));
+			joueurServeur.recevoirMessage(new Message("La partie a commence !\nComme c'est le plus âgé, c'est à "+joueurPlusVieux.getNomUtilisateur()+" de jouer."));
 		}
 		
 		lancerTourPremierJoueur(joueurPlusVieux);

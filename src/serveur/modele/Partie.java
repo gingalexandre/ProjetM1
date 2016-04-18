@@ -15,10 +15,6 @@ import java.util.Comparator;
  *
  * @author Arthur
  */
-/**
- * @author jerome
- *
- */
 public class Partie implements Serializable{
     
 	private static final long serialVersionUID = 1L;
@@ -35,7 +31,7 @@ public class Partie implements Serializable{
 	
     private Ressource ressources;
     
-    private ArrayList<Joueur> ordreJeu = new ArrayList<Joueur>();
+    private static ArrayList<Joueur> ordreJeu;
     
     /** 
      * De 1 à 3 si 3 joueurs
@@ -112,7 +108,15 @@ public class Partie implements Serializable{
     	return ordreJeu.get(tour);
     }
     
-    public void incrementeTour(){
+    public ArrayList<Joueur> getOrdreJeu() {
+		return ordreJeu;
+	}
+
+	public void setOrdreJeu(ArrayList<Joueur> ordreJeu) {
+		this.ordreJeu = ordreJeu;
+	}
+
+	public void incrementeTour(){
     	if(joueur4 != null){
     		if(tour <= 3){
     			tour++;
@@ -201,7 +205,7 @@ public class Partie implements Serializable{
                 return j1.compareTo(j2);
             }
         };
-        this.ordreJeu.sort(c);
+        ordreJeu.sort(c);
 	}
 	
 	/**

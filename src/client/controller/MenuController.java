@@ -231,11 +231,9 @@ public class MenuController implements Initializable {
 		
 		//Lancement du tour du joueur suivant
 		serveur.getGestionnairePartie().getPartie().incrementeTour();
+		
 		Joueur joueurTour = serveur.getGestionnairePartie().getPartie().getJoueurTour();
-		
 		serveur.getGestionnairePartie().enableBoutons(serveur.getGestionnairePartie().getPartie().getJoueurTour());
-		
-		//TODO méthode qui dégrise les boutons du joueur séléctionné au dessus
 		
 		serveur.getGestionnaireUI().diffuserMessage(new Message("C'est à "+joueurTour.getNomUtilisateur()+" de jouer"));
 	}

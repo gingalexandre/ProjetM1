@@ -3,10 +3,6 @@ package serveur.modele;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonManagedReference;
-import org.codehaus.jackson.annotate.JsonTypeInfo;
-
 import javafx.scene.shape.Circle;
 import serveur.view.VueVille;
 
@@ -16,11 +12,11 @@ public class Ville implements Serializable {
 
 	private Point emplacement;
 
-	private Ville ville_adj1;
+	private int ville_adj1;
 
-	private Ville ville_adj2;
+	private int ville_adj2;
 
-	private Ville ville_adj3;
+	private int ville_adj3;
 
 	private Route route_adj1;
 
@@ -51,11 +47,11 @@ public class Ville implements Serializable {
 		return vueVille;
 	}
 
-	public boolean estLibre(Joueur proprio) {
+	public boolean estLibre(Joueur proprio, ArrayList<Ville> villes) {
 		return ((this.oqp == null)
-				&& (((this.ville_adj1 != null) && (this.ville_adj1.oqp == null))
-						&& ((this.ville_adj2 != null) && (this.ville_adj2.oqp == null))
-						&& ((this.ville_adj3 != null) && (this.ville_adj3.oqp == null)))
+				&& (((this.ville_adj1 != -1) && (villes.get(this.ville_adj1).oqp == null))
+						&& ((this.ville_adj2 != -1) && (villes.get(this.ville_adj2).oqp == null))
+						&& ((this.ville_adj3 != -1) && (villes.get(this.ville_adj3).oqp == null)))
 				&& ((this.route_adj1.getOqp() == proprio) || (this.route_adj2.getOqp() == proprio)
 						|| (this.route_adj3.getOqp() == proprio)));
 	}
@@ -70,7 +66,7 @@ public class Ville implements Serializable {
 		this.oqp = j;
 	}
 
-	public void setVillesAdj(Ville v1, Ville v2, Ville v3) {
+	public void setVillesAdj(int v1, int v2, int v3) {
 		this.ville_adj1 = v1;
 		this.ville_adj2 = v2;
 		this.ville_adj3 = v3;
@@ -92,18 +88,18 @@ public class Ville implements Serializable {
 		return serialVersionUID;
 	}
 
-	@JsonIgnore
-	public Ville getVille_adj1() {
+
+	public int getVille_adj1() {
 		return ville_adj1;
 	}
 
-	@JsonIgnore
-	public Ville getVille_adj2() {
+
+	public int getVille_adj2() {
 		return ville_adj2;
 	}
 
-	@JsonIgnore
-	public Ville getVille_adj3() {
+
+	public int getVille_adj3() {
 		return ville_adj3;
 	}
 

@@ -31,15 +31,15 @@ public class TestVille {
 	@Test
     public void testEstLibre(){
 		listeRoutes.get(0).setOQP(j1);
-		assertTrue(listeVilles.get(0).estLibre(j1));
+		assertTrue(listeVilles.get(0).estLibre(j1, listeVilles));
 		
-		assertFalse(listeVilles.get(0).estLibre(j1));
-		assertFalse(listeVilles.get(1).estLibre(j1));
+		assertFalse(listeVilles.get(0).estLibre(j1, listeVilles));
+		assertFalse(listeVilles.get(1).estLibre(j1, listeVilles));
 		
-		assertFalse(listeVilles.get(10).estLibre(j1));
+		assertFalse(listeVilles.get(10).estLibre(j1, listeVilles));
 		
-		assertFalse(listeVilles.get(0).estLibre(j2));
-		assertFalse(listeVilles.get(1).estLibre(j2));
+		assertFalse(listeVilles.get(0).estLibre(j2, listeVilles));
+		assertFalse(listeVilles.get(1).estLibre(j2, listeVilles));
     }
     
     

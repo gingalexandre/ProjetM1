@@ -16,34 +16,6 @@ import serveur.reseau.JoueurServeur;
  * Classe qui s'occupe des echanges concernant la partie entre les clients et le serveur
  * @author jerome
  */
-/**
- * @author jerome
- *
- */
-/**
- * @author jerome
- *
- */
-/**
- * @author jerome
- *
- */
-/**
- * @author jerome
- *
- */
-/**
- * @author jerome
- *
- */
-/**
- * @author jerome
- *
- */
-/**
- * @author jerome
- *
- */
 public class GestionnairePartie implements Serializable{
 	
 	private static final long serialVersionUID = 1L;

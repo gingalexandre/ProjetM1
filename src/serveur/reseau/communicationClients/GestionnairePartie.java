@@ -1,13 +1,10 @@
 package serveur.reseau.communicationClients;
 
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import exception.TooMuchPlayerException;
-
-import serveur.modele.Joueur;
 import serveur.modele.Message;
 import serveur.modele.Partie;
 import serveur.modele.Plateau;
@@ -140,7 +137,7 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 		boolean tousJoueursPrets = true;
 		// Verifie si tous les joueurs sont pret. Si un seul ne l'est pas, la partie ne peut pas commencer
 		for(JoueurServeur joueurServeur : joueursServeur){
-			if(!joueurServeur.getJoueur().isPret()){
+			if(!joueurServeur.getJoueur().getPret()){
 				tousJoueursPrets = false;
 			}
 		}
@@ -190,5 +187,12 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 		JoueurInterface joueurTour = this.partie.getJoueurTour();
 		enableBoutons(joueurTour);
 		return joueurTour;
+	}
+
+	/**
+	 * Méthode renvoyant une arrayList des joueurs du serveur
+	 */
+	public ArrayList<JoueurServeur> recupererTousLesJoueurs() throws RemoteException {	
+		return joueursServeur;
 	}
 }

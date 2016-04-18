@@ -9,7 +9,7 @@ import java.util.HashMap;
 import serveur.modele.Joueur;
 import serveur.modele.carte.Carte;
 
-public interface JoueurInterface extends Remote{
+public interface JoueurInterface extends Remote {
 
 	/**
 	 * Permet d'obtenir le stock de ressources du joueur
@@ -65,7 +65,7 @@ public interface JoueurInterface extends Remote{
 	 * @return si le joueur est prêt ou non
 	 * @throws RemoteException
 	 */
-	boolean isPret() throws RemoteException;
+	boolean getPret() throws RemoteException;
 
 	/**
 	 * Permet de spécifier si le joueur est prêt ou non

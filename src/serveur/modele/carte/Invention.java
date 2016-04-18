@@ -1,16 +1,20 @@
 package serveur.modele.carte;
 
-import serveur.modele.Joueur;
+import java.io.Serializable;
 
 /**
  * Carte d'innovation : ces cartes permettent d'obtenir deux d'une ressource.
  *
  * @author Yohann Hugo
  */
-public class Invention implements Carte {
+public class Invention implements Carte, Serializable {
 
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
      * Attribut chemin vers la ressources image.
      */
     private static String CHEMIN = "/Ressources/cartes/carte_progres_invention.png";

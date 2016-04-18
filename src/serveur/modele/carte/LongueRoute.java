@@ -1,13 +1,18 @@
 package serveur.modele.carte;
 
-import serveur.modele.Joueur;
+import java.io.Serializable;
 
 /**
  * @auhtor Yohann Hugo
  */
-public class LongueRoute implements Carte {
+public class LongueRoute implements Carte, Serializable {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Attribut : condition minimal requise.
      */
     private static int NB_ROUTE_MINIMAL = 5;

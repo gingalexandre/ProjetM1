@@ -122,13 +122,8 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * Permet d'obtenir le gestionnaire de base de donn�es
-	 * @return le gestionnaire de base de donn�es
-=======
 	 * Permet d'obtenir le gestionnaire de base de donnees
 	 * @return le gestionnaire de base de donnees
->>>>>>> master
 	 * @throws RemoteException
 	 */
 	@Override

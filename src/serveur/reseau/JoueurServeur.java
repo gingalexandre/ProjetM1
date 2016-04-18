@@ -1,10 +1,10 @@
 package serveur.reseau;
 
+import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import serveur.modele.Joueur;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
 import serveur.modele.service.JoueurInterface;
@@ -13,7 +13,7 @@ import serveur.modele.service.JoueurInterface;
  * Interface du proxy entre client et serveur
  * @author jerome
  */
-public interface JoueurServeur extends Remote{
+public interface JoueurServeur extends Remote {
 	
 	/**
 	 * Re�oit le message transmit par le serveur et l'envoie au joueur et l'envoie au controller du chat

@@ -32,6 +32,13 @@ public interface GestionnairePartieInterface extends Remote{
 	ArrayList<JoueurInterface> recupererAutresJoueurs(JoueurInterface joueurQuiAppelle) throws RemoteException;
 	
 	/**
+	 * Méthode qui renvoie la liste de tous les joueurs
+	 * @return la liste des  joueurs connectés sur le serveur
+	 * @throws RemoteException
+	 */
+	ArrayList<JoueurServeur> recupererTousLesJoueurs() throws RemoteException;
+	
+	/**
 	 * Ajoute le JoueurInterface passe en parametre a la partie
 	 * @param nouveauJoueurInterface - JoueurInterface a ajouter a la partie
 	 * @throws TooMuchPlayerException

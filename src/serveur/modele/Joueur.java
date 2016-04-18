@@ -5,9 +5,6 @@
  */
 package serveur.modele;
 
-import serveur.modele.carte.Carte;
-import serveur.modele.service.JoueurInterface;
-
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -15,11 +12,14 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import serveur.modele.carte.Carte;
+import serveur.modele.service.JoueurInterface;
+
 /**
  *
  * @author Arthur
  */
-public class Joueur extends UnicastRemoteObject implements JoueurInterface{
+public class Joueur extends UnicastRemoteObject implements JoueurInterface, Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -84,6 +84,27 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface{
 		initialisationAttributs();
 	}
 	
+	
+	
+	public Joueur(int id, String nomUtilisateur, Date dateDeNaissance, String couleur, boolean pret, int pointVictoire,
+			int nbColonie, int nbVille, int nbRoute, HashMap<Integer, Integer> stockRessource, ArrayList<Carte> cartes)
+			throws RemoteException {
+		super();
+		this.id = id;
+		this.nomUtilisateur = nomUtilisateur;
+		this.dateDeNaissance = dateDeNaissance;
+		this.couleur = couleur;
+		this.pret = pret;
+		this.pointVictoire = pointVictoire;
+		this.nbColonie = nbColonie;
+		this.nbVille = nbVille;
+		this.nbRoute = nbRoute;
+		this.stockRessource = stockRessource;
+		this.cartes = cartes;
+	}
+
+
+
 	/**
 	 * Constructeur de joueur
 	 * @param nom - nom du joueur
@@ -138,7 +159,7 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface{
 	/**
 	 * @return si le joueur est pret a jouer ou non
 	 */
-	public boolean isPret()  throws RemoteException{
+	public boolean getPret()  throws RemoteException{
 		return pret;
 	}
 
@@ -275,4 +296,6 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface{
 			return 0;
 		}
 	}
+	
+	
 }

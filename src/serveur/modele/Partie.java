@@ -107,6 +107,7 @@ public class Partie implements Serializable{
     	return compteur;
     }
     
+
     public JoueurInterface getJoueurTour(){
     	return ordreJeu.get(tour-1);
     }
@@ -120,23 +121,8 @@ public class Partie implements Serializable{
 	}
 
 	public void incrementeTour(){
-		System.out.println(tour);
-    	if(joueur4 != null){
-    		if(tour <= 3){
-    			tour++;
-    		}
-    		else{
-    			tour = 1;
-    		}
-    	}
-    	else{
-    		if(tour <= 2){
-    			tour++;
-    		}
-    		else{
-    			tour = 1;
-    		}
-    	}
+    	tour = (tour+1)%(getNombreJoueurs()+1);
+    	if (tour == 0) tour++;
     }
     
     public JoueurInterface getJoueurByCouleur(String couleur) throws RemoteException{

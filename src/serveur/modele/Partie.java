@@ -41,14 +41,16 @@ public class Partie implements Serializable{
      * De 1 à 3 si 3 joueurs
      * De 1 à 4 si 4 joueurs
      */
-    private int tour = 0;
+    private static int tour;
     
     /**
      * @param plateau - plateau de la partie
      */
     public Partie(Plateau plateau){
     	 this.plateau = plateau;
+    	 this.ordreJeu = new ArrayList<Joueur>();
     	 this.ressources = new Ressource();
+    	 tour = 0;
     }
     
     /**
@@ -62,7 +64,9 @@ public class Partie implements Serializable{
     	this.joueur2 = joueur2;
     	this.joueur3 = joueur3;
     	this.plateau = plateau;
+    	this.ordreJeu = new ArrayList<Joueur>();
    	 	this.ressources = new Ressource();
+   	 	tour = 0;
     }
     
     
@@ -79,7 +83,9 @@ public class Partie implements Serializable{
     	this.joueur3 = joueur3;
     	this.joueur4 = joueur4;
     	this.plateau = plateau;
+    	this.ordreJeu = new ArrayList<Joueur>();
    	 	this.ressources = new Ressource();
+   	 	tour = 0;
     }
     
     /**
@@ -112,18 +118,18 @@ public class Partie implements Serializable{
     public void incrementeTour(){
     	if(joueur4 != null){
     		if(tour <= 3){
-    			this.tour++;
+    			tour++;
     		}
     		else{
-    			this.tour = 0;
+    			tour = 0;
     		}
     	}
     	else{
     		if(tour <= 2){
-    			this.tour++;
+    			tour++;
     		}
     		else{
-    			this.tour = 0;
+    			tour = 0;
     		}
     	}
     }
@@ -150,6 +156,7 @@ public class Partie implements Serializable{
 
 	public void setJoueur1(Joueur joueur1) {
 		this.joueur1 = joueur1;
+		this.ordreJeu.add(this.joueur1);
 	}
 
 	public Joueur getJoueur2() {
@@ -158,6 +165,7 @@ public class Partie implements Serializable{
 
 	public void setJoueur2(Joueur joueur2) {
 		this.joueur2 = joueur2;
+		this.ordreJeu.add(this.joueur2);
 	}
 
 	public Joueur getJoueur3() {
@@ -166,6 +174,7 @@ public class Partie implements Serializable{
 
 	public void setJoueur3(Joueur joueur3) {
 		this.joueur3 = joueur3;
+		this.ordreJeu.add(this.joueur3);
 	}
 
 	public Joueur getJoueur4() {
@@ -174,6 +183,7 @@ public class Partie implements Serializable{
 
 	public void setJoueur4(Joueur joueur4) {
 		this.joueur4 = joueur4;
+		this.ordreJeu.add(this.joueur4);
 	}
 
 	public Ressource getRessources() {
@@ -188,14 +198,6 @@ public class Partie implements Serializable{
 	 * Arrange la liste ordreJeu par ordre d'âge des joueurs
 	 */
 	public void arrangerOrdreTour(){
-		this.ordreJeu = new ArrayList<Joueur>();
-		this.ordreJeu.add(this.joueur1);
-		this.ordreJeu.add(this.joueur2);
-		this.ordreJeu.add(this.joueur3);
-		
-		if (this.joueur4 != null){
-			this.ordreJeu.add(this.joueur4);
-		}
 		Comparator<Joueur> c = new Comparator<Joueur>() {
             @Override
             public int compare(Joueur j1, Joueur j2) {

@@ -69,19 +69,15 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 			switch(joueurServeurs.size()){
 				case 1:
 					joueur.setCouleur("rouge");
-					this.gestionnairePartie.getPartie().setJoueur1(joueur);
 					break;
 				case 2:
 					joueur.setCouleur("bleu");
-					this.gestionnairePartie.getPartie().setJoueur2(joueur);
 					break;
 				case 3:
 					joueur.setCouleur("vert");
-					this.gestionnairePartie.getPartie().setJoueur3(joueur);
 					break;
 				case 4:
 					joueur.setCouleur("orange");
-					this.gestionnairePartie.getPartie().setJoueur4(joueur);
 					break;
 				default: 
 					break;

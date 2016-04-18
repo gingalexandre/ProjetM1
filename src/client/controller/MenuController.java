@@ -223,6 +223,8 @@ public class MenuController implements Initializable {
 	public void finirLeTour() throws RemoteException{
 		String nomJoueur = proxy.getJoueur().getNomUtilisateur();
 		serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" a fini son tour"));
+		this.setButtons(true);
+		
 		//Lancement du tour du joueur suivant
 		JoueurInterface joueurTour = serveur.getGestionnairePartie().finirTour();
 		

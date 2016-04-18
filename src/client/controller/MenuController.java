@@ -111,6 +111,7 @@ public class MenuController implements Initializable {
 	public void setButtons(boolean boo){
 		Platform.runLater(() -> boutonDes.setDisable(boo));
 		Platform.runLater(() -> boutonEchange.setDisable(boo));
+		Platform.runLater(() -> boutonFinTour.setDisable(boo));
 	}
 
 	/**

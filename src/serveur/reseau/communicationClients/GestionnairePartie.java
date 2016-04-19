@@ -9,6 +9,7 @@ import serveur.modele.Message;
 import serveur.modele.Partie;
 import serveur.modele.Plateau;
 import serveur.modele.service.JoueurInterface;
+import serveur.modele.service.PartieInterface;
 import serveur.reseau.JoueurServeur;
 import serveur.reseau.communicationClients.service.GestionnairePartieInterface;
 
@@ -42,7 +43,7 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	 * Permet d'obtenir la partie
 	 * @return la partie
 	 */
-	public Partie getPartie() throws RemoteException{
+	public PartieInterface getPartie() throws RemoteException{
 		return this.partie;
 	}
 	

@@ -51,8 +51,9 @@ public class PartieSauvegarde implements Serializable {
 
 		}
 		JoueurInterface joueurInterfaceActuel;
+		PartieInterface partie = null;
 		try {
-			PartieInterface partie =  ((PartieInterface) serveur.getGestionnairePartie().getPartie());
+			partie =  serveur.getGestionnairePartie().getPartie();
 			joueurInterfaceActuel = partie.getJoueurTour();
 			this.joueurActuel = new JoueurSauvegarde(joueurInterfaceActuel.getId(),
 					joueurInterfaceActuel.getNomUtilisateur(), joueurInterfaceActuel.getDateDeNaissance(),

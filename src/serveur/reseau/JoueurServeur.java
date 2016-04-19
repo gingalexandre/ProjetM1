@@ -1,10 +1,10 @@
 package serveur.reseau;
 
-import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import serveur.modele.Joueur;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
 import serveur.modele.service.JoueurInterface;
@@ -52,4 +52,6 @@ public interface JoueurServeur extends Remote {
 	 * @param joueur
 	 */
 	void setJoueur(JoueurInterface joueur) throws RemoteException;
+	
+
 }

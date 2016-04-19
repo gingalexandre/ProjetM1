@@ -42,7 +42,7 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	 * Permet d'obtenir la partie
 	 * @return la partie
 	 */
-	public Partie getPartie() {
+	public Partie getPartie() throws RemoteException{
 		return this.partie;
 	}
 	

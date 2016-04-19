@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import serveur.modele.Plateau;
+import serveur.modele.service.JoueurInterface;
 import serveur.reseau.ConnexionManager;
 import serveur.reseau.JoueurServeur;
 import serveur.reseau.Serveur;
@@ -13,11 +14,11 @@ public class PartieSauvegarde implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private  Plateau plateauCourant;
+	private Plateau plateauCourant;
 
-	private  ArrayList<JoueurSauvegarde> joueurs = new ArrayList<JoueurSauvegarde>();
+	private ArrayList<JoueurSauvegarde> joueurs = new ArrayList<JoueurSauvegarde>();
 
-	private  JoueurSauvegarde joueurActuel;
+	private JoueurSauvegarde joueurActuel;
 
 	public PartieSauvegarde() {
 		this.plateauCourant = Plateau.getInstance();
@@ -33,11 +34,12 @@ public class PartieSauvegarde implements Serializable {
 		for (JoueurServeur js : joueursServeur) {
 
 			try {
-				
-				JoueurSauvegarde joueur = new JoueurSauvegarde(js.getJoueur().getId(), js.getJoueur().getNomUtilisateur(),
-						js.getJoueur().getDateDeNaissance(), js.getJoueur().getCouleur(), js.getJoueur().getPret(),
-						js.getJoueur().getPointVictoire(), js.getJoueur().getNbColonie(), js.getJoueur().getNbVille(),
-						js.getJoueur().getNbVille(), js.getJoueur().getStockRessource(), js.getJoueur().getCartes());
+
+				JoueurSauvegarde joueur = new JoueurSauvegarde(js.getJoueur().getId(),
+						js.getJoueur().getNomUtilisateur(), js.getJoueur().getDateDeNaissance(),
+						js.getJoueur().getCouleur(), js.getJoueur().getPret(), js.getJoueur().getPointVictoire(),
+						js.getJoueur().getNbColonie(), js.getJoueur().getNbVille(), js.getJoueur().getNbVille(),
+						js.getJoueur().getStockRessource(), js.getJoueur().getCartes());
 				this.joueurs.add(joueur);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
@@ -45,35 +47,48 @@ public class PartieSauvegarde implements Serializable {
 			}
 
 		}
-		this.joueurActuel = (JoueurSauvegarde) joueurs.get(0);
-
+		JoueurInterface joueurInterfaceActuel;
+		try {
+			joueurInterfaceActuel = serveur.getGestionnairePartie().getPartie().getJoueurTour();
+			this.joueurActuel = new JoueurSauvegarde(joueurInterfaceActuel.getId(),
+					joueurInterfaceActuel.getNomUtilisateur(), joueurInterfaceActuel.getDateDeNaissance(),
+					joueurInterfaceActuel.getCouleur(), joueurInterfaceActuel.getPret(),
+					joueurInterfaceActuel.getPointVictoire(), joueurInterfaceActuel.getNbColonie(),
+					joueurInterfaceActuel.getNbVille(), joueurInterfaceActuel.getNbRoute(),
+					joueurInterfaceActuel.getStockRessource(), joueurInterfaceActuel.getCartes());
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	public  void setPlateauCourant(Plateau plateauCourant) {
+	public void setPlateauCourant(Plateau plateauCourant) {
 		this.plateauCourant = plateauCourant;
 	}
 
-	public  void setJoueurs(ArrayList<JoueurSauvegarde> joueurs) {
+	public void setJoueurs(ArrayList<JoueurSauvegarde> joueurs) {
 		this.joueurs = joueurs;
 	}
 
-	public  void setJoueurActuel(JoueurSauvegarde joueurActuel) {
+	public void setJoueurActuel(JoueurSauvegarde joueurActuel) {
 		this.joueurActuel = joueurActuel;
 	}
 
-	public  Plateau getPlateauCourant() {
+	public Plateau getPlateauCourant() {
 		return plateauCourant;
 	}
 
-	public  ArrayList<JoueurSauvegarde> getJoueurs() {
+	public ArrayList<JoueurSauvegarde> getJoueurs() {
 		return joueurs;
 	}
 
-	public  JoueurSauvegarde getJoueurActuel() {
+	public JoueurSauvegarde getJoueurActuel() {
 		return joueurActuel;
 	}
 

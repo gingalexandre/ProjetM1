@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import exception.TooMuchPlayerException;
-import serveur.modele.Joueur;
+import serveur.modele.Partie;
 import serveur.modele.service.JoueurInterface;
 import serveur.reseau.JoueurServeur;
 
@@ -69,4 +69,11 @@ public interface GestionnairePartieInterface extends Remote{
 	 * @throws RemoteException
 	 */
 	JoueurInterface finirTour() throws RemoteException;
+	
+	/**
+	 * Renvoi la partie
+	 * @return La partie
+	 * @throws RemoteException
+	 */
+	Partie getPartie() throws RemoteException;
 }

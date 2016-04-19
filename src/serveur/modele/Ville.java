@@ -2,13 +2,15 @@ package serveur.modele;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import javafx.scene.shape.Circle;
 import serveur.modele.service.JoueurInterface;
+import serveur.modele.service.VilleInterface;
 import serveur.view.VueVille;
 
-public class Ville implements Serializable {
+public class Ville extends UnicastRemoteObject implements VilleInterface {
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,7 +35,7 @@ public class Ville implements Serializable {
 	// Colonie : True & Ville : False
 	private boolean colonieVille;
 
-	public Ville(Point emplacement) {
+	public Ville(Point emplacement) throws RemoteException{
 		this.emplacement = emplacement;
 	}
 
@@ -41,7 +43,7 @@ public class Ville implements Serializable {
 		return emplacement;
 	}
 
-	public static Circle[] transformVilleVueVille(ArrayList<Ville> villes) {
+	public static Circle[] transformVilleVueVille(ArrayList<VilleInterface> villes) throws RemoteException {
 		Circle[] vueVille = new Circle[villes.size()];
 		for (int i = 0; i < villes.size(); i++) {
 			vueVille[i] = new VueVille(villes.get(i).getEmplacement()).getCircle();
@@ -49,28 +51,27 @@ public class Ville implements Serializable {
 		return vueVille;
 	}
 
-
-	public boolean estLibre(Joueur proprio, ArrayList<Ville> villes) {
+	public boolean estLibre(JoueurInterface proprio, ArrayList<VilleInterface> villes) throws RemoteException{
 		return ((this.oqp == null)
-				&& (((this.ville_adj1 != -1) && (villes.get(this.ville_adj1).oqp == null))
-						&& ((this.ville_adj2 != -1) && (villes.get(this.ville_adj2).oqp == null))
-						&& ((this.ville_adj3 != -1) && (villes.get(this.ville_adj3).oqp == null)))
+				&& (((this.ville_adj1 != -1) && (villes.get(this.ville_adj1).getOqp() == null))
+						&& ((this.ville_adj2 != -1) && (villes.get(this.ville_adj2).getOqp() == null))
+						&& ((this.ville_adj3 != -1) && (villes.get(this.ville_adj3).getOqp() == null)))
 				&& ((this.route_adj1.getOqp() == proprio) || (this.route_adj2.getOqp() == proprio)
 						|| (this.route_adj3.getOqp() == proprio)));
 	}
 
-	public void colonieToVille(Joueur j) throws RemoteException {
+	public void colonieToVille(JoueurInterface j) throws RemoteException{
 		j.setNbColonie(j.getNbColonie() + 1);
 		j.setNbVille(j.getNbVille() - 1);
 
 		this.colonieVille = false;
 	}
 
-	public void setOQP(JoueurInterface joueurCourrant) {
-		this.oqp = joueurCourrant;
+	public void setOQP(JoueurInterface j) throws RemoteException{
+		this.oqp = j;
 	}
 
-	public void setVillesAdj(int v1, int v2, int v3) {
+	public void setVillesAdj(int v1, int v2, int v3) throws RemoteException{
 		this.ville_adj1 = v1;
 		this.ville_adj2 = v2;
 		this.ville_adj3 = v3;

@@ -1,4 +1,4 @@
-package serveur.reseau;
+package serveur.reseau.proxy;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

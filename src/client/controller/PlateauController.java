@@ -12,9 +12,9 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Polygon;
 import serveur.modele.*;
-import serveur.reseau.ConnexionManager;
-import serveur.reseau.Proxy;
-import serveur.reseau.Serveur;
+import serveur.reseau.proxy.Proxy;
+import serveur.reseau.serveur.ConnexionManager;
+import serveur.reseau.serveur.Serveur;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,6 +26,7 @@ import serveur.view.VueHexagone;
 import serveur.modele.Jeton;
 import serveur.modele.Route;
 import serveur.modele.Ville;
+import serveur.modele.service.HexagoneInterface;
 import serveur.modele.service.PlateauInterface;
 
 /**
@@ -93,7 +94,7 @@ public class PlateauController implements Initializable{
 					depart = plateau.getHexagones().indexOf(plateau.getVoleur());
 					Point2D point = new Point2D(event.getX(),event.getY());
 					int i = 0;
-					for (Hexagone hex: plateau.getHexagones()) {
+					for (HexagoneInterface hex: plateau.getHexagones()) {
 						Polygon polygon = new Polygon();
 						polygon.getPoints().addAll(hex.getPoints());
 						if(polygon.contains(point)){

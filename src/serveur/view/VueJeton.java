@@ -1,5 +1,6 @@
 package serveur.view;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javafx.scene.image.Image;
@@ -8,6 +9,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import serveur.modele.Jeton;
 import serveur.modele.Point;
+import serveur.modele.service.JetonInterface;
 
 public class VueJeton extends Circle {
 
@@ -24,7 +26,7 @@ public class VueJeton extends Circle {
 	public final static String DOUZE = "file:Ressources/jetons/12.png";
 	private Circle circle;
 
-	public VueJeton(Jeton jeton) {
+	public VueJeton(JetonInterface jeton) throws RemoteException {
 		super();
 		circle = new Circle(jeton.getEmplacement().getX(), jeton.getEmplacement().getY(), 20);
 		circle.setFill(this.getPaint(jeton.getNumeroJeton()));
@@ -61,5 +63,4 @@ public class VueJeton extends Circle {
 		}
 		return null;
 	}
-
 }

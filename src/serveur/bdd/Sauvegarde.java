@@ -12,8 +12,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
 
 import serveur.modele.Joueur;
-import serveur.reseau.ConnexionManager;
-import serveur.reseau.Serveur;
+import serveur.reseau.serveur.ConnexionManager;
+import serveur.reseau.serveur.Serveur;
 
 public class Sauvegarde {
 	private static Joueur currentJoueur = null;

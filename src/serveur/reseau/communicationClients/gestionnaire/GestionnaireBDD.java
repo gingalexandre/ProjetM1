@@ -1,4 +1,4 @@
-package serveur.reseau.communicationClients;
+package serveur.reseau.communicationClients.gestionnaire;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

@@ -1,4 +1,4 @@
-package serveur.reseau;
+package serveur.reseau.serveur;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -10,12 +10,13 @@ import serveur.bdd.Sauvegarde;
 import serveur.modele.Joueur;
 import serveur.modele.Message;
 import serveur.modele.service.JoueurInterface;
-import serveur.reseau.communicationClients.GestionnaireBDD;
-import serveur.reseau.communicationClients.GestionnairePartie;
-import serveur.reseau.communicationClients.GestionnaireUI;
+import serveur.reseau.communicationClients.gestionnaire.GestionnaireBDD;
+import serveur.reseau.communicationClients.gestionnaire.GestionnairePartie;
+import serveur.reseau.communicationClients.gestionnaire.GestionnaireUI;
 import serveur.reseau.communicationClients.service.GestionnaireBDDInterface;
 import serveur.reseau.communicationClients.service.GestionnairePartieInterface;
 import serveur.reseau.communicationClients.service.GestionnaireUIInterface;
+import serveur.reseau.proxy.JoueurServeur;
 
 /**
  * Classe impl�mentant le serveur, qui communique avec les proxy

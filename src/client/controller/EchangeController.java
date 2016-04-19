@@ -8,8 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import serveur.reseau.ConnexionManager;
-import serveur.reseau.Proxy;
+import serveur.reseau.proxy.Proxy;
+import serveur.reseau.serveur.ConnexionManager;
 
 /**
 *

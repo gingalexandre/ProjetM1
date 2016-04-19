@@ -1,4 +1,4 @@
-package serveur.reseau;
+package serveur.reseau.serveur;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;

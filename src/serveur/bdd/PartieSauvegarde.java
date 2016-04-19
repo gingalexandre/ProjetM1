@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import serveur.modele.Plateau;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PartieInterface;
-import serveur.reseau.ConnexionManager;
-import serveur.reseau.JoueurServeur;
-import serveur.reseau.Serveur;
+import serveur.reseau.proxy.JoueurServeur;
+import serveur.reseau.serveur.ConnexionManager;
+import serveur.reseau.serveur.Serveur;
 
 public class PartieSauvegarde implements Serializable {
 

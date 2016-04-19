@@ -8,8 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import serveur.reseau.ConnexionManager;
-import serveur.reseau.Serveur;
+import serveur.reseau.serveur.ConnexionManager;
+import serveur.reseau.serveur.Serveur;
 
 public class StatistiquesController implements Initializable {
 

@@ -5,14 +5,23 @@
  */
 package serveur.modele;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+import serveur.modele.service.DesInterface;
+
 /**
  *
  * @author Arthur
  */
-public class Des {
+public class Des extends UnicastRemoteObject implements DesInterface {
     
-    private int de1;
+	private static final long serialVersionUID = 1L;
+	
+	private int de1;
     private int de2;
+    
+    public Des() throws RemoteException{};
     
     public Integer[] lancerDes(){
         this.de1 = (int) (Math.random() * (7-1) + 1);

@@ -33,9 +33,12 @@ import serveur.modele.Route;
 import serveur.modele.Ville;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
-import serveur.reseau.ConnexionManager;
-import serveur.reseau.Proxy;
-import serveur.reseau.Serveur;
+import serveur.modele.service.RouteInterface;
+import serveur.modele.service.VilleInterface;
+import serveur.reseau.proxy.Proxy;
+import serveur.reseau.serveur.ConnexionManager;
+import serveur.reseau.serveur.Serveur;
+
 
 public class MenuController implements Initializable {
 	
@@ -86,7 +89,7 @@ public class MenuController implements Initializable {
 	 */
 	private Serveur serveur;
 	
-	
+	private Pane pane;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -248,8 +251,8 @@ public class MenuController implements Initializable {
 			PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
 			// INITIALISATION
 			// Etape 1 : Création d'une map avec chaque point qui associe la ville de cet emplacement
-			HashMap<Point,Ville> villes = new HashMap();
-			for(Ville v : p.getVilles()){
+			HashMap<Point,VilleInterface> villes = new HashMap();
+			for(VilleInterface v : p.getVilles()){
 				villes.put(v.getEmplacement(), v);
 			}
 			// Etape 2 : Récupération des points des extremités des points des Routes du joueur qui veut construire dans un set
@@ -258,20 +261,20 @@ public class MenuController implements Initializable {
 			p.getVilles().get(1).setOQP(joueurCourrant);
 			//ADELA
 			HashSet<Point> pointsDeRoutes = new HashSet();
-			for(Route r: p.getRoutes()){
+			for(RouteInterface r: p.getRoutes()){
 				if((r.getOqp()!= null) && r.getOqp().equals(joueurCourrant)){
 					pointsDeRoutes.add(r.getDepart());
 					pointsDeRoutes.add(r.getArrive());
 				}
 			}
 			// RECHERCHES DES ROUTES CONSTRUCTIBLES
-			HashMap<Polygon, Route> routesConstructibles = new HashMap();
+			HashMap<Polygon, RouteInterface> routesConstructibles = new HashMap();
 			int j = 0;
 			Group grp = new Group();
 			System.out.println(villes);
 			System.out.println(joueurCourrant);
 			System.out.println(pointsDeRoutes);
-			for(Route r: p.getRoutes()){
+			for(RouteInterface r: p.getRoutes()){
 				if(r.estConstructible(villes, joueurCourrant, pointsDeRoutes)){
 					j++;
 					// Récupération des points pour une écriture plus simple du code
@@ -353,7 +356,7 @@ public class MenuController implements Initializable {
 			int nbvilles = 0;
 			System.out.println(joueurCourrant);
 			p.getVilles().get(1).setOQP(joueurCourrant);
-			for (Ville v : p.getVilles()){
+			for (VilleInterface v : p.getVilles()){
 				System.out.println(v.getOqp());
 				if (v.getOqp()!=null)
 					nbvilles++;

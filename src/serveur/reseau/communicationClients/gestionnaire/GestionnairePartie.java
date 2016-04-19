@@ -1,4 +1,4 @@
-package serveur.reseau.communicationClients;
+package serveur.reseau.communicationClients.gestionnaire;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -10,8 +10,8 @@ import serveur.modele.Partie;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PartieInterface;
 import serveur.modele.service.PlateauInterface;
-import serveur.reseau.JoueurServeur;
 import serveur.reseau.communicationClients.service.GestionnairePartieInterface;
+import serveur.reseau.proxy.JoueurServeur;
 
 /**
  * Classe qui s'occupe des echanges concernant la partie entre les clients et le serveur

@@ -2,8 +2,11 @@ package serveur.modele;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 import javafx.scene.shape.Line;
+import serveur.modele.service.JoueurInterface;
 import serveur.view.VueRoute;
 
 public class Route implements Serializable{
@@ -95,8 +98,21 @@ public class Route implements Serializable{
 		return "Route [depart=" + depart + ", arrive=" + arrive + ", oqp=" + oqp + "]";
 	}
 	
-	
-	
-	
-
+	/**
+	 * Méthode permettant de savoir si le joueur donnée en paramètre peut construire sur la route
+	 * @param villes Table qui a chaque Point associe la Ville ou Colonie 
+	 * @param joueurCourrant Joueur qui souhaite construire une route
+	 * @param mesExtremitesDeRoute Ensemble des points de depart et d'arrivée des routes du joueur en parametre
+	 * @return Booléen indiquant si oui ou non le joueur peut construire
+	 */
+	public boolean estConstructible(HashMap<Point,Ville> villes, JoueurInterface joueurCourrant , Set<Point> mesExtremitesDeRoute){
+		// Verification si la route est libre
+		boolean a = this.oqp == null;
+		// Verification si la route a le depart ou l'arrivé qui a une colonie a moi 
+		boolean b = (villes.get(depart).getOqp() == null || villes.get(depart).getOqp().equals(joueurCourrant));
+		boolean c = (villes.get(arrive).getOqp() == null || villes.get(arrive).getOqp().equals(joueurCourrant));
+		// Verification si la route est la continuité d'une de mes routes
+		boolean d = mesExtremitesDeRoute.contains(this.depart) || mesExtremitesDeRoute.contains(this.arrive);
+		return a && ( b || c || d );
+	}
 }

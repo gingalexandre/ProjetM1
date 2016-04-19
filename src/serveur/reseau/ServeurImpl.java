@@ -58,7 +58,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 		this.nombre_max_joueurs = nombre_max_joueurs;
 		gestionnaireBDD = new GestionnaireBDD();
 		gestionnaireUI = new GestionnaireUI();
-		gestionnairePartie = new GestionnairePartie();
+		gestionnairePartie = new GestionnairePartie(this.gestionnaireUI.getPlateau());
 	}
 	
 	/**

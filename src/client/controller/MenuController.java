@@ -3,6 +3,8 @@ package client.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 
 import javafx.animation.RotateTransition;
@@ -10,17 +12,24 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import serveur.modele.Des;
 import serveur.modele.Message;
+import serveur.modele.Plateau;
+import serveur.modele.Point;
+import serveur.modele.Route;
+import serveur.modele.Ville;
 import serveur.modele.service.JoueurInterface;
+import serveur.modele.service.PlateauInterface;
 import serveur.reseau.ConnexionManager;
 import serveur.reseau.Proxy;
 import serveur.reseau.Serveur;
@@ -228,5 +237,103 @@ public class MenuController implements Initializable {
 		JoueurInterface joueurTour = serveur.getGestionnairePartie().finirTour();
 		
 		serveur.getGestionnaireUI().diffuserMessage(new Message("C'est à "+joueurTour.getNomUtilisateur()+" de jouer"));
+	}
+	
+	public void demanderRoute(){
+		try{
+			Serveur serveur = ConnexionManager.getStaticServeur();
+			PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
+			// INITIALISATION
+			// Etape 1 : Création d'une map avec chaque point qui associe la ville de cet emplacement
+			HashMap<Point,Ville> villes = new HashMap();
+			for(Ville v : p.getVilles()){
+				villes.put(v.getEmplacement(), v);
+			}
+			// Etape 2 : Récupération des points des extremités des points des Routes du joueur qui veut construire dans un set
+			JoueurInterface joueurCourrant = proxy.getJoueur();
+			HashSet<Point> pointsDeRoutes = new HashSet();
+			for(Route r: p.getRoutes()){
+				if(r.getOqp().equals(joueurCourrant)){
+					pointsDeRoutes.add(r.getDepart());
+					pointsDeRoutes.add(r.getArrive());
+				}
+			}
+			// RECHERCHES DES ROUTES CONSTRUCTIBLES
+			HashMap<Polygon, Route> routesConstructibles = new HashMap();
+			for(Route r: p.getRoutes()){
+				if(r.estConstructible(villes, joueurCourrant, pointsDeRoutes)){
+					// Récupération des points pour une écriture plus simple du code
+					double x1 = r.getDepart().getX();
+					double y1 = r.getDepart().getY();
+					double x2 = r.getArrive().getX();
+					double y2 = r.getArrive().getY();
+					// Création des points du rectangle a dessiner
+					Point2D p1 = null;
+					Point2D p2 = null;
+					Point2D p3 = null;
+					Point2D p4 = null;
+					// Definition d'une largeur de rectangle par rapport à la taille des Hexagones
+					int minitaille = 10*Plateau.SIZE/100/2;
+					// Identification du cas
+					// Cas 1 : de haut gauche vers bas droit 
+					if ((x1<x2 && y1>y2) || (x1>x2 && y1<y2)){
+						// Identification si c'est haut gauche vers bas droit ou l'inverse
+						// Le but etant depart (x1,y1) (haut gauche) et arrivée (x2,y2)
+						// Si y1<y2 il faut inverser
+						if (y1<y2){
+							double temp = y1;
+							y1 = y2;
+							y2 = temp;
+							
+							temp = x1;
+							x1 = x2;
+							x2 = temp;
+						}
+						p1 = new Point2D(x1+(Math.sqrt(3)/2)*minitaille,y1+minitaille/2);
+						p2 = new Point2D(x1-(Math.sqrt(3)/2)*minitaille,y1-minitaille/2);
+						p3 = new Point2D(x2+(Math.sqrt(3)/2)*minitaille,y2+minitaille/2);
+						p4 = new Point2D(x2-(Math.sqrt(3)/2)*minitaille,y2-minitaille/2);
+					}
+					// Cas 2 : de bas gauche vers haut droit 
+					if ((x1<x2 && y1<y2) || (x1>x2 && y1>y2)){
+						if (y1>y2){
+							double temp = y1;
+							y1 = y2;
+							y2 = temp;
+							
+							temp = x1;
+							x1 = x2;
+							x2 = temp;
+						}
+						p1 = new Point2D(x1-((Math.sqrt(3)/2) * minitaille),y1+minitaille/2);
+						p2 = new Point2D(x1+((Math.sqrt(3)/2) * minitaille), y1-minitaille/2);
+						p3 = new Point2D(x1-((Math.sqrt(3)/2) * minitaille), y2+minitaille/2);
+						p4 = new Point2D(x1+((Math.sqrt(3)/2) * minitaille), y2-minitaille/2);
+					}
+					// Cas 3 : route vertical
+					if (x1==x2) {
+						if (y1<y2){
+							double temp = y1;
+							y1 = y2;
+							y2 = temp;
+							
+							temp = x1;
+							x1 = x2;
+							x2 = temp;
+						}
+						p1 = new Point2D(x1+minitaille,y1);
+						p2 = new Point2D(x1-minitaille,y1);
+						p3 = new Point2D(x2-minitaille,y2);
+						p4 = new Point2D(x2+minitaille,y2);
+					}	
+					Double[] points = {p1.getX(),p1.getY(),p2.getX(),p2.getY(),p3.getX(),p3.getY(),p4.getX(),p4.getY()};
+					Polygon rectangle = new Polygon();
+					rectangle.getPoints().addAll(points);
+					routesConstructibles.put(rectangle, r);
+				}
+			}
+		} catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 }

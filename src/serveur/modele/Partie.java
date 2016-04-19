@@ -13,6 +13,7 @@ import java.util.Comparator;
 
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PartieInterface;
+import serveur.modele.service.PlateauInterface;
 
 /**
  *
@@ -37,15 +38,18 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	 * De 1 à 3 si 3 joueurs De 1 à 4 si 4 joueurs
 	 */
 	private int tour;
+	
+	private PlateauInterface plateau;
 
 	/**
 	 * @param plateau
 	 *            - plateau de la partie
 	 */
-	public Partie() throws RemoteException {
+	public Partie(PlateauInterface p) throws RemoteException {
 		this.ordreJeu = new ArrayList<>();
 		this.ressources = new Ressource();
 		this.tour = 1;
+		this.plateau = p;
 	}
 
 	/**
@@ -175,6 +179,12 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@Override
+	public PlateauInterface getPlateau() {
+		// TODO Auto-generated method stub
+		return this.plateau;
 	}
 
 }

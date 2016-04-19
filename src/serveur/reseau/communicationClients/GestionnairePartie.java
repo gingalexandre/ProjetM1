@@ -9,6 +9,7 @@ import serveur.modele.Message;
 import serveur.modele.Partie;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PartieInterface;
+import serveur.modele.service.PlateauInterface;
 import serveur.reseau.JoueurServeur;
 import serveur.reseau.communicationClients.service.GestionnairePartieInterface;
 
@@ -32,10 +33,11 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	
 	/**
 	 * Constructeur de la classe GestionnairePartie
+	 * @param plateauInterface 
 	 * @param plateau - plateau de jeu
 	 */
-	public GestionnairePartie() throws RemoteException{
-		this.partie = new Partie();
+	public GestionnairePartie(PlateauInterface plateauInterface) throws RemoteException{
+		this.partie = new Partie(plateauInterface);
 	}
 
 	/**

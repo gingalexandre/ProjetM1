@@ -31,7 +31,7 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
 
 	private ArrayList<Jeton> jetons ;
 
-	private static final int SIZE = 60;
+	public static final int SIZE = 60;
 	
 	private Plateau() throws RemoteException{
 		points = new ArrayList<Point>();

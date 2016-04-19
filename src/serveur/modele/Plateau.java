@@ -5,7 +5,11 @@ import java.rmi.server.UnicastRemoteObject;
 
 import org.codehaus.jackson.annotate.*;
 
+import serveur.modele.service.HexagoneInterface;
+import serveur.modele.service.JetonInterface;
 import serveur.modele.service.PlateauInterface;
+import serveur.modele.service.RouteInterface;
+import serveur.modele.service.VilleInterface;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,57 +22,56 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
 
 	private static final long serialVersionUID = 1L;
 
-	private ArrayList<Hexagone> hexagones ;
+	private static Plateau INSTANCE = null;
+	
+	private ArrayList<HexagoneInterface> hexagones ;
 
 	private ArrayList<Point> points;
 
-	private ArrayList<Ville> villes ;
+	private ArrayList<VilleInterface> villes ;
 
-	private ArrayList<Route> routes ;
-	
+	private ArrayList<RouteInterface> routes ;
 
-	private static Plateau INSTANCE = null;
-
-	private ArrayList<Jeton> jetons ;
+	private ArrayList<JetonInterface> jetons ;
 
 	private static final int SIZE = 60;
 	
 	private Plateau() throws RemoteException{
 		points = new ArrayList<Point>();
-		hexagones = new ArrayList<Hexagone>(Arrays.asList(this.getAllHexagone()));
+		hexagones = new ArrayList<HexagoneInterface>(Arrays.asList(this.getAllHexagone()));
 		setPoints();
 		setVilles();
 		setRoutes();
 		setJetons();
 	}
 	
-	public void setJetons(){
-		jetons = new ArrayList<Jeton>();
-		for(Hexagone hex : hexagones){
+	public void setJetons() throws RemoteException{
+		jetons = new ArrayList<JetonInterface>();
+		for(HexagoneInterface hex : hexagones){
 			jetons.add(hex.getJeton());
 		}
 	}
 	
-	public ArrayList<Jeton> getJetons(){
+	public ArrayList<JetonInterface> getJetons() throws RemoteException{
 		return jetons;
 	}
 	
-	 public ArrayList<Hexagone> getHexagones() {
+	 public ArrayList<HexagoneInterface> getHexagones() throws RemoteException{
 		return hexagones;
 	}
 
-	public ArrayList<Ville> getVilles() {
+	public ArrayList<VilleInterface> getVilles() throws RemoteException{
 		return villes;
 	}
 
-	public ArrayList<Route> getRoutes() {
+	public ArrayList<RouteInterface> getRoutes() throws RemoteException{
 		return routes;
 	}
 
-	public void setPoints() {
+	public void setPoints() throws RemoteException {
 		points = new ArrayList<Point>();
 		Set<Point> set = new HashSet<Point>() ;
-		for (Hexagone hex : hexagones){
+		for (HexagoneInterface hex : hexagones){
 			set.add(hex.getA());
 			set.add(hex.getB());
 			set.add(hex.getC());
@@ -89,15 +92,15 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
         Collections.reverse(points);
 	}
 	
-	public void setVilles(){
-		villes = new ArrayList<Ville>();
+	public void setVilles() throws RemoteException{
+		villes = new ArrayList<VilleInterface>();
 		for (Point p : points){
 			villes.add(new Ville(p));
 		}
 		
 		//Affectation des villes adjacentes
 		int i = 0;
-		for (Ville v : villes){
+		for (VilleInterface v : villes){
 			if(i<=2)
 				v.setVillesAdj(-1, i+4, i+3);
 			else if ((i==4)||(i==5))
@@ -140,9 +143,9 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
 		
 	}
 	
-	public void setRoutes(){
-		routes = new ArrayList<Route>();
-		for(Ville v : villes){
+	public void setRoutes() throws RemoteException{
+		routes = new ArrayList<RouteInterface>();
+		for(VilleInterface v : villes){
 			if(v.getVille_adj1() !=  -1){
 				ajoutListeRoute(new Route(v.getEmplacement(),villes.get(v.getVille_adj1()).getEmplacement()));
 			}
@@ -154,10 +157,15 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
 			}
 		}
 		
-		Comparator<Route> c = new Comparator<Route>() {
+		Comparator<RouteInterface> c = new Comparator<RouteInterface>(){
             @Override
-            public int compare(Route r1, Route r2) {
-                return r1.compareTo(r2);
+            public int compare(RouteInterface r1, RouteInterface r2) {
+                try {
+					return r1.compareTo(r2);
+				} catch (RemoteException e) {
+					e.printStackTrace();
+					return -100;
+				}
             }
         };
         
@@ -166,9 +174,9 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
         
 	}
 	
-	public void ajoutListeRoute(Route r){
+	public void ajoutListeRoute(Route r) throws RemoteException{
 		boolean same = false;
-		for(Route ajoutees : routes){
+		for(RouteInterface ajoutees : routes){
 			if(ajoutees.equals(r)){
 				same = true;
 			}
@@ -186,14 +194,14 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
 	}
 	
 	@JsonIgnore
-	public Hexagone[] getAllHexagone() {
-        Hexagone[] res = new Hexagone[19];
+	public HexagoneInterface[] getAllHexagone() throws RemoteException {
+        HexagoneInterface[] res = new Hexagone[19];
         /* CREATION DES HEXAGONES */
         int ligne = 0;
         int index = 0;
         double decalage = SIZE * 2 * Math.sqrt(3);
         for (int i = 0; i < 19; i++) {  
-            Hexagone hex = new Hexagone(8 * SIZE + Math.sqrt(3) * index * SIZE - decalage, 3 * SIZE + ligne * 1.5 * SIZE, SIZE, i);
+            HexagoneInterface hex = new Hexagone(8 * SIZE + Math.sqrt(3) * index * SIZE - decalage, 3 * SIZE + ligne * 1.5 * SIZE, SIZE, i);
             res[i] = hex;
             if (i == 2 || i == 6) {
                 ligne++;
@@ -212,25 +220,27 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
         return res;
     }
 
-	public ArrayList<Point> getPoints() {
+	public ArrayList<Point> getPoints() throws RemoteException{
 		return points;
 	}
 
-	@Override
-	public String toString() {
-		return "Plateau [hexagones=" + hexagones + ", points=" + points + ", villes=" + villes + ", routes=" + routes
-				+ "]";
-	}
-	
-	
-
-	public Hexagone getVoleur(){
-		for(Hexagone hex: hexagones) {
+	public HexagoneInterface getVoleur() throws RemoteException{
+		for(HexagoneInterface hex: hexagones) {
 			if(hex.isVOLEUR() == true){
 				return hex;
 			}
 		}
 		return null;
 	}
+	
+	@Override
+	public String toString() {
+		return "Plateau [hexagones=" + hexagones + ", points=" + points + ", villes=" + villes + ", routes=" + routes
+				+ "]";
+	}
 
+	@Override
+	public void ajoutListeRoute(RouteInterface r) throws RemoteException {
+		
+	}
 }

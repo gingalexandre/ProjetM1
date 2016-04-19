@@ -1,17 +1,16 @@
 package serveur.modele;
 
-import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import javafx.scene.shape.Circle;
 import serveur.commun.DistributeurJeton;
+import serveur.modele.service.JetonInterface;
 import serveur.view.VueJeton;
 
-public class Jeton implements Serializable {
+public class Jeton extends UnicastRemoteObject implements JetonInterface {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public final static int NUMERO1 = 1;
@@ -30,25 +29,25 @@ public class Jeton implements Serializable {
 
 	private int numeroJeton;
 
-	public Jeton(Hexagone hexagone) {
+	public Jeton(Hexagone hexagone) throws RemoteException{
 		numeroJeton = DistributeurJeton.getInstance().donnerJeton();
 		emplacement = hexagone.getCentre();
 	}
 
-	public int getNumeroJeton() {
+	public int getNumeroJeton() throws RemoteException{
 		return this.numeroJeton;
 	}
 
-	public Point getEmplacement() {
+	public Point getEmplacement() throws RemoteException{
 		return this.emplacement;
 	}
 
-	public Double[] getPoints() {
+	public Double[] getPoints() throws RemoteException{
 		Double[] res = { emplacement.getX(), emplacement.getY() };
 		return res;
 	}
 
-	public static Circle[] transformVueJeton(ArrayList<Jeton> jetons) {
+	public static Circle[] transformVueJeton(ArrayList<JetonInterface> jetons) throws RemoteException{
 		jetons.remove(null);
 		Circle[] vueJetons = new Circle[jetons.size()];
 		for (int i = 0; i < jetons.size(); i++) {
@@ -58,5 +57,4 @@ public class Jeton implements Serializable {
 		}
 		return vueJetons;
 	}
-
 }

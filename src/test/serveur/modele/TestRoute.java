@@ -2,6 +2,8 @@ package test.serveur.modele;
 
 import static org.junit.Assert.*;
 
+import java.rmi.RemoteException;
+
 import org.junit.Test;
 
 import serveur.modele.Point;
@@ -11,9 +13,10 @@ public class TestRoute {
 
 	/**
 	 * Test de la méthode permettant de voir si deux Routes sont identiques
+	 * @throws RemoteException 
 	 */
 	@Test
-	public void testEqualsRoute() {
+	public void testEqualsRoute() throws RemoteException {
 
 		Route r = new Route(new Point(1.0, 1.0), new Point(2.0, 2.0));
 		Route r2 = new Route(new Point(3.0, 3.0), new Point(4.0, 4.0));
@@ -24,9 +27,10 @@ public class TestRoute {
 	
 	/**
 	 * Test de la méthode permettant de comparer deux Routes
+	 * @throws RemoteException 
 	 */
 	@Test
-	public void testCompareRoute() {
+	public void testCompareRoute() throws RemoteException {
 
 		Route r = new Route(new Point(1.0, 1.0), new Point(2.0, 2.0));
 		Route r2 = new Route(new Point(3.0, 3.0), new Point(4.0, 4.0));

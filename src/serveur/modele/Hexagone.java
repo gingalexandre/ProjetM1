@@ -1,11 +1,13 @@
 package serveur.modele;
 
-import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Arrays;
 
 import serveur.commun.DistributeurType;
+import serveur.modele.service.HexagoneInterface;
 
-public class Hexagone implements Serializable {
+public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 
 	private static final long serialVersionUID = 1L;
 
@@ -39,7 +41,7 @@ public class Hexagone implements Serializable {
 	private Jeton numeroJeton;
 
 	
-	public Hexagone(int indexHexagone, Point a, Point b, Point c, Point d, Point e, Point f, int type) {
+	public Hexagone(int indexHexagone, Point a, Point b, Point c, Point d, Point e, Point f, int type) throws RemoteException {
 		super();
 		this.indexHexagone = indexHexagone;
 		this.a = a;
@@ -75,7 +77,7 @@ public class Hexagone implements Serializable {
 		return d;
 	}
 
-	public Hexagone(double xCentre, double yCentre, double size, int indexHexagone) {
+	public Hexagone(double xCentre, double yCentre, double size, int indexHexagone) throws RemoteException{
 		double x1 = xCentre;
 		double y1 = yCentre + size;
 		a = new Point(x1, y1);

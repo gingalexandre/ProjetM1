@@ -1,4 +1,7 @@
 package serveur.modele;
+
+import java.rmi.RemoteException;
+
 /**
 *
 * @author Arthur
@@ -9,7 +12,7 @@ public class Port extends Ville {
 	
 	private Ressource ressourceEchangeable;
 
-	public Port(Point emplacement) {
+	public Port(Point emplacement) throws RemoteException {
 		super(emplacement);
 	}
 	

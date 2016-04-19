@@ -296,6 +296,4 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 			return 0;
 		}
 	}
-	
-	
 }

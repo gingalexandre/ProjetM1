@@ -16,7 +16,7 @@ public interface PlateauInterface extends Remote{
 
 	ArrayList<Jeton> getJetons() throws RemoteException;
 
-	ArrayList<Hexagone> getHexagones() throws RemoteException;
+	ArrayList<HexagoneInterface> getHexagones() throws RemoteException;
 
 	ArrayList<Ville> getVilles() throws RemoteException;
 
@@ -30,10 +30,10 @@ public interface PlateauInterface extends Remote{
 
 	void ajoutListeRoute(Route r) throws RemoteException;
 
-	Hexagone[] getAllHexagone() throws RemoteException;
+	HexagoneInterface[] getAllHexagone() throws RemoteException;
 
 	ArrayList<Point> getPoints() throws RemoteException;
 
-	Hexagone getVoleur() throws RemoteException;
+	HexagoneInterface getVoleur() throws RemoteException;
 
 }

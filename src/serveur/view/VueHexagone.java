@@ -1,5 +1,6 @@
 package serveur.view;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javafx.scene.effect.BlurType;
@@ -7,6 +8,7 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.paint.Color;
 import serveur.modele.Hexagone;
+import serveur.modele.service.HexagoneInterface;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
@@ -14,8 +16,7 @@ import javafx.scene.shape.Polygon;
 
 public class VueHexagone extends Polygon {
 	
-	Hexagone hexagone;
-	
+	public HexagoneInterface hexagone;
 	
 	public final static String carriere 	= "file:Ressources/cases/carriere.png";
 	public final static String champs 		= "file:Ressources/cases/champs.png";
@@ -24,7 +25,7 @@ public class VueHexagone extends Polygon {
 	public final static String prairie		= "file:Ressources/cases/plaine.png";
 	public final static String dunevoleur 	= "file:Ressources/cases/dune.png"; 
 	
-	public VueHexagone(Hexagone hexagone) {
+	public VueHexagone(HexagoneInterface hexagone) throws RemoteException {
 		super();
 		this.hexagone = hexagone;
 		this.getPoints().addAll(hexagone.getPoints());
@@ -55,7 +56,7 @@ public class VueHexagone extends Polygon {
 		
 	}
 	
-	public static VueHexagone[] transformVueHexagone(ArrayList<Hexagone> hexagones){
+	public static VueHexagone[] transformVueHexagone(ArrayList<HexagoneInterface> hexagones) throws RemoteException{
 		VueHexagone[] vueHexagones = new VueHexagone[hexagones.size()];
 		for(int i = 0; i < hexagones.size(); i ++){
 			vueHexagones[i] =  new VueHexagone(hexagones.get(i));

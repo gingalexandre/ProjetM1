@@ -23,9 +23,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import serveur.modele.Message;
-import serveur.reseau.ConnexionManager;
-import serveur.reseau.Proxy;
-import serveur.reseau.Serveur;
+import serveur.reseau.proxy.Proxy;
+import serveur.reseau.serveur.ConnexionManager;
+import serveur.reseau.serveur.Serveur;
 
 public class ConnexionController implements Initializable {
 
@@ -76,8 +76,8 @@ public class ConnexionController implements Initializable {
 		// Si le joueur existe
 		if(connexionOk){
 			nomJoueur = nomUtilisateur.getText();
-			enregistrerJoueur(nomJoueur);
 			dateNaissance = serveur.getGestionnaireBDD().getDateNaissanceUtilisateur(nomJoueur);
+			enregistrerJoueur(nomJoueur, dateNaissance);
 			
 			lancerJeu();
 		}
@@ -87,7 +87,7 @@ public class ConnexionController implements Initializable {
 	}
 	
 	/**
-	 * Méthode permettant de lancer le jeu une fois connect�
+	 * Méthode permettant de lancer le jeu une fois connecté
 	 */
 	public void lancerJeu(){
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Game.fxml"));
@@ -125,7 +125,7 @@ public class ConnexionController implements Initializable {
 		try {
 			page = (Pane) inscriptionChargement.load();
 			inscriptionFenetre = new Stage();
-			inscriptionFenetre.setTitle("Fen�tre d'inscription");
+			inscriptionFenetre.setTitle("Fenêtre d'inscription");
 			inscriptionFenetre.initModality(Modality.WINDOW_MODAL);
 		    Scene miniScene = new Scene(page);
 		    inscriptionFenetre.setScene(miniScene);
@@ -142,11 +142,12 @@ public class ConnexionController implements Initializable {
 	 * @throws RemoteException
 	 * @throws TooMuchPlayerException
 	 */
-	public void enregistrerJoueur(String nomJoueur) throws RemoteException, TooMuchPlayerException{
+	public void enregistrerJoueur(String nomJoueur, Date date) throws RemoteException, TooMuchPlayerException{
 		// Enregistrement du joueur sur le serveur
-		serveur.enregistrerJoueur(proxy);
-		// Set le nom du joueur. Pour r�cup�rer le joueur n'importe o� (et donc ses attributs), passer par proxy.getJoueur()
-		proxy.getJoueur().setNomUtilisateur(nomJoueur);
+		serveur.enregistrerJoueur(this.proxy, nomJoueur, date);
+		// Set le nom du joueur. Pour recuperer le joueur n'importe a (et donc ses attributs), passer par proxy.getJoueur()
+		this.proxy.getJoueur().setNomUtilisateur(nomJoueur);
+		this.proxy.getJoueur().setDateDeNaissance(date);
 	}
 	
 	/**

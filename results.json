@@ -1,0 +1,2844 @@
+{
+  "plateauCourant" : {
+    "hexagones" : [ {
+      "indexHexagone" : 0,
+      "ressource" : null,
+      "numero" : 0,
+      "villeAdj" : [ null, null, null, null, null, null ],
+      "VOLEUR" : false,
+      "a" : {
+        "x" : 272.0,
+        "y" : 240.0
+      },
+      "b" : {
+        "x" : 324.0,
+        "y" : 210.0
+      },
+      "c" : {
+        "x" : 324.0,
+        "y" : 150.0
+      },
+      "d" : {
+        "x" : 272.0,
+        "y" : 120.0
+      },
+      "e" : {
+        "x" : 220.0,
+        "y" : 150.0
+      },
+      "f" : {
+        "x" : 220.0,
+        "y" : 210.0
+      },
+      "centre" : {
+        "x" : 272.0,
+        "y" : 180.0
+      },
+      "type" : 2,
+      "numeroJeton" : {
+        "emplacement" : {
+          "x" : 272.0,
+          "y" : 180.0
+        },
+        "numeroJeton" : 2,
+        "points" : [ 272.0, 180.0 ]
+      },
+      "jeton" : {
+        "emplacement" : {
+          "x" : 272.0,
+          "y" : 180.0
+        },
+        "numeroJeton" : 2,
+        "points" : [ 272.0, 180.0 ]
+      },
+      "points" : [ 272.0, 240.0, 324.0, 210.0, 324.0, 150.0, 272.0, 120.0, 220.0, 150.0, 220.0, 210.0 ],
+      "voleur" : false
+    }, {
+      "indexHexagone" : 1,
+      "ressource" : null,
+      "numero" : 0,
+      "villeAdj" : [ null, null, null, null, null, null ],
+      "VOLEUR" : false,
+      "a" : {
+        "x" : 376.0,
+        "y" : 240.0
+      },
+      "b" : {
+        "x" : 428.0,
+        "y" : 210.0
+      },
+      "c" : {
+        "x" : 428.0,
+        "y" : 150.0
+      },
+      "d" : {
+        "x" : 376.0,
+        "y" : 120.0
+      },
+      "e" : {
+        "x" : 324.0,
+        "y" : 150.0
+      },
+      "f" : {
+        "x" : 324.0,
+        "y" : 210.0
+      },
+      "centre" : {
+        "x" : 376.0,
+        "y" : 180.0
+      },
+      "type" : 3,
+      "numeroJeton" : {
+        "emplacement" : {
+          "x" : 376.0,
+          "y" : 180.0
+        },
+        "numeroJeton" : 8,
+        "points" : [ 376.0, 180.0 ]
+      },
+      "jeton" : {
+        "emplacement" : {
+          "x" : 376.0,
+          "y" : 180.0
+        },
+        "numeroJeton" : 8,
+        "points" : [ 376.0, 180.0 ]
+      },
+      "points" : [ 376.0, 240.0, 428.0, 210.0, 428.0, 150.0, 376.0, 120.0, 324.0, 150.0, 324.0, 210.0 ],
+      "voleur" : false
+    }, {
+      "indexHexagone" : 2,
+      "ressource" : null,
+      "numero" : 0,
+      "villeAdj" : [ null, null, null, null, null, null ],
+      "VOLEUR" : false,
+      "a" : {
+        "x" : 480.0,
+        "y" : 240.0
+      },
+      "b" : {
+        "x" : 531.0,
+        "y" : 210.0
+      },
+      "c" : {
+        "x" : 531.0,
+        "y" : 150.0
+      },
+      "d" : {
+        "x" : 480.0,
+        "y" : 120.0
+      },
+      "e" : {
+        "x" : 428.0,
+        "y" : 150.0
+      },
+      "f" : {
+        "x" : 428.0,
+        "y" : 210.0
+      },
+      "centre" : {
+        "x" : 480.0,
+        "y" : 180.0
+      },
+      "type" : 3,
+      "numeroJeton" : {
+        "emplacement" : {
+          "x" : 480.0,
+          "y" : 180.0
+        },
+        "numeroJeton" : 4,
+        "points" : [ 480.0, 180.0 ]
+      },
+      "jeton" : {
+        "emplacement" : {
+          "x" : 480.0,
+          "y" : 180.0
+        },
+        "numeroJeton" : 4,
+        "points" : [ 480.0, 180.0 ]
+      },
+      "points" : [ 480.0, 240.0, 531.0, 210.0, 531.0, 150.0, 480.0, 120.0, 428.0, 150.0, 428.0, 210.0 ],
+      "voleur" : false
+    }, {
+      "indexHexagone" : 3,
+      "ressource" : null,
+      "numero" : 0,
+      "villeAdj" : [ null, null, null, null, null, null ],
+      "VOLEUR" : false,
+      "a" : {
+        "x" : 220.0,
+        "y" : 330.0
+      },
+      "b" : {
+        "x" : 272.0,
+        "y" : 300.0
+      },
+      "c" : {
+        "x" : 272.0,
+        "y" : 240.0
+      },
+      "d" : {
+        "x" : 220.0,
+        "y" : 210.0
+      },
+      "e" : {
+        "x" : 168.0,
+        "y" : 240.0
+      },
+      "f" : {
+        "x" : 168.0,
+        "y" : 300.0
+      },
+      "centre" : {
+        "x" : 220.0,
+        "y" : 270.0
+      },
+      "type" : 2,
+      "numeroJeton" : {
+        "emplacement" : {
+          "x" : 220.0,
+          "y" : 270.0
+        },
+        "numeroJeton" : 10,
+        "points" : [ 220.0, 270.0 ]
+      },
+      "jeton" : {
+        "emplacement" : {
+          "x" : 220.0,
+          "y" : 270.0
+        },
+        "numeroJeton" : 10,
+        "points" : [ 220.0, 270.0 ]
+      },
+      "points" : [ 220.0, 330.0, 272.0, 300.0, 272.0, 240.0, 220.0, 210.0, 168.0, 240.0, 168.0, 300.0 ],
+      "voleur" : false
+    }, {
+      "indexHexagone" : 4,
+      "ressource" : null,
+      "numero" : 0,
+      "villeAdj" : [ null, null, null, null, null, null ],
+      "VOLEUR" : false,
+      "a" : {
+        "x" : 324.0,
+        "y" : 330.0
+      },
+      "b" : {
+        "x" : 376.0,
+        "y" : 300.0
+      },
+      "c" : {
+        "x" : 376.0,
+        "y" : 240.0
+      },
+      "d" : {
+        "x" : 324.0,
+        "y" : 210.0
+      },
+      "e" : {
+        "x" : 272.0,
+        "y" : 240.0
+      },
+      "f" : {
+        "x" : 272.0,
+        "y" : 300.0
+      },
+      "centre" : {
+        "x" : 324.0,
+        "y" : 270.0
+      },
+      "type" : 2,
+      "numeroJeton" : {
+        "emplacement" : {
+          "x" : 324.0,
+          "y" : 270.0
+        },
+        "numeroJeton" : 12,
+        "points" : [ 324.0, 270.0 ]
+      },
+      "jeton" : {
+        "emplacement" : {
+          "x" : 324.0,
+          "y" : 270.0
+        },
+        "numeroJeton" : 12,
+        "points" : [ 324.0, 270.0 ]
+      },
+      "points" : [ 324.0, 330.0, 376.0, 300.0, 376.0, 240.0, 324.0, 210.0, 272.0, 240.0, 272.0, 300.0 ],
+      "voleur" : false
+    }, {
+      "indexHexagone" : 5,
+      "ressource" : null,
+      "numero" : 0,
+      "villeAdj" : [ null, null, null, null, null, null ],
+      "VOLEUR" : false,
+      "a" : {
+        "x" : 428.0,
+        "y" : 330.0
+      },
+      "b" : {
+        "x" : 480.0,
+        "y" : 300.0
+      },
+      "c" : {
+        "x" : 480.0,
+        "y" : 240.0
+      },
+      "d" : {
+        "x" : 428.0,
+        "y" : 210.0
+      },
+      "e" : {
+        "x" : 376.0,
+        "y" : 240.0
+      },
+      "f" : {
+        "x" : 376.0,
+        "y" : 300.0
+      },
+      "centre" : {
+        "x" : 428.0,
+        "y" : 270.0
+      },
+      "type" : 4,
+      "numeroJeton" : {
+        "emplacement" : {
+          "x" : 428.0,
+          "y" : 270.0
+        },
+        "numeroJeton" : 6,
+        "points" : [ 428.0, 270.0 ]
+      },
+      "jeton" : {
+        "emplacement" : {
+          "x" : 428.0,
+          "y" : 270.0
+        },
+        "numeroJeton" : 6,
+        "points" : [ 428.0, 270.0 ]
+      },
+      "points" : [ 428.0, 330.0, 480.0, 300.0, 480.0, 240.0, 428.0, 210.0, 376.0, 240.0, 376.0, 300.0 ],
+      "voleur" : false
+    }, {
+      "indexHexagone" : 6,
+      "ressource" : null,
+      "numero" : 0,
+      "villeAdj" : [ null, null, null, null, null, null ],
+      "VOLEUR" : false,
+      "a" : {
+        "x" : 531.0,
+        "y" : 330.0
+      },
+      "b" : {
+        "x" : 583.0,
+        "y" : 300.0
+      },
+      "c" : {
+        "x" : 583.0,
+        "y" : 240.0
+      },
+      "d" : {
+        "x" : 531.0,
+        "y" : 210.0
+      },
+      "e" : {
+        "x" : 480.0,
+        "y" : 240.0
+      },
+      "f" : {
+        "x" : 480.0,
+        "y" : 300.0
+      },
+      "centre" : {
+        "x" : 531.0,
+        "y" : 270.0
+      },
+      "type" : 5,
+      "numeroJeton" : {
+        "emplacement" : {
+          "x" : 531.0,
+          "y" : 270.0
+        },
+        "numeroJeton" : 4,
+        "points" : [ 531.0, 270.0 ]
+      },
+      "jeton" : {
+        "emplacement" : {
+          "x" : 531.0,
+          "y" : 270.0
+        },
+        "numeroJeton" : 4,
+        "points" : [ 531.0, 270.0 ]
+      },
+      "points" : [ 531.0, 330.0, 583.0, 300.0, 583.0, 240.0, 531.0, 210.0, 480.0, 240.0, 480.0, 300.0 ],
+      "voleur" : false
+    }, {
+      "indexHexagone" : 7,
+      "ressource" : null,
+      "numero" : 0,
+      "villeAdj" : [ null, null, null, null, null, null ],
+      "VOLEUR" : false,
+      "a" : {
+        "x" : 168.0,
+        "y" : 420.0
+      },
+      "b" : {
+        "x" : 220.0,
+        "y" : 390.0
+      },
+      "c" : {
+        "x" : 220.0,
+        "y" : 330.0
+      },
+      "d" : {
+        "x" : 168.0,
+        "y" : 300.0
+      },
+      "e" : {
+        "x" : 116.0,
+        "y" : 330.0
+      },
+      "f" : {
+        "x" : 116.0,
+        "y" : 390.0
+      },
+      "centre" : {
+        "x" : 168.0,
+        "y" : 360.0
+      },
+      "type" : 5,
+      "numeroJeton" : {
+        "emplacement" : {
+          "x" : 168.0,
+          "y" : 360.0
+        },
+        "numeroJeton" : 3,
+        "points" : [ 168.0, 360.0 ]
+      },
+      "jeton" : {
+        "emplacement" : {
+          "x" : 168.0,
+          "y" : 360.0
+        },
+        "numeroJeton" : 3,
+        "points" : [ 168.0, 360.0 ]
+      },
+      "points" : [ 168.0, 420.0, 220.0, 390.0, 220.0, 330.0, 168.0, 300.0, 116.0, 330.0, 116.0, 390.0 ],
+      "voleur" : false
+    }, {
+      "indexHexagone" : 8,
+      "ressource" : null,
+      "numero" : 0,
+      "villeAdj" : [ null, null, null, null, null, null ],
+      "VOLEUR" : false,
+      "a" : {
+        "x" : 272.0,
+        "y" : 420.0
+      },
+      "b" : {
+        "x" : 324.0,
+        "y" : 390.0
+      },
+      "c" : {
+        "x" : 324.0,
+        "y" : 330.0
+      },
+      "d" : {
+        "x" : 272.0,
+        "y" : 300.0
+      },
+      "e" : {
+        "x" : 220.0,
+        "y" : 330.0
+      },
+      "f" : {
+        "x" : 220.0,
+        "y" : 390.0
+      },
+      "centre" : {
+        "x" : 272.0,
+        "y" : 360.0
+      },
+      "type" : 2,
+      "numeroJeton" : {
+        "emplacement" : {
+          "x" : 272.0,
+          "y" : 360.0
+        },
+        "numeroJeton" : 5,
+        "points" : [ 272.0, 360.0 ]
+      },
+      "jeton" : {
+        "emplacement" : {
+          "x" : 272.0,
+          "y" : 360.0
+        },
+        "numeroJeton" : 5,
+        "points" : [ 272.0, 360.0 ]
+      },
+      "points" : [ 272.0, 420.0, 324.0, 390.0, 324.0, 330.0, 272.0, 300.0, 220.0, 330.0, 220.0, 390.0 ],
+      "voleur" : false
+    }, {
+      "indexHexagone" : 9,
+      "ressource" : null,
+      "numero" : 0,
+      "villeAdj" : [ null, null, null, null, null, null ],
+      "VOLEUR" : true,
+      "a" : {
+        "x" : 376.0,
+        "y" : 420.0
+      },
+      "b" : {
+        "x" : 428.0,
+        "y" : 390.0
+      },
+      "c" : {
+        "x" : 428.0,
+        "y" : 330.0
+      },
+      "d" : {
+        "x" : 376.0,
+        "y" : 300.0
+      },
+      "e" : {
+        "x" : 324.0,
+        "y" : 330.0
+      },
+      "f" : {
+        "x" : 324.0,
+        "y" : 390.0
+      },
+      "centre" : {
+        "x" : 376.0,
+        "y" : 360.0
+      },
+      "type" : 6,
+      "numeroJeton" : null,
+      "jeton" : null,
+      "points" : [ 376.0, 420.0, 428.0, 390.0, 428.0, 330.0, 376.0, 300.0, 324.0, 330.0, 324.0, 390.0 ],
+      "voleur" : true
+    }, {
+      "indexHexagone" : 10,
+      "ressource" : null,
+      "numero" : 0,
+      "villeAdj" : [ null, null, null, null, null, null ],
+      "VOLEUR" : false,
+      "a" : {
+        "x" : 480.0,
+        "y" : 420.0
+      },
+      "b" : {
+        "x" : 531.0,
+        "y" : 390.0
+      },
+      "c" : {
+        "x" : 531.0,
+        "y" : 330.0
+      },
+      "d" : {
+        "x" : 480.0,
+        "y" : 300.0
+      },
+      "e" : {
+        "x" : 428.0,
+        "y" : 330.0
+      },
+      "f" : {
+        "x" : 428.0,
+        "y" : 390.0
+      },
+      "centre" : {
+        "x" : 480.0,
+        "y" : 360.0
+      },
+      "type" : 3,
+      "numeroJeton" : {
+        "emplacement" : {
+          "x" : 480.0,
+          "y" : 360.0
+        },
+        "numeroJeton" : 11,
+        "points" : [ 480.0, 360.0 ]
+      },
+      "jeton" : {
+        "emplacement" : {
+          "x" : 480.0,
+          "y" : 360.0
+        },
+        "numeroJeton" : 11,
+        "points" : [ 480.0, 360.0 ]
+      },
+      "points" : [ 480.0, 420.0, 531.0, 390.0, 531.0, 330.0, 480.0, 300.0, 428.0, 330.0, 428.0, 390.0 ],
+      "voleur" : false
+    }, {
+      "indexHexagone" : 11,
+      "ressource" : null,
+      "numero" : 0,
+      "villeAdj" : [ null, null, null, null, null, null ],
+      "VOLEUR" : false,
+      "a" : {
+        "x" : 583.0,
+        "y" : 420.0
+      },
+      "b" : {
+        "x" : 635.0,
+        "y" : 390.0
+      },
+      "c" : {
+        "x" : 635.0,
+        "y" : 330.0
+      },
+      "d" : {
+        "x" : 583.0,
+        "y" : 300.0
+      },
+      "e" : {
+        "x" : 531.0,
+        "y" : 330.0
+      },
+      "f" : {
+        "x" : 531.0,
+        "y" : 390.0
+      },
+      "centre" : {
+        "x" : 583.0,
+        "y" : 360.0
+      },
+      "type" : 1,
+      "numeroJeton" : {
+        "emplacement" : {
+          "x" : 583.0,
+          "y" : 360.0
+        },
+        "numeroJeton" : 9,
+        "points" : [ 583.0, 360.0 ]
+      },
+      "jeton" : {
+        "emplacement" : {
+          "x" : 583.0,
+          "y" : 360.0
+        },
+        "numeroJeton" : 9,
+        "points" : [ 583.0, 360.0 ]
+      },
+      "points" : [ 583.0, 420.0, 635.0, 390.0, 635.0, 330.0, 583.0, 300.0, 531.0, 330.0, 531.0, 390.0 ],
+      "voleur" : false
+    }, {
+      "indexHexagone" : 12,
+      "ressource" : null,
+      "numero" : 0,
+      "villeAdj" : [ null, null, null, null, null, null ],
+      "VOLEUR" : false,
+      "a" : {
+        "x" : 220.0,
+        "y" : 510.0
+      },
+      "b" : {
+        "x" : 272.0,
+        "y" : 480.0
+      },
+      "c" : {
+        "x" : 272.0,
+        "y" : 420.0
+      },
+      "d" : {
+        "x" : 220.0,
+        "y" : 390.0
+      },
+      "e" : {
+        "x" : 168.0,
+        "y" : 420.0
+      },
+      "f" : {
+        "x" : 168.0,
+        "y" : 480.0
+      },
+      "centre" : {
+        "x" : 220.0,
+        "y" : 450.0
+      },
+      "type" : 4,
+      "numeroJeton" : {
+        "emplacement" : {
+          "x" : 220.0,
+          "y" : 450.0
+        },
+        "numeroJeton" : 9,
+        "points" : [ 220.0, 450.0 ]
+      },
+      "jeton" : {
+        "emplacement" : {
+          "x" : 220.0,
+          "y" : 450.0
+        },
+        "numeroJeton" : 9,
+        "points" : [ 220.0, 450.0 ]
+      },
+      "points" : [ 220.0, 510.0, 272.0, 480.0, 272.0, 420.0, 220.0, 390.0, 168.0, 420.0, 168.0, 480.0 ],
+      "voleur" : false
+    }, {
+      "indexHexagone" : 13,
+      "ressource" : null,
+      "numero" : 0,
+      "villeAdj" : [ null, null, null, null, null, null ],
+      "VOLEUR" : false,
+      "a" : {
+        "x" : 324.0,
+        "y" : 510.0
+      },
+      "b" : {
+        "x" : 376.0,
+        "y" : 480.0
+      },
+      "c" : {
+        "x" : 376.0,
+        "y" : 420.0
+      },
+      "d" : {
+        "x" : 324.0,
+        "y" : 390.0
+      },
+      "e" : {
+        "x" : 272.0,
+        "y" : 420.0
+      },
+      "f" : {
+        "x" : 272.0,
+        "y" : 480.0
+      },
+      "centre" : {
+        "x" : 324.0,
+        "y" : 450.0
+      },
+      "type" : 5,
+      "numeroJeton" : {
+        "emplacement" : {
+          "x" : 324.0,
+          "y" : 450.0
+        },
+        "numeroJeton" : 6,
+        "points" : [ 324.0, 450.0 ]
+      },
+      "jeton" : {
+        "emplacement" : {
+          "x" : 324.0,
+          "y" : 450.0
+        },
+        "numeroJeton" : 6,
+        "points" : [ 324.0, 450.0 ]
+      },
+      "points" : [ 324.0, 510.0, 376.0, 480.0, 376.0, 420.0, 324.0, 390.0, 272.0, 420.0, 272.0, 480.0 ],
+      "voleur" : false
+    }, {
+      "indexHexagone" : 14,
+      "ressource" : null,
+      "numero" : 0,
+      "villeAdj" : [ null, null, null, null, null, null ],
+      "VOLEUR" : false,
+      "a" : {
+        "x" : 428.0,
+        "y" : 510.0
+      },
+      "b" : {
+        "x" : 480.0,
+        "y" : 480.0
+      },
+      "c" : {
+        "x" : 480.0,
+        "y" : 420.0
+      },
+      "d" : {
+        "x" : 428.0,
+        "y" : 390.0
+      },
+      "e" : {
+        "x" : 376.0,
+        "y" : 420.0
+      },
+      "f" : {
+        "x" : 376.0,
+        "y" : 480.0
+      },
+      "centre" : {
+        "x" : 428.0,
+        "y" : 450.0
+      },
+      "type" : 1,
+      "numeroJeton" : {
+        "emplacement" : {
+          "x" : 428.0,
+          "y" : 450.0
+        },
+        "numeroJeton" : 10,
+        "points" : [ 428.0, 450.0 ]
+      },
+      "jeton" : {
+        "emplacement" : {
+          "x" : 428.0,
+          "y" : 450.0
+        },
+        "numeroJeton" : 10,
+        "points" : [ 428.0, 450.0 ]
+      },
+      "points" : [ 428.0, 510.0, 480.0, 480.0, 480.0, 420.0, 428.0, 390.0, 376.0, 420.0, 376.0, 480.0 ],
+      "voleur" : false
+    }, {
+      "indexHexagone" : 15,
+      "ressource" : null,
+      "numero" : 0,
+      "villeAdj" : [ null, null, null, null, null, null ],
+      "VOLEUR" : false,
+      "a" : {
+        "x" : 531.0,
+        "y" : 510.0
+      },
+      "b" : {
+        "x" : 583.0,
+        "y" : 480.0
+      },
+      "c" : {
+        "x" : 583.0,
+        "y" : 420.0
+      },
+      "d" : {
+        "x" : 531.0,
+        "y" : 390.0
+      },
+      "e" : {
+        "x" : 480.0,
+        "y" : 420.0
+      },
+      "f" : {
+        "x" : 480.0,
+        "y" : 480.0
+      },
+      "centre" : {
+        "x" : 531.0,
+        "y" : 450.0
+      },
+      "type" : 5,
+      "numeroJeton" : {
+        "emplacement" : {
+          "x" : 531.0,
+          "y" : 450.0
+        },
+        "numeroJeton" : 5,
+        "points" : [ 531.0, 450.0 ]
+      },
+      "jeton" : {
+        "emplacement" : {
+          "x" : 531.0,
+          "y" : 450.0
+        },
+        "numeroJeton" : 5,
+        "points" : [ 531.0, 450.0 ]
+      },
+      "points" : [ 531.0, 510.0, 583.0, 480.0, 583.0, 420.0, 531.0, 390.0, 480.0, 420.0, 480.0, 480.0 ],
+      "voleur" : false
+    }, {
+      "indexHexagone" : 16,
+      "ressource" : null,
+      "numero" : 0,
+      "villeAdj" : [ null, null, null, null, null, null ],
+      "VOLEUR" : false,
+      "a" : {
+        "x" : 272.0,
+        "y" : 600.0
+      },
+      "b" : {
+        "x" : 324.0,
+        "y" : 570.0
+      },
+      "c" : {
+        "x" : 324.0,
+        "y" : 510.0
+      },
+      "d" : {
+        "x" : 272.0,
+        "y" : 480.0
+      },
+      "e" : {
+        "x" : 220.0,
+        "y" : 510.0
+      },
+      "f" : {
+        "x" : 220.0,
+        "y" : 570.0
+      },
+      "centre" : {
+        "x" : 272.0,
+        "y" : 540.0
+      },
+      "type" : 1,
+      "numeroJeton" : {
+        "emplacement" : {
+          "x" : 272.0,
+          "y" : 540.0
+        },
+        "numeroJeton" : 11,
+        "points" : [ 272.0, 540.0 ]
+      },
+      "jeton" : {
+        "emplacement" : {
+          "x" : 272.0,
+          "y" : 540.0
+        },
+        "numeroJeton" : 11,
+        "points" : [ 272.0, 540.0 ]
+      },
+      "points" : [ 272.0, 600.0, 324.0, 570.0, 324.0, 510.0, 272.0, 480.0, 220.0, 510.0, 220.0, 570.0 ],
+      "voleur" : false
+    }, {
+      "indexHexagone" : 17,
+      "ressource" : null,
+      "numero" : 0,
+      "villeAdj" : [ null, null, null, null, null, null ],
+      "VOLEUR" : false,
+      "a" : {
+        "x" : 376.0,
+        "y" : 600.0
+      },
+      "b" : {
+        "x" : 428.0,
+        "y" : 570.0
+      },
+      "c" : {
+        "x" : 428.0,
+        "y" : 510.0
+      },
+      "d" : {
+        "x" : 376.0,
+        "y" : 480.0
+      },
+      "e" : {
+        "x" : 324.0,
+        "y" : 510.0
+      },
+      "f" : {
+        "x" : 324.0,
+        "y" : 570.0
+      },
+      "centre" : {
+        "x" : 376.0,
+        "y" : 540.0
+      },
+      "type" : 4,
+      "numeroJeton" : {
+        "emplacement" : {
+          "x" : 376.0,
+          "y" : 540.0
+        },
+        "numeroJeton" : 8,
+        "points" : [ 376.0, 540.0 ]
+      },
+      "jeton" : {
+        "emplacement" : {
+          "x" : 376.0,
+          "y" : 540.0
+        },
+        "numeroJeton" : 8,
+        "points" : [ 376.0, 540.0 ]
+      },
+      "points" : [ 376.0, 600.0, 428.0, 570.0, 428.0, 510.0, 376.0, 480.0, 324.0, 510.0, 324.0, 570.0 ],
+      "voleur" : false
+    }, {
+      "indexHexagone" : 18,
+      "ressource" : null,
+      "numero" : 0,
+      "villeAdj" : [ null, null, null, null, null, null ],
+      "VOLEUR" : false,
+      "a" : {
+        "x" : 480.0,
+        "y" : 600.0
+      },
+      "b" : {
+        "x" : 531.0,
+        "y" : 570.0
+      },
+      "c" : {
+        "x" : 531.0,
+        "y" : 510.0
+      },
+      "d" : {
+        "x" : 480.0,
+        "y" : 480.0
+      },
+      "e" : {
+        "x" : 428.0,
+        "y" : 510.0
+      },
+      "f" : {
+        "x" : 428.0,
+        "y" : 570.0
+      },
+      "centre" : {
+        "x" : 480.0,
+        "y" : 540.0
+      },
+      "type" : 1,
+      "numeroJeton" : {
+        "emplacement" : {
+          "x" : 480.0,
+          "y" : 540.0
+        },
+        "numeroJeton" : 3,
+        "points" : [ 480.0, 540.0 ]
+      },
+      "jeton" : {
+        "emplacement" : {
+          "x" : 480.0,
+          "y" : 540.0
+        },
+        "numeroJeton" : 3,
+        "points" : [ 480.0, 540.0 ]
+      },
+      "points" : [ 480.0, 600.0, 531.0, 570.0, 531.0, 510.0, 480.0, 480.0, 428.0, 510.0, 428.0, 570.0 ],
+      "voleur" : false
+    } ],
+    "points" : [ {
+      "x" : 272.0,
+      "y" : 120.0
+    }, {
+      "x" : 376.0,
+      "y" : 120.0
+    }, {
+      "x" : 480.0,
+      "y" : 120.0
+    }, {
+      "x" : 220.0,
+      "y" : 150.0
+    }, {
+      "x" : 324.0,
+      "y" : 150.0
+    }, {
+      "x" : 428.0,
+      "y" : 150.0
+    }, {
+      "x" : 531.0,
+      "y" : 150.0
+    }, {
+      "x" : 220.0,
+      "y" : 210.0
+    }, {
+      "x" : 324.0,
+      "y" : 210.0
+    }, {
+      "x" : 428.0,
+      "y" : 210.0
+    }, {
+      "x" : 531.0,
+      "y" : 210.0
+    }, {
+      "x" : 168.0,
+      "y" : 240.0
+    }, {
+      "x" : 272.0,
+      "y" : 240.0
+    }, {
+      "x" : 376.0,
+      "y" : 240.0
+    }, {
+      "x" : 480.0,
+      "y" : 240.0
+    }, {
+      "x" : 583.0,
+      "y" : 240.0
+    }, {
+      "x" : 168.0,
+      "y" : 300.0
+    }, {
+      "x" : 272.0,
+      "y" : 300.0
+    }, {
+      "x" : 376.0,
+      "y" : 300.0
+    }, {
+      "x" : 480.0,
+      "y" : 300.0
+    }, {
+      "x" : 583.0,
+      "y" : 300.0
+    }, {
+      "x" : 116.0,
+      "y" : 330.0
+    }, {
+      "x" : 220.0,
+      "y" : 330.0
+    }, {
+      "x" : 324.0,
+      "y" : 330.0
+    }, {
+      "x" : 428.0,
+      "y" : 330.0
+    }, {
+      "x" : 531.0,
+      "y" : 330.0
+    }, {
+      "x" : 635.0,
+      "y" : 330.0
+    }, {
+      "x" : 116.0,
+      "y" : 390.0
+    }, {
+      "x" : 220.0,
+      "y" : 390.0
+    }, {
+      "x" : 324.0,
+      "y" : 390.0
+    }, {
+      "x" : 428.0,
+      "y" : 390.0
+    }, {
+      "x" : 531.0,
+      "y" : 390.0
+    }, {
+      "x" : 635.0,
+      "y" : 390.0
+    }, {
+      "x" : 168.0,
+      "y" : 420.0
+    }, {
+      "x" : 272.0,
+      "y" : 420.0
+    }, {
+      "x" : 376.0,
+      "y" : 420.0
+    }, {
+      "x" : 480.0,
+      "y" : 420.0
+    }, {
+      "x" : 583.0,
+      "y" : 420.0
+    }, {
+      "x" : 168.0,
+      "y" : 480.0
+    }, {
+      "x" : 272.0,
+      "y" : 480.0
+    }, {
+      "x" : 376.0,
+      "y" : 480.0
+    }, {
+      "x" : 480.0,
+      "y" : 480.0
+    }, {
+      "x" : 583.0,
+      "y" : 480.0
+    }, {
+      "x" : 220.0,
+      "y" : 510.0
+    }, {
+      "x" : 324.0,
+      "y" : 510.0
+    }, {
+      "x" : 428.0,
+      "y" : 510.0
+    }, {
+      "x" : 531.0,
+      "y" : 510.0
+    }, {
+      "x" : 220.0,
+      "y" : 570.0
+    }, {
+      "x" : 324.0,
+      "y" : 570.0
+    }, {
+      "x" : 428.0,
+      "y" : 570.0
+    }, {
+      "x" : 531.0,
+      "y" : 570.0
+    }, {
+      "x" : 272.0,
+      "y" : 600.0
+    }, {
+      "x" : 376.0,
+      "y" : 600.0
+    }, {
+      "x" : 480.0,
+      "y" : 600.0
+    } ],
+    "villes" : [ {
+      "emplacement" : {
+        "x" : 272.0,
+        "y" : 120.0
+      },
+      "ville_adj1" : -1,
+      "ville_adj2" : 4,
+      "ville_adj3" : 3,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 376.0,
+        "y" : 120.0
+      },
+      "ville_adj1" : -1,
+      "ville_adj2" : 5,
+      "ville_adj3" : 4,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 480.0,
+        "y" : 120.0
+      },
+      "ville_adj1" : -1,
+      "ville_adj2" : 6,
+      "ville_adj3" : 5,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 220.0,
+        "y" : 150.0
+      },
+      "ville_adj1" : -1,
+      "ville_adj2" : -1,
+      "ville_adj3" : 7,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 324.0,
+        "y" : 150.0
+      },
+      "ville_adj1" : 0,
+      "ville_adj2" : 1,
+      "ville_adj3" : 8,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 428.0,
+        "y" : 150.0
+      },
+      "ville_adj1" : 1,
+      "ville_adj2" : 2,
+      "ville_adj3" : 9,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 531.0,
+        "y" : 150.0
+      },
+      "ville_adj1" : 2,
+      "ville_adj2" : -1,
+      "ville_adj3" : 10,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 220.0,
+        "y" : 210.0
+      },
+      "ville_adj1" : 3,
+      "ville_adj2" : 12,
+      "ville_adj3" : 11,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 324.0,
+        "y" : 210.0
+      },
+      "ville_adj1" : 4,
+      "ville_adj2" : 13,
+      "ville_adj3" : 12,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 428.0,
+        "y" : 210.0
+      },
+      "ville_adj1" : 5,
+      "ville_adj2" : 14,
+      "ville_adj3" : 13,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 531.0,
+        "y" : 210.0
+      },
+      "ville_adj1" : 6,
+      "ville_adj2" : 15,
+      "ville_adj3" : 14,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 168.0,
+        "y" : 240.0
+      },
+      "ville_adj1" : -1,
+      "ville_adj2" : 7,
+      "ville_adj3" : 16,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 272.0,
+        "y" : 240.0
+      },
+      "ville_adj1" : 7,
+      "ville_adj2" : 8,
+      "ville_adj3" : 17,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 376.0,
+        "y" : 240.0
+      },
+      "ville_adj1" : 8,
+      "ville_adj2" : 9,
+      "ville_adj3" : 18,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 480.0,
+        "y" : 240.0
+      },
+      "ville_adj1" : 9,
+      "ville_adj2" : 10,
+      "ville_adj3" : 19,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 583.0,
+        "y" : 240.0
+      },
+      "ville_adj1" : 10,
+      "ville_adj2" : -1,
+      "ville_adj3" : 20,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 168.0,
+        "y" : 300.0
+      },
+      "ville_adj1" : 11,
+      "ville_adj2" : 21,
+      "ville_adj3" : 22,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 272.0,
+        "y" : 300.0
+      },
+      "ville_adj1" : 12,
+      "ville_adj2" : 22,
+      "ville_adj3" : 23,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 376.0,
+        "y" : 300.0
+      },
+      "ville_adj1" : 13,
+      "ville_adj2" : 23,
+      "ville_adj3" : 24,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 480.0,
+        "y" : 300.0
+      },
+      "ville_adj1" : 14,
+      "ville_adj2" : 24,
+      "ville_adj3" : 25,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 583.0,
+        "y" : 300.0
+      },
+      "ville_adj1" : 15,
+      "ville_adj2" : 25,
+      "ville_adj3" : 26,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 116.0,
+        "y" : 330.0
+      },
+      "ville_adj1" : -1,
+      "ville_adj2" : 16,
+      "ville_adj3" : 27,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 220.0,
+        "y" : 330.0
+      },
+      "ville_adj1" : 16,
+      "ville_adj2" : 17,
+      "ville_adj3" : 28,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 324.0,
+        "y" : 330.0
+      },
+      "ville_adj1" : 17,
+      "ville_adj2" : 18,
+      "ville_adj3" : 29,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 428.0,
+        "y" : 330.0
+      },
+      "ville_adj1" : 18,
+      "ville_adj2" : 19,
+      "ville_adj3" : 30,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 531.0,
+        "y" : 330.0
+      },
+      "ville_adj1" : 19,
+      "ville_adj2" : 20,
+      "ville_adj3" : 31,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 635.0,
+        "y" : 330.0
+      },
+      "ville_adj1" : 20,
+      "ville_adj2" : -1,
+      "ville_adj3" : 32,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 116.0,
+        "y" : 390.0
+      },
+      "ville_adj1" : 21,
+      "ville_adj2" : 33,
+      "ville_adj3" : -1,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 220.0,
+        "y" : 390.0
+      },
+      "ville_adj1" : 22,
+      "ville_adj2" : 33,
+      "ville_adj3" : 34,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 324.0,
+        "y" : 390.0
+      },
+      "ville_adj1" : 23,
+      "ville_adj2" : 34,
+      "ville_adj3" : 35,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 428.0,
+        "y" : 390.0
+      },
+      "ville_adj1" : 24,
+      "ville_adj2" : 35,
+      "ville_adj3" : 36,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 531.0,
+        "y" : 390.0
+      },
+      "ville_adj1" : 25,
+      "ville_adj2" : 36,
+      "ville_adj3" : 37,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 635.0,
+        "y" : 390.0
+      },
+      "ville_adj1" : 26,
+      "ville_adj2" : -1,
+      "ville_adj3" : 37,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 168.0,
+        "y" : 420.0
+      },
+      "ville_adj1" : 27,
+      "ville_adj2" : 28,
+      "ville_adj3" : 38,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 272.0,
+        "y" : 420.0
+      },
+      "ville_adj1" : 28,
+      "ville_adj2" : 29,
+      "ville_adj3" : 39,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 376.0,
+        "y" : 420.0
+      },
+      "ville_adj1" : 29,
+      "ville_adj2" : 30,
+      "ville_adj3" : 40,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 480.0,
+        "y" : 420.0
+      },
+      "ville_adj1" : 30,
+      "ville_adj2" : 31,
+      "ville_adj3" : 41,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 583.0,
+        "y" : 420.0
+      },
+      "ville_adj1" : 31,
+      "ville_adj2" : 32,
+      "ville_adj3" : 42,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 168.0,
+        "y" : 480.0
+      },
+      "ville_adj1" : 33,
+      "ville_adj2" : 43,
+      "ville_adj3" : -1,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 272.0,
+        "y" : 480.0
+      },
+      "ville_adj1" : 34,
+      "ville_adj2" : 43,
+      "ville_adj3" : 44,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 376.0,
+        "y" : 480.0
+      },
+      "ville_adj1" : 35,
+      "ville_adj2" : 44,
+      "ville_adj3" : 45,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 480.0,
+        "y" : 480.0
+      },
+      "ville_adj1" : 36,
+      "ville_adj2" : 45,
+      "ville_adj3" : 46,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 583.0,
+        "y" : 480.0
+      },
+      "ville_adj1" : 37,
+      "ville_adj2" : -1,
+      "ville_adj3" : 46,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 220.0,
+        "y" : 510.0
+      },
+      "ville_adj1" : 38,
+      "ville_adj2" : 39,
+      "ville_adj3" : 47,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 324.0,
+        "y" : 510.0
+      },
+      "ville_adj1" : 39,
+      "ville_adj2" : 40,
+      "ville_adj3" : 48,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 428.0,
+        "y" : 510.0
+      },
+      "ville_adj1" : 40,
+      "ville_adj2" : 41,
+      "ville_adj3" : 49,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 531.0,
+        "y" : 510.0
+      },
+      "ville_adj1" : 41,
+      "ville_adj2" : 42,
+      "ville_adj3" : 50,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 220.0,
+        "y" : 570.0
+      },
+      "ville_adj1" : 43,
+      "ville_adj2" : 51,
+      "ville_adj3" : -1,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 324.0,
+        "y" : 570.0
+      },
+      "ville_adj1" : 44,
+      "ville_adj2" : 51,
+      "ville_adj3" : 52,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 428.0,
+        "y" : 570.0
+      },
+      "ville_adj1" : 45,
+      "ville_adj2" : 52,
+      "ville_adj3" : 53,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 531.0,
+        "y" : 570.0
+      },
+      "ville_adj1" : 46,
+      "ville_adj2" : -1,
+      "ville_adj3" : 53,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 272.0,
+        "y" : 600.0
+      },
+      "ville_adj1" : 47,
+      "ville_adj2" : 48,
+      "ville_adj3" : -1,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 376.0,
+        "y" : 600.0
+      },
+      "ville_adj1" : 48,
+      "ville_adj2" : 49,
+      "ville_adj3" : -1,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    }, {
+      "emplacement" : {
+        "x" : 480.0,
+        "y" : 600.0
+      },
+      "ville_adj1" : 49,
+      "ville_adj2" : 50,
+      "ville_adj3" : -1,
+      "route_adj1" : null,
+      "route_adj2" : null,
+      "route_adj3" : null,
+      "oqp" : null,
+      "gain" : 0,
+      "colonieVille" : false
+    } ],
+    "routes" : [ {
+      "depart" : {
+        "x" : 272.0,
+        "y" : 120.0
+      },
+      "arrive" : {
+        "x" : 220.0,
+        "y" : 150.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 272.0,
+        "y" : 120.0
+      },
+      "arrive" : {
+        "x" : 324.0,
+        "y" : 150.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 376.0,
+        "y" : 120.0
+      },
+      "arrive" : {
+        "x" : 324.0,
+        "y" : 150.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 376.0,
+        "y" : 120.0
+      },
+      "arrive" : {
+        "x" : 428.0,
+        "y" : 150.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 480.0,
+        "y" : 120.0
+      },
+      "arrive" : {
+        "x" : 428.0,
+        "y" : 150.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 480.0,
+        "y" : 120.0
+      },
+      "arrive" : {
+        "x" : 531.0,
+        "y" : 150.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 220.0,
+        "y" : 150.0
+      },
+      "arrive" : {
+        "x" : 220.0,
+        "y" : 210.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 324.0,
+        "y" : 150.0
+      },
+      "arrive" : {
+        "x" : 324.0,
+        "y" : 210.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 428.0,
+        "y" : 150.0
+      },
+      "arrive" : {
+        "x" : 428.0,
+        "y" : 210.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 531.0,
+        "y" : 150.0
+      },
+      "arrive" : {
+        "x" : 531.0,
+        "y" : 210.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 220.0,
+        "y" : 210.0
+      },
+      "arrive" : {
+        "x" : 168.0,
+        "y" : 240.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 220.0,
+        "y" : 210.0
+      },
+      "arrive" : {
+        "x" : 272.0,
+        "y" : 240.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 324.0,
+        "y" : 210.0
+      },
+      "arrive" : {
+        "x" : 272.0,
+        "y" : 240.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 324.0,
+        "y" : 210.0
+      },
+      "arrive" : {
+        "x" : 376.0,
+        "y" : 240.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 428.0,
+        "y" : 210.0
+      },
+      "arrive" : {
+        "x" : 376.0,
+        "y" : 240.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 428.0,
+        "y" : 210.0
+      },
+      "arrive" : {
+        "x" : 480.0,
+        "y" : 240.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 531.0,
+        "y" : 210.0
+      },
+      "arrive" : {
+        "x" : 480.0,
+        "y" : 240.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 531.0,
+        "y" : 210.0
+      },
+      "arrive" : {
+        "x" : 583.0,
+        "y" : 240.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 168.0,
+        "y" : 240.0
+      },
+      "arrive" : {
+        "x" : 168.0,
+        "y" : 300.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 272.0,
+        "y" : 240.0
+      },
+      "arrive" : {
+        "x" : 272.0,
+        "y" : 300.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 376.0,
+        "y" : 240.0
+      },
+      "arrive" : {
+        "x" : 376.0,
+        "y" : 300.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 480.0,
+        "y" : 240.0
+      },
+      "arrive" : {
+        "x" : 480.0,
+        "y" : 300.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 583.0,
+        "y" : 240.0
+      },
+      "arrive" : {
+        "x" : 583.0,
+        "y" : 300.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 168.0,
+        "y" : 300.0
+      },
+      "arrive" : {
+        "x" : 116.0,
+        "y" : 330.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 168.0,
+        "y" : 300.0
+      },
+      "arrive" : {
+        "x" : 220.0,
+        "y" : 330.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 272.0,
+        "y" : 300.0
+      },
+      "arrive" : {
+        "x" : 220.0,
+        "y" : 330.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 272.0,
+        "y" : 300.0
+      },
+      "arrive" : {
+        "x" : 324.0,
+        "y" : 330.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 376.0,
+        "y" : 300.0
+      },
+      "arrive" : {
+        "x" : 324.0,
+        "y" : 330.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 376.0,
+        "y" : 300.0
+      },
+      "arrive" : {
+        "x" : 428.0,
+        "y" : 330.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 480.0,
+        "y" : 300.0
+      },
+      "arrive" : {
+        "x" : 428.0,
+        "y" : 330.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 480.0,
+        "y" : 300.0
+      },
+      "arrive" : {
+        "x" : 531.0,
+        "y" : 330.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 583.0,
+        "y" : 300.0
+      },
+      "arrive" : {
+        "x" : 531.0,
+        "y" : 330.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 583.0,
+        "y" : 300.0
+      },
+      "arrive" : {
+        "x" : 635.0,
+        "y" : 330.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 116.0,
+        "y" : 330.0
+      },
+      "arrive" : {
+        "x" : 116.0,
+        "y" : 390.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 220.0,
+        "y" : 330.0
+      },
+      "arrive" : {
+        "x" : 220.0,
+        "y" : 390.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 324.0,
+        "y" : 330.0
+      },
+      "arrive" : {
+        "x" : 324.0,
+        "y" : 390.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 428.0,
+        "y" : 330.0
+      },
+      "arrive" : {
+        "x" : 428.0,
+        "y" : 390.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 531.0,
+        "y" : 330.0
+      },
+      "arrive" : {
+        "x" : 531.0,
+        "y" : 390.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 635.0,
+        "y" : 330.0
+      },
+      "arrive" : {
+        "x" : 635.0,
+        "y" : 390.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 116.0,
+        "y" : 390.0
+      },
+      "arrive" : {
+        "x" : 168.0,
+        "y" : 420.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 220.0,
+        "y" : 390.0
+      },
+      "arrive" : {
+        "x" : 168.0,
+        "y" : 420.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 220.0,
+        "y" : 390.0
+      },
+      "arrive" : {
+        "x" : 272.0,
+        "y" : 420.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 324.0,
+        "y" : 390.0
+      },
+      "arrive" : {
+        "x" : 272.0,
+        "y" : 420.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 324.0,
+        "y" : 390.0
+      },
+      "arrive" : {
+        "x" : 376.0,
+        "y" : 420.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 428.0,
+        "y" : 390.0
+      },
+      "arrive" : {
+        "x" : 376.0,
+        "y" : 420.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 428.0,
+        "y" : 390.0
+      },
+      "arrive" : {
+        "x" : 480.0,
+        "y" : 420.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 531.0,
+        "y" : 390.0
+      },
+      "arrive" : {
+        "x" : 480.0,
+        "y" : 420.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 531.0,
+        "y" : 390.0
+      },
+      "arrive" : {
+        "x" : 583.0,
+        "y" : 420.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 635.0,
+        "y" : 390.0
+      },
+      "arrive" : {
+        "x" : 583.0,
+        "y" : 420.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 168.0,
+        "y" : 420.0
+      },
+      "arrive" : {
+        "x" : 168.0,
+        "y" : 480.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 272.0,
+        "y" : 420.0
+      },
+      "arrive" : {
+        "x" : 272.0,
+        "y" : 480.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 376.0,
+        "y" : 420.0
+      },
+      "arrive" : {
+        "x" : 376.0,
+        "y" : 480.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 480.0,
+        "y" : 420.0
+      },
+      "arrive" : {
+        "x" : 480.0,
+        "y" : 480.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 583.0,
+        "y" : 420.0
+      },
+      "arrive" : {
+        "x" : 583.0,
+        "y" : 480.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 168.0,
+        "y" : 480.0
+      },
+      "arrive" : {
+        "x" : 220.0,
+        "y" : 510.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 272.0,
+        "y" : 480.0
+      },
+      "arrive" : {
+        "x" : 220.0,
+        "y" : 510.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 272.0,
+        "y" : 480.0
+      },
+      "arrive" : {
+        "x" : 324.0,
+        "y" : 510.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 376.0,
+        "y" : 480.0
+      },
+      "arrive" : {
+        "x" : 324.0,
+        "y" : 510.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 376.0,
+        "y" : 480.0
+      },
+      "arrive" : {
+        "x" : 428.0,
+        "y" : 510.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 480.0,
+        "y" : 480.0
+      },
+      "arrive" : {
+        "x" : 428.0,
+        "y" : 510.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 480.0,
+        "y" : 480.0
+      },
+      "arrive" : {
+        "x" : 531.0,
+        "y" : 510.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 583.0,
+        "y" : 480.0
+      },
+      "arrive" : {
+        "x" : 531.0,
+        "y" : 510.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 220.0,
+        "y" : 510.0
+      },
+      "arrive" : {
+        "x" : 220.0,
+        "y" : 570.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 324.0,
+        "y" : 510.0
+      },
+      "arrive" : {
+        "x" : 324.0,
+        "y" : 570.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 428.0,
+        "y" : 510.0
+      },
+      "arrive" : {
+        "x" : 428.0,
+        "y" : 570.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 531.0,
+        "y" : 510.0
+      },
+      "arrive" : {
+        "x" : 531.0,
+        "y" : 570.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 220.0,
+        "y" : 570.0
+      },
+      "arrive" : {
+        "x" : 272.0,
+        "y" : 600.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 324.0,
+        "y" : 570.0
+      },
+      "arrive" : {
+        "x" : 272.0,
+        "y" : 600.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 324.0,
+        "y" : 570.0
+      },
+      "arrive" : {
+        "x" : 376.0,
+        "y" : 600.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 428.0,
+        "y" : 570.0
+      },
+      "arrive" : {
+        "x" : 376.0,
+        "y" : 600.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 428.0,
+        "y" : 570.0
+      },
+      "arrive" : {
+        "x" : 480.0,
+        "y" : 600.0
+      },
+      "oqp" : null
+    }, {
+      "depart" : {
+        "x" : 531.0,
+        "y" : 570.0
+      },
+      "arrive" : {
+        "x" : 480.0,
+        "y" : 600.0
+      },
+      "oqp" : null
+    } ],
+    "jetons" : [ {
+      "emplacement" : {
+        "x" : 272.0,
+        "y" : 180.0
+      },
+      "numeroJeton" : 2,
+      "points" : [ 272.0, 180.0 ]
+    }, {
+      "emplacement" : {
+        "x" : 376.0,
+        "y" : 180.0
+      },
+      "numeroJeton" : 8,
+      "points" : [ 376.0, 180.0 ]
+    }, {
+      "emplacement" : {
+        "x" : 480.0,
+        "y" : 180.0
+      },
+      "numeroJeton" : 4,
+      "points" : [ 480.0, 180.0 ]
+    }, {
+      "emplacement" : {
+        "x" : 220.0,
+        "y" : 270.0
+      },
+      "numeroJeton" : 10,
+      "points" : [ 220.0, 270.0 ]
+    }, {
+      "emplacement" : {
+        "x" : 324.0,
+        "y" : 270.0
+      },
+      "numeroJeton" : 12,
+      "points" : [ 324.0, 270.0 ]
+    }, {
+      "emplacement" : {
+        "x" : 428.0,
+        "y" : 270.0
+      },
+      "numeroJeton" : 6,
+      "points" : [ 428.0, 270.0 ]
+    }, {
+      "emplacement" : {
+        "x" : 531.0,
+        "y" : 270.0
+      },
+      "numeroJeton" : 4,
+      "points" : [ 531.0, 270.0 ]
+    }, {
+      "emplacement" : {
+        "x" : 168.0,
+        "y" : 360.0
+      },
+      "numeroJeton" : 3,
+      "points" : [ 168.0, 360.0 ]
+    }, {
+      "emplacement" : {
+        "x" : 272.0,
+        "y" : 360.0
+      },
+      "numeroJeton" : 5,
+      "points" : [ 272.0, 360.0 ]
+    }, null, {
+      "emplacement" : {
+        "x" : 480.0,
+        "y" : 360.0
+      },
+      "numeroJeton" : 11,
+      "points" : [ 480.0, 360.0 ]
+    }, {
+      "emplacement" : {
+        "x" : 583.0,
+        "y" : 360.0
+      },
+      "numeroJeton" : 9,
+      "points" : [ 583.0, 360.0 ]
+    }, {
+      "emplacement" : {
+        "x" : 220.0,
+        "y" : 450.0
+      },
+      "numeroJeton" : 9,
+      "points" : [ 220.0, 450.0 ]
+    }, {
+      "emplacement" : {
+        "x" : 324.0,
+        "y" : 450.0
+      },
+      "numeroJeton" : 6,
+      "points" : [ 324.0, 450.0 ]
+    }, {
+      "emplacement" : {
+        "x" : 428.0,
+        "y" : 450.0
+      },
+      "numeroJeton" : 10,
+      "points" : [ 428.0, 450.0 ]
+    }, {
+      "emplacement" : {
+        "x" : 531.0,
+        "y" : 450.0
+      },
+      "numeroJeton" : 5,
+      "points" : [ 531.0, 450.0 ]
+    }, {
+      "emplacement" : {
+        "x" : 272.0,
+        "y" : 540.0
+      },
+      "numeroJeton" : 11,
+      "points" : [ 272.0, 540.0 ]
+    }, {
+      "emplacement" : {
+        "x" : 376.0,
+        "y" : 540.0
+      },
+      "numeroJeton" : 8,
+      "points" : [ 376.0, 540.0 ]
+    }, {
+      "emplacement" : {
+        "x" : 480.0,
+        "y" : 540.0
+      },
+      "numeroJeton" : 3,
+      "points" : [ 480.0, 540.0 ]
+    } ],
+    "voleur" : {
+      "indexHexagone" : 9,
+      "ressource" : null,
+      "numero" : 0,
+      "villeAdj" : [ null, null, null, null, null, null ],
+      "VOLEUR" : true,
+      "a" : {
+        "x" : 376.0,
+        "y" : 420.0
+      },
+      "b" : {
+        "x" : 428.0,
+        "y" : 390.0
+      },
+      "c" : {
+        "x" : 428.0,
+        "y" : 330.0
+      },
+      "d" : {
+        "x" : 376.0,
+        "y" : 300.0
+      },
+      "e" : {
+        "x" : 324.0,
+        "y" : 330.0
+      },
+      "f" : {
+        "x" : 324.0,
+        "y" : 390.0
+      },
+      "centre" : {
+        "x" : 376.0,
+        "y" : 360.0
+      },
+      "type" : 6,
+      "numeroJeton" : null,
+      "jeton" : null,
+      "points" : [ 376.0, 420.0, 428.0, 390.0, 428.0, 330.0, 376.0, 300.0, 324.0, 330.0, 324.0, 390.0 ],
+      "voleur" : true
+    }
+  },
+  "joueurs" : [ {
+    "id" : 1,
+    "nomUtilisateur" : "alexandre",
+    "dateDeNaissance" : "1994-02-02",
+    "couleur" : "rouge",
+    "pret" : false,
+    "pointVictoire" : 0,
+    "nbColonie" : 5,
+    "nbVille" : 4,
+    "nbRoute" : 4,
+    "stockRessource" : {
+      "1" : 0,
+      "2" : 0,
+      "3" : 0,
+      "4" : 0,
+      "5" : 0
+    },
+    "cartes" : [ ]
+  } ],
+  "joueurActuel" : {
+    "id" : 1,
+    "nomUtilisateur" : "alexandre",
+    "dateDeNaissance" : "1994-02-02",
+    "couleur" : "rouge",
+    "pret" : false,
+    "pointVictoire" : 0,
+    "nbColonie" : 5,
+    "nbVille" : 4,
+    "nbRoute" : 4,
+    "stockRessource" : {
+      "1" : 0,
+      "2" : 0,
+      "3" : 0,
+      "4" : 0,
+      "5" : 0
+    },
+    "cartes" : [ ]
+  }
+}

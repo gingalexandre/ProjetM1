@@ -27,7 +27,7 @@ public class Fonction {
 	}
 	
 	/**
-	 * Obtient la couleur FXML adéquate en fonction d'une chaine de caractère
+	 * Obtient la couleur FXML adï¿½quate en fonction d'une chaine de caractï¿½re
 	 * @param couleur
 	 * @return la couleur FXML correspondante
 	 */

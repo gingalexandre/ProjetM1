@@ -46,5 +46,5 @@ public interface JoueurServeur extends Remote{
 	 */
 	void setJoueur(Joueur joueur) throws RemoteException;
 
-	public void envoyerPositionVoleur(int depart, int arrive) throws RemoteException;
+	void envoyerPositionVoleur(int depart, int arrive) throws RemoteException;
 }

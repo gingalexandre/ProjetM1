@@ -1,6 +1,7 @@
 package client.controller;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 
 import client.view.VuePrincipale;
 import javafx.fxml.FXML;
@@ -9,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import serveur.reseau.serveur.ConnexionManager;
+import serveur.reseau.serveur.Serveur;
 
 public class ReglesController {
 	
@@ -43,6 +46,18 @@ public class ReglesController {
 		    statsFenetre.setScene(scene);
 		    statsFenetre.showAndWait();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	private void sauvegarderPartie(){
+		Serveur serveur = null;
+		serveur = ConnexionManager.getStaticServeur();
+		try {
+			serveur.enregistrerPartie();
+		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

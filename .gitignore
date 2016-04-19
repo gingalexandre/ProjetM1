@@ -184,7 +184,7 @@ nbactions.xml
 .mtj.tmp/
 
 # Package Files #
-*.jar
+# *.jar
 *.war
 *.ear
 
@@ -224,3 +224,5 @@ buildNumber.properties
 # Notepad++ backups #
 *.bak
 
+### Sauvegarde ###
+*.json

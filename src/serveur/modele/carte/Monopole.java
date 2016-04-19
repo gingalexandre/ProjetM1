@@ -1,15 +1,19 @@
 package serveur.modele.carte;
 
-import serveur.modele.Joueur;
+import java.io.Serializable;
 
 /**
  * Carte de Monopole d'une ressource. Le joueur reçoit toutes les cartes d'un type choisi des autres joueurs.
  *
  * @author Yohann Hugo
  */
-public class Monopole implements Carte{
+public class Monopole implements Carte, Serializable{
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
      * Attribut chemin vers la ressources image.
      */
     private static String CHEMIN = "/Ressources/cartes/carte_progres_monopole.png";

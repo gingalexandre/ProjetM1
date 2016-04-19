@@ -2,8 +2,6 @@ package client.controller;
 
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -13,8 +11,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import serveur.reseau.ConnexionManager;
-import serveur.reseau.Serveur;
+import serveur.reseau.serveur.ConnexionManager;
+import serveur.reseau.serveur.Serveur;
 
 public class InscriptionController implements Initializable {
 
@@ -55,7 +53,7 @@ public class InscriptionController implements Initializable {
 			String erreur = serveur.getGestionnaireBDD().inscriptionBDD(nomUtilisateur.getText(), mdp.getText(), dateNaissance.getValue());
 			utilisateurErreur.setText(erreur);
 		} else {
-			mdpErreur.setText("Mot de passe non identique ou pas assez long ou trop court. V�rifiez �galement la taille du nom d'utilisateur.");
+			mdpErreur.setText("Mot de passe non identique ou pas assez long ou trop court. Vérifiez également la taille du nom d'utilisateur.");
 		}
 	}
 }

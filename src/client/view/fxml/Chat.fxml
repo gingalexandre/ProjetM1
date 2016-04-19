@@ -26,7 +26,7 @@
                     <tabs>
                         <Tab text="Principal">
                             <content>
-                                <ScrollPane fx:id="scrollPanePrincipal">
+                                <ScrollPane fx:id="scrollPanePrincipal" fitToWidth="true">
                                     <content>
                                         <TextFlow fx:id="textFlowPrincipal" />
                                     </content>
@@ -35,7 +35,7 @@
                         </Tab>
                         <Tab text="Système">
                             <content>
-                                <ScrollPane fx:id="scrollPaneSysteme">
+                                <ScrollPane fx:id="scrollPaneSysteme" fitToWidth="true">
                                     <content>
                                         <TextFlow fx:id="textFlowSysteme" />
                                     </content>
@@ -44,7 +44,7 @@
                         </Tab>
                         <Tab text="Joueurs">
                             <content>
-                                <ScrollPane fx:id="scrollPaneJoueurs" >
+                                <ScrollPane fx:id="scrollPaneJoueurs" fitToWidth="true">
                                     <content>
                                         <TextFlow fx:id="textFlowJoueurs"  />
                                     </content>

@@ -78,4 +78,25 @@ public class Route implements Serializable{
 		this.oqp = j;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Point getDepart() {
+		return depart;
+	}
+
+	public Point getArrive() {
+		return arrive;
+	}
+
+	@Override
+	public String toString() {
+		return "Route [depart=" + depart + ", arrive=" + arrive + ", oqp=" + oqp + "]";
+	}
+	
+	
+	
+	
+
 }

@@ -10,9 +10,9 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Polygon;
 import serveur.modele.*;
-import serveur.reseau.ConnexionManager;
-import serveur.reseau.Proxy;
-import serveur.reseau.Serveur;
+import serveur.reseau.proxy.Proxy;
+import serveur.reseau.serveur.ConnexionManager;
+import serveur.reseau.serveur.Serveur;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,10 +22,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import serveur.view.VueHexagone;
 import serveur.modele.Jeton;
-import serveur.modele.Plateau;
 import serveur.modele.Route;
 import serveur.modele.Ville;
-import serveur.view.VueJeton;
+import serveur.modele.service.PlateauInterface;
 
 /**
  * Controller du plateau
@@ -39,7 +38,7 @@ public class PlateauController implements Initializable{
 	/**
 	 * Plateau de jeu
 	 */
-	private Plateau plateau;
+	private PlateauInterface plateau;
 	
 	/**
 	 * Serveur de jeu
@@ -86,20 +85,28 @@ public class PlateauController implements Initializable{
 			@Override
 			public void handle(MouseEvent event){
 				boolean trouve = false;
-				int depart = plateau.getHexagones().indexOf(plateau.getVoleur());
-				Point2D point = new Point2D(event.getX(),event.getY());
-				int i = 0;
-				for (Hexagone hex: plateau.getHexagones()) {
-					Polygon polygon = new Polygon();
-					polygon.getPoints().addAll(hex.getPoints());
-					if(polygon.contains(point)){
-						plateau.getVoleur().setVOLEUR(false);
-						plateau.getHexagones().get(i).setVOLEUR(true);
-						trouve = true;
-						break;
-					}else{
-						i++;
+				int depart;
+				try {
+					depart = plateau.getHexagones().indexOf(plateau.getVoleur());
+					Point2D point = new Point2D(event.getX(),event.getY());
+					int i = 0;
+					for (Hexagone hex: plateau.getHexagones()) {
+						Polygon polygon = new Polygon();
+						polygon.getPoints().addAll(hex.getPoints());
+						if(polygon.contains(point)){
+							plateau.getVoleur().setVOLEUR(false);
+							plateau.getHexagones().get(i).setVOLEUR(true);
+							trouve = true;
+							break;
+						}else{
+							i++;
+						}
 					}
+					//mainPane.getChildren().clear();
+					int arrive = i;
+					if(trouve) Platform.runLater(() -> deplaceVoleur(depart,arrive));
+				} catch (RemoteException e) {
+					e.printStackTrace();
 				}
 				//mainPane.getChildren().clear();
 				int arrive = i;
@@ -159,39 +166,42 @@ public class PlateauController implements Initializable{
 		imgView.setLayoutX(50);
 		mainPane.getChildren().add(imgView);
 
-		// Ajout des hexagones
-		hexagones = new Group();
-		hexagones.getChildren().addAll(VueHexagone.transformVueHexagone(plateau.getHexagones()));
-
-		//Ajout des villes
-		villes = new Group();
-        Circle[] t = Ville.transformVilleVueVille(plateau.getVilles());
-		villes = new Group();
-		villes.getChildren().addAll(t);
-
-		//Ajout des routes
-		routes = new Group();
-        routes.getChildren().addAll(Route.transformRouteVueRoute(plateau.getRoutes()));
-
-		//Ajout des jetons
-		jetons = new Group();
-		Circle[] jetonsDessine = Jeton.transformVueJeton(plateau.getJetons());
-		jetons.getChildren().addAll(jetonsDessine);
-
-		// Construction du Pane principal
-		mainPane.getChildren().add(hexagones);
-		mainPane.getChildren().add(villes);
-		mainPane.getChildren().add(routes);
-		mainPane.getChildren().add(jetons);
-        mainPane.setStyle("-fx-background-color: #4e6c91");
-
+		try {
+			// Ajout des hexagones
+			hexagones = new Group();
+			hexagones.getChildren().addAll(VueHexagone.transformVueHexagone(plateau.getHexagones()));
+	
+			//Ajout des villes
+			villes = new Group();
+	        Circle[] t = Ville.transformVilleVueVille(plateau.getVilles());
+			villes = new Group();
+			villes.getChildren().addAll(t);
+	
+			//Ajout des routes
+			routes = new Group();
+	        routes.getChildren().addAll(Route.transformRouteVueRoute(plateau.getRoutes()));
+	
+			//Ajout des jetons
+			jetons = new Group();
+			Circle[] jetonsDessine = Jeton.transformVueJeton(plateau.getJetons());
+			jetons.getChildren().addAll(jetonsDessine);
+	
+			// Construction du Pane principal
+			mainPane.getChildren().add(hexagones);
+			mainPane.getChildren().add(villes);
+			mainPane.getChildren().add(routes);
+			mainPane.getChildren().add(jetons);
+	        mainPane.setStyle("-fx-background-color: #4e6c91");
+		}catch(RemoteException e){
+			e.printStackTrace();
+		}
 	}
 	
 	/**
 	 * Permet de set l'attribut plateau
 	 * @param plateau - Plateau envoy� par le proxy RMI 
 	 */
-	public void setPlateau(Plateau plateau){
+	public void setPlateau(PlateauInterface plateau){
 		this.plateau = plateau;
 	}
 

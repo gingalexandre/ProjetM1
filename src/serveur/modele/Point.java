@@ -14,7 +14,7 @@ public class Point implements Serializable {
 		this.x = ((double)((int) x));
 		this.y = ((double)((int) y));
 	}
-
+	
     public double getX() {
         return x;
     }
@@ -62,5 +62,20 @@ public class Point implements Serializable {
     		return 0;
     	}
     }
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public void setY(double y) {
+		this.y = y;
+	}
+    
+	
+    
         
 }

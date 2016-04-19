@@ -1,6 +1,12 @@
 package serveur.modele;
 
-import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+import org.codehaus.jackson.annotate.*;
+
+import serveur.modele.service.PlateauInterface;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -8,20 +14,26 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Plateau implements Serializable{
-	
+public class Plateau extends UnicastRemoteObject implements PlateauInterface{
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private ArrayList<Hexagone> hexagones ;
+
 	private ArrayList<Point> points;
+
 	private ArrayList<Ville> villes ;
+
 	private ArrayList<Route> routes ;
-	private static Plateau INSTANCE = null;
-	private ArrayList<Jeton> jetons ;
 	
+
+	private static Plateau INSTANCE = null;
+
+	private ArrayList<Jeton> jetons ;
+
 	private static final int SIZE = 60;
 	
-	private Plateau(){
+	private Plateau() throws RemoteException{
 		points = new ArrayList<Point>();
 		hexagones = new ArrayList<Hexagone>(Arrays.asList(this.getAllHexagone()));
 		setPoints();
@@ -87,58 +99,58 @@ public class Plateau implements Serializable{
 		int i = 0;
 		for (Ville v : villes){
 			if(i<=2)
-				v.setVillesAdj(null, villes.get(i+4), villes.get(i+3));
+				v.setVillesAdj(-1, i+4, i+3);
 			else if ((i==4)||(i==5))
-				v.setVillesAdj(villes.get(i-4), villes.get(i-3), villes.get(i+4));
+				v.setVillesAdj(i-4, i-3, i+4);
 			else if ((i>=7)&&(i<=10))
-				v.setVillesAdj(villes.get(i-4),villes.get(i+5), villes.get(i+4));
+				v.setVillesAdj(i-4, i+5, i+4);
 			else if ((i>=12)&&(i<=14))
-				v.setVillesAdj(villes.get(i-5), villes.get(i-4), villes.get(i+5));
+				v.setVillesAdj(i-5, i-4, i+5);
 			else if ((i>=16)&&(i<=20))
-				v.setVillesAdj(villes.get(i-5), villes.get(i+5), villes.get(i+6));
+				v.setVillesAdj(i-5, i+5, i+6);
 			else if ((i>=22)&&(i<=25))
-				v.setVillesAdj(villes.get(i-6), villes.get(i-5), villes.get(i+6));
+				v.setVillesAdj(i-6, i-5, i+6);
 			else if ((i>=28)&&(i<=31))
-				v.setVillesAdj(villes.get(i-6), villes.get(i+5), villes.get(i+6));
+				v.setVillesAdj(i-6, i+5, i+6);
 			else if ((i>=33)&&(i<=37))
-				v.setVillesAdj(villes.get(i-6),villes.get(i-5),villes.get(i+5));
+				v.setVillesAdj(i-6, i-5, i+5);
 			else if ((i>=39)&&(i<=41))
-				v.setVillesAdj(villes.get(i-5),villes.get(i+4),villes.get(i+5));
+				v.setVillesAdj(i-5, i+4, i+5);
 			else if ((i>=43)&&(i<=46))
-				v.setVillesAdj(villes.get(i-5),villes.get(i-4),villes.get(i+4));
+				v.setVillesAdj(i-5, i-4, i+4);
 			else if ((i==48)||(i==49))
-				v.setVillesAdj(villes.get(i-4),villes.get(i+3),villes.get(i+4));
+				v.setVillesAdj(i-4, i+3, i+4);
 			else if (i>=51)
-				v.setVillesAdj(villes.get(i-4),villes.get(i-3),null);
+				v.setVillesAdj(i-4, i-3, -1);
 			i++;
 		}
 		
-		villes.get(3).setVillesAdj(null, villes.get(0), villes.get(7));
-		villes.get(6).setVillesAdj(villes.get(2), null, villes.get(10));
-		villes.get(11).setVillesAdj(null, villes.get(7), villes.get(16));
-	    villes.get(15).setVillesAdj(villes.get(10), null, villes.get(20));
-		villes.get(21).setVillesAdj(null, villes.get(16), villes.get(27));
-		villes.get(26).setVillesAdj(villes.get(20), null, villes.get(32));
-		villes.get(27).setVillesAdj(villes.get(21), villes.get(33), null);
-		villes.get(32).setVillesAdj(villes.get(26), null, villes.get(37));
-		villes.get(38).setVillesAdj(villes.get(33), villes.get(43), null);
-		villes.get(42).setVillesAdj(villes.get(37), null, villes.get(46));
-		villes.get(47).setVillesAdj(villes.get(43), villes.get(51), null);
-		villes.get(50).setVillesAdj(villes.get(46), null, villes.get(53));
+		villes.get(3).setVillesAdj(-1,  -1, 7);
+		villes.get(6).setVillesAdj(2, -1, 10);
+		villes.get(11).setVillesAdj(-1, 7, 16);
+	    villes.get(15).setVillesAdj(10, -1, 20);
+		villes.get(21).setVillesAdj(-1, 16, 27);
+		villes.get(26).setVillesAdj(20, -1, 32);
+		villes.get(27).setVillesAdj(21, 33, -1);
+		villes.get(32).setVillesAdj(26, -1, 37);
+		villes.get(38).setVillesAdj(33, 43, -1);
+		villes.get(42).setVillesAdj(37, -1, 46);
+		villes.get(47).setVillesAdj(43, 51, -1);
+		villes.get(50).setVillesAdj(46, -1, 53);
 		
 	}
 	
 	public void setRoutes(){
 		routes = new ArrayList<Route>();
 		for(Ville v : villes){
-			if(v.getVilleAdj1() !=  null){
-				ajoutListeRoute(new Route(v.getEmplacement(),v.getVilleAdj1().getEmplacement()));
+			if(v.getVille_adj1() !=  -1){
+				ajoutListeRoute(new Route(v.getEmplacement(),villes.get(v.getVille_adj1()).getEmplacement()));
 			}
-			if(v.getVilleAdj2() !=  null){
-				ajoutListeRoute(new Route(v.getEmplacement(),v.getVilleAdj2().getEmplacement()));
+			if(v.getVille_adj2() !=  -1){
+				ajoutListeRoute(new Route(v.getEmplacement(),villes.get(v.getVille_adj2()).getEmplacement()));
 			}
-			if(v.getVilleAdj3() !=  null){
-				ajoutListeRoute(new Route(v.getEmplacement(),v.getVilleAdj3().getEmplacement()));
+			if(v.getVille_adj3() !=  -1){
+				ajoutListeRoute(new Route(v.getEmplacement(),villes.get(v.getVille_adj3()).getEmplacement()));
 			}
 		}
 		
@@ -166,13 +178,14 @@ public class Plateau implements Serializable{
 		}
 	}
 	
-	public static Plateau getInstance(){
+	public static Plateau getInstance() throws RemoteException{
 		if (INSTANCE == null){ 	
 			INSTANCE = new Plateau();	
 		}
 		return INSTANCE;
 	}
 	
+	@JsonIgnore
 	public Hexagone[] getAllHexagone() {
         Hexagone[] res = new Hexagone[19];
         /* CREATION DES HEXAGONES */
@@ -198,6 +211,18 @@ public class Plateau implements Serializable{
         }
         return res;
     }
+
+	public ArrayList<Point> getPoints() {
+		return points;
+	}
+
+	@Override
+	public String toString() {
+		return "Plateau [hexagones=" + hexagones + ", points=" + points + ", villes=" + villes + ", routes=" + routes
+				+ "]";
+	}
+	
+	
 
 	public Hexagone getVoleur(){
 		for(Hexagone hex: hexagones) {

@@ -30,6 +30,12 @@ public interface Serveur extends Remote{
 	void enregistrerPartie()  throws RemoteException;
 	
 	/**
+	 * Appel le GestionnaireUI pour envoyer un message indiquant le nombre de joueurs connectés aux joueurs 
+	 * @throws RemoteException 
+	 */
+	void envoyerNombreJoueursConnectes() throws RemoteException;
+	
+	/**
 	 * Permet d'obtenir le gestionnaire de base de données
 	 * @return le gestionnaire de base de données
 	 * @throws RemoteException

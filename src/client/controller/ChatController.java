@@ -45,14 +45,19 @@ public class ChatController implements Initializable{
 	 */
 	private Proxy proxy;
 	
+	/**
+	 * Serveur de jeu
+	 */
+	private Serveur serveur;
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		enregistrerController();
 		listenerVues();
-		
 		try{
-			Serveur serveur = ConnexionManager.getStaticServeur();
+			serveur = ConnexionManager.getStaticServeur();
 			serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" vient de se connecter"));
+			serveur.envoyerNombreJoueursConnectes();
 		}
 		catch (Exception e){
 			e.printStackTrace();
@@ -108,6 +113,8 @@ public class ChatController implements Initializable{
 			Platform.runLater(() -> textFlowJoueurs.getChildren().add(creerStyleTexteAuteur(message)));
 			Platform.runLater(() -> textFlowJoueurs.getChildren().add(creerStyleTexteMessage(message)));
 		}
+		
+		// Scroll du chat
 		setScrollValue(scrollPanePrincipal, scrollPanePrincipal.getHmax());
 		setScrollValue(scrollPaneJoueurs, scrollPaneJoueurs.getHmax());
 		setScrollValue(scrollPaneSysteme, scrollPaneSysteme.getHmax());
@@ -146,9 +153,7 @@ public class ChatController implements Initializable{
 		if(!messageUtilisateur.equals("")){
 			Message message = new Message(proxy.getJoueur().getNomUtilisateur(), messageUtilisateur, proxy.getJoueur().getCouleur());
 			try{
-				// R�cup�ration du serveur en passant par le singleton ConnexionManager
-				Serveur serveur = ConnexionManager.getStaticServeur();
-				// Appel de la m�thode distante diffuserMessage du serveur pour envoyer le message � tous les controllers des joueurs
+				// Appel de la méthode distante diffuserMessage du serveur pour envoyer le message � tous les controllers des joueurs
 				serveur.getGestionnaireUI().diffuserMessage(message);
 			}
 			catch (RemoteException e){

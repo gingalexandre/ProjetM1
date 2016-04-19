@@ -60,7 +60,7 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	}
 	
 	/**
-	 * Diffuse un message envoy� par un joueur a tous les autre joueurServeurs
+	 * Diffuse un message envoyé par un joueur a tous les autre joueurServeurs
 	 * @param message
 	 * @throws RemoteException
 	 */

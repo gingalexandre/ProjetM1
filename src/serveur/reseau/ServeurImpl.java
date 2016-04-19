@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import exception.TooMuchPlayerException;
 import serveur.bdd.Sauvegarde;
 import serveur.modele.Joueur;
+import serveur.modele.Message;
 import serveur.modele.service.JoueurInterface;
 import serveur.reseau.communicationClients.GestionnaireBDD;
 import serveur.reseau.communicationClients.GestionnairePartie;
@@ -96,7 +97,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 
 		}
 	}
-	
+
 	/**
 	 * Permet d'ajouter un joueur a la liste de joueurs des gestionnaires
 	 * @param nouveauJoueurServeur - joueur a envoyer
@@ -106,6 +107,17 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 		gestionnairePartie.enregistrerJoueur(nouveauJoueurServeur);
 		gestionnairePartie.ajouterJoueurPartie(nouveauJoueurServeur.getJoueur());
 		gestionnaireUI.enregistrerJoueur(nouveauJoueurServeur);
+	}
+	
+	/**
+	 * Appel le GestionnaireUI pour envoyer un message indiquant le nombre de joueurs connectés aux joueurs 
+	 * @throws RemoteException 
+	 */
+	@Override
+	public void envoyerNombreJoueursConnectes() throws RemoteException {
+		String contenu = "Nombre de joueurs connectés : "+this.joueurServeurs.size()+"/"+this.nombre_max_joueurs;
+		Message message = new Message(contenu);
+		gestionnaireUI.diffuserMessage(message);
 	}
 	
 	/**

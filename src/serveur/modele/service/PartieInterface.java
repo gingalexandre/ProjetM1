@@ -134,4 +134,6 @@ public interface PartieInterface extends Remote{
 	JoueurInterface getJoueurLePlusVieux() throws RemoteException;
 	
 	int getId() throws RemoteException;
+	
+	void setId(int id) throws RemoteException;
 }

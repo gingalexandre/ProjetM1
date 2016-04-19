@@ -8,8 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import serveur.modele.Joueur;
-
 public class Partie {
 
 	private int idPartie;
@@ -38,7 +36,7 @@ public class Partie {
 			prestmt = connection.prepareStatement(query);
 			prestmt.setInt(1, id);
 			ResultSet rs = prestmt.executeQuery();
-			if (rs.first() == true) {
+			if (rs.next() == true) {
 				Partie partie = new Partie(rs.getInt("idPartie"), rs.getString("path"), rs.getString("checksum"));
 				connection.close();
 				return partie;
@@ -54,7 +52,7 @@ public class Partie {
 		return null;
 	}
 
-	public static Partie getIdByChecksum(String path) throws InterruptedException {
+	public static Partie getIdByPath(String path) throws InterruptedException {
 		Connection connection = Base.connexion();
 		PreparedStatement prestmt = null;
 		String query = "SELECT * FROM Partie WHERE path=? ;";
@@ -73,7 +71,7 @@ public class Partie {
 		return null;
 	}
 
-	public void insererPartie(String[] nomJoueurs) throws InterruptedException {
+	public void insererPartie(ArrayList<JoueurSauvegarde> joueurs) throws InterruptedException {
 		Connection connection = Base.connexion();
 		String query = "INSERT INTO Partie(idPartie, path, checksum) VALUES (NULL,?,?)";
 		PreparedStatement prestmt;
@@ -90,11 +88,13 @@ public class Partie {
 			e.printStackTrace();
 		}
 
-		for (String joueur : nomJoueurs) {
-			Utilisateur user = Utilisateur.getJoueurByName(joueur);
-			Partie partie = Partie.getIdByChecksum(path);
+		for (JoueurSauvegarde joueur : joueurs) {
+			Utilisateur user;
+			user = Utilisateur.getJoueurByName(joueur.getNomUtilisateur());
+			Partie partie = Partie.getIdByPath(path);
 			Jouer jouer = new Jouer(partie.getIdPartie(), user.getId());
 			jouer.insererJouer();
+
 		}
 	}
 
@@ -110,4 +110,5 @@ public class Partie {
 		return checksum;
 	}
 
+	
 }

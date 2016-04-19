@@ -190,6 +190,13 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	public int getId() {
 		return id;
 	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
 	
 	
 

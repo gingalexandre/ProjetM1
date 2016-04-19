@@ -11,6 +11,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
 
 import serveur.modele.Joueur;
+import serveur.reseau.ConnexionManager;
+import serveur.reseau.Serveur;
 
 public class Sauvegarde {
 	private static Joueur currentJoueur = null;
@@ -37,8 +39,11 @@ public class Sauvegarde {
 			try {
 				contenu = objectMapper.writeValueAsString(partieASauvegarder);
 				partieActuelle = new Partie(partieASauvegarder.getIdPartie(), path, contenu);
-				partieActuelle.insererPartie((String[]) partieASauvegarder.getJoueurs().toArray());
+				partieActuelle.insererPartie(partieASauvegarder.getJoueurs());
 				this.sauvegarderPartie(partieASauvegarder, path);
+				Partie partie = Partie.getIdByPath(path);
+				Serveur serveur = ConnexionManager.getStaticServeur();
+				serveur.getGestionnairePartie().getPartie().setId(partie.getIdPartie());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

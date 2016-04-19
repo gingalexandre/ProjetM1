@@ -54,6 +54,7 @@ public class ChatController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		enregistrerController();
 		listenerVues();
+		proprietesComposants();
 		try{
 			serveur = ConnexionManager.getStaticServeur();
 			serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" vient de se connecter"));
@@ -78,6 +79,13 @@ public class ChatController implements Initializable{
 	 */
 	private void listenerVues() {
 		nombreCharMaxTextField();
+	}
+	
+	/**
+	 * Mets des propriétés dans certains composants
+	 */
+	private void proprietesComposants() {
+		saisie.setPromptText("Max. 150 caractères");
 	}
 
 	/**

@@ -69,7 +69,7 @@ public class ChatController implements Initializable{
 	}
 	
 	/**
-	 * Appelle les m�thodes g�rant les listener des composants de la vue
+	 * Appelle les méthodes gérant les listener des composants de la vue
 	 */
 	private void listenerVues() {
 		nombreCharMaxTextField();
@@ -94,7 +94,7 @@ public class ChatController implements Initializable{
 	
 	/**
 	 * Affiche le message dans les TextArea correspondantes
-	 * @param message - Message � afficher
+	 * @param message - Message à afficher
 	 */
 	public void afficherMessage(Message message){
 		if(message.isSystem()){
@@ -108,15 +108,15 @@ public class ChatController implements Initializable{
 			Platform.runLater(() -> textFlowJoueurs.getChildren().add(creerStyleTexteAuteur(message)));
 			Platform.runLater(() -> textFlowJoueurs.getChildren().add(creerStyleTexteMessage(message)));
 		}
-		setScrollValue(scrollPanePrincipal, 1);
-		setScrollValue(scrollPaneJoueurs, 1);
-		setScrollValue(scrollPaneSysteme, 1);
+		setScrollValue(scrollPanePrincipal, scrollPanePrincipal.getHmax());
+		setScrollValue(scrollPaneJoueurs, scrollPaneJoueurs.getHmax());
+		setScrollValue(scrollPaneSysteme, scrollPaneSysteme.getHmax());
 	}
 	
 	/**
-	 * Renvoie un Text avec le style ad�quat pour l'auteur du message
-	 * @param message
-	 * @return
+	 * Renvoie un Text avec le style adéquat pour l'auteur du message
+	 * @param message - message à transformer
+	 * @return le Text avec le style adéquat
 	 */
 	public Text creerStyleTexteAuteur(Message message){
 		Text auteur = new Text(message.getAuteur() + " : ");
@@ -126,9 +126,9 @@ public class ChatController implements Initializable{
 	}
 	
 	/**
-	 * Renvoie un Text avec le style ad�quat pour le contenu du message
-	 * @param message
-	 * @return
+	 * Renvoie un Text avec le style adéquat pour le contenu du message
+	 * @param message - message à transformer
+	 * @return le Text avec le style adéquat
 	 */
 	public Text creerStyleTexteMessage(Message message){
 		Text contenu = new Text(message.getMessage() + "\n");
@@ -137,7 +137,7 @@ public class ChatController implements Initializable{
 	}
 	
 	/**
-	 * Se d�clenche quand l'utilisateur appuie sur la touche "Entr�e" lorsqu'il se trouve dans le TextField
+	 * Se déclenche quand l'utilisateur appuie sur la touche "Entrée" lorsqu'il se trouve dans le TextField
 	 * @throws RemoteException 
 	 */
 	@FXML
@@ -159,7 +159,7 @@ public class ChatController implements Initializable{
 	}
 	
 	/**
-	 * Place la barre de scroll � la valeur donn�e
+	 * Place la barre de scroll à la valeur donnée
 	 * @param scrollPane
 	 * @param value
 	 */

@@ -3,6 +3,8 @@ package client.controller;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+
+import client.view.VuePrincipale;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
@@ -80,6 +82,7 @@ public class PlateauController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		recupererAttributs();
 		enregistrerController();
+		VuePrincipale.paneUsed = mainPane;
 		mainPane.setOnMouseClicked(new EventHandler<MouseEvent>()
 		{
 			@Override
@@ -155,7 +158,7 @@ public class PlateauController implements Initializable{
 		imgView.setFitWidth(650);
 		imgView.setLayoutX(50);
 		mainPane.getChildren().add(imgView);
-
+		
 		try {
 			// Ajout des hexagones
 			hexagones = new Group();

@@ -113,6 +113,6 @@ public class Route implements Serializable{
 		boolean c = (villes.get(arrive).getOqp() == null || villes.get(arrive).getOqp().equals(joueurCourrant));
 		// Verification si la route est la continuité d'une de mes routes
 		boolean d = mesExtremitesDeRoute.contains(this.depart) || mesExtremitesDeRoute.contains(this.arrive);
-		return a && ( b || c || d );
+		return a && ( (b && c) || d );
 	}
 }

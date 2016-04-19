@@ -1,6 +1,5 @@
 package client.controller;
 
-import java.awt.GridLayout;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -15,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -266,8 +266,11 @@ public class MenuController implements Initializable {
 			}
 			// RECHERCHES DES ROUTES CONSTRUCTIBLES
 			HashMap<Polygon, Route> routesConstructibles = new HashMap();
+			int j = 0;
+			Group grp = new Group();
 			for(Route r: p.getRoutes()){
 				if(r.estConstructible(villes, joueurCourrant, pointsDeRoutes)){
+					j++;
 					// Récupération des points pour une écriture plus simple du code
 					double x1 = r.getDepart().getX();
 					double y1 = r.getDepart().getY();
@@ -297,12 +300,12 @@ public class MenuController implements Initializable {
 						}
 						p1 = new Point2D(x1+(Math.sqrt(3)/2)*minitaille,y1+minitaille/2);
 						p2 = new Point2D(x1-(Math.sqrt(3)/2)*minitaille,y1-minitaille/2);
-						p3 = new Point2D(x2+(Math.sqrt(3)/2)*minitaille,y2+minitaille/2);
-						p4 = new Point2D(x2-(Math.sqrt(3)/2)*minitaille,y2-minitaille/2);
+						p3 = new Point2D(x2-(Math.sqrt(3)/2)*minitaille,y2-minitaille/2); 
+						p4 = new Point2D(x2+(Math.sqrt(3)/2)*minitaille,y2+minitaille/2);
 					}
 					// Cas 2 : de bas gauche vers haut droit 
 					if ((x1<x2 && y1<y2) || (x1>x2 && y1>y2)){
-						if (y1>y2){
+						if (y1<y2){
 							double temp = y1;
 							y1 = y2;
 							y2 = temp;
@@ -311,10 +314,14 @@ public class MenuController implements Initializable {
 							x1 = x2;
 							x2 = temp;
 						}
-						p1 = new Point2D(x1-((Math.sqrt(3)/2) * minitaille),y1+minitaille/2);
+						/*p1 = new Point2D(x1-((Math.sqrt(3)/2) * minitaille),y1+minitaille/2);
 						p2 = new Point2D(x1+((Math.sqrt(3)/2) * minitaille), y1-minitaille/2);
 						p3 = new Point2D(x1-((Math.sqrt(3)/2) * minitaille), y2+minitaille/2);
-						p4 = new Point2D(x1+((Math.sqrt(3)/2) * minitaille), y2-minitaille/2);
+						p4 = new Point2D(x1+((Math.sqrt(3)/2) * minitaille), y2-minitaille/2);*/
+						p1 = new Point2D(x1-((Math.sqrt(3)/2) * minitaille),y1+minitaille/2);
+						p2 = new Point2D(x1+((Math.sqrt(3)/2) * minitaille), y1-minitaille/2);
+						p3 = new Point2D(x2+((Math.sqrt(3)/2) * minitaille), y2-minitaille/2);
+						p4 = new Point2D(x2-((Math.sqrt(3)/2) * minitaille), y2+minitaille/2);
 					}
 					// Cas 3 : route vertical
 					if (x1==x2) {
@@ -332,18 +339,18 @@ public class MenuController implements Initializable {
 						p3 = new Point2D(x2-minitaille,y2);
 						p4 = new Point2D(x2+minitaille,y2);
 					}	
-					//Double[] points = {p1.getX(),p1.getY(),p2.getX(),p2.getY(),p3.getX(),p3.getY(),p4.getX(),p4.getY()};
-					Double[] points = {0.0,0.0,100.0,0.0,0.0,800.0,100.0,800.0};
+					Double[] points = {p1.getX(),p1.getY(),p2.getX(),p2.getY(),p3.getX(),p3.getY(),p4.getX(),p4.getY()};
+					//Double[] points = {0.0,0.0,100.0,0.0,0.0,800.0,100.0,800.0};
+					System.out.println(j);
 					Polygon rectangle = new Polygon();
 					rectangle.getPoints().addAll(points);
-					System.out.println(rectangle.getPoints());
-					GridPane g = (GridPane) VuePrincipale.scene.getRoot();
-					System.out.println(g);
+					//System.out.println(((Pane)g.getChildren().get(1)).getChildren());
 					rectangle.setFill(Color.WHITE);
-					Platform.runLater(() -> g.getChildren().add(rectangle));
+					Platform.runLater(() -> grp.getChildren().add(rectangle));
 					routesConstructibles.put(rectangle, r);
 				}
 			}
+			Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(grp));
 		} catch(Exception e){
 			e.printStackTrace();
 		}

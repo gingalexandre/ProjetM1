@@ -34,7 +34,7 @@ public class Sauvegarde {
 			this.sauvegarderPartie(partieASauvegarder, partieActuelle.getPath());
 		}
 		else{
-			String path = new java.io.File("" ).getAbsolutePath()+"/sauvegardes/"+partieASauvegarder.getJoueurActuel().getNomUtilisateur()+LocalDate.now().toString(); 
+			String path = new java.io.File("" ).getAbsolutePath()+"/sauvegardes/"+partieASauvegarder.getJoueurActuel().getNomUtilisateur()+LocalDate.now().toString()+".json"; 
 			jsonOutputFile = new File(path);
 			objectMapper.enable(SerializationConfig.Feature.INDENT_OUTPUT);
 			String contenu = "" ;

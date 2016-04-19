@@ -53,7 +53,7 @@ public class InscriptionController implements Initializable {
 			String erreur = serveur.getGestionnaireBDD().inscriptionBDD(nomUtilisateur.getText(), mdp.getText(), dateNaissance.getValue());
 			utilisateurErreur.setText(erreur);
 		} else {
-			mdpErreur.setText("Mot de passe non identique ou pas assez long ou trop court. V�rifiez �galement la taille du nom d'utilisateur.");
+			mdpErreur.setText("Mot de passe non identique ou pas assez long ou trop court. Vérifiez également la taille du nom d'utilisateur.");
 		}
 	}
 }

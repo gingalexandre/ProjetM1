@@ -161,8 +161,6 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 */
 	@Override
 	public void enregistrerPartie() throws RemoteException {
-		Sauvegarde sauvegarde = new Sauvegarde();
-		sauvegarde.sauvegarderPartie();
-		
+		new Sauvegarde();
 	}
 }

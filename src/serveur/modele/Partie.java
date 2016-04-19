@@ -35,6 +35,8 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	 * Plateau de la partie
 	 */
 	private Plateau plateau;
+	
+	private int id;
 
 	
     private Ressource ressources;
@@ -183,5 +185,12 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	public JoueurInterface getJoueurLePlusVieux() throws RemoteException{
 		return ordreJeu.get(0);
 	}
+
+
+	public int getId() {
+		return id;
+	}
+	
+	
 
 }

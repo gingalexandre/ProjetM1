@@ -88,7 +88,7 @@ public class ConnexionController implements Initializable {
 	}
 	
 	/**
-	 * Méthode permettant de lancer le jeu une fois connect�
+	 * Méthode permettant de lancer le jeu une fois connecté
 	 */
 	public void lancerJeu(){
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Game.fxml"));
@@ -126,7 +126,7 @@ public class ConnexionController implements Initializable {
 		try {
 			page = (Pane) inscriptionChargement.load();
 			inscriptionFenetre = new Stage();
-			inscriptionFenetre.setTitle("Fen�tre d'inscription");
+			inscriptionFenetre.setTitle("Fenêtre d'inscription");
 			inscriptionFenetre.initModality(Modality.WINDOW_MODAL);
 		    Scene miniScene = new Scene(page);
 		    inscriptionFenetre.setScene(miniScene);

@@ -15,6 +15,8 @@ public class PartieSauvegarde implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Plateau plateauCourant;
+	
+	private int idPartie;
 
 	private ArrayList<JoueurSauvegarde> joueurs = new ArrayList<JoueurSauvegarde>();
 
@@ -56,6 +58,7 @@ public class PartieSauvegarde implements Serializable {
 					joueurInterfaceActuel.getPointVictoire(), joueurInterfaceActuel.getNbColonie(),
 					joueurInterfaceActuel.getNbVille(), joueurInterfaceActuel.getNbRoute(),
 					joueurInterfaceActuel.getStockRessource(), joueurInterfaceActuel.getCartes());
+			this.idPartie = serveur.getGestionnairePartie().getPartie().getId();
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -92,4 +95,13 @@ public class PartieSauvegarde implements Serializable {
 		return joueurActuel;
 	}
 
+	public int getIdPartie() {
+		return idPartie;
+	}
+
+	public void setIdPartie(int idPartie) {
+		this.idPartie = idPartie;
+	}
+
+	
 }

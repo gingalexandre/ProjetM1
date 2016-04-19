@@ -2,6 +2,7 @@ package serveur.bdd;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.rmi.RemoteException;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
 import org.codehaus.jackson.annotate.JsonMethod;
@@ -17,7 +18,7 @@ public class Sauvegarde {
 	private static File jsonOutputFile;
 
 	
-	public Sauvegarde(){
+	public Sauvegarde() throws RemoteException{
 		PartieSauvegarde partieASauvegarder = new PartieSauvegarde();
 		try {
 			jsonOutputFile = new File("results.json");

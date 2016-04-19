@@ -1,7 +1,12 @@
 package serveur.modele;
 
-import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
 import org.codehaus.jackson.annotate.*;
+
+import serveur.modele.service.PlateauInterface;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -9,7 +14,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Plateau implements Serializable{
+public class Plateau extends UnicastRemoteObject implements PlateauInterface{
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,7 +33,7 @@ public class Plateau implements Serializable{
 
 	private static final int SIZE = 60;
 	
-	private Plateau(){
+	private Plateau() throws RemoteException{
 		points = new ArrayList<Point>();
 		hexagones = new ArrayList<Hexagone>(Arrays.asList(this.getAllHexagone()));
 		setPoints();
@@ -173,7 +178,7 @@ public class Plateau implements Serializable{
 		}
 	}
 	
-	public static Plateau getInstance(){
+	public static Plateau getInstance() throws RemoteException{
 		if (INSTANCE == null){ 	
 			INSTANCE = new Plateau();	
 		}

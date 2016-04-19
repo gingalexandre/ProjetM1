@@ -5,8 +5,8 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import serveur.modele.Message;
-import serveur.modele.Plateau;
 import serveur.modele.service.JoueurInterface;
+import serveur.modele.service.PlateauInterface;
 
 /**
  * Interface du proxy entre client et serveur
@@ -26,7 +26,7 @@ public interface JoueurServeur extends Remote {
 	 * @param plateau
 	 * @throws RemoteException
 	 */
-	void envoyerPlateau(Plateau plateau) throws RemoteException;
+	void envoyerPlateau(PlateauInterface plateau) throws RemoteException;
 	
 	/**
 	 * Set les boutons d'un joueur

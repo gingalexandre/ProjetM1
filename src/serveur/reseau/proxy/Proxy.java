@@ -139,7 +139,6 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 		this.joueur = joueur;
 	}
 
-	@Override
 	public void envoyerPositionVoleur(int depart, int arrive) throws RemoteException {
 		this.plateauController.deplaceVoleur(depart,arrive);
 	}

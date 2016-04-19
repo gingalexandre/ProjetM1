@@ -33,4 +33,12 @@ public interface GestionnaireUIInterface extends Remote{
 	 * @throws RemoteException
 	 */
 	void diffuserMessage(Message message) throws RemoteException;
+
+	/**
+	 * Permet de diffuser les mouvements du voleur
+	 * @param depart case de départ
+	 * @param arrive case d'arrivée
+	 * @throws RemoteException
+     */
+	void diffuserVoleur(int depart, int arrive) throws RemoteException;
 }

@@ -84,39 +84,29 @@ public class PlateauController implements Initializable{
 		{
 			@Override
 			public void handle(MouseEvent event){
-				boolean trouve = false;
 				int depart;
 				try {
 					depart = plateau.getHexagones().indexOf(plateau.getVoleur());
+					System.out.println(depart);
+					System.out.println(plateau.getVoleur());
 					Point2D point = new Point2D(event.getX(),event.getY());
 					int i = 0;
 					for (Hexagone hex: plateau.getHexagones()) {
 						Polygon polygon = new Polygon();
 						polygon.getPoints().addAll(hex.getPoints());
 						if(polygon.contains(point)){
-							plateau.getVoleur().setVOLEUR(false);
-							plateau.getHexagones().get(i).setVOLEUR(true);
-							trouve = true;
+							try {
+								serveur.getGestionnaireUI().diffuserVoleur(depart,i);
+							} catch (RemoteException e) {
+								e.printStackTrace();
+							}
 							break;
 						}else{
 							i++;
 						}
 					}
-					//mainPane.getChildren().clear();
-					int arrive = i;
-					if(trouve) Platform.runLater(() -> deplaceVoleur(depart,arrive));
 				} catch (RemoteException e) {
 					e.printStackTrace();
-				}
-				//mainPane.getChildren().clear();
-				int arrive = i;
-				if(trouve){
-					//Platform.runLater(() -> deplaceVoleur(depart,arrive));
-					try {
-						serveur.getGestionnaireUI().diffuserVoleur(depart,arrive);
-					} catch (RemoteException e) {
-						e.printStackTrace();
-					}
 				}
 			}
 		});
@@ -211,7 +201,7 @@ public class PlateauController implements Initializable{
 	 * @param depart hexagone de départ
 	 * @param arrive hexagone d'arrivé
 	 */
-	public void deplaceVoleur(int depart, int arrive){
+	public void deplaceVoleur(int depart, int arrive) throws RemoteException{
 		plateau.getVoleur().setVOLEUR(false);
 		plateau.getHexagones().get(arrive).setVOLEUR(true);
 		ColorAdjust colorAdjust = new ColorAdjust();

@@ -44,22 +44,14 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	
 	/**
 	 * Enregistre un nouveau joueur dans la liste des joueurs
-<<<<<<< HEAD:src/serveur/reseau/communicationClients/GestionnaireUI.java
-	 * @param nouveauJoueurServeur - joueur � enregistrer
-=======
 	 * @param nouveauJoueurServeur - joueur a enregistrer
->>>>>>> master:src/serveur/reseau/communicationClients/gestionnaire/GestionnaireUI.java
 	 */
 	public void enregistrerJoueur(JoueurServeur nouveauJoueurServeur) throws RemoteException{
 		joueurServeurs.add(nouveauJoueurServeur);
 	}
 	
 	/**
-<<<<<<< HEAD:src/serveur/reseau/communicationClients/GestionnaireUI.java
-	 * Envoie le plateau de jeu au joueur pass� en param�tre
-=======
 	 * Envoie le plateau de jeu au joueur pass� en parametre
->>>>>>> master:src/serveur/reseau/communicationClients/gestionnaire/GestionnaireUI.java
 	 * @param proxy
 	 * @throws RemoteException 
 	 */
@@ -83,11 +75,7 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	}
 
 	/**
-<<<<<<< HEAD:src/serveur/reseau/communicationClients/GestionnaireUI.java
 	 * Diffuse les messages du chat aux joueurs
-=======
-	 * Diffuse un message envoyé par un joueur a tous les autre joueurServeurs
->>>>>>> master:src/serveur/reseau/communicationClients/gestionnaire/GestionnaireUI.java
 	 * @param message
 	 * @throws RemoteException
 	 */

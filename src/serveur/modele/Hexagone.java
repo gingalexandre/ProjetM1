@@ -166,4 +166,50 @@ public class Hexagone implements Serializable {
 	public void setVOLEUR(boolean VOLEUR) {
 		this.VOLEUR = VOLEUR;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Hexagone hexagone = (Hexagone) o;
+
+		if (getIndexHexagone() != hexagone.getIndexHexagone()) return false;
+		if (getNumero() != hexagone.getNumero()) return false;
+		if (isVOLEUR() != hexagone.isVOLEUR()) return false;
+		if (getType() != hexagone.getType()) return false;
+		if (getRessource() != null ? !getRessource().equals(hexagone.getRessource()) : hexagone.getRessource() != null)
+			return false;
+		// Probably incorrect - comparing Object[] arrays with Arrays.equals
+		if (!Arrays.equals(getVilleAdj(), hexagone.getVilleAdj())) return false;
+		if (getA() != null ? !getA().equals(hexagone.getA()) : hexagone.getA() != null) return false;
+		if (getB() != null ? !getB().equals(hexagone.getB()) : hexagone.getB() != null) return false;
+		if (getC() != null ? !getC().equals(hexagone.getC()) : hexagone.getC() != null) return false;
+		if (getD() != null ? !getD().equals(hexagone.getD()) : hexagone.getD() != null) return false;
+		if (getE() != null ? !getE().equals(hexagone.getE()) : hexagone.getE() != null) return false;
+		if (getF() != null ? !getF().equals(hexagone.getF()) : hexagone.getF() != null) return false;
+		if (getCentre() != null ? !getCentre().equals(hexagone.getCentre()) : hexagone.getCentre() != null)
+			return false;
+		return numeroJeton != null ? numeroJeton.equals(hexagone.numeroJeton) : hexagone.numeroJeton == null;
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = getIndexHexagone();
+		result = 31 * result + (getRessource() != null ? getRessource().hashCode() : 0);
+		result = 31 * result + getNumero();
+		result = 31 * result + Arrays.hashCode(getVilleAdj());
+		result = 31 * result + (isVOLEUR() ? 1 : 0);
+		result = 31 * result + (getA() != null ? getA().hashCode() : 0);
+		result = 31 * result + (getB() != null ? getB().hashCode() : 0);
+		result = 31 * result + (getC() != null ? getC().hashCode() : 0);
+		result = 31 * result + (getD() != null ? getD().hashCode() : 0);
+		result = 31 * result + (getE() != null ? getE().hashCode() : 0);
+		result = 31 * result + (getF() != null ? getF().hashCode() : 0);
+		result = 31 * result + (getCentre() != null ? getCentre().hashCode() : 0);
+		result = 31 * result + getType();
+		result = 31 * result + (numeroJeton != null ? numeroJeton.hashCode() : 0);
+		return result;
+	}
 }

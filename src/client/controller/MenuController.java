@@ -255,7 +255,7 @@ public class MenuController implements Initializable {
 			// Etape 2 : Récupération des points des extremités des points des Routes du joueur qui veut construire dans un set
 			JoueurInterface joueurCourrant = proxy.getJoueur();
 			//DELA 
-			p.getVilles().get(0).setOQP(joueurCourrant);
+			p.getVilles().get(1).setOQP(joueurCourrant);
 			//ADELA
 			HashSet<Point> pointsDeRoutes = new HashSet();
 			for(Route r: p.getRoutes()){
@@ -268,6 +268,9 @@ public class MenuController implements Initializable {
 			HashMap<Polygon, Route> routesConstructibles = new HashMap();
 			int j = 0;
 			Group grp = new Group();
+			System.out.println(villes);
+			System.out.println(joueurCourrant);
+			System.out.println(pointsDeRoutes);
 			for(Route r: p.getRoutes()){
 				if(r.estConstructible(villes, joueurCourrant, pointsDeRoutes)){
 					j++;
@@ -314,10 +317,6 @@ public class MenuController implements Initializable {
 							x1 = x2;
 							x2 = temp;
 						}
-						/*p1 = new Point2D(x1-((Math.sqrt(3)/2) * minitaille),y1+minitaille/2);
-						p2 = new Point2D(x1+((Math.sqrt(3)/2) * minitaille), y1-minitaille/2);
-						p3 = new Point2D(x1-((Math.sqrt(3)/2) * minitaille), y2+minitaille/2);
-						p4 = new Point2D(x1+((Math.sqrt(3)/2) * minitaille), y2-minitaille/2);*/
 						p1 = new Point2D(x1-((Math.sqrt(3)/2) * minitaille),y1+minitaille/2);
 						p2 = new Point2D(x1+((Math.sqrt(3)/2) * minitaille), y1-minitaille/2);
 						p3 = new Point2D(x2+((Math.sqrt(3)/2) * minitaille), y2-minitaille/2);
@@ -351,6 +350,15 @@ public class MenuController implements Initializable {
 				}
 			}
 			Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(grp));
+			int nbvilles = 0;
+			System.out.println(joueurCourrant);
+			p.getVilles().get(1).setOQP(joueurCourrant);
+			for (Ville v : p.getVilles()){
+				System.out.println(v.getOqp());
+				if (v.getOqp()!=null)
+					nbvilles++;
+			}
+			System.out.println(nbvilles);
 		} catch(Exception e){
 			e.printStackTrace();
 		}

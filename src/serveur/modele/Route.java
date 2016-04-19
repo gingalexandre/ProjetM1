@@ -109,10 +109,13 @@ public class Route implements Serializable{
 		// Verification si la route est libre
 		boolean a = this.oqp == null;
 		// Verification si la route a le depart ou l'arrivé qui a une colonie a moi 
-		boolean b = (villes.get(depart).getOqp() == null || villes.get(depart).getOqp().equals(joueurCourrant));
-		boolean c = (villes.get(arrive).getOqp() == null || villes.get(arrive).getOqp().equals(joueurCourrant));
+		boolean b =  villes.get(depart).getOqp() == null ;
+		boolean b2 = villes.get(depart).getOqp()!=null && villes.get(depart).getOqp().equals(joueurCourrant);
+		boolean c =  villes.get(arrive).getOqp() == null;
+		boolean c2 = villes.get(arrive).getOqp()!=null && villes.get(arrive).getOqp().equals(joueurCourrant);
 		// Verification si la route est la continuité d'une de mes routes
 		boolean d = mesExtremitesDeRoute.contains(this.depart) || mesExtremitesDeRoute.contains(this.arrive);
-		return a && ( (b && c) || d );
+		return a && (b2 || c2);
+		//return ((a && (b2 || c2)) || (a && b && c && d ));
 	}
 }

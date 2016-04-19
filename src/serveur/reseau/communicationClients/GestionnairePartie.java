@@ -161,6 +161,7 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 		}
 		
 		lancerTourPremierJoueur(joueurPlusVieux);
+		demanderRoute();
 	}
 
 	/**
@@ -196,5 +197,11 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	 */
 	public ArrayList<JoueurServeur> recupererTousLesJoueurs() throws RemoteException {	
 		return joueursServeur;
+	}
+	
+	public void demanderRoute() throws RemoteException{
+		for(JoueurServeur js : joueursServeur) {
+			js.demanderRoute();
+		}
 	}
 }

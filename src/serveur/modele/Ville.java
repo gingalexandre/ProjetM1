@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javafx.scene.shape.Circle;
+import serveur.modele.service.JoueurInterface;
 import serveur.view.VueVille;
 
 public class Ville implements Serializable {
@@ -25,7 +26,7 @@ public class Ville implements Serializable {
 
 	private Route route_adj3;
 
-	private Joueur oqp;
+	private JoueurInterface oqp;
 
 	private int gain;
 
@@ -65,8 +66,8 @@ public class Ville implements Serializable {
 		this.colonieVille = false;
 	}
 
-	public void setOQP(Joueur j) {
-		this.oqp = j;
+	public void setOQP(JoueurInterface joueurCourrant) {
+		this.oqp = joueurCourrant;
 	}
 
 	public void setVillesAdj(int v1, int v2, int v3) {
@@ -106,7 +107,7 @@ public class Ville implements Serializable {
 		return ville_adj3;
 	}
 
-	public Joueur getOqp() {
+	public JoueurInterface getOqp() {
 		return oqp;
 	}
 

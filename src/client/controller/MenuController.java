@@ -1,5 +1,6 @@
 package client.controller;
 
+import java.awt.GridLayout;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -7,6 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 
+import client.view.VuePrincipale;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -19,6 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -251,9 +254,12 @@ public class MenuController implements Initializable {
 			}
 			// Etape 2 : Récupération des points des extremités des points des Routes du joueur qui veut construire dans un set
 			JoueurInterface joueurCourrant = proxy.getJoueur();
+			//DELA 
+			p.getVilles().get(0).setOQP(joueurCourrant);
+			//ADELA
 			HashSet<Point> pointsDeRoutes = new HashSet();
 			for(Route r: p.getRoutes()){
-				if(r.getOqp().equals(joueurCourrant)){
+				if((r.getOqp()!= null) && r.getOqp().equals(joueurCourrant)){
 					pointsDeRoutes.add(r.getDepart());
 					pointsDeRoutes.add(r.getArrive());
 				}
@@ -326,9 +332,15 @@ public class MenuController implements Initializable {
 						p3 = new Point2D(x2-minitaille,y2);
 						p4 = new Point2D(x2+minitaille,y2);
 					}	
-					Double[] points = {p1.getX(),p1.getY(),p2.getX(),p2.getY(),p3.getX(),p3.getY(),p4.getX(),p4.getY()};
+					//Double[] points = {p1.getX(),p1.getY(),p2.getX(),p2.getY(),p3.getX(),p3.getY(),p4.getX(),p4.getY()};
+					Double[] points = {0.0,0.0,100.0,0.0,0.0,800.0,100.0,800.0};
 					Polygon rectangle = new Polygon();
 					rectangle.getPoints().addAll(points);
+					System.out.println(rectangle.getPoints());
+					GridPane g = (GridPane) VuePrincipale.scene.getRoot();
+					System.out.println(g);
+					rectangle.setFill(Color.WHITE);
+					Platform.runLater(() -> g.getChildren().add(rectangle));
 					routesConstructibles.put(rectangle, r);
 				}
 			}

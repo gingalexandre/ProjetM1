@@ -137,5 +137,5 @@ public interface PartieInterface extends Remote{
 	
 	void setId(int id) throws RemoteException;
 
-	PlateauInterface getPlateau();
+	PlateauInterface getPlateau() throws RemoteException;
 }

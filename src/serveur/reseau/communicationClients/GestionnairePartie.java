@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import exception.TooMuchPlayerException;
 import serveur.modele.Message;
 import serveur.modele.Partie;
-import serveur.modele.Plateau;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PartieInterface;
 import serveur.reseau.JoueurServeur;
@@ -35,8 +34,8 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	 * Constructeur de la classe GestionnairePartie
 	 * @param plateau - plateau de jeu
 	 */
-	public GestionnairePartie(Plateau plateau) throws RemoteException{
-		this.partie = new Partie(plateau);
+	public GestionnairePartie() throws RemoteException{
+		this.partie = new Partie();
 	}
 
 	/**

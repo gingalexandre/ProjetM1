@@ -1,9 +1,12 @@
 package test.serveur.modele;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import org.junit.After;
 import org.junit.Test;
 
 import serveur.modele.Joueur;
@@ -17,13 +20,17 @@ import serveur.modele.Ville;
  */
 public class TestVille {
 	
-	Plateau plateau = Plateau.getInstance();
+	Plateau plateau ;
 	ArrayList<Ville> listeVilles = plateau.getVilles();
 	ArrayList<Route> listeRoutes = plateau.getRoutes();
 	Joueur j1;
 	Joueur j2;
 	Joueur j3;
 	
+	@After
+	public void creePlateau() throws RemoteException{
+		plateau = Plateau.getInstance();
+	}
 
 	/**
 	 * Test de la méthode permettant de tester si une ville est libre ou pas

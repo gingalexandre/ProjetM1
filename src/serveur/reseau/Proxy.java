@@ -8,14 +8,10 @@ import client.controller.ChatController;
 import client.controller.EchangeController;
 import client.controller.MenuController;
 import client.controller.JoueursController;
-import client.controller.MainController;
-import client.controller.MenuController;
 import client.controller.PlateauController;
-import client.view.VuePrincipale;
-import serveur.modele.Joueur;
 import serveur.modele.Message;
-import serveur.modele.Plateau;
 import serveur.modele.service.JoueurInterface;
+import serveur.modele.service.PlateauInterface;
 
 public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 
@@ -114,7 +110,7 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	 * @throws RemoteException
 	 */
 	@Override
-	public void envoyerPlateau(Plateau plateau) throws RemoteException {
+	public void envoyerPlateau(PlateauInterface plateau) throws RemoteException {
 		this.plateauController.setPlateau(plateau);
 	}
 

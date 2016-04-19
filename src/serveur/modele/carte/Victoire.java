@@ -1,7 +1,5 @@
 package serveur.modele.carte;
 
-import serveur.modele.Joueur;
-
 /**
  * Carte victoire qui permettent de gagner de façon permanente deux points de victoire au joueur jouant la classe.
  *
@@ -9,7 +7,9 @@ import serveur.modele.Joueur;
  */
 public class Victoire implements Carte{
 
-    /**
+	private static final long serialVersionUID = 1L;
+	
+	/**
      * Attribut chemin vers la ressources image.
      */
     private static String CHEMIN = "/Ressources/cartes/armee_puissante.png";

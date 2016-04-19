@@ -35,11 +35,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	private int nombre_max_joueurs;
 	
 	/**
-<<<<<<< HEAD
-	 * Gestionnaire de la base de donn�es
-=======
 	 * Gestionnaire de la base de donnees
->>>>>>> master
 	 */
 	private GestionnaireBDDInterface gestionnaireBDD;
 	
@@ -61,16 +57,12 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 		this.nombre_max_joueurs = nombre_max_joueurs;
 		gestionnaireBDD = new GestionnaireBDD();
 		gestionnaireUI = new GestionnaireUI();
-		gestionnairePartie = new GestionnairePartie(gestionnaireUI.getPlateau());
+		gestionnairePartie = new GestionnairePartie();
 	}
 	
 	/**
 	 * Enregistre un joueur sur le serveur
-<<<<<<< HEAD
-	 * @param nouveauJoueurServeur - joueur � ajouter
-=======
 	 * @param nouveauJoueurServeur - joueur a ajouter
->>>>>>> master
 	 * @throws RemoteException
 	 * @throws TooMuchPlayerException
 	 */
@@ -106,13 +98,8 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * Permet d'ajouter un joueur � la liste de joueurs des gestionnaires
-	 * @param nouveauJoueurServeur - joueur � envoyer
-=======
 	 * Permet d'ajouter un joueur a la liste de joueurs des gestionnaires
 	 * @param nouveauJoueurServeur - joueur a envoyer
->>>>>>> master
 	 * @throws RemoteException 
 	 */
 	private void envoyerJoueurAuGestionnaire(JoueurServeur nouveauJoueurServeur) throws RemoteException{
@@ -149,11 +136,6 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	@Override
 	public GestionnaireUIInterface getGestionnaireUI() throws RemoteException {
 		return gestionnaireUI;
-	}
-
-	@Override
-	public void enregistrerJoueur(JoueurServeur joueurServeur, Date date) throws RemoteException, TooMuchPlayerException {
-		System.out.println("Yoo");
 	}
 
 	/**

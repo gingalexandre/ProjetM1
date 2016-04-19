@@ -3,6 +3,7 @@ package serveur.bdd;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.time.LocalDate;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
@@ -19,7 +20,8 @@ public class Sauvegarde {
 	private static ObjectMapper objectMapper = new ObjectMapper().setVisibility(JsonMethod.FIELD, Visibility.ANY);;
 	private static File jsonOutputFile;
 
-	public Sauvegarde() {
+	
+	public Sauvegarde() throws RemoteException{
 		PartieSauvegarde partieASauvegarder = new PartieSauvegarde();
 		Partie partieActuelle = null;
 		try {

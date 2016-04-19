@@ -1,14 +1,14 @@
 package serveur.modele.carte;
 
-import serveur.modele.Joueur;
-
 /**
  * Classe représente la Carte de l'armee la plus puissante.
  * @author Yohann Hugo
  */
 public class ArmeePuissante implements Carte {
 
-    /**
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Attribut : condition minimal requise.
      */
     private static int NB_CHEVALIER_MINIMAL = 3;

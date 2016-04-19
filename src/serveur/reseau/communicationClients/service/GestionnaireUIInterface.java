@@ -4,7 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 import serveur.modele.Message;
-import serveur.modele.Plateau;
+import serveur.modele.service.PlateauInterface;
 import serveur.reseau.JoueurServeur;
 
 public interface GestionnaireUIInterface extends Remote{
@@ -12,7 +12,7 @@ public interface GestionnaireUIInterface extends Remote{
 	/**
 	 * @return le plateau de jeu
 	 */
-	Plateau getPlateau() throws RemoteException;
+	PlateauInterface getPlateau() throws RemoteException;
 	
 	/**
 	 * Enregistre un nouveau joueur dans la liste des joueurs

@@ -5,10 +5,8 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-import exception.TooMuchPlayerException;
-
 /**
- * Singleton gérant la connexion au serveur
+ * Singleton gï¿½rant la connexion au serveur
  * @author jerome
  */
 public class ConnexionManager {
@@ -24,12 +22,12 @@ public class ConnexionManager {
 	private Serveur serveur;
 	
 	/**
-	 * Proxy connecté au serveur
+	 * Proxy connectï¿½ au serveur
 	 */
 	private Proxy proxy;
 	
 	/**
-	 * Constructeur privé se connectant au serveur
+	 * Constructeur privï¿½ se connectant au serveur
 	 */
 	private ConnexionManager(){
 		String serveurURL = "rmi://127.0.0.1:42000/serveur";
@@ -46,7 +44,7 @@ public class ConnexionManager {
 	}
 	
 	/**
-	 * Permet de récupérer l'instance unique
+	 * Permet de rï¿½cupï¿½rer l'instance unique
 	 * @return l'instance unique
 	 */
 	public static ConnexionManager getInstance(){
@@ -65,7 +63,7 @@ public class ConnexionManager {
 	}
 	
 	/**
-	 * Permet d'obtenir le serveur de manière static
+	 * Permet d'obtenir le serveur de maniï¿½re static
 	 * @return le serveur
 	 */
 	public static Serveur getStaticServeur(){
@@ -77,7 +75,7 @@ public class ConnexionManager {
 	}
 	
 	/**
-	 * Permet d'obtenir le serveur de manière static
+	 * Permet d'obtenir le serveur de maniï¿½re static
 	 * @return le serveur
 	 */
 	public static Proxy getStaticProxy(){

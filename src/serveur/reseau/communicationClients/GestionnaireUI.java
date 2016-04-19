@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import serveur.modele.Message;
 import serveur.modele.Plateau;
+import serveur.modele.service.PlateauInterface;
 import serveur.reseau.JoueurServeur;
 import serveur.reseau.communicationClients.service.GestionnaireUIInterface;
 
@@ -20,7 +21,7 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	/**
 	 * Plateau de jeu
 	 */
-	private Plateau plateau;
+	private PlateauInterface plateau;
 	
 	/**
 	 * Contient la liste des joueurs connect�s au serveur
@@ -37,7 +38,7 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	/**
 	 * @return le plateau de jeu
 	 */
-	public Plateau getPlateau() throws RemoteException{
+	public PlateauInterface getPlateau() throws RemoteException{
 		return this.plateau;
 	}
 	

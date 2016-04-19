@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 import serveur.commun.DistributeurType;
-import org.codehaus.jackson.annotate.*;
 
 public class Hexagone implements Serializable {
 

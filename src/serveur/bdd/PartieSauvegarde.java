@@ -23,8 +23,8 @@ public class PartieSauvegarde implements Serializable {
 
 	private JoueurSauvegarde joueurActuel;
 
-	public PartieSauvegarde() {
-		this.plateauCourant = Plateau.getInstance();
+	public PartieSauvegarde() throws RemoteException {
+		this.plateauCourant = recupererPlateau();
 		Serveur serveur = ConnexionManager.getStaticServeur();
 		ArrayList<JoueurServeur> joueursServeur = new ArrayList<JoueurServeur>();
 		try {
@@ -68,6 +68,10 @@ public class PartieSauvegarde implements Serializable {
 		}
 		
 		
+	}
+
+	private Plateau recupererPlateau() throws RemoteException {
+		return Plateau.getInstance();
 	}
 
 	public static long getSerialversionuid() {

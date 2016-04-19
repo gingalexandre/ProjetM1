@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import serveur.modele.Plateau;
 import serveur.modele.service.JoueurInterface;
+import serveur.modele.service.PartieInterface;
 import serveur.reseau.ConnexionManager;
 import serveur.reseau.JoueurServeur;
 import serveur.reseau.Serveur;
@@ -51,14 +52,15 @@ public class PartieSauvegarde implements Serializable {
 		}
 		JoueurInterface joueurInterfaceActuel;
 		try {
-			joueurInterfaceActuel = serveur.getGestionnairePartie().getPartie().getJoueurTour();
+			PartieInterface partie =  ((PartieInterface) serveur.getGestionnairePartie().getPartie());
+			joueurInterfaceActuel = partie.getJoueurTour();
 			this.joueurActuel = new JoueurSauvegarde(joueurInterfaceActuel.getId(),
 					joueurInterfaceActuel.getNomUtilisateur(), joueurInterfaceActuel.getDateDeNaissance(),
 					joueurInterfaceActuel.getCouleur(), joueurInterfaceActuel.getPret(),
 					joueurInterfaceActuel.getPointVictoire(), joueurInterfaceActuel.getNbColonie(),
 					joueurInterfaceActuel.getNbVille(), joueurInterfaceActuel.getNbRoute(),
 					joueurInterfaceActuel.getStockRessource(), joueurInterfaceActuel.getCartes());
-			this.idPartie = serveur.getGestionnairePartie().getPartie().getId();
+			this.idPartie = partie.getId();
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

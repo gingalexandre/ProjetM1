@@ -25,7 +25,6 @@ import serveur.modele.Jeton;
 import serveur.modele.Plateau;
 import serveur.modele.Route;
 import serveur.modele.Ville;
-import serveur.view.VueJeton;
 
 /**
  * Controller du plateau

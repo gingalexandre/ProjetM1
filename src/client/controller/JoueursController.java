@@ -2,7 +2,6 @@ package client.controller;
 
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -12,12 +11,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import serveur.modele.Joueur;
 import serveur.reseau.ConnexionManager;
 import serveur.reseau.Proxy;
 import serveur.modele.Ressource;
 import serveur.modele.service.JoueurInterface;
-import serveur.reseau.communicationClients.*;
 import serveur.reseau.communicationClients.service.GestionnairePartieInterface;
 import serveur.reseau.Serveur;
 
@@ -102,14 +99,12 @@ public class JoueursController implements Initializable {
 	 */
 	
 	public void majRessource() throws RemoteException{
-		Serveur serveur = ConnexionManager.getStaticServeur();
 		HashMap<Integer, Integer> stockJoueur = proxy.getJoueur().getStockRessource();
 		this.nbArgile.setText(""+stockJoueur.get(Ressource.ARGILE));
 		this.nbBle.setText(""+stockJoueur.get(Ressource.BLE));
 		this.nbBois.setText(""+stockJoueur.get(Ressource.BOIS));
 		this.nbCaillou.setText(""+stockJoueur.get(Ressource.MINERAIE));
 		this.nbLaine.setText(""+stockJoueur.get(Ressource.LAINE));
-		
 	}
 
 	/**

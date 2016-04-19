@@ -4,7 +4,6 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import serveur.modele.Joueur;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
 import serveur.modele.service.JoueurInterface;

@@ -1,6 +1,5 @@
 package serveur.reseau.communicationClients;
 
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Date;

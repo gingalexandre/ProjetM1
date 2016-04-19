@@ -19,7 +19,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import serveur.modele.Des;
-import serveur.modele.Joueur;
 import serveur.modele.Message;
 import serveur.modele.service.JoueurInterface;
 import serveur.reseau.ConnexionManager;

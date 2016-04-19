@@ -24,7 +24,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import serveur.modele.Message;
 import serveur.reseau.ConnexionManager;
-import serveur.reseau.JoueurServeur;
 import serveur.reseau.Proxy;
 import serveur.reseau.Serveur;
 

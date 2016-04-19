@@ -27,16 +27,8 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	/**
 	 * Joueurs de la partie. Le JoueurInterface 4 peut etre null.
 	 */
-
 	private JoueurInterface joueur1, joueur2, joueur3, joueur4;
-	
 
-	/**
-	 * Plateau de la partie
-	 */
-	private Plateau plateau;
-
-	
     private Ressource ressources;
     
     private ArrayList<JoueurInterface> ordreJeu;
@@ -50,8 +42,7 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
     /**
      * @param plateau - plateau de la partie
      */
-    public Partie(Plateau plateau) throws RemoteException{
-    	 this.plateau = plateau;
+    public Partie() throws RemoteException{
     	 this.ordreJeu = new ArrayList<>();
     	 this.ressources = new Ressource();
     	 this.tour = 1;

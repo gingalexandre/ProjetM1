@@ -2,14 +2,9 @@ package serveur.modele.service;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import serveur.modele.Joueur;
-import serveur.modele.Plateau;
 import serveur.modele.Ressource;
-import serveur.modele.carte.Carte;
 
 public interface PartieInterface extends Remote{
 	

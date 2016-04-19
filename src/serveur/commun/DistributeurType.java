@@ -2,7 +2,6 @@ package serveur.commun;
 import java.util.ArrayList;
 
 import serveur.modele.Hexagone;
-import javafx.scene.image.Image;
 
 public class DistributeurType {
 	

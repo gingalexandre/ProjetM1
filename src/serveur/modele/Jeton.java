@@ -47,7 +47,7 @@ public class Jeton extends UnicastRemoteObject implements JetonInterface {
 		return res;
 	}
 
-	public static Circle[] transformVueJeton(ArrayList<Jeton> jetons) throws RemoteException{
+	public static Circle[] transformVueJeton(ArrayList<JetonInterface> jetons) throws RemoteException{
 		jetons.remove(null);
 		Circle[] vueJetons = new Circle[jetons.size()];
 		for (int i = 0; i < jetons.size(); i++) {

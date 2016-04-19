@@ -21,9 +21,9 @@ import javafx.util.Duration;
 import serveur.modele.Des;
 import serveur.modele.Message;
 import serveur.modele.service.JoueurInterface;
-import serveur.reseau.ConnexionManager;
-import serveur.reseau.Proxy;
-import serveur.reseau.Serveur;
+import serveur.reseau.proxy.Proxy;
+import serveur.reseau.serveur.ConnexionManager;
+import serveur.reseau.serveur.Serveur;
 
 public class MenuController implements Initializable {
 	

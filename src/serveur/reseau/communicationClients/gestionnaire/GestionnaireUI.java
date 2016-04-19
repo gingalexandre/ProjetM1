@@ -1,4 +1,4 @@
-package serveur.reseau.communicationClients;
+package serveur.reseau.communicationClients.gestionnaire;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
 import serveur.modele.service.PlateauInterface;
-import serveur.reseau.JoueurServeur;
 import serveur.reseau.communicationClients.service.GestionnaireUIInterface;
+import serveur.reseau.proxy.JoueurServeur;
 
 /**
  * Classe qui s'occupe des echanges concernant l'interface entre les clients et le serveur

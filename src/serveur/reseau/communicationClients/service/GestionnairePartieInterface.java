@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import exception.TooMuchPlayerException;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PartieInterface;
-import serveur.reseau.JoueurServeur;
+import serveur.reseau.proxy.JoueurServeur;
 
 public interface GestionnairePartieInterface extends Remote{
 	

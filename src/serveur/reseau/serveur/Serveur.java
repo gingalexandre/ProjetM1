@@ -1,4 +1,4 @@
-package serveur.reseau;
+package serveur.reseau.serveur;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -8,6 +8,7 @@ import exception.TooMuchPlayerException;
 import serveur.reseau.communicationClients.service.GestionnaireBDDInterface;
 import serveur.reseau.communicationClients.service.GestionnairePartieInterface;
 import serveur.reseau.communicationClients.service.GestionnaireUIInterface;
+import serveur.reseau.proxy.JoueurServeur;
 
 /**
  * Classe principale pour les communications entre client et serveur

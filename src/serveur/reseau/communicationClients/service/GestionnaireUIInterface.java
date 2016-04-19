@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 
 import serveur.modele.Message;
 import serveur.modele.service.PlateauInterface;
-import serveur.reseau.JoueurServeur;
+import serveur.reseau.proxy.JoueurServeur;
 
 public interface GestionnaireUIInterface extends Remote{
 	

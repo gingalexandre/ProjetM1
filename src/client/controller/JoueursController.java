@@ -83,7 +83,7 @@ public class JoueursController implements Initializable {
 			nomJoueur.setText(joueur.getNomUtilisateur());
 			nbVictoire.setText("2");
 			// Appel de la méthode permettant de transformer la couleur de français à anglais pour pouvoir changer le style
-			String couleurAnglais = Fonction.couleurEnAnglais(joueur.getCouleur());
+			String couleurAnglais = Fonction.couleurEnRGB(joueur.getCouleur());
 			couleurJoueur.setStyle("-fx-background-color: "+couleurAnglais+";");
 			proxy = ConnexionManager.getStaticProxy();
 			proxy.setJoueursController(this);
@@ -156,21 +156,21 @@ public class JoueursController implements Initializable {
 							JoueurInterface p = autresJoueurs.get(0);
 							autreUnName.setText(p.getNomUtilisateur());
 							autreUn.setVisible(true);
-							String couleurAnglais = Fonction.couleurEnAnglais(p.getCouleur());
+							String couleurAnglais = Fonction.couleurEnRGB(p.getCouleur());
 							autreUn.setStyle("-fx-background-color: " + couleurAnglais + ";");
 						}
 						if (i == 1) {
 							JoueurInterface p = autresJoueurs.get(1);
 							autreDeuxName.setText(p.getNomUtilisateur());
 							autreDeux.setVisible(true);
-							String couleurAnglais = Fonction.couleurEnAnglais(p.getCouleur());
+							String couleurAnglais = Fonction.couleurEnRGB(p.getCouleur());
 							autreDeux.setStyle("-fx-background-color: " + couleurAnglais + ";");
 						}
 						if (i == 2) {
 							JoueurInterface p = autresJoueurs.get(2);
 							autreTroisName.setText(p.getNomUtilisateur());
 							autreTrois.setVisible(true);
-							String couleurAnglais = Fonction.couleurEnAnglais(p.getCouleur());
+							String couleurAnglais = Fonction.couleurEnRGB(p.getCouleur());
 							autreTrois.setStyle("-fx-background-color: " + couleurAnglais + ";");
 						}
 					}

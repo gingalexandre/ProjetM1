@@ -161,7 +161,6 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 		}
 		
 		lancerTourPremierJoueur(joueurPlusVieux);
-		demanderRoute();
 	}
 
 	/**
@@ -173,6 +172,7 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 			// On compare sur le nom d'utilisateur qui est unique
 			if(joueurPlusVieux.getNomUtilisateur().equals(joueurServeur.getJoueur().getNomUtilisateur())){
 				joueurServeur.setButtons(false);
+				joueurServeur.lancerTour();
 			}
 			else{
 				joueurServeur.setButtons(true);
@@ -198,10 +198,13 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	public ArrayList<JoueurServeur> recupererTousLesJoueurs() throws RemoteException {	
 		return joueursServeur;
 	}
-	
-	public void demanderRoute() throws RemoteException{
-		for(JoueurServeur js : joueursServeur) {
-			js.demanderRoute();
+
+	@Override
+	public void lancerProchainTour(JoueurInterface joueurTour) throws RemoteException {
+		for(JoueurServeur joueurServeur : joueursServeur) {
+			if(joueurServeur.getJoueur().getNomUtilisateur().equals(joueurTour.getNomUtilisateur())){
+				joueurServeur.lancerTour();
+			}
 		}
 	}
 }

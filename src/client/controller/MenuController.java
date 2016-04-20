@@ -247,6 +247,7 @@ public class MenuController implements Initializable {
 		JoueurInterface joueurTour = serveur.getGestionnairePartie().finirTour();
 		
 		serveur.getGestionnaireUI().diffuserMessage(new Message("C'est à "+joueurTour.getNomUtilisateur()+" de jouer"));
+		serveur.getGestionnairePartie().lancerProchainTour(joueurTour);
 	}
 	
 	public void demanderRoute(){

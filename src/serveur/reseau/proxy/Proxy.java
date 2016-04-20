@@ -149,8 +149,7 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	}
 
 	@Override
-	public void demanderRoute() throws RemoteException {
-		// TODO Auto-generated method stub
-		this.menuController.demanderRoute();
+	public void lancerTour() throws RemoteException{
+		this.menuController.demanderRoute() ;
 	}
 }

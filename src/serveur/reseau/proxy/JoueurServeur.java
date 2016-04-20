@@ -52,7 +52,5 @@ public interface JoueurServeur extends Remote {
 	 */
 	void setJoueur(JoueurInterface joueur) throws RemoteException;
 
-	void demanderRoute() throws RemoteException;
-	
-
+	void lancerTour() throws RemoteException;
 }

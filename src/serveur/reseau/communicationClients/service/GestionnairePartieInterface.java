@@ -76,4 +76,6 @@ public interface GestionnairePartieInterface extends Remote{
 	 * @throws RemoteException
 	 */
 	PartieInterface getPartie() throws RemoteException;
+
+	void lancerProchainTour(JoueurInterface joueurTour) throws RemoteException;
 }

@@ -9,6 +9,10 @@ import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PartieInterface;
 import serveur.reseau.proxy.JoueurServeur;
 
+/**
+ * Interface qui s'occupe des échanges de la partie sur le serveur 
+ * @author jerome
+ */
 public interface GestionnairePartieInterface extends Remote{
 	
 	/**

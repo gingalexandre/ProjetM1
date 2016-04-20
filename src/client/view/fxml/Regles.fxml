@@ -21,17 +21,17 @@
         </AnchorPane>
         <AnchorPane GridPane.rowIndex="1" GridPane.columnIndex="0">
             <children>
-                <Button fx:id="boutonRegles" onAction="#afficherRegles" mnemonicParsing="false" text="Afficher les Règles." AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                <Button fx:id="boutonRegles" onAction="#afficherRegles" mnemonicParsing="false" text="Afficher les règles" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
             </children>
         </AnchorPane>
         <AnchorPane GridPane.rowIndex="2" GridPane.columnIndex="0">
             <children>
-                <Button fx:id="boutonStatistiques" onAction="#voirStatistiques" mnemonicParsing="false" text="Statistiques." AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                <Button fx:id="boutonStatistiques" onAction="#voirStatistiques" mnemonicParsing="false" text="Statistiques" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
             </children>
         </AnchorPane>
         <AnchorPane GridPane.rowIndex="3" GridPane.columnIndex="0">
             <children>
-                <Button fx:id="boutonSauvegarde" onAction="#sauvegarderPartie" mnemonicParsing="false" text="Sauvegarde." AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                <Button fx:id="boutonSauvegarde" onAction="#sauvegarderPartie" mnemonicParsing="false" text="Sauvegarde" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
             </children>
         </AnchorPane>
     </children>

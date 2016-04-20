@@ -10,9 +10,9 @@ import serveur.modele.Point;
 
 public interface RouteInterface extends Remote{
 
-	Joueur getOqp() throws RemoteException;
+	JoueurInterface getOqp() throws RemoteException;
 
-	void setOQP(Joueur j) throws RemoteException;
+	void setOQP(JoueurInterface joueurCourrant) throws RemoteException;
 
 	Point getDepart() throws RemoteException;
 

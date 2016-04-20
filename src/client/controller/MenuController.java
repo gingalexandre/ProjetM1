@@ -7,9 +7,12 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 
+import client.commun.Fonction;
 import client.view.VuePrincipale;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -269,14 +273,9 @@ public class MenuController implements Initializable {
 			}
 			// RECHERCHES DES ROUTES CONSTRUCTIBLES
 			HashMap<Polygon, RouteInterface> routesConstructibles = new HashMap();
-			int j = 0;
 			Group grp = new Group();
-			System.out.println(villes);
-			System.out.println(joueurCourrant);
-			System.out.println(pointsDeRoutes);
 			for(RouteInterface r: p.getRoutes()){
 				if(r.estConstructible(villes, joueurCourrant, pointsDeRoutes)){
-					j++;
 					// Récupération des points pour une écriture plus simple du code
 					double x1 = r.getDepart().getX();
 					double y1 = r.getDepart().getY();
@@ -347,6 +346,25 @@ public class MenuController implements Initializable {
 					rectangle.setFill(Color.WHITE);
 					Platform.runLater(() -> grp.getChildren().add(rectangle));
 					routesConstructibles.put(rectangle, r);
+					rectangle.setOnMousePressed(new EventHandler<MouseEvent>() {
+						public void handle(MouseEvent me){
+							try {
+								rectangle.setFill(Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
+								/*System.out.println(VuePrincipale.paneUsed.getChildren());
+								System.out.println(((Group)VuePrincipale.paneUsed.getChildren().get(1)).getChildren());
+								System.out.println(((Group)VuePrincipale.paneUsed.getChildren().get(2)).getChildren());
+								System.out.println(((Group)VuePrincipale.paneUsed.getChildren().get(3)).getChildren());
+								System.out.println(((Group)VuePrincipale.paneUsed.getChildren().get(4)).getChildren());
+								System.out.println(((Group)VuePrincipale.paneUsed.getChildren().get(5)).getChildren());*/
+								((Group)VuePrincipale.paneUsed.getChildren().get(3)).getChildren().add(rectangle);
+								routesConstructibles.get(rectangle).setOQP(joueurCourrant);
+								VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
+							} catch (RemoteException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					});
 				}
 			}
 			Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(grp));

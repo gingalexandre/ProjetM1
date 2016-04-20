@@ -20,7 +20,7 @@ public class Route extends UnicastRemoteObject implements RouteInterface{
 	
 	private Point depart;
 	private Point arrive;
-	private Joueur oqp;
+	private JoueurInterface oqp;
 	
 	public Route(Point depart, Point arrive) throws RemoteException{
 		super();
@@ -36,7 +36,7 @@ public class Route extends UnicastRemoteObject implements RouteInterface{
 		return vueRoutes;
 	}
 	
-	public Joueur getOqp() throws RemoteException{
+	public JoueurInterface getOqp() throws RemoteException{
 		return this.oqp;
 	}
 	
@@ -62,7 +62,7 @@ public class Route extends UnicastRemoteObject implements RouteInterface{
 	    return 0;
 	}
 	
-	public void setOQP(Joueur j) throws RemoteException{
+	public void setOQP(JoueurInterface j) throws RemoteException{
 		this.oqp = j;
 	}
 

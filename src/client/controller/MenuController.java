@@ -12,7 +12,6 @@ import client.view.VuePrincipale;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,8 +32,6 @@ import serveur.modele.Des;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
 import serveur.modele.Point;
-import serveur.modele.Route;
-import serveur.modele.Ville;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
 import serveur.modele.service.RouteInterface;
@@ -262,9 +259,6 @@ public class MenuController implements Initializable {
 			}
 			// Etape 2 : Récupération des points des extremités des points des Routes du joueur qui veut construire dans un set
 			JoueurInterface joueurCourrant = proxy.getJoueur();
-			//DELA 
-			p.getVilles().get(1).setOQP(joueurCourrant);
-			//ADELA
 			HashSet<Point> pointsDeRoutes = new HashSet();
 			for(RouteInterface r: p.getRoutes()){
 				if((r.getOqp()!= null) && r.getOqp().equals(joueurCourrant)){
@@ -360,6 +354,7 @@ public class MenuController implements Initializable {
 								((Group)VuePrincipale.paneUsed.getChildren().get(3)).getChildren().add(rectangle);
 								routesConstructibles.get(rectangle).setOQP(joueurCourrant);
 								VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
+								serveur.getGestionnaireUI().diffuserPriseDeRoute(r, joueurCourrant);
 							} catch (RemoteException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -372,5 +367,103 @@ public class MenuController implements Initializable {
 		} catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+
+	public void dessinerRoute(RouteInterface r, JoueurInterface j) throws RemoteException {
+		// TODO Auto-generated method stub
+		double x1 = r.getDepart().getX();
+		double y1 = r.getDepart().getY();
+		double x2 = r.getArrive().getX();
+		double y2 = r.getArrive().getY();
+		// Création des points du rectangle a dessiner
+		Point2D p1 = null;
+		Point2D p2 = null;
+		Point2D p3 = null;
+		Point2D p4 = null;
+		// Definition d'une largeur de rectangle par rapport à la taille des Hexagones
+		int minitaille = 10*Plateau.SIZE/100/2;
+		// Identification du cas
+		// Cas 1 : de haut gauche vers bas droit 
+		if ((x1<x2 && y1>y2) || (x1>x2 && y1<y2)){
+			// Identification si c'est haut gauche vers bas droit ou l'inverse
+			// Le but etant depart (x1,y1) (haut gauche) et arrivée (x2,y2)
+			// Si y1<y2 il faut inverser
+			if (y1<y2){
+				double temp = y1;
+				y1 = y2;
+				y2 = temp;
+				
+				temp = x1;
+				x1 = x2;
+				x2 = temp;
+			}
+			p1 = new Point2D(x1+(Math.sqrt(3)/2)*minitaille,y1+minitaille/2);
+			p2 = new Point2D(x1-(Math.sqrt(3)/2)*minitaille,y1-minitaille/2);
+			p3 = new Point2D(x2-(Math.sqrt(3)/2)*minitaille,y2-minitaille/2); 
+			p4 = new Point2D(x2+(Math.sqrt(3)/2)*minitaille,y2+minitaille/2);
+		}
+		// Cas 2 : de bas gauche vers haut droit 
+		if ((x1<x2 && y1<y2) || (x1>x2 && y1>y2)){
+			if (y1<y2){
+				double temp = y1;
+				y1 = y2;
+				y2 = temp;
+				
+				temp = x1;
+				x1 = x2;
+				x2 = temp;
+			}
+			p1 = new Point2D(x1-((Math.sqrt(3)/2) * minitaille),y1+minitaille/2);
+			p2 = new Point2D(x1+((Math.sqrt(3)/2) * minitaille), y1-minitaille/2);
+			p3 = new Point2D(x2+((Math.sqrt(3)/2) * minitaille), y2-minitaille/2);
+			p4 = new Point2D(x2-((Math.sqrt(3)/2) * minitaille), y2+minitaille/2);
+		}
+		// Cas 3 : route vertical
+		if (x1==x2) {
+			if (y1<y2){
+				double temp = y1;
+				y1 = y2;
+				y2 = temp;
+				
+				temp = x1;
+				x1 = x2;
+				x2 = temp;
+			}
+			p1 = new Point2D(x1+minitaille,y1);
+			p2 = new Point2D(x1-minitaille,y1);
+			p3 = new Point2D(x2-minitaille,y2);
+			p4 = new Point2D(x2+minitaille,y2);
+		}	
+		Double[] points = {p1.getX(),p1.getY(),p2.getX(),p2.getY(),p3.getX(),p3.getY(),p4.getX(),p4.getY()};
+		Polygon rectangle = new Polygon();
+		rectangle.getPoints().addAll(points);
+		rectangle.setFill(Fonction.getCouleurFromString(j.getCouleur()));
+		Platform.runLater(() -> ((Group)VuePrincipale.paneUsed.getChildren().get(3)).getChildren().add(rectangle));
+	}
+	
+	/**
+	 * Méthodes permettant à l'utilisateur de choisir où placer sa colonie
+	 * @param depart booleen indiquant si c'est le depart auquel cas on pose où on ne tiens pas compte des routes
+	 */
+	public void demanderColonie(boolean depart){		
+		try {
+			Serveur serveur = ConnexionManager.getStaticServeur();
+			PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
+			HashMap<Point,VilleInterface> villes = new HashMap<Point,VilleInterface>();
+			// On identifie les deux cas: cas du depart ou on a aucune route, cas ou on a des routes 
+			if (depart) {
+				for (VilleInterface v : p.getVilles()){
+					if (v.estLibre(null, p.getVilles())){
+						
+					}
+				}
+			}
+			
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 }

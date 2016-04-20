@@ -12,6 +12,7 @@ import client.controller.PlateauController;
 import serveur.modele.Message;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
+import serveur.modele.service.RouteInterface;
 
 public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 
@@ -151,5 +152,11 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	@Override
 	public void lancerTour() throws RemoteException{
 		this.menuController.demanderRoute() ;
+	}
+
+	@Override
+	public void recevoirPriseDeRoute(RouteInterface r, JoueurInterface j) throws RemoteException {
+		// TODO Auto-generated method stub
+		this.menuController.dessinerRoute(r,j);
 	}
 }

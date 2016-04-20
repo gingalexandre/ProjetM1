@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import serveur.modele.Message;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
+import serveur.modele.service.RouteInterface;
 
 /**
  * Interface du proxy entre client et serveur
@@ -53,4 +54,6 @@ public interface JoueurServeur extends Remote {
 	void setJoueur(JoueurInterface joueur) throws RemoteException;
 
 	void lancerTour() throws RemoteException;
+
+	void recevoirPriseDeRoute(RouteInterface r, JoueurInterface j) throws RemoteException;
 }

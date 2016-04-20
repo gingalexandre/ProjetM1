@@ -7,6 +7,10 @@ import serveur.modele.Message;
 import serveur.modele.service.PlateauInterface;
 import serveur.reseau.proxy.JoueurServeur;
 
+/**
+ * Interface qui s'occupe des échanges de l'UI sur le serveur 
+ * @author jerome
+ */
 public interface GestionnaireUIInterface extends Remote{
 	
 	/**

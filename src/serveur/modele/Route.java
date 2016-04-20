@@ -1,6 +1,5 @@
 package serveur.modele;
 
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -41,17 +40,17 @@ public class Route extends UnicastRemoteObject implements RouteInterface{
 		int pmx2 = ((int)(r.getArrive().getX()+r.getDepart().getX())/2);
 	    int pmy2 = ((int)(r.getDepart().getY()+r.getArrive().getY())/2);
 	    if(pmy1>pmy2){
-	    	return -10;
+	    	return -1;
 	    }
 	    else if (pmy1<pmy2){
-	    	return 10;
+	    	return 1;
 	    }
 	    else{
 	    	if(pmx1>pmx2){
-		    	return -10;
+		    	return -1;
 		    }
 		    else if (pmx1<pmx2){
-		    	return 10;
+		    	return 1;
 		    }
 	    }
 	    return 0;

@@ -5,6 +5,10 @@ import java.rmi.RemoteException;
 import java.sql.Date;
 import java.time.LocalDate;
 
+/**
+ * Interface qui s'occupe des échanges de la BDD sur le serveur 
+ * @author jerome
+ */
 public interface GestionnaireBDDInterface extends Remote{
 	
 	/**

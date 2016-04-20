@@ -3,6 +3,7 @@ package serveur.reseau.serveur;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.Date;
+import java.util.ArrayList;
 
 import exception.TooMuchPlayerException;
 import serveur.reseau.communicationClients.service.GestionnaireBDDInterface;
@@ -15,6 +16,11 @@ import serveur.reseau.proxy.JoueurServeur;
  * @author jerome
  */
 public interface Serveur extends Remote{
+	
+	/**
+	 * @return la liste des joueurs connectés sur le serveur
+	 */
+	ArrayList<JoueurServeur> getListeJoueurs() throws RemoteException;
 	
 	/**
 	 * Enregistre un joueur au serveur

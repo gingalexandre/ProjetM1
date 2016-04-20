@@ -158,7 +158,7 @@ public class ChatController implements Initializable{
 	@FXML
 	public void onEnter() throws RemoteException{
 		String messageUtilisateur = saisie.getText();
-		if(!messageUtilisateur.equals("")){
+		if(!messageUtilisateur.equals("") && (messageUtilisateur.trim().length() > 0)){
 			Message message = new Message(proxy.getJoueur().getNomUtilisateur(), messageUtilisateur, proxy.getJoueur().getCouleur());
 			try{
 				// Appel de la méthode distante diffuserMessage du serveur pour envoyer le message � tous les controllers des joueurs

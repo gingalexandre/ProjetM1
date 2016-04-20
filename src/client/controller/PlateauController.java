@@ -88,8 +88,6 @@ public class PlateauController implements Initializable{
 				int depart;
 				try {
 					depart = plateau.getHexagones().indexOf(plateau.getVoleur());
-					System.out.println(depart);
-					System.out.println(plateau.getVoleur());
 					Point2D point = new Point2D(event.getX(),event.getY());
 					int i = 0;
 					for (HexagoneInterface hex: plateau.getHexagones()) {

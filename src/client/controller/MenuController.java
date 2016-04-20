@@ -342,26 +342,14 @@ public class MenuController implements Initializable {
 						p4 = new Point2D(x2+minitaille,y2);
 					}	
 					Double[] points = {p1.getX(),p1.getY(),p2.getX(),p2.getY(),p3.getX(),p3.getY(),p4.getX(),p4.getY()};
-					//Double[] points = {0.0,0.0,100.0,0.0,0.0,800.0,100.0,800.0};
-					System.out.println(j);
 					Polygon rectangle = new Polygon();
 					rectangle.getPoints().addAll(points);
-					//System.out.println(((Pane)g.getChildren().get(1)).getChildren());
 					rectangle.setFill(Color.WHITE);
 					Platform.runLater(() -> grp.getChildren().add(rectangle));
 					routesConstructibles.put(rectangle, r);
 				}
 			}
 			Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(grp));
-			int nbvilles = 0;
-			System.out.println(joueurCourrant);
-			p.getVilles().get(1).setOQP(joueurCourrant);
-			for (VilleInterface v : p.getVilles()){
-				System.out.println(v.getOqp());
-				if (v.getOqp()!=null)
-					nbvilles++;
-			}
-			System.out.println(nbvilles);
 		} catch(Exception e){
 			e.printStackTrace();
 		}

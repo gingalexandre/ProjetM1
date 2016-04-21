@@ -25,6 +25,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -454,7 +455,7 @@ public class MenuController implements Initializable {
 			if (depart) {
 				for (VilleInterface v : p.getVilles()){
 					if (v.estLibre(null, p.getVilles())){
-						
+						//Circle c = ((Group)VuePrincipale.paneUsed.getChildren()).getChildren().get(1);
 					}
 				}
 			}

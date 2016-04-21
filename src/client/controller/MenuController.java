@@ -6,6 +6,7 @@ import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.concurrent.Semaphore;
 
 import client.commun.Fonction;
 import client.view.VuePrincipale;
@@ -248,8 +249,10 @@ public class MenuController implements Initializable {
 		serveur.getGestionnairePartie().lancerProchainTour(joueurTour);
 	}
 	
-	public void demanderRoute(){
+	public void demanderRoute(Semaphore s){
 		try{
+			s.acquire();
+			System.out.println("Toto");
 			Serveur serveur = ConnexionManager.getStaticServeur();
 			PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
 			// INITIALISATION
@@ -359,6 +362,8 @@ public class MenuController implements Initializable {
 							} catch (RemoteException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
+							} finally {
+								s.release();
 							}
 						}
 					});
@@ -445,13 +450,14 @@ public class MenuController implements Initializable {
 	/**
 	 * Méthodes permettant à l'utilisateur de choisir où placer sa colonie
 	 * @param depart booleen indiquant si c'est le depart auquel cas on pose où on ne tiens pas compte des routes
+	 * @param s 
 	 */
-	public void demanderColonie(boolean depart){	
+	public void demanderColonie(boolean depart, Semaphore s){	
 		try {
+			s.acquire();
 			Serveur serveur = ConnexionManager.getStaticServeur();
 			PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
 			JoueurInterface joueurCourrant = proxy.getJoueur();
-			System.out.println(joueurCourrant);
 			//System.out.println(VuePrincipale.paneUsed.getChildren());
 			//System.out.println(((Group)VuePrincipale.paneUsed.getChildren().get(2)).getChildren());
 			// Recuperation de la liste des villes
@@ -488,6 +494,8 @@ public class MenuController implements Initializable {
 								} catch (RemoteException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
+								} finally {
+									s.release();
 								}
 							}
 							
@@ -498,7 +506,7 @@ public class MenuController implements Initializable {
 			}
 			Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(g));
 			
-		} catch (RemoteException e) {
+		} catch (RemoteException | InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -3,11 +3,12 @@ package serveur.reseau.proxy;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
 
 import client.controller.ChatController;
 import client.controller.EchangeController;
-import client.controller.MenuController;
 import client.controller.JoueursController;
+import client.controller.MenuController;
 import client.controller.PlateauController;
 import serveur.modele.Message;
 import serveur.modele.service.JoueurInterface;
@@ -152,8 +153,9 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 
 	@Override
 	public void lancerTour() throws RemoteException{
-		this.menuController.demanderColonie(true);
-		this.menuController.demanderRoute() ;
+		Semaphore s = new Semaphore(2);
+		this.menuController.demanderColonie(true,s);
+		this.menuController.demanderRoute(s) ;
 	}
 
 	@Override

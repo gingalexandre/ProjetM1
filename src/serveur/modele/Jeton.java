@@ -4,6 +4,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javafx.scene.shape.Circle;
 import serveur.commun.DistributeurJeton;
 import serveur.modele.service.JetonInterface;

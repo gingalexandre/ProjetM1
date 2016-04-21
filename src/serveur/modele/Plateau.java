@@ -2,21 +2,18 @@ package serveur.modele;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-
-import org.codehaus.jackson.annotate.*;
-
-import serveur.modele.service.HexagoneInterface;
-import serveur.modele.service.JetonInterface;
-import serveur.modele.service.PlateauInterface;
-import serveur.modele.service.RouteInterface;
-import serveur.modele.service.VilleInterface;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
+
+import serveur.modele.service.HexagoneInterface;
+import serveur.modele.service.JetonInterface;
+import serveur.modele.service.PlateauInterface;
+import serveur.modele.service.RouteInterface;
+import serveur.modele.service.VilleInterface;
 
 public class Plateau extends UnicastRemoteObject implements PlateauInterface{
 
@@ -29,7 +26,7 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
 	private ArrayList<Point> points;
 
 	private ArrayList<VilleInterface> villes ;
-
+	
 	private ArrayList<RouteInterface> routes ;
 
 	private ArrayList<JetonInterface> jetons ;
@@ -45,17 +42,30 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
 		setJetons();
 	}
 	
+	
+	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
+	public static int getSize() {
+		return SIZE;
+	}
+
+
+
 	public void setJetons() throws RemoteException{
 		jetons = new ArrayList<JetonInterface>();
 		for(HexagoneInterface hex : hexagones){
 			jetons.add(hex.getJeton());
 		}
 	}
-	
+
 	public ArrayList<JetonInterface> getJetons() throws RemoteException{
 		return jetons;
 	}
-	
+
 	 public ArrayList<HexagoneInterface> getHexagones() throws RemoteException{
 		return hexagones;
 	}
@@ -185,7 +195,7 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
 			routes.add(r);
 		}
 	}
-	
+
 	public static Plateau getInstance() throws RemoteException{
 		if (INSTANCE == null){ 	
 			INSTANCE = new Plateau();	
@@ -193,7 +203,7 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
 		return INSTANCE;
 	}
 	
-	@JsonIgnore
+
 	public HexagoneInterface[] getAllHexagone() throws RemoteException {
         HexagoneInterface[] res = new Hexagone[19];
         /* CREATION DES HEXAGONES */
@@ -223,10 +233,11 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
 	public ArrayList<Point> getPoints() throws RemoteException{
 		return points;
 	}
+	
 
 	public HexagoneInterface getVoleur() throws RemoteException{
 		for(HexagoneInterface hex: hexagones) {
-			if(hex.isVOLEUR() == true){
+			if(hex.getVOLEUR() == true){
 				return hex;
 			}
 		}

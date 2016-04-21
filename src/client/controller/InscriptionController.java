@@ -4,6 +4,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
+import client.commun.Fonction;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -50,7 +51,7 @@ public class InscriptionController implements Initializable {
 				&& mdp.getText().length() > MINSIZE && nomUtilisateur.getText().length() < MAXSIZE
 				&& nomUtilisateur.getText().length() > MINSIZE) {
 			Serveur serveur = ConnexionManager.getStaticServeur();
-			String erreur = serveur.getGestionnaireBDD().inscriptionBDD(nomUtilisateur.getText(), mdp.getText(), dateNaissance.getValue());
+			String erreur = serveur.getGestionnaireBDD().inscriptionBDD(nomUtilisateur.getText(), Fonction.crypte(mdp.getText()), dateNaissance.getValue());
 			utilisateurErreur.setText(erreur);
 		} else {
 			mdpErreur.setText("Mot de passe non identique ou pas assez long ou trop court. Vérifiez également la taille du nom d'utilisateur.");

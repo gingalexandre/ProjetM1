@@ -5,8 +5,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.Date;
 import java.time.LocalDate;
 
-import serveur.bdd.Statistiques;
-import serveur.bdd.Utilisateur;
+import serveur.bdd.modeleBDD.Statistiques;
+import serveur.bdd.modeleBDD.Utilisateur;
 import serveur.reseau.communicationClients.service.GestionnaireBDDInterface;
 
 /**

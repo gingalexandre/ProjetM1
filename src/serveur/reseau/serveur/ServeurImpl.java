@@ -6,7 +6,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 import exception.TooMuchPlayerException;
-import serveur.bdd.Sauvegarde;
+import serveur.bdd.modeleBDD.Sauvegarde;
 import serveur.modele.Joueur;
 import serveur.modele.Message;
 import serveur.modele.service.JoueurInterface;

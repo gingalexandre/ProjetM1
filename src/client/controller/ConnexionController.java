@@ -6,6 +6,7 @@ import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.ResourceBundle;
 
+import client.commun.Fonction;
 import client.view.VuePrincipale;
 import exception.TooMuchPlayerException;
 import javafx.event.EventHandler;
@@ -19,7 +20,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import serveur.modele.Message;
@@ -47,7 +47,7 @@ public class ConnexionController implements Initializable {
 	
 	private Proxy proxy;
 	
-	private FXMLLoader inscriptionChargement;
+
 	public static Stage inscriptionFenetre, gameFenetre;
 	
 	public Date dateNaissance;
@@ -69,7 +69,7 @@ public class ConnexionController implements Initializable {
 		boolean connexionOk = false;
 		try {
 			serveur = ConnexionManager.getStaticServeur();
-			connexionOk = serveur.getGestionnaireBDD().verificationConnexion(nomUtilisateur.getText(), mdp.getText());
+			connexionOk = serveur.getGestionnaireBDD().verificationConnexion(nomUtilisateur.getText(), Fonction.crypte(mdp.getText()));
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -116,26 +116,7 @@ public class ConnexionController implements Initializable {
 		}
 	}
 	
-	/**
-	 * Méthode permettant d'afficher la fen�tre d'inscription
-	 */
-	@FXML
-	public void inscription() {
-		inscriptionChargement = new FXMLLoader(getClass().getResource("/fxml/Inscription.fxml"));
-		try {
-			page = (Pane) inscriptionChargement.load();
-			inscriptionFenetre = new Stage();
-			inscriptionFenetre.setTitle("Fenêtre d'inscription");
-			inscriptionFenetre.initModality(Modality.WINDOW_MODAL);
-		    Scene miniScene = new Scene(page);
-		    inscriptionFenetre.setScene(miniScene);
-		    gameFenetre.setFullScreen(true);
-		    inscriptionFenetre.showAndWait();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-	}
+
 	
 	/**
 	 * Appel la méthode du serveur pour enregistrer le joueur 

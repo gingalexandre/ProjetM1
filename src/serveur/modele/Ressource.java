@@ -108,4 +108,6 @@ public class Ressource implements Serializable{
     public static void setStockMineraie(HashMap <Integer, Integer> aStockMineraie) {
         stockMineraie = aStockMineraie;
     }
+    
+    
 }

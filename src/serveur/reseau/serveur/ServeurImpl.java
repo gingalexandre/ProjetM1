@@ -63,6 +63,14 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	}
 	
 	/**
+	 * @return la liste des joueurs connectés sur le serveur
+	 */
+	@Override
+	public ArrayList<JoueurServeur> getListeJoueurs() throws RemoteException{
+		return this.joueurServeurs;
+	}
+	
+	/**
 	 * Enregistre un joueur sur le serveur
 	 * @param nouveauJoueurServeur - joueur a ajouter
 	 * @throws RemoteException
@@ -93,9 +101,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 			envoyerJoueurAuGestionnaire(nouveauJoueurServeur);
 		}
 		else{
-
 			throw new TooMuchPlayerException("Connexion impossible. Il y a deja "+nombre_max_joueurs+" joueurs connectes sur le serveur.");
-
 		}
 	}
 

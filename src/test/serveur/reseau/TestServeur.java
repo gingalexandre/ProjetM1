@@ -1,4 +1,4 @@
-package test.reseau;
+package test.serveur.reseau;
 
 import static org.junit.Assert.assertTrue;
 
@@ -19,7 +19,6 @@ import exception.TooMuchPlayerException;
 
 import static org.junit.Assert.*;
 
-import serveur.modele.Joueur;
 import serveur.modele.service.JoueurInterface;
 import serveur.reseau.proxy.JoueurServeur;
 import serveur.reseau.proxy.Proxy;
@@ -80,9 +79,10 @@ public class TestServeur {
 	
 	@Test
 	public void testInformationsAjoute() throws RemoteException{
-		JoueurInterface joueur1 = serveur.getListeJoueurs().get(0).getJoueur();
-		
+		JoueurInterface joueur1 = joueursServeur.get(0).getJoueur();
+
 		assertTrue(joueur1.getNomUtilisateur().equals("Paul"));
 		assertTrue(joueur1.getCouleur().equals("rouge"));
+		assertTrue(joueur1.getDateDeNaissance().toString().equals("1994-12-13"));
 	}
 }

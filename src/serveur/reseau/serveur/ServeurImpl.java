@@ -101,9 +101,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 			envoyerJoueurAuGestionnaire(nouveauJoueurServeur);
 		}
 		else{
-
 			throw new TooMuchPlayerException("Connexion impossible. Il y a deja "+nombre_max_joueurs+" joueurs connectes sur le serveur.");
-
 		}
 	}
 

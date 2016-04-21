@@ -2,21 +2,21 @@ package serveur.modele;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
-import org.codehaus.jackson.annotate.*;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import serveur.modele.service.HexagoneInterface;
 import serveur.modele.service.JetonInterface;
 import serveur.modele.service.PlateauInterface;
 import serveur.modele.service.RouteInterface;
 import serveur.modele.service.VilleInterface;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
 
 public class Plateau extends UnicastRemoteObject implements PlateauInterface{
 
@@ -145,7 +145,9 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
 	
 	public void setRoutes() throws RemoteException{
 		routes = new ArrayList<RouteInterface>();
+		HashMap<Point,VilleInterface> toutesLesVilles = new HashMap();
 		for(VilleInterface v : villes){
+			toutesLesVilles.put(v.getEmplacement(), v);
 			if(v.getVille_adj1() !=  -1){
 				ajoutListeRoute(new Route(v.getEmplacement(),villes.get(v.getVille_adj1()).getEmplacement()));
 			}
@@ -171,6 +173,13 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
         
         routes.sort(c);
         Collections.reverse(routes);
+        
+        //Ajout des Routes aux villes 
+        for (RouteInterface r : routes){
+        	toutesLesVilles.get(r.getDepart()).ajouterRoute(r);
+        	toutesLesVilles.get(r.getArrive()).ajouterRoute(r);
+        }
+        
         
 	}
 	

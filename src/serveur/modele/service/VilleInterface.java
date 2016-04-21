@@ -21,11 +21,13 @@ public interface VilleInterface extends Remote{
 
 	void setVillesAdj(int v1, int v2, int v3) throws RemoteException;
 
-	Route getRoute_adj1() throws RemoteException;
+	RouteInterface getRoute_adj1() throws RemoteException;
 
-	Route getRoute_adj2() throws RemoteException;
+	RouteInterface getRoute_adj2() throws RemoteException;
 
-	Route getRoute_adj3() throws RemoteException;
+	RouteInterface getRoute_adj3() throws RemoteException;
+	
+	void ajouterRoute(RouteInterface r) throws RemoteException;
 
 	int getVille_adj1() throws RemoteException;
  

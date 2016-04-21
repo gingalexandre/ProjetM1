@@ -8,6 +8,7 @@ import serveur.modele.Message;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
 import serveur.modele.service.RouteInterface;
+import serveur.modele.service.VilleInterface;
 
 /**
  * Interface du proxy entre client et serveur
@@ -56,4 +57,6 @@ public interface JoueurServeur extends Remote {
 	void lancerTour() throws RemoteException;
 
 	void recevoirPriseDeRoute(RouteInterface r, JoueurInterface j) throws RemoteException;
+
+	void recevoirPriseDeVille(VilleInterface v, JoueurInterface joueurCourrant)throws RemoteException;
 }

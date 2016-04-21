@@ -9,6 +9,7 @@ import serveur.modele.Plateau;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
 import serveur.modele.service.RouteInterface;
+import serveur.modele.service.VilleInterface;
 import serveur.reseau.communicationClients.service.GestionnaireUIInterface;
 import serveur.reseau.proxy.JoueurServeur;
 
@@ -75,6 +76,14 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	public void diffuserPriseDeRoute(RouteInterface r, JoueurInterface j) throws RemoteException{
 		for (JoueurServeur joueurServeur : joueurServeurs) {
 			joueurServeur.recevoirPriseDeRoute(r,j);
+		}
+	}
+
+	@Override
+	public void diffuserPriseDeVille(VilleInterface v, JoueurInterface joueurCourrant) throws RemoteException {
+		// TODO Auto-generated method stub
+		for (JoueurServeur joueurServeur : joueurServeurs) {
+			joueurServeur.recevoirPriseDeVille(v,joueurCourrant);
 		}
 	}
 }

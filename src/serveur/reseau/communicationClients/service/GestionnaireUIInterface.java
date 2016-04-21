@@ -7,6 +7,7 @@ import serveur.modele.Message;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
 import serveur.modele.service.RouteInterface;
+import serveur.modele.service.VilleInterface;
 import serveur.reseau.proxy.JoueurServeur;
 
 public interface GestionnaireUIInterface extends Remote{
@@ -37,4 +38,6 @@ public interface GestionnaireUIInterface extends Remote{
 	void diffuserMessage(Message message) throws RemoteException;
 	
 	void diffuserPriseDeRoute(RouteInterface r, JoueurInterface j) throws RemoteException;
+
+	void diffuserPriseDeVille(VilleInterface v, JoueurInterface joueurCourrant) throws RemoteException;
 }

@@ -446,25 +446,77 @@ public class MenuController implements Initializable {
 	 * Méthodes permettant à l'utilisateur de choisir où placer sa colonie
 	 * @param depart booleen indiquant si c'est le depart auquel cas on pose où on ne tiens pas compte des routes
 	 */
-	public void demanderColonie(boolean depart){		
+	public void demanderColonie(boolean depart){	
 		try {
 			Serveur serveur = ConnexionManager.getStaticServeur();
 			PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
-			HashMap<Point,VilleInterface> villes = new HashMap<Point,VilleInterface>();
-			// On identifie les deux cas: cas du depart ou on a aucune route, cas ou on a des routes 
+			JoueurInterface joueurCourrant = proxy.getJoueur();
+			System.out.println(joueurCourrant);
+			//System.out.println(VuePrincipale.paneUsed.getChildren());
+			//System.out.println(((Group)VuePrincipale.paneUsed.getChildren().get(2)).getChildren());
+			// Recuperation de la liste des villes
+			HashMap<Point,VilleInterface> toutesLesVilles = new HashMap<Point,VilleInterface>();
+			for(VilleInterface v : p.getVilles()){
+				toutesLesVilles.put(v.getEmplacement(), v);
+			}
+			//Création du groupe pour ajouter les villes potentiel
+			Group g = new Group();
 			if (depart) {
 				for (VilleInterface v : p.getVilles()){
 					if (v.estLibre(null, p.getVilles())){
-						//Circle c = ((Group)VuePrincipale.paneUsed.getChildren()).getChildren().get(1);
+						// Si pas ressorti, possibles exception (infixable)
+						double x = v.getEmplacement().getX();
+						double y = v.getEmplacement().getY();
+						Circle c = new Circle(x,y,Plateau.SIZE/5,Color.WHITE);
+						c.setOnMousePressed(new EventHandler<MouseEvent>(){
+
+							@Override
+							public void handle(MouseEvent event) {
+								// TODO Auto-generated method stub
+								try {
+									/*System.out.println(toutesLesVilles);
+									System.out.println("-----------------------");
+									System.out.println(c);
+									System.out.println("-----------------------");
+									System.out.println(joueurCourrant);
+									System.out.println("-----------------------");
+									System.out.println(toutesLesVilles.get(c));*/
+									v.setOQP(joueurCourrant);
+									c.setFill(Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
+									VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
+									serveur.getGestionnaireUI().diffuserPriseDeVille(v, joueurCourrant);
+								} catch (RemoteException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+							
+						});
+						Platform.runLater( () -> g.getChildren().add(c));
 					}
 				}
 			}
+			Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(g));
 			
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		
+	}
+
+	public void dessinerVille(VilleInterface v, JoueurInterface joueurCourrant) {
+		// TODO Auto-generated method stub
+		try {
+			double x = v.getEmplacement().getX();
+			double y = v.getEmplacement().getY();
+			Circle c = new Circle(x,y,Plateau.SIZE/5,Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
+			Platform.runLater(() -> ((Group)VuePrincipale.paneUsed.getChildren().get(2)).getChildren().add(c));
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 }

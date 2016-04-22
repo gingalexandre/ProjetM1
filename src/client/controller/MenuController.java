@@ -223,7 +223,7 @@ public class MenuController implements Initializable {
 		
 		//Ajout des ressources aux joueurs de la liste
 		for(Ville v : listeVilles){
-			if(v!=null){
+			if(v!=null && v.getOqp()!=null){
 				//Si c'est une colonnie
 				if(v.isColonieVille()){
 					v.getOqp().ajoutRessource(ressource, 1);

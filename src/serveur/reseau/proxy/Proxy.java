@@ -10,6 +10,7 @@ import client.controller.EchangeController;
 import client.controller.JoueursController;
 import client.controller.MenuController;
 import client.controller.PlateauController;
+import client.controller.PropositionController;
 import serveur.modele.Message;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
@@ -44,6 +45,11 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	 * Controller du plateau
 	 */
 	private PlateauController plateauController;
+	
+	/**
+	 * Controller des propositions
+	 */
+	private PropositionController propostionController;
 	
 	/**
 	 * Joueur associe au proxy
@@ -91,6 +97,10 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 
 	public JoueursController getJoueursController(){
 		return joueursController;
+	}
+	
+	public void setPropositionController(PropositionController propositionController) {
+		this.propostionController = propositionController;
 	}
 
 	/**
@@ -176,4 +186,6 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 		this.joueursController.majRessource();
 		
 	}
+
+	
 }

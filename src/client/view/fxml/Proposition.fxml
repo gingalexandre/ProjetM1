@@ -19,8 +19,8 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="188.0" prefWidth="541.0" style="-fx-alignment: center;" text="Proposition" />
-            <Label prefHeight="218.0" prefWidth="553.0" style="-fx-alignment: center;" text="Valeurs" GridPane.rowIndex="1" />
+            <Label fx:id="proposition" prefHeight="188.0" prefWidth="541.0" style="-fx-alignment: center;" text="Proposition" />
+            <Label fx:id="valeurs" prefHeight="218.0" prefWidth="553.0" style="-fx-alignment: center;" text="Valeurs" GridPane.rowIndex="1" />
             <GridPane GridPane.rowIndex="2">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -30,8 +30,8 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="216.0" text="Accepter" textFill="#249a3a" />
-                  <Button mnemonicParsing="false" prefHeight="57.0" prefWidth="215.0" text="Refuser" textFill="#c31c1c" GridPane.columnIndex="1" />
+                  <Button fx:id="accepter" onAction="#accepterOffre" mnemonicParsing="false" prefHeight="55.0" prefWidth="216.0" text="Accepter" textFill="#249a3a" />
+                  <Button fx:id="refuser" onAction="#refuserOffre" mnemonicParsing="false" prefHeight="57.0" prefWidth="215.0" text="Refuser" textFill="#c31c1c" GridPane.columnIndex="1" />
                </children>
             </GridPane>
          </children>

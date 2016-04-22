@@ -5,6 +5,7 @@
  */
 package serveur.modele;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -12,6 +13,11 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import serveur.modele.carte.Carte;
 import serveur.modele.service.JoueurInterface;
 

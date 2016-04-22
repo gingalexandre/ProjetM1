@@ -1,18 +1,26 @@
 package client.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import serveur.modele.Joueur;
+import serveur.modele.Message;
 import serveur.modele.Ressource;
+import serveur.modele.service.JoueurInterface;
 import serveur.reseau.proxy.Proxy;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
@@ -118,16 +126,16 @@ public class EchangeController implements Initializable {
 		if(offreValide(offreDemande)){
 			
 			if(choixJoueur.getValue()==serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur()){
-				//Envoyer demande à ce joueur
+				envoyerPropositionJoueur(serveur.getGestionnairePartie().getPartie().getJoueur1());
 			}
 			else if(choixJoueur.getValue()==serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur()){
-				//Envoyer demande à ce joueur
+				envoyerPropositionJoueur(serveur.getGestionnairePartie().getPartie().getJoueur2());
 			}
 			else if(choixJoueur.getValue()==serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur()){
-				//Envoyer demande à ce joueur
+				envoyerPropositionJoueur(serveur.getGestionnairePartie().getPartie().getJoueur3());
 			}
 			else if(choixJoueur.getValue()==serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur()){
-				//Envoyer demande à ce joueur
+				envoyerPropositionJoueur(serveur.getGestionnairePartie().getPartie().getJoueur4());
 			}
 			else if(choixJoueur.getValue()=="Banque"){
 				echangeAvecBanque();
@@ -202,6 +210,11 @@ public class EchangeController implements Initializable {
 		//Actualisation de l'affichage
 		this.proxy.getJoueursController().majRessource();
 		serveur.getGestionnaireUI().diffuserGainRessource();
-		
+		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" vient de faire un échange avec la banque"));
+	}
+	
+	private void envoyerPropositionJoueur(JoueurInterface j){
+		j.ouvrirProposition();
+		serveur.getGestionnairePartie().getPartie().getJoueurByName(j.get)
 	}
 }

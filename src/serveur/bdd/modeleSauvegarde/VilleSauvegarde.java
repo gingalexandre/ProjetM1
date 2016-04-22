@@ -2,6 +2,7 @@ package serveur.bdd.modeleSauvegarde;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import serveur.modele.Point;
 import serveur.modele.service.VilleInterface;
@@ -259,5 +260,7 @@ public class VilleSauvegarde implements Serializable {
 	public void setGain(int gain) {
 		this.gain = gain;
 	}
+	
+
 
 }

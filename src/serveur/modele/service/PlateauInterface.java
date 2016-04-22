@@ -57,12 +57,6 @@ public interface PlateauInterface extends Remote{
 	 */
 	void setRoutes() throws RemoteException;
 
-	/**
-	 * Ajoute une route à la liste des routes
-	 * @param r - route a ajouter
-	 * @throws RemoteException
-	 */
-	void ajoutListeRoute(RouteInterface r) throws RemoteException;
 
 	/**
 	 * @return les hexagones du plateau sous forme de tableau
@@ -93,7 +87,7 @@ public interface PlateauInterface extends Remote{
 	 * @param caseConsernee
 	 * @return la liste des villes adjacente à la case consernée
 	 */
-	ArrayList<Ville> getVilleAdjacenteByCase(Integer caseConsernee) throws RemoteException;
+	ArrayList<VilleInterface> getVilleAdjacenteByCase(Integer caseConsernee) throws RemoteException;
 	
 	
 

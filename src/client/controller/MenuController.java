@@ -127,13 +127,24 @@ public class MenuController implements Initializable {
 		serveur.getGestionnairePartie().joueurPret(joueur);
 	}
 	
+	boolean isInitTurn() throws RemoteException{
+		return serveur.getGestionnairePartie().isPremierePhasePartie();
+	}
+	
 	/**
 	 * Méthode de réactivation des boutons
 	 */
-	public void setButtons(boolean boo){
-		Platform.runLater(() -> boutonDes.setDisable(boo));
-		Platform.runLater(() -> boutonEchange.setDisable(boo));
-		Platform.runLater(() -> boutonFinTour.setDisable(boo));
+	public void setButtons(boolean... boo) {
+		if (boo.length==1){
+			Platform.runLater(() -> boutonDes.setDisable(boo[0]));
+			Platform.runLater(() -> boutonEchange.setDisable(boo[0]));
+			Platform.runLater(() -> boutonFinTour.setDisable(boo[0]));
+		}
+		else {
+			Platform.runLater(() -> boutonDes.setDisable(boo[0]));
+			Platform.runLater(() -> boutonEchange.setDisable(boo[1]));
+			Platform.runLater(() -> boutonFinTour.setDisable(boo[2]));
+		}
 	}
 
 	/**
@@ -219,10 +230,10 @@ public class MenuController implements Initializable {
 		int ressource = serveur.getGestionnairePartie().getPartie().getPlateau().getRessourceCase(caseConsernee);
 		
 		//Méthode (retournant la liste des noms de joueurs) à implémenter
-		ArrayList<Ville> listeVilles = serveur.getGestionnairePartie().getPartie().getPlateau().getVilleAdjacenteByCase(caseConsernee);
+		ArrayList<VilleInterface> listeVilles = serveur.getGestionnairePartie().getPartie().getPlateau().getVilleAdjacenteByCase(caseConsernee);
 		
 		//Ajout des ressources aux joueurs de la liste
-		for(Ville v : listeVilles){
+		for(VilleInterface v : listeVilles){
 			if(v!=null && v.getOqp()!=null){
 				//Si c'est une colonnie
 				if(v.isColonieVille()){
@@ -277,7 +288,7 @@ public class MenuController implements Initializable {
 	
 	public void demanderRoute(){
 		try{
-			System.out.println("Toto");
+			setButtons(true);
 			Serveur serveur = ConnexionManager.getStaticServeur();
 			PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
 			// INITIALISATION
@@ -374,16 +385,15 @@ public class MenuController implements Initializable {
 						public void handle(MouseEvent me){
 							try {
 								rectangle.setFill(Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
-								/*System.out.println(VuePrincipale.paneUsed.getChildren());
-								System.out.println(((Group)VuePrincipale.paneUsed.getChildren().get(1)).getChildren());
-								System.out.println(((Group)VuePrincipale.paneUsed.getChildren().get(2)).getChildren());
-								System.out.println(((Group)VuePrincipale.paneUsed.getChildren().get(3)).getChildren());
-								System.out.println(((Group)VuePrincipale.paneUsed.getChildren().get(4)).getChildren());
-								System.out.println(((Group)VuePrincipale.paneUsed.getChildren().get(5)).getChildren());*/
 								((Group)VuePrincipale.paneUsed.getChildren().get(3)).getChildren().add(rectangle);
 								routesConstructibles.get(rectangle).setOQP(joueurCourrant);
 								VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
 								serveur.getGestionnaireUI().diffuserPriseDeRoute(r, joueurCourrant);
+								if(isInitTurn()){
+									setButtons(true,true,false);
+								}else{
+									setButtons(false);
+								}
 							} catch (RemoteException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -399,7 +409,6 @@ public class MenuController implements Initializable {
 	}
 
 	public void dessinerRoute(RouteInterface r, JoueurInterface j) throws RemoteException {
-		// TODO Auto-generated method stub
 		double x1 = r.getDepart().getX();
 		double y1 = r.getDepart().getY();
 		double x2 = r.getArrive().getX();
@@ -477,6 +486,7 @@ public class MenuController implements Initializable {
 	 */
 	public void demanderColonie(boolean depart){	
 		try {
+			setButtons(true);
 			Serveur serveur = ConnexionManager.getStaticServeur();
 			PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
 			JoueurInterface joueurCourrant = proxy.getJoueur();
@@ -504,10 +514,9 @@ public class MenuController implements Initializable {
 									c.setFill(Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
 									VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
 									serveur.getGestionnaireUI().diffuserPriseDeVille(v, joueurCourrant);
-									
-									// On vérifie si on est dans la première phase, si on l'est on demande de construire une route
-									boolean premierTourPartie = serveur.getGestionnairePartie().isPremierePhasePartie();
-									if(premierTourPartie){
+									setButtons(false);
+									if(isInitTurn()){
+										setButtons(true,true,false);
 										Point maColo = new Point(c.getCenterX(),c.getCenterY());
 										VilleInterface maFirstColo = null;
 										for (VilleInterface v : p.getVilles()){
@@ -531,7 +540,6 @@ public class MenuController implements Initializable {
 				}
 			}
 			Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(g));
-			
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

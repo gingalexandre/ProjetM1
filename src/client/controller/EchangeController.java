@@ -69,11 +69,30 @@ public class EchangeController implements Initializable {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML
+	private void initComboBox(int nbJoueur) throws RemoteException{
 		
+		if(serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur()!=proxy.getJoueur().getNomUtilisateur())
+		choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur());
+		
+		if(serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur()!=proxy.getJoueur().getNomUtilisateur())
+		choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur());
+		
+		if(serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur()!=proxy.getJoueur().getNomUtilisateur())
+		choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur());
+		
+		choixJoueur.getItems().add("Banque");
+		
+		if(nbJoueur>3){
+			if(serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur()!=proxy.getJoueur().getNomUtilisateur())
+			choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur());
+		}
 	}
 	
 	/**
-	 * Méthode pour fermer la fenêtre des échanges
+	 * Méthode de création et d'envois d'une offre
 	 */
 	@FXML
 	private void proposerOffre() throws RemoteException{
@@ -134,29 +153,55 @@ public class EchangeController implements Initializable {
 		return true;
 	}
 	
-	@FXML
-	private void initComboBox(int nbJoueur) throws RemoteException{
-		
-		if(serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur()!=proxy.getJoueur().getNomUtilisateur())
-		choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur());
-		
-		if(serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur()!=proxy.getJoueur().getNomUtilisateur())
-		choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur());
-		
-		if(serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur()!=proxy.getJoueur().getNomUtilisateur())
-		choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur());
-		
-		choixJoueur.getItems().add("Banque");
-		
-		if(nbJoueur>3){
-			if(serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur()!=proxy.getJoueur().getNomUtilisateur())
-			choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur());
+	private void echangeAvecBanque() throws RemoteException{
+		int nbRessourcesEchangeables = 0;
+		if(offreDemande.get("oBois")>=4){
+			nbRessourcesEchangeables += offreDemande.get("oBois")/4;
 		}
+		if(offreDemande.get("oBle")>=4){
+			nbRessourcesEchangeables += offreDemande.get("oBle")/4;
+		}
+		if(offreDemande.get("oMineraie")>=4){
+			nbRessourcesEchangeables += offreDemande.get("oMineraie")/4;
+		}
+		if(offreDemande.get("oArgile")>=4){
+			nbRessourcesEchangeables += offreDemande.get("oArgile")/4;
+		}
+		if(offreDemande.get("oLaine")>=4){
+			nbRessourcesEchangeables += offreDemande.get("oLaine")/4;
+		}
+		
+		while(nbRessourcesEchangeables>=0){
+			while(offreDemande.get("dBois")>=0){
+				proxy.getJoueur().ajoutRessource(Ressource.BOIS, 1);
+				nbRessourcesEchangeables--;
+				offreDemande.put("dBois",offreDemande.get("dBois")-1);
+			}
+			while(offreDemande.get("dBle")>=0){
+				proxy.getJoueur().ajoutRessource(Ressource.BLE, 1);
+				nbRessourcesEchangeables--;
+				offreDemande.put("dBle",offreDemande.get("dBle")-1);
+			}
+			while(offreDemande.get("dMineraie")>=0){
+				proxy.getJoueur().ajoutRessource(Ressource.MINERAIE, 1);
+				nbRessourcesEchangeables--;
+				offreDemande.put("dMineraie",offreDemande.get("dMineraie")-1);
+			}
+			while(offreDemande.get("dArgile")>=0){
+				proxy.getJoueur().ajoutRessource(Ressource.ARGILE, 1);
+				nbRessourcesEchangeables--;
+				offreDemande.put("dArgile",offreDemande.get("dArgile")-1);
+			}
+			while(offreDemande.get("dLaine")>=0){
+				proxy.getJoueur().ajoutRessource(Ressource.LAINE, 1);
+				nbRessourcesEchangeables--;
+				offreDemande.put("dLaine",offreDemande.get("dLaine")-1);
+			}
+		}
+		
+		//Actualisation de l'affichage
+		this.proxy.getJoueursController().majRessource();
+		serveur.getGestionnaireUI().diffuserGainRessource();
+		
 	}
-	
-	private void echangeAvecBanque(){
-		//TODO
-	}
-	
-	
 }

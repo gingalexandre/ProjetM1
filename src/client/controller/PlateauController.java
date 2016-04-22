@@ -106,7 +106,6 @@ public class PlateauController implements Initializable{
 							i++;
 						}
 					}
-					//mainPane.getChildren().clear();
 					int arrive = i;
 					if(trouve) Platform.runLater(() -> deplaceVoleur(depart,arrive));
 				} catch (RemoteException e) {
@@ -165,15 +164,15 @@ public class PlateauController implements Initializable{
 			hexagones = new Group();
 			hexagones.getChildren().addAll(VueHexagone.transformVueHexagone(plateau.getHexagones()));
 	
+			//Ajout des routes
+			routes = new Group();
+	        routes.getChildren().addAll(Route.transformRouteVueRoute(plateau.getRoutes()));
+	        
 			//Ajout des villes
 			villes = new Group();
 	        Circle[] t = Ville.transformVilleVueVille(plateau.getVilles());
 			villes = new Group();
 			villes.getChildren().addAll(t);
-	
-			//Ajout des routes
-			routes = new Group();
-	        routes.getChildren().addAll(Route.transformRouteVueRoute(plateau.getRoutes()));
 	
 			//Ajout des jetons
 			jetons = new Group();
@@ -182,8 +181,8 @@ public class PlateauController implements Initializable{
 	
 			// Construction du Pane principal
 			mainPane.getChildren().add(hexagones);
-			mainPane.getChildren().add(villes);
 			mainPane.getChildren().add(routes);
+			mainPane.getChildren().add(villes);
 			mainPane.getChildren().add(jetons);
 	        mainPane.setStyle("-fx-background-color: #4e6c91");
 		}catch(RemoteException e){

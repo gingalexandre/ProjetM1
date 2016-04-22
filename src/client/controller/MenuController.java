@@ -441,7 +441,7 @@ public class MenuController implements Initializable {
 		Polygon rectangle = new Polygon();
 		rectangle.getPoints().addAll(points);
 		rectangle.setFill(Fonction.getCouleurFromString(j.getCouleur()));
-		Platform.runLater(() -> ((Group)VuePrincipale.paneUsed.getChildren().get(3)).getChildren().add(rectangle));
+		Platform.runLater(() -> ((Group)VuePrincipale.paneUsed.getChildren().get(2)).getChildren().add(rectangle));
 	}
 	
 	/**
@@ -454,8 +454,6 @@ public class MenuController implements Initializable {
 			Serveur serveur = ConnexionManager.getStaticServeur();
 			PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
 			JoueurInterface joueurCourrant = proxy.getJoueur();
-			//System.out.println(VuePrincipale.paneUsed.getChildren());
-			//System.out.println(((Group)VuePrincipale.paneUsed.getChildren().get(2)).getChildren());
 			// Recuperation de la liste des villes
 			HashMap<Point,VilleInterface> toutesLesVilles = new HashMap<Point,VilleInterface>();
 			for(VilleInterface v : p.getVilles()){
@@ -476,13 +474,6 @@ public class MenuController implements Initializable {
 							public void handle(MouseEvent event) {
 								// TODO Auto-generated method stub
 								try {
-									/*System.out.println(toutesLesVilles);
-									System.out.println("-----------------------");
-									System.out.println(c);
-									System.out.println("-----------------------");
-									System.out.println(joueurCourrant);
-									System.out.println("-----------------------");
-									System.out.println(toutesLesVilles.get(c));*/
 									v.setOQP(joueurCourrant);
 									c.setFill(Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
 									VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
@@ -491,7 +482,16 @@ public class MenuController implements Initializable {
 									// On vérifie si on est dans la première phase, si on l'est on demande de construire une route
 									boolean premierTourPartie = serveur.getGestionnairePartie().isPremierePhasePartie();
 									if(premierTourPartie){
+										Point maColo = new Point(c.getCenterX(),c.getCenterY());
+										VilleInterface maFirstColo = null;
+										for (VilleInterface v : p.getVilles()){
+											if (v.getOqp()!=null && v.getOqp().equals(joueurCourrant) && !v.getEmplacement().equals(maColo)){
+												v.setOQP(null);
+												maFirstColo = v;
+											}
+										}
 										demanderRoute();
+										if (maFirstColo != null) maFirstColo.setOQP(joueurCourrant);
 									}
 								} catch (RemoteException e) {
 									// TODO Auto-generated catch block
@@ -520,7 +520,7 @@ public class MenuController implements Initializable {
 			double x = v.getEmplacement().getX();
 			double y = v.getEmplacement().getY();
 			Circle c = new Circle(x,y,Plateau.SIZE/5,Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
-			Platform.runLater(() -> ((Group)VuePrincipale.paneUsed.getChildren().get(2)).getChildren().add(c));
+			Platform.runLater(() -> ((Group)VuePrincipale.paneUsed.getChildren().get(3)).getChildren().add(c));
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

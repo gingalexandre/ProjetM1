@@ -52,15 +52,6 @@ public class Ville extends UnicastRemoteObject implements VilleInterface {
 	}
 
 	public boolean estLibre(JoueurInterface proprio, ArrayList<VilleInterface> villes) throws RemoteException{
-		//System.out.println(this.route_adj1);
-		//System.out.println(this.route_adj2);
-		//System.out.println(this.route_adj3);
-		
-		//System.out.println(villes.get(0).getOqp());
-		//System.out.println("Route 1 : "+((this.ville_adj1 != -1) && (villes.get(this.ville_adj1).getOqp() == null)));
-		//System.out.println("Route 2 : "+this.ville_adj2);
-		//System.out.println("Route 3 : "+this.ville_adj3);
-		//return true;
 		return ((this.oqp == null)
 				&& ((((this.ville_adj1 != -1) && (villes.get(this.ville_adj1).getOqp() == null) || this.ville_adj1 == -1))
 						&& (((this.ville_adj2 != -1) && (villes.get(this.ville_adj2).getOqp() == null)|| this.ville_adj2 == -1))

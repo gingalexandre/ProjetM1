@@ -182,7 +182,14 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 		return villeAdj;
 	}
 	
-
+	public void setVillesAdj(Ville v1, Ville v2, Ville v3, Ville v4, Ville v5, Ville v6){
+		this.villeAdj[0] = v1;
+		this.villeAdj[1] = v2;
+		this.villeAdj[2] = v3;
+		this.villeAdj[3] = v4;
+		this.villeAdj[4] = v5;
+		this.villeAdj[5] = v6;
+	}
 
 	
 	public String toString() {

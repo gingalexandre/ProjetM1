@@ -105,5 +105,16 @@ public interface HexagoneInterface extends Remote{
 	 * @throws RemoteException
 	 */
 	void setVOLEUR(boolean VOLEUR) throws RemoteException;
+	
+	/**
+	 * Défini les villes adjacentes à l'hexagone
+	 * @param v1
+	 * @param v2
+	 * @param v3
+	 * @param v4
+	 * @param v5
+	 * @param v6
+	 */
+	public void setVillesAdj(Ville v1, Ville v2, Ville v3, Ville v4, Ville v5, Ville v6);
 
 }

@@ -237,7 +237,6 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
         }
         return res;
     }
-	
 
 	public ArrayList<Point> getPoints() throws RemoteException{
 		return points;
@@ -264,13 +263,16 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
 	}
 	
 	@Override
-	public Ville[] getVilleAdjacenteByCase(Integer caseConsernee) throws RemoteException {
+	public ArrayList<Ville> getVilleAdjacenteByCase(Integer caseConsernee) throws RemoteException {
+		ArrayList<Ville> listeVilles = new ArrayList<Ville>();
 		for(HexagoneInterface h : hexagones){
 			if(h.getNumero()==caseConsernee){
-				return h.getVilleAdj();
+				for(Ville v : h.getVilleAdj()){
+					listeVilles.add(v);
+				}
 			}
 		}
-		return null;
+		return listeVilles;
 	}
 	
 	

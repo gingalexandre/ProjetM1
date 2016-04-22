@@ -3,6 +3,7 @@ package client.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ResourceBundle;
@@ -218,7 +219,7 @@ public class MenuController implements Initializable {
 		int ressource = serveur.getGestionnairePartie().getPartie().getPlateau().getRessourceCase(caseConsernee);
 		
 		//Méthode (retournant la liste des noms de joueurs) à implémenter
-		Ville[] listeVilles = serveur.getGestionnairePartie().getPartie().getPlateau().getVilleAdjacenteByCase(caseConsernee);
+		ArrayList<Ville> listeVilles = serveur.getGestionnairePartie().getPartie().getPlateau().getVilleAdjacenteByCase(caseConsernee);
 		
 		//Ajout des ressources aux joueurs de la liste
 		for(Ville v : listeVilles){

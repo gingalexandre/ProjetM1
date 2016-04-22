@@ -93,7 +93,7 @@ public interface PlateauInterface extends Remote{
 	 * @param caseConsernee
 	 * @return la liste des villes adjacente à la case consernée
 	 */
-	Ville[] getVilleAdjacenteByCase(Integer caseConsernee) throws RemoteException;
+	ArrayList<Ville> getVilleAdjacenteByCase(Integer caseConsernee) throws RemoteException;
 	
 	
 

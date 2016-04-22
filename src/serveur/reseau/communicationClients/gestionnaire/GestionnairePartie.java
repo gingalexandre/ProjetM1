@@ -31,6 +31,8 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	 */
 	private Partie partie;
 	
+	private boolean premierePhasePartie;
+	
 	/**
 	 * Constructeur de la classe GestionnairePartie
 	 * @param plateauInterface 
@@ -38,6 +40,7 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	 */
 	public GestionnairePartie(PlateauInterface plateauInterface) throws RemoteException{
 		this.partie = new Partie(plateauInterface);
+		this.premierePhasePartie = true;
 	}
 
 	/**
@@ -206,5 +209,18 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 				joueurServeur.lancerTour();
 			}
 		}
+		// On vérifie si on est toujours dans la première "phase" de la partie
+		if(this.partie.getCompteurTourGlobal() == this.partie.getNombreJoueurs()*2){
+			this.premierePhasePartie = false;
+		}
+	}
+
+	/** 
+	 * Permet de savoir  si on est encore dans la première phase de la partie
+	 * @return true si on est encore dans la première phase de la partie, false sinon
+	 */
+	@Override
+	public boolean isPremierePhasePartie() throws RemoteException{
+		return this.premierePhasePartie;
 	}
 }

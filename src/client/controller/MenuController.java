@@ -249,9 +249,8 @@ public class MenuController implements Initializable {
 		serveur.getGestionnairePartie().lancerProchainTour(joueurTour);
 	}
 	
-	public void demanderRoute(Semaphore s){
+	public void demanderRoute(){
 		try{
-			s.acquire();
 			System.out.println("Toto");
 			Serveur serveur = ConnexionManager.getStaticServeur();
 			PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
@@ -362,9 +361,7 @@ public class MenuController implements Initializable {
 							} catch (RemoteException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
-							} finally {
-								s.release();
-							}
+							} 
 						}
 					});
 				}
@@ -452,9 +449,8 @@ public class MenuController implements Initializable {
 	 * @param depart booleen indiquant si c'est le depart auquel cas on pose où on ne tiens pas compte des routes
 	 * @param s 
 	 */
-	public void demanderColonie(boolean depart, Semaphore s){	
+	public void demanderColonie(boolean depart){	
 		try {
-			s.acquire();
 			Serveur serveur = ConnexionManager.getStaticServeur();
 			PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
 			JoueurInterface joueurCourrant = proxy.getJoueur();
@@ -491,12 +487,16 @@ public class MenuController implements Initializable {
 									c.setFill(Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
 									VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
 									serveur.getGestionnaireUI().diffuserPriseDeVille(v, joueurCourrant);
+									
+									// On vérifie si on est dans la première phase, si on l'est on demande de construire une route
+									boolean premierTourPartie = serveur.getGestionnairePartie().isPremierePhasePartie();
+									if(premierTourPartie){
+										demanderRoute();
+									}
 								} catch (RemoteException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
-								} finally {
-									s.release();
-								}
+								} 
 							}
 							
 						});
@@ -506,7 +506,7 @@ public class MenuController implements Initializable {
 			}
 			Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(g));
 			
-		} catch (RemoteException | InterruptedException e) {
+		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

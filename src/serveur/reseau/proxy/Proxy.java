@@ -153,21 +153,16 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 
 	@Override
 	public void lancerTour() throws RemoteException{
-		Semaphore s = new Semaphore(2);
-		this.menuController.demanderColonie(true,s);
-		this.menuController.demanderRoute(s) ;
+		this.menuController.demanderColonie(true);
 	}
 
 	@Override
 	public void recevoirPriseDeRoute(RouteInterface r, JoueurInterface j) throws RemoteException {
-		// TODO Auto-generated method stub
 		this.menuController.dessinerRoute(r,j);
 	}
 
 	@Override
 	public void recevoirPriseDeVille(VilleInterface v, JoueurInterface joueurCourrant) throws RemoteException {
-		// TODO Auto-generated method stub
 		this.menuController.dessinerVille(v, joueurCourrant);
-		
 	}
 }

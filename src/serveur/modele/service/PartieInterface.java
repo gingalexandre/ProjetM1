@@ -138,4 +138,10 @@ public interface PartieInterface extends Remote{
 	void setId(int id) throws RemoteException;
 
 	PlateauInterface getPlateau() throws RemoteException;
+	
+	/** 
+	 * Permet de récupérer le nombre de tour qu'il y a eu dans la partie
+	 * @return le nombre de tour qu'il y a eu dans la partie
+	 */
+	int getCompteurTourGlobal() throws RemoteException;
 }

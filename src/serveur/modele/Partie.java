@@ -39,6 +39,11 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	 */
 	private int tour;
 	
+	/**
+	 * Compte tous les tours 
+	 */
+	private int compteurTourGlobal;
+	
 	private PlateauInterface plateau;
 
 	/**
@@ -49,9 +54,18 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 		this.ordreJeu = new ArrayList<>();
 		this.ressources = new Ressource();
 		this.tour = 1;
+		this.compteurTourGlobal = 0;
 		this.plateau = p;
 	}
 
+	/** 
+	 * Permet de récupérer le nombre de tour qu'il y a eu dans la partie
+	 * @return le nombre de tour qu'il y a eu dans la partie
+	 */
+	public int getCompteurTourGlobal() throws RemoteException {
+		return this.compteurTourGlobal;
+	}
+	
 	/**
 	 * @return le nombre de joueurs de la partie
 	 */
@@ -88,6 +102,7 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 		tour = (tour + 1) % (getNombreJoueurs() + 1);
 		if (tour == 0)
 			tour++;
+		compteurTourGlobal++;
 	}
 
 	public JoueurInterface getJoueurByCouleur(String couleur) throws RemoteException {

@@ -153,9 +153,10 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 
 	@Override
 	public void lancerTour() throws RemoteException{
-		Semaphore s = new Semaphore(2);
+		Semaphore s = new Semaphore(2); // Création d'un semaphore qui sera utiliser pour permettre la synchronisation
 		this.menuController.demanderColonie(true,s);
-		this.menuController.demanderRoute(s) ;
+		System.out.println("toto");
+		this.menuController.demanderRoute(s);
 	}
 
 	@Override

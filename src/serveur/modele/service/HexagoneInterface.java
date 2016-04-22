@@ -68,7 +68,7 @@ public interface HexagoneInterface extends Remote{
 	 * @return la ressource associe à l'hexagone
 	 * @throws RemoteException
 	 */
-	Ressource getRessource() throws RemoteException;
+	int getRessource() throws RemoteException;
 
 	/**
 	 * @return le numero de l'hexagone

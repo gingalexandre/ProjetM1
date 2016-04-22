@@ -13,7 +13,7 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 	
 	private int indexHexagone;
 	
-	private Ressource ressource;
+	private int ressource;
 	
 	private int numero;
 	
@@ -120,11 +120,36 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 		if (this.indexHexagone != 9) {
 			this.type = DistributeurType.getInstance().donnerType();
 			this.numeroJeton = new Jeton(this);
+			this.numero = this.numeroJeton.getNumeroJeton();
+			setRessourceByType();
 		} else {
 			this.type = Hexagone.DESERT;
 			VOLEUR = true;
 		}
 
+	}
+	
+	public void setRessourceByType(){
+		switch (this.type) {
+		case 1:
+			this.ressource = Ressource.BOIS;
+			break;
+		case 2:
+			this.ressource = Ressource.BLE;
+			break;
+		case 3:
+			this.ressource = Ressource.ARGILE;
+			break;
+		case 4:
+			this.ressource = Ressource.MINERAIE;
+			break;
+		case 5:
+			this.ressource = Ressource.LAINE;
+			break;
+
+		default:
+			break;
+		}
 	}
 	 
 	public Double[] getPoints() {
@@ -145,7 +170,7 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 		return serialVersionUID;
 	}
 	
-	public Ressource getRessource() {
+	public int getRessource() {
 		return ressource;
 	}
 	
@@ -184,49 +209,90 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 
 
 	
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
-		Hexagone hexagone = (Hexagone) o;
-
-		if (getIndexHexagone() != hexagone.getIndexHexagone()) return false;
-		if (getNumero() != hexagone.getNumero()) return false;
-		if (getVOLEUR() != hexagone.getVOLEUR()) return false;
-		if (getType() != hexagone.getType()) return false;
-		if (getRessource() != null ? !getRessource().equals(hexagone.getRessource()) : hexagone.getRessource() != null)
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
 			return false;
-		// Probably incorrect - comparing Object[] arrays with Arrays.equals
-		if (!Arrays.equals(getVilleAdj(), hexagone.getVilleAdj())) return false;
-		if (getA() != null ? !getA().equals(hexagone.getA()) : hexagone.getA() != null) return false;
-		if (getB() != null ? !getB().equals(hexagone.getB()) : hexagone.getB() != null) return false;
-		if (getC() != null ? !getC().equals(hexagone.getC()) : hexagone.getC() != null) return false;
-		if (getD() != null ? !getD().equals(hexagone.getD()) : hexagone.getD() != null) return false;
-		if (getE() != null ? !getE().equals(hexagone.getE()) : hexagone.getE() != null) return false;
-		if (getF() != null ? !getF().equals(hexagone.getF()) : hexagone.getF() != null) return false;
-		if (getCentre() != null ? !getCentre().equals(hexagone.getCentre()) : hexagone.getCentre() != null)
+		if (getClass() != obj.getClass())
 			return false;
-		return numeroJeton != null ? numeroJeton.equals(hexagone.numeroJeton) : hexagone.numeroJeton == null;
-
+		Hexagone other = (Hexagone) obj;
+		if (VOLEUR != other.VOLEUR)
+			return false;
+		if (a == null) {
+			if (other.a != null)
+				return false;
+		} else if (!a.equals(other.a))
+			return false;
+		if (b == null) {
+			if (other.b != null)
+				return false;
+		} else if (!b.equals(other.b))
+			return false;
+		if (c == null) {
+			if (other.c != null)
+				return false;
+		} else if (!c.equals(other.c))
+			return false;
+		if (centre == null) {
+			if (other.centre != null)
+				return false;
+		} else if (!centre.equals(other.centre))
+			return false;
+		if (d == null) {
+			if (other.d != null)
+				return false;
+		} else if (!d.equals(other.d))
+			return false;
+		if (e == null) {
+			if (other.e != null)
+				return false;
+		} else if (!e.equals(other.e))
+			return false;
+		if (f == null) {
+			if (other.f != null)
+				return false;
+		} else if (!f.equals(other.f))
+			return false;
+		if (indexHexagone != other.indexHexagone)
+			return false;
+		if (numero != other.numero)
+			return false;
+		if (numeroJeton == null) {
+			if (other.numeroJeton != null)
+				return false;
+		} else if (!numeroJeton.equals(other.numeroJeton))
+			return false;
+		if (ressource != other.ressource)
+			return false;
+		if (type != other.type)
+			return false;
+		if (!Arrays.equals(villeAdj, other.villeAdj))
+			return false;
+		return true;
 	}
 
 
 	
+	@Override
 	public int hashCode() {
-		int result = getIndexHexagone();
-		result = 31 * result + (getRessource() != null ? getRessource().hashCode() : 0);
-		result = 31 * result + getNumero();
-		result = 31 * result + Arrays.hashCode(getVilleAdj());
-		result = 31 * result + (getVOLEUR() ? 1 : 0);
-		result = 31 * result + (getA() != null ? getA().hashCode() : 0);
-		result = 31 * result + (getB() != null ? getB().hashCode() : 0);
-		result = 31 * result + (getC() != null ? getC().hashCode() : 0);
-		result = 31 * result + (getD() != null ? getD().hashCode() : 0);
-		result = 31 * result + (getE() != null ? getE().hashCode() : 0);
-		result = 31 * result + (getF() != null ? getF().hashCode() : 0);
-		result = 31 * result + (getCentre() != null ? getCentre().hashCode() : 0);
-		result = 31 * result + getType();
-		result = 31 * result + (numeroJeton != null ? numeroJeton.hashCode() : 0);
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + (VOLEUR ? 1231 : 1237);
+		result = prime * result + ((a == null) ? 0 : a.hashCode());
+		result = prime * result + ((b == null) ? 0 : b.hashCode());
+		result = prime * result + ((c == null) ? 0 : c.hashCode());
+		result = prime * result + ((centre == null) ? 0 : centre.hashCode());
+		result = prime * result + ((d == null) ? 0 : d.hashCode());
+		result = prime * result + ((e == null) ? 0 : e.hashCode());
+		result = prime * result + ((f == null) ? 0 : f.hashCode());
+		result = prime * result + indexHexagone;
+		result = prime * result + numero;
+		result = prime * result + ((numeroJeton == null) ? 0 : numeroJeton.hashCode());
+		result = prime * result + ressource;
+		result = prime * result + type;
+		result = prime * result + Arrays.hashCode(villeAdj);
 		return result;
 	}
 	

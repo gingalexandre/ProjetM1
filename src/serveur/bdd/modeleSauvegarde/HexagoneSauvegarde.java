@@ -29,7 +29,7 @@ public class HexagoneSauvegarde implements Serializable {
 	/**
 	 * Ressource que produit l'hexagone
 	 */
-	private Ressource ressource;
+	private int ressource;
 	/**
 	 * Id de l'hexagone
 	 */
@@ -132,7 +132,7 @@ public class HexagoneSauvegarde implements Serializable {
 	 * 
 	 * @return la Ressource de l'Hexagone
 	 */
-	public Ressource getRessource() {
+	public int getRessource() {
 		return ressource;
 	}
 
@@ -142,7 +142,7 @@ public class HexagoneSauvegarde implements Serializable {
 	 * @param ressource
 	 *            Ressource de l'Hexagone
 	 */
-	public void setRessource(Ressource ressource) {
+	public void setRessource(int ressource) {
 		this.ressource = ressource;
 	}
 

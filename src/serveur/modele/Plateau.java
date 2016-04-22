@@ -189,9 +189,7 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
         for (RouteInterface r : routes){
         	toutesLesVilles.get(r.getDepart()).ajouterRoute(r);
         	toutesLesVilles.get(r.getArrive()).ajouterRoute(r);
-        }
-        
-        
+        }        
 	}
 	
 	public void ajoutListeRoute(Route r) throws RemoteException{
@@ -239,6 +237,7 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
         }
         return res;
     }
+	
 
 	public ArrayList<Point> getPoints() throws RemoteException{
 		return points;
@@ -257,9 +256,8 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
 	@Override
 	public int getRessourceCase(int caseConcernee) throws RemoteException {
 		for(HexagoneInterface h : hexagones){
-			if(h.getJeton().getNumeroJeton()==caseConcernee){
-				//...??
-				//return h.getRessource();
+			if(h.getNumero()==caseConcernee){
+				return h.getRessource();
 			}
 		}
 		return 0;
@@ -268,7 +266,7 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
 	@Override
 	public Ville[] getVilleAdjacenteByCase(Integer caseConsernee) throws RemoteException {
 		for(HexagoneInterface h : hexagones){
-			if(h.getJeton().getNumeroJeton()==caseConsernee){
+			if(h.getNumero()==caseConsernee){
 				return h.getVilleAdj();
 			}
 		}

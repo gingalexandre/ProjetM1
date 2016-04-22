@@ -138,17 +138,14 @@ public class MenuController implements Initializable {
 		de1.setImage(new Image(distribuerDes(resultats[0])));
 		de2.setImage(new Image(distribuerDes(resultats[1])));
 
-
-		int des_val = 7;
+        int des_val = 0;
 		for(int i = 0; i<resultats.length;i++){
-			//des_val += resultats[i];
+			des_val += resultats[i];
 		}
 		if(des_val != 7){
 			extractionRessources(resultats);
 		}else{
-
 			pc.doActionVoleur();
-
 		}
 		notifierLancerDes(resultats);
 

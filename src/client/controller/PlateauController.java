@@ -84,6 +84,7 @@ public class PlateauController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		recupererAttributs();
 		enregistrerController();
+		VuePrincipale.paneUsed = mainPane;
 		try {
 			recupererPlateau();
 		} catch (RemoteException e) {

@@ -4,11 +4,9 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import serveur.commun.Fonctions;
 import serveur.modele.Point;
-import serveur.modele.Ressource;
-import serveur.modele.Ville;
 import serveur.modele.service.HexagoneInterface;
-import serveur.modele.service.VilleInterface;
 
 /**
  * Classe servant a convertir un HexagoneInterface en HexagoneSauvegarde pour la
@@ -93,7 +91,7 @@ public class HexagoneSauvegarde implements Serializable {
 		this.indexHexagone = hex.getIndexHexagone();
 		this.ressource = hex.getRessource();
 		this.numero = hex.getNumero();
-		this.villeAdj = this.transformArrayVilleSauvegarde(hex.getVilleAdj());
+		this.villeAdj = Fonctions.transformArrayVilleSauvegarde(hex.getVilleAdj());
 		VOLEUR = hex.getVOLEUR();
 		this.a = hex.getA();
 		this.b = hex.getB();
@@ -371,22 +369,6 @@ public class HexagoneSauvegarde implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	/**
-	 * Convertie un Liste de VilleInterface en VilleSauvegarde
-	 * @param villes  Liste de VilleInterface
-	 * @return Liste de VilleSauvegarde
-	 * @throws RemoteException
-	 */
-	public ArrayList<VilleSauvegarde> transformArrayVilleSauvegarde(ArrayList<VilleInterface> villes)
-			throws RemoteException {
-		ArrayList<VilleSauvegarde> res = new ArrayList<VilleSauvegarde>();
-		for (VilleInterface ville : villes) {
 
-			res.add(new VilleSauvegarde(ville));
-
-		}
-		return res;
-	}
 
 }

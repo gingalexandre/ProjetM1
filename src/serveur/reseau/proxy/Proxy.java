@@ -3,15 +3,18 @@ package serveur.reseau.proxy;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
 
 import client.controller.ChatController;
 import client.controller.EchangeController;
-import client.controller.MenuController;
 import client.controller.JoueursController;
+import client.controller.MenuController;
 import client.controller.PlateauController;
 import serveur.modele.Message;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
+import serveur.modele.service.RouteInterface;
+import serveur.modele.service.VilleInterface;
 
 public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 
@@ -152,4 +155,19 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 		this.menuController.setButtons(boo);
 	}
 
+
+	@Override
+	public void lancerTour() throws RemoteException{
+		this.menuController.demanderColonie(true);
+	}
+
+	@Override
+	public void recevoirPriseDeRoute(RouteInterface r, JoueurInterface j) throws RemoteException {
+		this.menuController.dessinerRoute(r,j);
+	}
+
+	@Override
+	public void recevoirPriseDeVille(VilleInterface v, JoueurInterface joueurCourrant) throws RemoteException {
+		this.menuController.dessinerVille(v, joueurCourrant);
+	}
 }

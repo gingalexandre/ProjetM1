@@ -4,7 +4,10 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 import serveur.modele.Message;
+import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
+import serveur.modele.service.RouteInterface;
+import serveur.modele.service.VilleInterface;
 import serveur.reseau.proxy.JoueurServeur;
 
 /**
@@ -45,4 +48,10 @@ public interface GestionnaireUIInterface extends Remote{
 	 * @throws RemoteException
      */
 	void diffuserVoleur(int depart, int arrive) throws RemoteException;
+
+	
+	void diffuserPriseDeRoute(RouteInterface r, JoueurInterface j) throws RemoteException;
+
+	void diffuserPriseDeVille(VilleInterface v, JoueurInterface joueurCourrant) throws RemoteException;
+
 }

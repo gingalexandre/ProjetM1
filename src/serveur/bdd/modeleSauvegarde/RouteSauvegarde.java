@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 
 import serveur.modele.Joueur;
 import serveur.modele.Point;
+import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.RouteInterface;
 
 /**
@@ -30,7 +31,7 @@ public class RouteSauvegarde implements Serializable {
 	/**
 	 * Joueur : à qui appartient la route (null si personne)
 	 */
-	private Joueur oqp;
+	private JoueurInterface oqp;
 
 	/**
 	 * Constructeur
@@ -94,7 +95,7 @@ public class RouteSauvegarde implements Serializable {
 	 * 
 	 * @return Joueur
 	 */
-	public Joueur getOqp() {
+	public JoueurInterface getOqp() {
 		return oqp;
 	}
 

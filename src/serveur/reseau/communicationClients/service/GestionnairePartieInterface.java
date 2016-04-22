@@ -80,4 +80,12 @@ public interface GestionnairePartieInterface extends Remote{
 	 * @throws RemoteException
 	 */
 	PartieInterface getPartie() throws RemoteException;
+
+	void lancerProchainTour(JoueurInterface joueurTour) throws RemoteException;
+	
+	/** 
+	 * Permet de savoir  si on est encore dans la première phase de la partie
+	 * @return true si on est encore dans la première phase de la partie, false sinon
+	 */
+	boolean isPremierePhasePartie() throws RemoteException;
 }

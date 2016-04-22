@@ -3,6 +3,8 @@ package client.controller;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+
+import client.view.VuePrincipale;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
@@ -82,7 +84,6 @@ public class PlateauController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		recupererAttributs();
 		enregistrerController();
-
 		try {
 			recupererPlateau();
 		} catch (RemoteException e) {
@@ -128,21 +129,21 @@ public class PlateauController implements Initializable{
 		imgView.setFitWidth(650);
 		imgView.setLayoutX(50);
 		mainPane.getChildren().add(imgView);
-
+		
 		try {
 			// Ajout des hexagones
 			hexagones = new Group();
 			hexagones.getChildren().addAll(VueHexagone.transformVueHexagone(plateau.getHexagones()));
 	
+			//Ajout des routes
+			routes = new Group();
+	        routes.getChildren().addAll(Route.transformRouteVueRoute(plateau.getRoutes()));
+	        
 			//Ajout des villes
 			villes = new Group();
 	        Circle[] t = Ville.transformVilleVueVille(plateau.getVilles());
 			villes = new Group();
 			villes.getChildren().addAll(t);
-	
-			//Ajout des routes
-			routes = new Group();
-	        routes.getChildren().addAll(Route.transformRouteVueRoute(plateau.getRoutes()));
 	
 			//Ajout des jetons
 			jetons = new Group();
@@ -151,8 +152,8 @@ public class PlateauController implements Initializable{
 	
 			// Construction du Pane principal
 			mainPane.getChildren().add(hexagones);
-			mainPane.getChildren().add(villes);
 			mainPane.getChildren().add(routes);
+			mainPane.getChildren().add(villes);
 			mainPane.getChildren().add(jetons);
 	        mainPane.setStyle("-fx-background-color: #4e6c91");
 		}catch(RemoteException e){

@@ -3,30 +3,44 @@ package client.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 
+import client.commun.Fonction;
+import client.view.VuePrincipale;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
+import javafx.geometry.Point2D;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import serveur.modele.Des;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
+import serveur.modele.Point;
 import serveur.modele.service.JoueurInterface;
+import serveur.modele.service.PlateauInterface;
+import serveur.modele.service.RouteInterface;
+import serveur.modele.service.VilleInterface;
 import serveur.reseau.proxy.Proxy;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
+
 
 public class MenuController implements Initializable {
 	
@@ -245,6 +259,286 @@ public class MenuController implements Initializable {
 		JoueurInterface joueurTour = serveur.getGestionnairePartie().finirTour();
 		
 		serveur.getGestionnaireUI().diffuserMessage(new Message("C'est à "+joueurTour.getNomUtilisateur()+" de jouer"));
+		serveur.getGestionnairePartie().lancerProchainTour(joueurTour);
+	}
+	
+	public void demanderRoute(){
+		try{
+			System.out.println("Toto");
+			Serveur serveur = ConnexionManager.getStaticServeur();
+			PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
+			// INITIALISATION
+			// Etape 1 : Création d'une map avec chaque point qui associe la ville de cet emplacement
+			HashMap<Point,VilleInterface> villes = new HashMap();
+			for(VilleInterface v : p.getVilles()){
+				villes.put(v.getEmplacement(), v);
+			}
+			// Etape 2 : Récupération des points des extremités des points des Routes du joueur qui veut construire dans un set
+			JoueurInterface joueurCourrant = proxy.getJoueur();
+			HashSet<Point> pointsDeRoutes = new HashSet();
+			for(RouteInterface r: p.getRoutes()){
+				if((r.getOqp()!= null) && r.getOqp().equals(joueurCourrant)){
+					pointsDeRoutes.add(r.getDepart());
+					pointsDeRoutes.add(r.getArrive());
+				}
+			}
+			// RECHERCHES DES ROUTES CONSTRUCTIBLES
+			HashMap<Polygon, RouteInterface> routesConstructibles = new HashMap();
+			Group grp = new Group();
+			for(RouteInterface r: p.getRoutes()){
+				if(r.estConstructible(villes, joueurCourrant, pointsDeRoutes)){
+					// Récupération des points pour une écriture plus simple du code
+					double x1 = r.getDepart().getX();
+					double y1 = r.getDepart().getY();
+					double x2 = r.getArrive().getX();
+					double y2 = r.getArrive().getY();
+					// Création des points du rectangle a dessiner
+					Point2D p1 = null;
+					Point2D p2 = null;
+					Point2D p3 = null;
+					Point2D p4 = null;
+					// Definition d'une largeur de rectangle par rapport à la taille des Hexagones
+					int minitaille = 10*Plateau.SIZE/100/2;
+					// Identification du cas
+					// Cas 1 : de haut gauche vers bas droit 
+					if ((x1<x2 && y1>y2) || (x1>x2 && y1<y2)){
+						// Identification si c'est haut gauche vers bas droit ou l'inverse
+						// Le but etant depart (x1,y1) (haut gauche) et arrivée (x2,y2)
+						// Si y1<y2 il faut inverser
+						if (y1<y2){
+							double temp = y1;
+							y1 = y2;
+							y2 = temp;
+							
+							temp = x1;
+							x1 = x2;
+							x2 = temp;
+						}
+						p1 = new Point2D(x1+(Math.sqrt(3)/2)*minitaille,y1+minitaille/2);
+						p2 = new Point2D(x1-(Math.sqrt(3)/2)*minitaille,y1-minitaille/2);
+						p3 = new Point2D(x2-(Math.sqrt(3)/2)*minitaille,y2-minitaille/2); 
+						p4 = new Point2D(x2+(Math.sqrt(3)/2)*minitaille,y2+minitaille/2);
+					}
+					// Cas 2 : de bas gauche vers haut droit 
+					if ((x1<x2 && y1<y2) || (x1>x2 && y1>y2)){
+						if (y1<y2){
+							double temp = y1;
+							y1 = y2;
+							y2 = temp;
+							
+							temp = x1;
+							x1 = x2;
+							x2 = temp;
+						}
+						p1 = new Point2D(x1-((Math.sqrt(3)/2) * minitaille),y1+minitaille/2);
+						p2 = new Point2D(x1+((Math.sqrt(3)/2) * minitaille), y1-minitaille/2);
+						p3 = new Point2D(x2+((Math.sqrt(3)/2) * minitaille), y2-minitaille/2);
+						p4 = new Point2D(x2-((Math.sqrt(3)/2) * minitaille), y2+minitaille/2);
+					}
+					// Cas 3 : route vertical
+					if (x1==x2) {
+						if (y1<y2){
+							double temp = y1;
+							y1 = y2;
+							y2 = temp;
+							
+							temp = x1;
+							x1 = x2;
+							x2 = temp;
+						}
+						p1 = new Point2D(x1+minitaille,y1);
+						p2 = new Point2D(x1-minitaille,y1);
+						p3 = new Point2D(x2-minitaille,y2);
+						p4 = new Point2D(x2+minitaille,y2);
+					}	
+					Double[] points = {p1.getX(),p1.getY(),p2.getX(),p2.getY(),p3.getX(),p3.getY(),p4.getX(),p4.getY()};
+					Polygon rectangle = new Polygon();
+					rectangle.getPoints().addAll(points);
+					rectangle.setFill(Color.WHITE);
+					Platform.runLater(() -> grp.getChildren().add(rectangle));
+					routesConstructibles.put(rectangle, r);
+					rectangle.setOnMousePressed(new EventHandler<MouseEvent>() {
+						public void handle(MouseEvent me){
+							try {
+								rectangle.setFill(Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
+								/*System.out.println(VuePrincipale.paneUsed.getChildren());
+								System.out.println(((Group)VuePrincipale.paneUsed.getChildren().get(1)).getChildren());
+								System.out.println(((Group)VuePrincipale.paneUsed.getChildren().get(2)).getChildren());
+								System.out.println(((Group)VuePrincipale.paneUsed.getChildren().get(3)).getChildren());
+								System.out.println(((Group)VuePrincipale.paneUsed.getChildren().get(4)).getChildren());
+								System.out.println(((Group)VuePrincipale.paneUsed.getChildren().get(5)).getChildren());*/
+								((Group)VuePrincipale.paneUsed.getChildren().get(3)).getChildren().add(rectangle);
+								routesConstructibles.get(rectangle).setOQP(joueurCourrant);
+								VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
+								serveur.getGestionnaireUI().diffuserPriseDeRoute(r, joueurCourrant);
+							} catch (RemoteException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} 
+						}
+					});
+				}
+			}
+			Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(grp));
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	public void dessinerRoute(RouteInterface r, JoueurInterface j) throws RemoteException {
+		// TODO Auto-generated method stub
+		double x1 = r.getDepart().getX();
+		double y1 = r.getDepart().getY();
+		double x2 = r.getArrive().getX();
+		double y2 = r.getArrive().getY();
+		// Création des points du rectangle a dessiner
+		Point2D p1 = null;
+		Point2D p2 = null;
+		Point2D p3 = null;
+		Point2D p4 = null;
+		// Definition d'une largeur de rectangle par rapport à la taille des Hexagones
+		int minitaille = 10*Plateau.SIZE/100/2;
+		// Identification du cas
+		// Cas 1 : de haut gauche vers bas droit 
+		if ((x1<x2 && y1>y2) || (x1>x2 && y1<y2)){
+			// Identification si c'est haut gauche vers bas droit ou l'inverse
+			// Le but etant depart (x1,y1) (haut gauche) et arrivée (x2,y2)
+			// Si y1<y2 il faut inverser
+			if (y1<y2){
+				double temp = y1;
+				y1 = y2;
+				y2 = temp;
+				
+				temp = x1;
+				x1 = x2;
+				x2 = temp;
+			}
+			p1 = new Point2D(x1+(Math.sqrt(3)/2)*minitaille,y1+minitaille/2);
+			p2 = new Point2D(x1-(Math.sqrt(3)/2)*minitaille,y1-minitaille/2);
+			p3 = new Point2D(x2-(Math.sqrt(3)/2)*minitaille,y2-minitaille/2); 
+			p4 = new Point2D(x2+(Math.sqrt(3)/2)*minitaille,y2+minitaille/2);
+		}
+		// Cas 2 : de bas gauche vers haut droit 
+		if ((x1<x2 && y1<y2) || (x1>x2 && y1>y2)){
+			if (y1<y2){
+				double temp = y1;
+				y1 = y2;
+				y2 = temp;
+				
+				temp = x1;
+				x1 = x2;
+				x2 = temp;
+			}
+			p1 = new Point2D(x1-((Math.sqrt(3)/2) * minitaille),y1+minitaille/2);
+			p2 = new Point2D(x1+((Math.sqrt(3)/2) * minitaille), y1-minitaille/2);
+			p3 = new Point2D(x2+((Math.sqrt(3)/2) * minitaille), y2-minitaille/2);
+			p4 = new Point2D(x2-((Math.sqrt(3)/2) * minitaille), y2+minitaille/2);
+		}
+		// Cas 3 : route vertical
+		if (x1==x2) {
+			if (y1<y2){
+				double temp = y1;
+				y1 = y2;
+				y2 = temp;
+				
+				temp = x1;
+				x1 = x2;
+				x2 = temp;
+			}
+			p1 = new Point2D(x1+minitaille,y1);
+			p2 = new Point2D(x1-minitaille,y1);
+			p3 = new Point2D(x2-minitaille,y2);
+			p4 = new Point2D(x2+minitaille,y2);
+		}	
+		Double[] points = {p1.getX(),p1.getY(),p2.getX(),p2.getY(),p3.getX(),p3.getY(),p4.getX(),p4.getY()};
+		Polygon rectangle = new Polygon();
+		rectangle.getPoints().addAll(points);
+		rectangle.setFill(Fonction.getCouleurFromString(j.getCouleur()));
+		Platform.runLater(() -> ((Group)VuePrincipale.paneUsed.getChildren().get(2)).getChildren().add(rectangle));
+	}
+	
+	/**
+	 * Méthodes permettant à l'utilisateur de choisir où placer sa colonie
+	 * @param depart booleen indiquant si c'est le depart auquel cas on pose où on ne tiens pas compte des routes
+	 * @param s 
+	 */
+	public void demanderColonie(boolean depart){	
+		try {
+			Serveur serveur = ConnexionManager.getStaticServeur();
+			PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
+			JoueurInterface joueurCourrant = proxy.getJoueur();
+			// Recuperation de la liste des villes
+			HashMap<Point,VilleInterface> toutesLesVilles = new HashMap<Point,VilleInterface>();
+			for(VilleInterface v : p.getVilles()){
+				toutesLesVilles.put(v.getEmplacement(), v);
+			}
+			//Création du groupe pour ajouter les villes potentiel
+			Group g = new Group();
+			if (depart) {
+				for (VilleInterface v : p.getVilles()){
+					if (v.estLibre(null, p.getVilles())){
+						// Si pas ressorti, possibles exception (infixable)
+						double x = v.getEmplacement().getX();
+						double y = v.getEmplacement().getY();
+						Circle c = new Circle(x,y,Plateau.SIZE/5,Color.WHITE);
+						c.setOnMousePressed(new EventHandler<MouseEvent>(){
+
+							@Override
+							public void handle(MouseEvent event) {
+								// TODO Auto-generated method stub
+								try {
+									v.setOQP(joueurCourrant);
+									c.setFill(Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
+									VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
+									serveur.getGestionnaireUI().diffuserPriseDeVille(v, joueurCourrant);
+									
+									// On vérifie si on est dans la première phase, si on l'est on demande de construire une route
+									boolean premierTourPartie = serveur.getGestionnairePartie().isPremierePhasePartie();
+									if(premierTourPartie){
+										Point maColo = new Point(c.getCenterX(),c.getCenterY());
+										VilleInterface maFirstColo = null;
+										for (VilleInterface v : p.getVilles()){
+											if (v.getOqp()!=null && v.getOqp().equals(joueurCourrant) && !v.getEmplacement().equals(maColo)){
+												v.setOQP(null);
+												maFirstColo = v;
+											}
+										}
+										demanderRoute();
+										if (maFirstColo != null) maFirstColo.setOQP(joueurCourrant);
+									}
+								} catch (RemoteException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} 
+							}
+							
+						});
+						Platform.runLater( () -> g.getChildren().add(c));
+					}
+				}
+			}
+			Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(g));
+			
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	public void dessinerVille(VilleInterface v, JoueurInterface joueurCourrant) {
+		// TODO Auto-generated method stub
+		try {
+			double x = v.getEmplacement().getX();
+			double y = v.getEmplacement().getY();
+			Circle c = new Circle(x,y,Plateau.SIZE/5,Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
+			Platform.runLater(() -> ((Group)VuePrincipale.paneUsed.getChildren().get(3)).getChildren().add(c));
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
     /**

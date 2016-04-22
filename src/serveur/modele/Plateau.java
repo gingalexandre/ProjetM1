@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,7 +32,7 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
 
 	private ArrayList<JetonInterface> jetons ;
 
-	private static final int SIZE = 60;
+	public static final int SIZE = 60;
 	
 	private Plateau() throws RemoteException{
 		points = new ArrayList<Point>();
@@ -155,7 +156,9 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
 	
 	public void setRoutes() throws RemoteException{
 		routes = new ArrayList<RouteInterface>();
+		HashMap<Point,VilleInterface> toutesLesVilles = new HashMap();
 		for(VilleInterface v : villes){
+			toutesLesVilles.put(v.getEmplacement(), v);
 			if(v.getVille_adj1() !=  -1){
 				ajoutListeRoute(new Route(v.getEmplacement(),villes.get(v.getVille_adj1()).getEmplacement()));
 			}
@@ -181,6 +184,13 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
         
         routes.sort(c);
         Collections.reverse(routes);
+        
+        //Ajout des Routes aux villes 
+        for (RouteInterface r : routes){
+        	toutesLesVilles.get(r.getDepart()).ajouterRoute(r);
+        	toutesLesVilles.get(r.getArrive()).ajouterRoute(r);
+        }
+        
         
 	}
 	

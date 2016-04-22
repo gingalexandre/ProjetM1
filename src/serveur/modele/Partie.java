@@ -13,6 +13,7 @@ import java.util.Comparator;
 
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PartieInterface;
+import serveur.modele.service.PlateauInterface;
 
 /**
  *
@@ -37,17 +38,34 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	 * De 1 à 3 si 3 joueurs De 1 à 4 si 4 joueurs
 	 */
 	private int tour;
+	
+	/**
+	 * Compte tous les tours 
+	 */
+	private int compteurTourGlobal;
+	
+	private PlateauInterface plateau;
 
 	/**
 	 * @param plateau
 	 *            - plateau de la partie
 	 */
-	public Partie() throws RemoteException {
+	public Partie(PlateauInterface p) throws RemoteException {
 		this.ordreJeu = new ArrayList<>();
 		this.ressources = new Ressource();
 		this.tour = 1;
+		this.compteurTourGlobal = 0;
+		this.plateau = p;
 	}
 
+	/** 
+	 * Permet de récupérer le nombre de tour qu'il y a eu dans la partie
+	 * @return le nombre de tour qu'il y a eu dans la partie
+	 */
+	public int getCompteurTourGlobal() throws RemoteException {
+		return this.compteurTourGlobal;
+	}
+	
 	/**
 	 * @return le nombre de joueurs de la partie
 	 */
@@ -84,6 +102,7 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 		tour = (tour + 1) % (getNombreJoueurs() + 1);
 		if (tour == 0)
 			tour++;
+		compteurTourGlobal++;
 	}
 
 	public JoueurInterface getJoueurByCouleur(String couleur) throws RemoteException {
@@ -175,6 +194,12 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@Override
+	public PlateauInterface getPlateau() {
+		// TODO Auto-generated method stub
+		return this.plateau;
 	}
 
 }

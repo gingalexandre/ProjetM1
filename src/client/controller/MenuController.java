@@ -10,6 +10,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -21,6 +22,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import serveur.modele.Des;
 import serveur.modele.Message;
+import serveur.modele.Plateau;
 import serveur.modele.service.JoueurInterface;
 import serveur.reseau.proxy.Proxy;
 import serveur.reseau.serveur.ConnexionManager;
@@ -76,6 +78,10 @@ public class MenuController implements Initializable {
 	private Serveur serveur;
 	
 	private Pane pane;
+    /**
+     * PlateauController qui reporte les actions affectant le platea.
+     */
+	private PlateauController pc;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -131,9 +137,21 @@ public class MenuController implements Initializable {
 		// Modification des images
 		de1.setImage(new Image(distribuerDes(resultats[0])));
 		de2.setImage(new Image(distribuerDes(resultats[1])));
-		
+
+
+		int des_val = 7;
+		for(int i = 0; i<resultats.length;i++){
+			//des_val += resultats[i];
+		}
+		if(des_val != 7){
+			extractionRessources(resultats);
+		}else{
+
+			pc.doActionVoleur();
+
+		}
 		notifierLancerDes(resultats);
-		extractionRessources(resultats);
+
 		
 	}
 	
@@ -167,7 +185,7 @@ public class MenuController implements Initializable {
 	
 	/**
 	 * Affiche le resultat des dés dans le chat sous forme de message Système
-	 * @param Integer[] resultats (résultats des dés)
+	 * @param resultats (résultats des dés)
 	 * @throws RemoteException 
 	 */
 	private void notifierLancerDes(Integer[] resultats) throws RemoteException{
@@ -177,7 +195,7 @@ public class MenuController implements Initializable {
 	
 	/**
 	 * Distribue à chaque joueurs les ressources associées à la case du numéro tombé
-	 * @param Integer[] resultats (résultats des dés)
+	 * @param resultats (résultats des dés)
 	 * @throws RemoteException 
 	 */
 	private void extractionRessources(Integer[] resultats) throws RemoteException{
@@ -230,4 +248,12 @@ public class MenuController implements Initializable {
 		
 		serveur.getGestionnaireUI().diffuserMessage(new Message("C'est à "+joueurTour.getNomUtilisateur()+" de jouer"));
 	}
+
+    /**
+     * Initialise le controller.
+     * @param pc PlateauContoller.
+     */
+    public void setPlateauController(PlateauController pc){
+        this.pc = pc;
+    }
 }

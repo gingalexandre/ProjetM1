@@ -71,8 +71,9 @@ public class PlateauController implements Initializable{
 	 */
 	private Group jetons;
 
+
 	/**
-	 *
+	 * Méthode d'initialisation
 	 * @param location
 	 * @param resources
      */
@@ -81,34 +82,7 @@ public class PlateauController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		recupererAttributs();
 		enregistrerController();
-		mainPane.setOnMouseClicked(new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent event){
-				int depart;
-				try {
-					depart = plateau.getHexagones().indexOf(plateau.getVoleur());
-					Point2D point = new Point2D(event.getX(),event.getY());
-					int i = 0;
-					for (HexagoneInterface hex: plateau.getHexagones()) {
-						Polygon polygon = new Polygon();
-						polygon.getPoints().addAll(hex.getPoints());
-						if(polygon.contains(point)){
-							try {
-								serveur.getGestionnaireUI().diffuserVoleur(depart,i);
-							} catch (RemoteException e) {
-								e.printStackTrace();
-							}
-							break;
-						}else{
-							i++;
-						}
-					}
-				} catch (RemoteException e) {
-					e.printStackTrace();
-				}
-			}
-		});
+
 		try {
 			recupererPlateau();
 		} catch (RemoteException e) {
@@ -207,5 +181,42 @@ public class PlateauController implements Initializable{
 		Platform.runLater(() -> hexagones.getChildren().get(depart).setEffect(null));
 		colorAdjust.setSaturation(-1);
 		Platform.runLater(() -> hexagones.getChildren().get(arrive).setEffect(colorAdjust));
+	}
+
+	/**
+	 * Permet l'action du voleur.
+	 */
+	public void doActionVoleur(){
+
+		mainPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent event){
+				int depart;
+				try {
+					depart = plateau.getHexagones().indexOf(plateau.getVoleur());
+					Point2D point = new Point2D(event.getX(),event.getY());
+					int i = 0;
+					for (HexagoneInterface hex: plateau.getHexagones()) {
+						Polygon polygon = new Polygon();
+						polygon.getPoints().addAll(hex.getPoints());
+						if(polygon.contains(point)){
+							try {
+								serveur.getGestionnaireUI().diffuserVoleur(depart,i);
+								serveur.getGestionnaireUI().diffuserMessage(new Message ("Déplacement de la case : "+(depart+1)+" à la case "+(i+1)+"."));
+								mainPane.removeEventHandler(MouseEvent.MOUSE_CLICKED, this);
+							} catch (RemoteException e) {
+								e.printStackTrace();
+							}
+							break;
+						}else{
+							i++;
+						}
+					}
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }

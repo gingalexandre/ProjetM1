@@ -2,24 +2,17 @@ package client.controller;
 
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import serveur.modele.Ressource;
 import serveur.reseau.proxy.Proxy;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
@@ -42,7 +35,12 @@ public class EchangeController implements Initializable {
 	@FXML
 	private TextField demandeBois, offreBois, demandeBle, offreBle, demandeMineraie, offreMineraie, demandeArgile, offreArgile, demandeLaine, offreLaine;
 	
+	@FXML
+	private Label message;
+	
 	private Proxy proxy;
+	
+	private HashMap<String,Integer> offreDemande;
 	
 	/**
 	 * Serveur de jeu
@@ -80,18 +78,23 @@ public class EchangeController implements Initializable {
 	@FXML
 	private void proposerOffre() throws RemoteException{
 		
-		HashMap<String,Integer> offreDemande = new HashMap();
-		offreDemande.put("dBois",Integer.parseInt(demandeBois.getText()));
-		offreDemande.put("dBle",Integer.parseInt(demandeBle.getText()));
-		offreDemande.put("dMineraie",Integer.parseInt(demandeMineraie.getText()));
-		offreDemande.put("dArgile",Integer.parseInt(demandeArgile.getText()));
-		offreDemande.put("dLaine",Integer.parseInt(demandeLaine.getText()));
-		
-		offreDemande.put("oBois",Integer.parseInt(offreBois.getText()));
-		offreDemande.put("oBle",Integer.parseInt(offreBle.getText()));
-		offreDemande.put("oMineraie",Integer.parseInt(offreMineraie.getText()));
-		offreDemande.put("oArgile",Integer.parseInt(offreArgile.getText()));
-		offreDemande.put("oLaine",Integer.parseInt(offreLaine.getText()));
+		offreDemande = new HashMap<String, Integer>();
+		try{
+			offreDemande.put("dBois",Integer.parseInt(demandeBois.getText()));
+			offreDemande.put("dBle",Integer.parseInt(demandeBle.getText()));
+			offreDemande.put("dMineraie",Integer.parseInt(demandeMineraie.getText()));
+			offreDemande.put("dArgile",Integer.parseInt(demandeArgile.getText()));
+			offreDemande.put("dLaine",Integer.parseInt(demandeLaine.getText()));
+			
+			offreDemande.put("oBois",Integer.parseInt(offreBois.getText()));
+			offreDemande.put("oBle",Integer.parseInt(offreBle.getText()));
+			offreDemande.put("oMineraie",Integer.parseInt(offreMineraie.getText()));
+			offreDemande.put("oArgile",Integer.parseInt(offreArgile.getText()));
+			offreDemande.put("oLaine",Integer.parseInt(offreLaine.getText()));
+		}
+		catch(Exception e){
+			message.setText("N'entrez que des entiers");
+		}
 		
 		if(offreValide(offreDemande)){
 			
@@ -111,18 +114,24 @@ public class EchangeController implements Initializable {
 				echangeAvecBanque();
 			}
 			else{
-				//Veuillez choisir un autre joueur
+				message.setText("Choisir un joueur");
 			}
-			
 			MenuController.fenetreEchange.close();
 		}
 		else{
-			//Message (les valeurs que vous avez rentrées ne sont pas valides)
+			message.setText("Ressources insuffisantes");
 		}
 	}
 	
-	private boolean offreValide(HashMap<String, Integer> offreDemande){
-		return false;
+	private boolean offreValide(HashMap<String, Integer> offreDemande) throws RemoteException{
+		if(((offreDemande.get("oBois") > proxy.getJoueur().getStockRessource().get(Ressource.BOIS))
+				|| (offreDemande.get("oBle") > proxy.getJoueur().getStockRessource().get(Ressource.BLE))
+				|| (offreDemande.get("oMineraie") > proxy.getJoueur().getStockRessource().get(Ressource.MINERAIE))
+				|| (offreDemande.get("oArgile") > proxy.getJoueur().getStockRessource().get(Ressource.ARGILE))
+				|| (offreDemande.get("oLaine") > proxy.getJoueur().getStockRessource().get(Ressource.LAINE)))){
+					return false;			
+		}
+		return true;
 	}
 	
 	@FXML

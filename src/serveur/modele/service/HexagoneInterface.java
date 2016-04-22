@@ -80,7 +80,7 @@ public interface HexagoneInterface extends Remote{
 	 * @return les villes adjacentres de l'hexagone sous forme de tableau
 	 * @throws RemoteException
 	 */
-	Ville[] getVilleAdj() throws RemoteException;
+	VilleInterface[] getVilleAdj() throws RemoteException;
 
 	/**
 	 * @return le centre de l'hexagone

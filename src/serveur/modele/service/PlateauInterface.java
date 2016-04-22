@@ -56,12 +56,6 @@ public interface PlateauInterface extends Remote{
 	 */
 	void setRoutes() throws RemoteException;
 
-	/**
-	 * Ajoute une route à la liste des routes
-	 * @param r - route a ajouter
-	 * @throws RemoteException
-	 */
-	void ajoutListeRoute(RouteInterface r) throws RemoteException;
 
 	/**
 	 * @return les hexagones du plateau sous forme de tableau

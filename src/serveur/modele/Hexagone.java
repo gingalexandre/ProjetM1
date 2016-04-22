@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import serveur.commun.DistributeurType;
 import serveur.modele.service.HexagoneInterface;
+import serveur.modele.service.VilleInterface;
 
 public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 	
@@ -17,7 +18,7 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 	
 	private int numero;
 	
-	private Ville[] villeAdj = new Ville[6];
+	private VilleInterface[] villeAdj = new Ville[6];
 	
 	public final static int FORET = 1;
 	
@@ -153,7 +154,7 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 		return numero;
 	}
 	
-	public Ville[] getVilleAdj() {
+	public VilleInterface[] getVilleAdj() {
 		return villeAdj;
 	}
 	

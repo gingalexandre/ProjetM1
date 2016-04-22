@@ -7,6 +7,7 @@ import serveur.modele.Point;
 import serveur.modele.Ressource;
 import serveur.modele.Ville;
 import serveur.modele.service.HexagoneInterface;
+import serveur.modele.service.VilleInterface;
 
 /**
  * Classe servant a convertir un HexagoneInterface en HexagoneSauvegarde pour la
@@ -37,7 +38,7 @@ public class HexagoneSauvegarde implements Serializable {
 	/**
 	 * Tableau de ville adjacente à l'hexagone
 	 */
-	private Ville[] villeAdj = new Ville[6];
+	private VilleSauvegarde[] villeAdj = new VilleSauvegarde[6];
 	/**
 	 * Booléen stockant le fait que le voleur est ou non placé sur l'hexagone
 	 */
@@ -91,7 +92,7 @@ public class HexagoneSauvegarde implements Serializable {
 		this.indexHexagone = hex.getIndexHexagone();
 		this.ressource = hex.getRessource();
 		this.numero = hex.getNumero();
-		this.villeAdj = hex.getVilleAdj();
+		this.villeAdj = this.transformArrayVilleSauvegarde(hex.getVilleAdj());
 		VOLEUR = hex.getVOLEUR();
 		this.a = hex.getA();
 		this.b = hex.getB();
@@ -170,7 +171,7 @@ public class HexagoneSauvegarde implements Serializable {
 	 * 
 	 * @return Tableau de Ville de l'Hexagone
 	 */
-	public Ville[] getVilleAdj() {
+	public VilleSauvegarde[] getVilleAdj() {
 		return villeAdj;
 	}
 
@@ -180,7 +181,7 @@ public class HexagoneSauvegarde implements Serializable {
 	 * @param villeAdj
 	 *            Tableau de Ville de l'Hexagone
 	 */
-	public void setVilleAdj(Ville[] villeAdj) {
+	public void setVilleAdj(VilleSauvegarde[] villeAdj) {
 		this.villeAdj = villeAdj;
 	}
 
@@ -368,6 +369,21 @@ public class HexagoneSauvegarde implements Serializable {
 	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	
+	/**
+	 * Convertie un tableau de VilleInterface en VilleSauvegarde
+	 * @param villes  Tableau de VilleInterface
+	 * @return Tableau de VilleSauvegarde
+	 * @throws RemoteException
+	 */
+	public VilleSauvegarde[] transformArrayVilleSauvegarde(VilleInterface[] villes)
+			throws RemoteException {
+		VilleSauvegarde[] res = new VilleSauvegarde[villes.length];
+		for (int i = 0; i < villes.length;i++){
+			res[i] = new VilleSauvegarde(villes[i]);
+		}
+		return res;
 	}
 
 }

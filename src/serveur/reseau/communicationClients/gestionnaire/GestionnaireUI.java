@@ -3,6 +3,7 @@ package serveur.reseau.communicationClients.gestionnaire;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import serveur.modele.Message;
 import serveur.modele.Plateau;
@@ -106,5 +107,10 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 		for (JoueurServeur joueurServeur : joueurServeurs) {
 			joueurServeur.recevoirGainRessource();
 		}		
+	}
+
+	@Override
+	public void diffuserProposition(JoueurServeur j, HashMap<String, Integer> offreDemande) throws RemoteException {
+		j.envoyerProposition(offreDemande);
 	}
 }

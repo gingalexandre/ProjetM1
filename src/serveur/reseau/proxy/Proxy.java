@@ -3,6 +3,7 @@ package serveur.reseau.proxy;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.Semaphore;
 
 import client.controller.ChatController;
@@ -126,6 +127,12 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	public void envoyerPlateau(PlateauInterface plateau) throws RemoteException {
 		this.plateauController.setPlateau(plateau);
 	}
+	
+
+	@Override
+	public void envoyerProposition(HashMap<String, Integer> offreDemande) throws RemoteException {
+		this.menuController.ouvrirProposition(offreDemande);
+	}
 
 	/**
 	 * Recoit la liste des autres joueurs envoyes par le serveur et l'envoie au controller adequat
@@ -186,6 +193,7 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 		this.joueursController.majRessource();
 		
 	}
+
 
 	
 }

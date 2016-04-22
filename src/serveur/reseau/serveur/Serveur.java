@@ -23,6 +23,12 @@ public interface Serveur extends Remote{
 	ArrayList<JoueurServeur> getListeJoueurs() throws RemoteException;
 	
 	/**
+	 * @return le joueur serveur
+	 */
+	JoueurServeur getJoueur(String nomJoueur) throws RemoteException;
+	
+	
+	/**
 	 * Enregistre un joueur au serveur
 	 * @param communication
 	 * @throws RemoteException
@@ -63,4 +69,6 @@ public interface Serveur extends Remote{
 	 * @throws RemoteException
 	 */
 	GestionnaireUIInterface getGestionnaireUI() throws RemoteException;
+
+	
 }

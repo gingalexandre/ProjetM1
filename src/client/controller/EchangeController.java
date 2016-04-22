@@ -21,6 +21,7 @@ import serveur.modele.Joueur;
 import serveur.modele.Message;
 import serveur.modele.Ressource;
 import serveur.modele.service.JoueurInterface;
+import serveur.reseau.proxy.JoueurServeur;
 import serveur.reseau.proxy.Proxy;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
@@ -72,6 +73,17 @@ public class EchangeController implements Initializable {
 		
 		serveur = ConnexionManager.getStaticServeur();
 		
+		demandeArgile.setText("0");
+		demandeBle.setText("0");
+		demandeBois.setText("0");
+		demandeLaine.setText("0");
+		demandeMineraie.setText("0");
+		offreArgile.setText("0");
+		offreBle.setText("0");
+		offreLaine.setText("0");
+		offreMineraie.setText("0");
+		offreBois.setText("0");
+		
 		try {
 			initComboBox(serveur.getGestionnairePartie().getPartie().getNombreJoueurs());
 		} catch (RemoteException e) {
@@ -118,6 +130,7 @@ public class EchangeController implements Initializable {
 			offreDemande.put("oMineraie",Integer.parseInt(offreMineraie.getText()));
 			offreDemande.put("oArgile",Integer.parseInt(offreArgile.getText()));
 			offreDemande.put("oLaine",Integer.parseInt(offreLaine.getText()));
+			
 		}
 		catch(Exception e){
 			message.setText("N'entrez que des entiers");
@@ -126,21 +139,23 @@ public class EchangeController implements Initializable {
 		if(offreValide(offreDemande)){
 			
 			if(choixJoueur.getValue()==serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur()){
-				envoyerPropositionJoueur(serveur.getGestionnairePartie().getPartie().getJoueur1());
+				envoyerPropositionJoueur(serveur.getJoueur(serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur()));
 			}
-			else if(choixJoueur.getValue()==serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur()){
-				envoyerPropositionJoueur(serveur.getGestionnairePartie().getPartie().getJoueur2());
+			if(choixJoueur.getValue()==serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur()){
+				envoyerPropositionJoueur(serveur.getJoueur(serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur()));
 			}
-			else if(choixJoueur.getValue()==serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur()){
-				envoyerPropositionJoueur(serveur.getGestionnairePartie().getPartie().getJoueur3());
+			if(choixJoueur.getValue()==serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur()){
+				envoyerPropositionJoueur(serveur.getJoueur(serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur()));
 			}
-			else if(choixJoueur.getValue()==serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur()){
-				envoyerPropositionJoueur(serveur.getGestionnairePartie().getPartie().getJoueur4());
+			if(serveur.getGestionnairePartie().getPartie().getNombreJoueurs()>3){
+				if(choixJoueur.getValue()==serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur()){
+					envoyerPropositionJoueur(serveur.getJoueur(serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur()));
+				}
 			}
-			else if(choixJoueur.getValue()=="Banque"){
+			if(choixJoueur.getValue()=="Banque"){
 				echangeAvecBanque();
 			}
-			else{
+			if(choixJoueur.getValue()=="Choisir un joueur"){
 				message.setText("Choisir un joueur");
 			}
 			MenuController.fenetreEchange.close();
@@ -213,8 +228,7 @@ public class EchangeController implements Initializable {
 		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" vient de faire un échange avec la banque"));
 	}
 	
-	private void envoyerPropositionJoueur(JoueurInterface j){
-		j.ouvrirProposition();
-		serveur.getGestionnairePartie().getPartie().getJoueurByName(j.get)
+	private void envoyerPropositionJoueur(JoueurServeur j) throws RemoteException{
+		serveur.getGestionnaireUI().diffuserProposition(j, offreDemande);
 	}
 }

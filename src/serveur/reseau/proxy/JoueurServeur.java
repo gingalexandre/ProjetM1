@@ -3,6 +3,7 @@ package serveur.reseau.proxy;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import serveur.modele.Message;
 import serveur.modele.service.JoueurInterface;
@@ -29,6 +30,13 @@ public interface JoueurServeur extends Remote {
 	 * @throws RemoteException
 	 */
 	void envoyerPlateau(PlateauInterface plateau) throws RemoteException;
+	
+	/**
+	 * Re�oit la proposition envoy� par le serveur et l'envoie au controller
+	 * @param offreDemande
+	 * @throws RemoteException
+	 */
+	void envoyerProposition(HashMap<String,Integer> offreDemande) throws RemoteException;
 	
 	/**
 	 * Set les boutons d'un joueur

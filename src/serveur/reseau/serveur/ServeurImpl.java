@@ -164,4 +164,14 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	public void enregistrerPartie() throws RemoteException {
 		new Sauvegarde();
 	}
+
+	@Override
+	public JoueurServeur getJoueur(String nomJoueur) throws RemoteException {
+		for (JoueurServeur j : joueurServeurs){
+			if(j.getJoueur().getNomUtilisateur()==nomJoueur){
+				return j;
+			}
+		}
+		return null;
+	}
 }

@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import serveur.modele.Point;
+import serveur.modele.Ville;
 
 public interface PlateauInterface extends Remote{
 
@@ -80,5 +81,20 @@ public interface PlateauInterface extends Remote{
 	 * @throws RemoteException
 	 */
 	HexagoneInterface getVoleur() throws RemoteException;
+
+	/**
+	 * @param le score de dés
+	 * @return l'entier correspondant à la ressource de la case concernée
+	 */
+	int getRessourceCase(int caseConcernee) throws RemoteException;
+
+	
+	/**
+	 * @param caseConsernee
+	 * @return la liste des villes adjacente à la case consernée
+	 */
+	Ville[] getVilleAdjacenteByCase(Integer caseConsernee) throws RemoteException;
+	
+	
 
 }

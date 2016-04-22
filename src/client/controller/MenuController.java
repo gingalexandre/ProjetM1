@@ -33,6 +33,7 @@ import serveur.modele.Des;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
 import serveur.modele.Point;
+import serveur.modele.Ville;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
 import serveur.modele.service.RouteInterface;
@@ -214,13 +215,24 @@ public class MenuController implements Initializable {
 		Integer caseConsernee = resultats[0]+resultats[1];
 		
 		//Méthode (retournant le type de ressource) à implémenter
-		//int ressource = Plateau.getRessourceCase(caseConcernee);
+		int ressource = serveur.getGestionnairePartie().getPartie().getPlateau().getRessourceCase(caseConsernee);
 		
 		//Méthode (retournant la liste des noms de joueurs) à implémenter
-		//String[] listNom = Plateau.getJoueursCase(caseConcernee);
+		Ville[] listeVilles = serveur.getGestionnairePartie().getPartie().getPlateau().getVilleAdjacenteByCase(caseConsernee);
 		
 		//Ajout des ressources aux joueurs de la liste
-		proxy.getJoueur().ajoutRessource(1, 1);
+		for(Ville v : listeVilles){
+			if(v!=null){
+				//Si c'est une colonnie
+				if(v.isColonieVille()){
+					v.getOqp().ajoutRessource(ressource, 1);
+				}
+				//Si c'est une ville
+				else{
+					v.getOqp().ajoutRessource(ressource, 2);
+				}
+			}
+		}
 		
 		//Actualisation de l'affichage
 		this.proxy.getJoueursController().majRessource();

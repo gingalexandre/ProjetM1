@@ -255,6 +255,28 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
 	}
 	
 	@Override
+	public int getRessourceCase(int caseConcernee) throws RemoteException {
+		for(HexagoneInterface h : hexagones){
+			if(h.getJeton().getNumeroJeton()==caseConcernee){
+				//...??
+				//return h.getRessource();
+			}
+		}
+		return 0;
+	}
+	
+	@Override
+	public Ville[] getVilleAdjacenteByCase(Integer caseConsernee) throws RemoteException {
+		for(HexagoneInterface h : hexagones){
+			if(h.getJeton().getNumeroJeton()==caseConsernee){
+				return h.getVilleAdj();
+			}
+		}
+		return null;
+	}
+	
+	
+	@Override
 	public String toString() {
 		return "Plateau [hexagones=" + hexagones + ", points=" + points + ", villes=" + villes + ", routes=" + routes
 				+ "]";
@@ -264,4 +286,6 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface{
 	public void ajoutListeRoute(RouteInterface r) throws RemoteException {
 		
 	}
+
+
 }

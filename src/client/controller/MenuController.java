@@ -145,6 +145,7 @@ public class MenuController implements Initializable {
 		if(des_val != 7){
 			extractionRessources(resultats);
 		}else{
+            serveur.getGestionnaireUI().diffuserMessage(new Message ("Choisir la case de destination du Voleur"));
 			pc.doActionVoleur();
 		}
 		notifierLancerDes(resultats);

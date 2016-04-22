@@ -273,6 +273,7 @@ public class MenuController implements Initializable {
 		}
 	}
 	
+	
 	/**
 	 * Méthode de fin de tour
 	 * @throws RemoteException 

@@ -98,7 +98,7 @@ public interface HexagoneInterface extends Remote{
 	 * @return true si le voleur est sur l'hexagone, false sinon
 	 * @throws RemoteException
 	 */
-	boolean isVOLEUR() throws RemoteException;
+	boolean getVOLEUR() throws RemoteException;
 
 	/**
 	 * @param VOLEUR - true si le voleur est sur l'hexagone, false sinon 

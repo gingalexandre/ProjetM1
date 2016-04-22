@@ -1,8 +1,10 @@
-package serveur.bdd;
+package serveur.bdd.modeleBDD;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
+import serveur.bdd.Base;
 
 public class Statistiques {
 	

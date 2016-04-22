@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -135,7 +136,7 @@ public class ChatController implements Initializable{
 	 */
 	public Text creerStyleTexteAuteur(Message message){
 		Text auteur = new Text(message.getAuteur() + " : ");
-		auteur.setFont(Font.font("Verdana, FontWeight.BOLD, 20"));
+		auteur.setFont(Font.font(auteur.getFont().getFamily(), FontWeight.BOLD, auteur.getFont().getSize())); // C'est pas propre mais j'arrive pas à faire autrement
 		auteur.setFill(Fonction.getCouleurFromString(message.getCouleur()));
 		return auteur;
 	}
@@ -147,7 +148,6 @@ public class ChatController implements Initializable{
 	 */
 	public Text creerStyleTexteMessage(Message message){
 		Text contenu = new Text(message.getMessage() + "\n");
-		contenu.setFont(Font.font("Verdana, 20"));
 		return contenu;
 	}
 	
@@ -158,7 +158,7 @@ public class ChatController implements Initializable{
 	@FXML
 	public void onEnter() throws RemoteException{
 		String messageUtilisateur = saisie.getText();
-		if(!messageUtilisateur.equals("")){
+		if(!messageUtilisateur.equals("") && (messageUtilisateur.trim().length() > 0)){
 			Message message = new Message(proxy.getJoueur().getNomUtilisateur(), messageUtilisateur, proxy.getJoueur().getCouleur());
 			try{
 				// Appel de la méthode distante diffuserMessage du serveur pour envoyer le message � tous les controllers des joueurs

@@ -1,5 +1,8 @@
 package client.commun;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import javafx.scene.paint.Color;
 
 public class Fonction {
@@ -46,18 +49,35 @@ public class Fonction {
 		}
 	}
 	
-	public static String couleurEnAnglais(String couleurEnFrancais){
+	public static String couleurEnRGB(String couleurEnFrancais){
 		switch(couleurEnFrancais){
 			case "rouge":
-				return "RED";
+				return "rgb(255,0,0,0.5)";
 			case "bleu":
-				return "BLUE";
+				return "rgb(0,0,255,0.5)";
 			case "vert":
-				return "GREEN";
+				return "rgb(0,255,0,0.5)";
 			case "orange":
-				return "ORANGE";
+				return "rgb(255,150,0,0.5)";
 			default: 
 				return "BLACK";
 		}
+	}
+	
+	/**
+	 * Méthode permettant de crypter un String en Entrée
+	 * 
+	 * @param entree
+	 * @return String 
+	 */
+	public static String crypte(String entree) {
+		MessageDigest md = null;
+		try {
+			// Utilisation du SHA-1 comme GIT
+			md = MessageDigest.getInstance("SHA-1");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return new String(md.digest(entree.getBytes()));
 	}
 }

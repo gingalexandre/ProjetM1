@@ -13,8 +13,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import serveur.bdd.Base;
-import serveur.bdd.Statistiques;
-import serveur.bdd.Utilisateur;
+import serveur.bdd.modeleBDD.Statistiques;
+import serveur.bdd.modeleBDD.Utilisateur;
 
 public class TestUtilisateurBDD {
 

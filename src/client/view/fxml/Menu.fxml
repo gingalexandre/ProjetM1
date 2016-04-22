@@ -72,7 +72,7 @@
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="8">
                     <children>
-                        <ChoiceBox blendMode="SRC_ATOP" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                        <ChoiceBox disable="true" blendMode="SRC_ATOP" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="9">

@@ -8,36 +8,47 @@ import serveur.commun.DistributeurType;
 import serveur.modele.service.HexagoneInterface;
 
 public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
-
+	
 	private static final long serialVersionUID = 1L;
-
+	
 	private int indexHexagone;
-
+	
 	private Ressource ressource;
+	
 	private int numero;
+	
 	private Ville[] villeAdj = new Ville[6];
-
+	
 	public final static int FORET = 1;
+	
 	public final static int CHAMPS = 2;
+	
 	public final static int CARRIERE = 3;
+	
 	public final static int MONTAGNE = 4;
+	
 	public final static int PRAIRIE = 5;
-
+	
 	public final static int DESERT = 6;
-
+	
 	public boolean VOLEUR = false;
-
+	
 	private Point a;
+	
 	private Point b;
+	
 	private Point c;
+	
 	private Point d;
+	
 	private Point e;
+	
 	private Point f;
-
+	
 	private Point centre;
-
+	
 	private int type;
-
+	
 	private Jeton numeroJeton;
 
 	
@@ -52,31 +63,31 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 		this.f = f;
 		this.type = type;
 	}
-
+	
 	public Point getB() {
 		return b;
 	}
-
+	
 	public Point getC() {
 		return c;
 	}
-
+	
 	public Point getE() {
 		return e;
 	}
-
+	
 	public Point getF() {
 		return f;
 	}
-
+	
 	public Point getA() {
 		return a;
 	}
-
+	
 	public Point getD() {
 		return d;
 	}
-
+	
 	public Hexagone(double xCentre, double yCentre, double size, int indexHexagone) throws RemoteException{
 		double x1 = xCentre;
 		double y1 = yCentre + size;
@@ -115,53 +126,55 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 		}
 
 	}
-
+	 
 	public Double[] getPoints() {
 		Double[] res = { a.getX(), a.getY(), b.getX(), b.getY(), c.getX(), c.getY(), d.getX(), d.getY(), e.getX(),
 				e.getY(), f.getX(), f.getY() };
 		return res;
 	}
-
+	
 	public int getIndexHexagone() {
 		return indexHexagone;
 	}
-
+	
 	public int getType() {
 		return type;
 	}
-
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
+	
 	public Ressource getRessource() {
 		return ressource;
 	}
-
+	
 	public int getNumero() {
 		return numero;
 	}
-
+	
 	public Ville[] getVilleAdj() {
 		return villeAdj;
 	}
+	
 
-	@Override
+
+	
 	public String toString() {
 		return "Hexagone [indexHexagone=" + indexHexagone + ", ressource=" + ressource + ", numero=" + numero
 				+ ", villeAdj=" + Arrays.toString(villeAdj) + ", a=" + a + ", b=" + b + ", c=" + c + ", d=" + d + ", e="
 				+ e + ", f=" + f + ", type=" + type + "]";
 	}
-
+	
 	public Point getCentre() {
 		return centre;
 	}
-
+	
 	public Jeton getJeton() {
 		return this.numeroJeton;
 	}
-
-	public boolean isVOLEUR() {
+	
+	public boolean getVOLEUR() {
 		return VOLEUR;
 	}
 
@@ -169,7 +182,8 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 		this.VOLEUR = VOLEUR;
 	}
 
-	@Override
+
+	
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
@@ -178,7 +192,7 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 
 		if (getIndexHexagone() != hexagone.getIndexHexagone()) return false;
 		if (getNumero() != hexagone.getNumero()) return false;
-		if (isVOLEUR() != hexagone.isVOLEUR()) return false;
+		if (getVOLEUR() != hexagone.getVOLEUR()) return false;
 		if (getType() != hexagone.getType()) return false;
 		if (getRessource() != null ? !getRessource().equals(hexagone.getRessource()) : hexagone.getRessource() != null)
 			return false;
@@ -196,13 +210,14 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 
 	}
 
-	@Override
+
+	
 	public int hashCode() {
 		int result = getIndexHexagone();
 		result = 31 * result + (getRessource() != null ? getRessource().hashCode() : 0);
 		result = 31 * result + getNumero();
 		result = 31 * result + Arrays.hashCode(getVilleAdj());
-		result = 31 * result + (isVOLEUR() ? 1 : 0);
+		result = 31 * result + (getVOLEUR() ? 1 : 0);
 		result = 31 * result + (getA() != null ? getA().hashCode() : 0);
 		result = 31 * result + (getB() != null ? getB().hashCode() : 0);
 		result = 31 * result + (getC() != null ? getC().hashCode() : 0);
@@ -214,4 +229,10 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 		result = 31 * result + (numeroJeton != null ? numeroJeton.hashCode() : 0);
 		return result;
 	}
+	
+	public Jeton getNumeroJeton() {
+		return numeroJeton;
+	}
+	
+	
 }

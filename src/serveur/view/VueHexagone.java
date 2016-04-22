@@ -30,7 +30,7 @@ public class VueHexagone extends Polygon {
 		this.hexagone = hexagone;
 		this.getPoints().addAll(hexagone.getPoints());
 		this.setFill(getPaint(hexagone.getType()));
-		if(this.hexagone.isVOLEUR() == true){
+		if(this.hexagone.getVOLEUR() == true){
 			ColorAdjust colorAdjust = new ColorAdjust();
 			colorAdjust.setSaturation(-1);
 			this.setEffect(colorAdjust);

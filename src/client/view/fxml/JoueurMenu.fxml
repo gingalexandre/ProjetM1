@@ -149,9 +149,9 @@
                                                 <Label id="nbcarte" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane id="imageRoute" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="4">
+                                        <AnchorPane id="imageRoute" style="-fx-opacity: 0.25" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="4">
                                         </AnchorPane>
-                                        <AnchorPane id="imageSoldat" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="5">
+                                        <AnchorPane id="imageSoldat" style="-fx-opacity: 0.25" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="5">
                                         </AnchorPane>
                                     </children>
                                 </GridPane>
@@ -198,9 +198,9 @@
                                                 <Label id="nbcarte" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane id="imageRoute" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="4">
+                                        <AnchorPane id="imageRoute" style="-fx-opacity: 0.25" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="4">
                                         </AnchorPane>
-                                        <AnchorPane id="imageSoldat" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="5">
+                                        <AnchorPane id="imageSoldat" style="-fx-opacity: 0.25" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="5">
                                         </AnchorPane>
                                     </children>
                                 </GridPane>
@@ -247,9 +247,9 @@
                                                 <Label id="nbcarte" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane id="imageRoute" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="4">
+                                        <AnchorPane id="imageRoute" style="-fx-opacity: 0.25" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="4">
                                         </AnchorPane>
-                                        <AnchorPane id="imageSoldat" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="5">
+                                        <AnchorPane id="imageSoldat" style="-fx-opacity: 0.25" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="5">
                                         </AnchorPane>
                                     </children>
                                 </GridPane>

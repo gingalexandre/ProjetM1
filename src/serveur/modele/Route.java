@@ -1,14 +1,17 @@
 package serveur.modele;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javafx.scene.shape.Line;
 import serveur.modele.service.RouteInterface;
 import serveur.view.VueRoute;
 
-public class Route extends UnicastRemoteObject implements RouteInterface{
+public class Route extends UnicastRemoteObject implements RouteInterface, Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -29,7 +32,7 @@ public class Route extends UnicastRemoteObject implements RouteInterface{
 		}
 		return vueRoutes;
 	}
-	
+
 	public Joueur getOqp() throws RemoteException{
 		return this.oqp;
 	}

@@ -1,5 +1,6 @@
 package serveur.modele;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.VilleInterface;
 import serveur.view.VueVille;
 
-public class Ville extends UnicastRemoteObject implements VilleInterface {
+public class Ville extends UnicastRemoteObject implements VilleInterface, Serializable {
 
 	private static final long serialVersionUID = 1L;
 

@@ -1,4 +1,4 @@
-package serveur.bdd;
+package serveur.bdd.modeleBDD;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -10,14 +10,30 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+import serveur.bdd.Base;
+
+/**
+ * Classe représentant la Table Utilisateur dans la Base de Données
+ * 
+ * @author Alexandre
+ *
+ */
 public class Utilisateur {
-
+	/**
+	 * nom de l'Utilisateur
+	 */
 	private String nomUtilisateur;
-
+	/**
+	 * Mot de passe de l'Utilsateur
+	 */
 	private String mdp;
-	
+	/**
+	 * Id de l'utilisateurs
+	 */
 	private int id;
-
+	/**
+	 * Date de Naissance de l'Utilisateur
+	 */
 	private LocalDate dateNaissance;
 
 	/**
@@ -34,7 +50,19 @@ public class Utilisateur {
 		this.mdp = mdp;
 		this.dateNaissance = dateNaissance;
 	}
-	
+
+	/**
+	 * Constructeur
+	 * 
+	 * @param id
+	 *            : Id de l'utilisateur
+	 * @param nomUtilisateur
+	 *            : nom de l'utilisateur
+	 * @param mdp
+	 *            : mot de passe de l'utilisateur
+	 * @param dateNaissance
+	 *            : date de naissance de l'utilisateur
+	 */
 	public Utilisateur(int id, String nomUtilisateur, String mdp, LocalDate dateNaissance) {
 		super();
 		this.id = id;
@@ -44,7 +72,7 @@ public class Utilisateur {
 	}
 
 	/**
-	 * M�thode permettant la v�rification de la connexion
+	 * Méthode permettant la vérification de la connexion
 	 * 
 	 * @return boolean : Vrai si la connexion est effective, faux sinon
 	 * @throws InterruptedException
@@ -59,7 +87,7 @@ public class Utilisateur {
 			prestmt.setString(2, mdp);
 			ResultSet rs = prestmt.executeQuery();
 
-			// On test si la taille est �gale � 1, si c'est le cas c'est qu'on a
+			// On test si la taille est égale à 1, si c'est le cas c'est qu'on a
 			// bien l'utilisateur d'inscrit
 
 			if (rs.next()) {
@@ -71,17 +99,17 @@ public class Utilisateur {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return false;
 	}
+	
 
 	/**
-	 * M�thode permettant l'inscription d'un utilisateur
+	 * Méthode permettant l'inscription d'un utilisateur
 	 * 
-	 * @return String : message � afficher (erreur ou non)
+	 * @return String : message à afficher (erreur ou non)
 	 * @throws InterruptedException
 	 */
 	public String inscription() throws InterruptedException {
@@ -101,7 +129,6 @@ public class Utilisateur {
 				connection.close();
 
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return "Inscription réussie";
@@ -130,7 +157,6 @@ public class Utilisateur {
 			return dateNaissance;
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -146,46 +172,80 @@ public class Utilisateur {
 			ResultSet rs = prestmt.executeQuery();
 			Instant instant = Instant.ofEpochMilli(rs.getDate("dateNaissance").getTime());
 			LocalDateTime dateNaissance = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
-			Utilisateur utilisateur = new Utilisateur(rs.getInt("idJoueur"), rs.getString("pseudo"), rs.getString("mdp"), dateNaissance.toLocalDate());
+			Utilisateur utilisateur = new Utilisateur(rs.getInt("idJoueur"), rs.getString("pseudo"),
+					rs.getString("mdp"), dateNaissance.toLocalDate());
 			connection.close();
 			return utilisateur;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return null;
 	}
 
+	/**
+	 * Getter du nom de l'utilisateur
+	 * 
+	 * @return String
+	 */
 	public String getNomUtilisateur() {
 		return nomUtilisateur;
 	}
 
+	/**
+	 * Setter du nom de l'utilisateur
+	 * 
+	 * @param String
+	 *            nomUtilisateur
+	 */
 	public void setNomUtilisateur(String nomUtilisateur) {
 		this.nomUtilisateur = nomUtilisateur;
 	}
 
+	/**
+	 * Getter du Mot de Passe de l'utilisateur
+	 * 
+	 * @return String
+	 */
 	public String getMdp() {
 		return mdp;
 	}
 
+	/**
+	 * Setter du Mot de Passe de l'utilisateur
+	 * 
+	 * @param mdp
+	 */
 	public void setMdp(String mdp) {
 		this.mdp = mdp;
 	}
 
+	/**
+	 * Getter de la date de Naissance de l'Utilisateur
+	 * 
+	 * @return LocalDate
+	 */
 	public LocalDate getDateNaissance() {
 		return dateNaissance;
 	}
 
+	/**
+	 * Setter de la date de Naissance de l'utilisateur
+	 * 
+	 * @param LocalDate
+	 *            dateNaissance
+	 */
 	public void setDateNaissance(LocalDate dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
 
+	/**
+	 * Getter de l'Id de l'utilisateur
+	 * 
+	 * @return Integer
+	 */
 	public int getId() {
 		return id;
 	}
-	
-	
 
-	
 }

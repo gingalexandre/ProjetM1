@@ -35,6 +35,7 @@ import serveur.modele.Message;
 import serveur.modele.Plateau;
 import serveur.modele.Point;
 import serveur.modele.Ville;
+import serveur.modele.service.HexagoneInterface;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
 import serveur.modele.service.RouteInterface;
@@ -226,28 +227,30 @@ public class MenuController implements Initializable {
 	private void extractionRessources(Integer[] resultats) throws RemoteException{
 		Integer caseConsernee = resultats[0]+resultats[1];
 		
-		//Méthode (retournant le type de ressource) à implémenter
-		int ressource = serveur.getGestionnairePartie().getPartie().getPlateau().getRessourceCase(caseConsernee);
-		
-		//Méthode (retournant la liste des noms de joueurs) à implémenter
-		ArrayList<VilleInterface> listeVilles = serveur.getGestionnairePartie().getPartie().getPlateau().getVilleAdjacenteByCase(caseConsernee);
-		
-		//Ajout des ressources aux joueurs de la liste
-		for(VilleInterface v : listeVilles){
-			if(v!=null && v.getOqp()!=null){
-				//Si c'est une colonnie
-				if(v.isColonieVille()){
-					v.getOqp().ajoutRessource(ressource, 1);
-				}
-				//Si c'est une ville
-				else{
-					v.getOqp().ajoutRessource(ressource, 2);
+		PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
+		for (HexagoneInterface h : p.getHexagones()){
+			// Recuperation des Hexagones concernés
+			if (h.getNumero()==caseConsernee && !h.getVOLEUR()){
+				int ressource = h.getRessource();
+				// Don de ressources a chacune des Villes/Colonies adjacentes de cet Hexagone
+				for(VilleInterface v : h.getVilleAdj()){
+					if(v!=null && v.getOqp()!=null){
+						//Si c'est une ville
+						if(v.isVille()){
+							v.getOqp().ajoutRessource(ressource, 2);
+						}
+						//Si c'est une colonie
+						else{
+							v.getOqp().ajoutRessource(ressource, 1);
+						}
+					}
 				}
 			}
 		}
 		
 		//Actualisation de l'affichage
 		this.proxy.getJoueursController().majRessource();
+		serveur.getGestionnaireUI().diffuserGainRessource();
 	}
 	
 	/**

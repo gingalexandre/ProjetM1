@@ -196,12 +196,12 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 			villes.put(v.getEmplacement(), v);
 		}
 		for (HexagoneInterface h : getHexagones()) {
-			h.getVilleAdj()[0] = villes.get(h.getA());
-			h.getVilleAdj()[1] = villes.get(h.getB());
-			h.getVilleAdj()[2] = villes.get(h.getC());
-			h.getVilleAdj()[3] = villes.get(h.getD());
-			h.getVilleAdj()[4] = villes.get(h.getE());
-			h.getVilleAdj()[5] = villes.get(h.getF());
+			h.getVilleAdj().add(villes.get(h.getA()));
+			h.getVilleAdj().add(villes.get(h.getB()));
+			h.getVilleAdj().add(villes.get(h.getC()));
+			h.getVilleAdj().add(villes.get(h.getD()));
+			h.getVilleAdj().add(villes.get(h.getE()));
+			h.getVilleAdj().add(villes.get(h.getF()));
 		}
 	}
 

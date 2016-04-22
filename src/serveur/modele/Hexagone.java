@@ -2,6 +2,7 @@ package serveur.modele;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import serveur.commun.DistributeurType;
@@ -18,7 +19,7 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 	
 	private int numero;
 	
-	private VilleInterface[] villeAdj = new Ville[6];
+	private ArrayList<VilleInterface> villeAdj = new ArrayList<VilleInterface>();
 	
 	public final static int FORET = 1;
 	
@@ -179,23 +180,15 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 		return numero;
 	}
 	
-	public VilleInterface[] getVilleAdj() {
+	public ArrayList<VilleInterface> getVilleAdj() {
 		return villeAdj;
 	}
 	
-	public void setVillesAdj(Ville v1, Ville v2, Ville v3, Ville v4, Ville v5, Ville v6){
-		this.villeAdj[0] = v1;
-		this.villeAdj[1] = v2;
-		this.villeAdj[2] = v3;
-		this.villeAdj[3] = v4;
-		this.villeAdj[4] = v5;
-		this.villeAdj[5] = v6;
-	}
 
 	
 	public String toString() {
 		return "Hexagone [indexHexagone=" + indexHexagone + ", ressource=" + ressource + ", numero=" + numero
-				+ ", villeAdj=" + Arrays.toString(villeAdj) + ", a=" + a + ", b=" + b + ", c=" + c + ", d=" + d + ", e="
+				+ ", villeAdj=" + villeAdj + ", a=" + a + ", b=" + b + ", c=" + c + ", d=" + d + ", e="
 				+ e + ", f=" + f + ", type=" + type + "]";
 	}
 	
@@ -276,7 +269,10 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 			return false;
 		if (type != other.type)
 			return false;
-		if (!Arrays.equals(villeAdj, other.villeAdj))
+		if (villeAdj == null) {
+			if (other.villeAdj != null)
+				return false;
+		} else if (!villeAdj.equals(other.villeAdj))
 			return false;
 		return true;
 	}
@@ -300,7 +296,7 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 		result = prime * result + ((numeroJeton == null) ? 0 : numeroJeton.hashCode());
 		result = prime * result + ressource;
 		result = prime * result + type;
-		result = prime * result + Arrays.hashCode(villeAdj);
+		result = prime * result + ((villeAdj == null) ? 0 : villeAdj.hashCode());
 		return result;
 	}
 	

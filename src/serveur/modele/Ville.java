@@ -116,7 +116,7 @@ public class Ville extends UnicastRemoteObject implements VilleInterface {
 		return gain;
 	}
 
-	public boolean isColonieVille() {
+	public boolean isVille() {
 		return colonieVille;
 	}
 

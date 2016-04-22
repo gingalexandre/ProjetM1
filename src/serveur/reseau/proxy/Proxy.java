@@ -170,4 +170,10 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	public void recevoirPriseDeVille(VilleInterface v, JoueurInterface joueurCourrant) throws RemoteException {
 		this.menuController.dessinerVille(v, joueurCourrant);
 	}
+
+	@Override
+	public void recevoirGainRessource() throws RemoteException {
+		this.joueursController.majRessource();
+		
+	}
 }

@@ -54,4 +54,6 @@ public interface GestionnaireUIInterface extends Remote{
 
 	void diffuserPriseDeVille(VilleInterface v, JoueurInterface joueurCourrant) throws RemoteException;
 
+	void diffuserGainRessource() throws RemoteException;
+
 }

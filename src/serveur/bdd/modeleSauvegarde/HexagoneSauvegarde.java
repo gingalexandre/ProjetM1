@@ -2,6 +2,7 @@ package serveur.bdd.modeleSauvegarde;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import serveur.modele.Point;
 import serveur.modele.Ressource;
@@ -38,7 +39,7 @@ public class HexagoneSauvegarde implements Serializable {
 	/**
 	 * Tableau de ville adjacente à l'hexagone
 	 */
-	private VilleSauvegarde[] villeAdj = new VilleSauvegarde[6];
+	private ArrayList<VilleSauvegarde> villeAdj = new ArrayList<VilleSauvegarde>();
 	/**
 	 * Booléen stockant le fait que le voleur est ou non placé sur l'hexagone
 	 */
@@ -171,7 +172,7 @@ public class HexagoneSauvegarde implements Serializable {
 	 * 
 	 * @return Tableau de Ville de l'Hexagone
 	 */
-	public VilleSauvegarde[] getVilleAdj() {
+	public ArrayList<VilleSauvegarde> getVilleAdj() {
 		return villeAdj;
 	}
 
@@ -181,7 +182,7 @@ public class HexagoneSauvegarde implements Serializable {
 	 * @param villeAdj
 	 *            Tableau de Ville de l'Hexagone
 	 */
-	public void setVilleAdj(VilleSauvegarde[] villeAdj) {
+	public void setVilleAdj(ArrayList<VilleSauvegarde> villeAdj) {
 		this.villeAdj = villeAdj;
 	}
 
@@ -372,16 +373,18 @@ public class HexagoneSauvegarde implements Serializable {
 	}
 	
 	/**
-	 * Convertie un tableau de VilleInterface en VilleSauvegarde
-	 * @param villes  Tableau de VilleInterface
-	 * @return Tableau de VilleSauvegarde
+	 * Convertie un Liste de VilleInterface en VilleSauvegarde
+	 * @param villes  Liste de VilleInterface
+	 * @return Liste de VilleSauvegarde
 	 * @throws RemoteException
 	 */
-	public VilleSauvegarde[] transformArrayVilleSauvegarde(VilleInterface[] villes)
+	public ArrayList<VilleSauvegarde> transformArrayVilleSauvegarde(ArrayList<VilleInterface> villes)
 			throws RemoteException {
-		VilleSauvegarde[] res = new VilleSauvegarde[villes.length];
-		for (int i = 0; i < villes.length;i++){
-			res[i] = new VilleSauvegarde(villes[i]);
+		ArrayList<VilleSauvegarde> res = new ArrayList<VilleSauvegarde>();
+		for (VilleInterface ville : villes) {
+
+			res.add(new VilleSauvegarde(ville));
+
 		}
 		return res;
 	}

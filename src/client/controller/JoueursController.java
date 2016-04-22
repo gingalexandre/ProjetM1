@@ -100,11 +100,11 @@ public class JoueursController implements Initializable {
 	
 	public void majRessource() throws RemoteException{
 		HashMap<Integer, Integer> stockJoueur = proxy.getJoueur().getStockRessource();
-		this.nbArgile.setText(""+stockJoueur.get(Ressource.ARGILE));
-		this.nbBle.setText(""+stockJoueur.get(Ressource.BLE));
-		this.nbBois.setText(""+stockJoueur.get(Ressource.BOIS));
-		this.nbCaillou.setText(""+stockJoueur.get(Ressource.MINERAIE));
-		this.nbLaine.setText(""+stockJoueur.get(Ressource.LAINE));
+		Platform.runLater(() ->this.nbArgile.setText(""+stockJoueur.get(Ressource.ARGILE)));
+		Platform.runLater(() ->this.nbBle.setText(""+stockJoueur.get(Ressource.BLE)));
+		Platform.runLater(() ->this.nbBois.setText(""+stockJoueur.get(Ressource.BOIS)));
+		Platform.runLater(() ->this.nbCaillou.setText(""+stockJoueur.get(Ressource.MINERAIE)));
+		Platform.runLater(() ->this.nbLaine.setText(""+stockJoueur.get(Ressource.LAINE)));		
 	}
 
 	/**

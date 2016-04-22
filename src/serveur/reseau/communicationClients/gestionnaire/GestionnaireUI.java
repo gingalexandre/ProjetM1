@@ -96,9 +96,15 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 
 	@Override
 	public void diffuserPriseDeVille(VilleInterface v, JoueurInterface joueurCourrant) throws RemoteException {
-		// TODO Auto-generated method stub
 		for (JoueurServeur joueurServeur : joueurServeurs) {
 			joueurServeur.recevoirPriseDeVille(v,joueurCourrant);
 		}
+	}
+
+	@Override
+	public void diffuserGainRessource() throws RemoteException {
+		for (JoueurServeur joueurServeur : joueurServeurs) {
+			joueurServeur.recevoirGainRessource();
+		}		
 	}
 }

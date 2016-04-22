@@ -60,4 +60,6 @@ public interface JoueurServeur extends Remote {
 	void recevoirPriseDeRoute(RouteInterface r, JoueurInterface j) throws RemoteException;
 
 	void recevoirPriseDeVille(VilleInterface v, JoueurInterface joueurCourrant)throws RemoteException;
+
+	void recevoirGainRessource() throws RemoteException;
 }

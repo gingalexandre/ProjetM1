@@ -88,6 +88,6 @@ public interface VilleInterface extends Remote{
 	 * @return si la colonie est une ville
 	 * @throws RemoteException
 	 */
-	boolean isColonieVille() throws RemoteException;
+	boolean isVille() throws RemoteException;
 
 }

@@ -56,6 +56,8 @@ public interface GestionnaireUIInterface extends Remote{
 
 	void diffuserGainRessource() throws RemoteException;
 
-	void diffuserProposition(JoueurServeur j, HashMap<String, Integer> offreDemande) throws RemoteException;
+	void diffuserProposition(JoueurServeur j, HashMap<String, Integer> offreDemande, String nomExpediteur)throws RemoteException;
+
+	
 
 }

@@ -130,8 +130,8 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	
 
 	@Override
-	public void envoyerProposition(HashMap<String, Integer> offreDemande) throws RemoteException {
-		this.menuController.ouvrirProposition(offreDemande);
+	public void envoyerProposition(HashMap<String, Integer> offreDemande, String nomExpediteur) throws RemoteException {
+		this.propostionController.ouvrirProposition(offreDemande, nomExpediteur);
 	}
 
 	/**
@@ -191,7 +191,6 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	@Override
 	public void recevoirGainRessource() throws RemoteException {
 		this.joueursController.majRessource();
-		
 	}
 
 

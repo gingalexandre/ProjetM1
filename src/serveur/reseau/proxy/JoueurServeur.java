@@ -34,9 +34,10 @@ public interface JoueurServeur extends Remote {
 	/**
 	 * Re�oit la proposition envoy� par le serveur et l'envoie au controller
 	 * @param offreDemande
+	 * @param nomExpediteur
 	 * @throws RemoteException
 	 */
-	void envoyerProposition(HashMap<String,Integer> offreDemande) throws RemoteException;
+	void envoyerProposition(HashMap<String, Integer> offreDemande, String nomExpediteur) throws RemoteException;
 	
 	/**
 	 * Set les boutons d'un joueur
@@ -70,4 +71,6 @@ public interface JoueurServeur extends Remote {
 	void recevoirPriseDeVille(VilleInterface v, JoueurInterface joueurCourrant)throws RemoteException;
 
 	void recevoirGainRessource() throws RemoteException;
+
+	
 }

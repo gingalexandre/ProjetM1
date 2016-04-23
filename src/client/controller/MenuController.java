@@ -78,8 +78,7 @@ public class MenuController implements Initializable {
 	private Pane pageEchange = null;
 	public static Stage fenetreEchange;
 	
-	private Pane pageProposition = null;
-	public static Stage fenetreProposition;
+	
 	
 	/**
 	 * Pour finir le tour
@@ -276,29 +275,6 @@ public class MenuController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
-	@FXML
-	public void ouvrirProposition(HashMap<String, Integer> offreDemande){
-		
-			Platform.runLater(new Runnable() {
-			    @Override
-			    public void run() {
-			    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Proposition.fxml"));
-			    	try{
-			    		pageProposition = (Pane) loader.load();
-			    	}
-			    	catch(Exception e){
-			    		e.printStackTrace();
-			    	}
-					fenetreProposition = new Stage();
-					fenetreProposition.setTitle("Les Colons de Catanes");
-				    Scene scene = new Scene(pageProposition,430,500);
-				    fenetreProposition.setScene(scene);
-				    fenetreProposition.showAndWait();
-			    }
-			});
-	}
-	
 	
 	/**
 	 * Méthode de fin de tour

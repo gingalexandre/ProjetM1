@@ -110,7 +110,7 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	}
 
 	@Override
-	public void diffuserProposition(JoueurServeur j, HashMap<String, Integer> offreDemande) throws RemoteException {
-		j.envoyerProposition(offreDemande);
+	public void diffuserProposition(JoueurServeur j, HashMap<String, Integer> offreDemande, String nomExpediteur) throws RemoteException {
+		j.envoyerProposition(offreDemande, nomExpediteur);
 	}
 }

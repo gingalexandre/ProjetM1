@@ -75,9 +75,10 @@ public class MenuController implements Initializable {
 	@FXML
 	private Button boutonEchange;
 	
-	private Pane page = null;
+	private Pane pageEchange = null;
 	public static Stage fenetreEchange;
 	
+	private Pane pageProposition = null;
 	public static Stage fenetreProposition;
 	
 	/**
@@ -96,7 +97,8 @@ public class MenuController implements Initializable {
 	 */
 	private Serveur serveur;
 	
-	private Pane pane;
+	private Pane paneEchange;
+	private Pane paneProposition;
     /**
      * PlateauController qui reporte les actions affectant le platea.
      */
@@ -263,16 +265,38 @@ public class MenuController implements Initializable {
 	public void ouvrirEchange(){
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Echange.fxml"));
 		try {
-			page = (Pane) loader.load();
+			pageEchange = (Pane) loader.load();
 			fenetreEchange = new Stage();
 			fenetreEchange.setTitle("Les Colons de Catanes");
-		    Scene scene = new Scene(page,430,500);
+		    Scene scene = new Scene(pageEchange,430,500);
 		    fenetreEchange.setScene(scene);
 		    fenetreEchange.showAndWait();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML
+	public void ouvrirProposition(HashMap<String, Integer> offreDemande){
+		
+			Platform.runLater(new Runnable() {
+			    @Override
+			    public void run() {
+			    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Proposition.fxml"));
+			    	try{
+			    		pageProposition = (Pane) loader.load();
+			    	}
+			    	catch(Exception e){
+			    		e.printStackTrace();
+			    	}
+					fenetreProposition = new Stage();
+					fenetreProposition.setTitle("Les Colons de Catanes");
+				    Scene scene = new Scene(pageProposition,430,500);
+				    fenetreProposition.setScene(scene);
+				    fenetreProposition.showAndWait();
+			    }
+			});
 	}
 	
 	
@@ -576,19 +600,5 @@ public class MenuController implements Initializable {
         this.pc = pc;
     }
 
-    @FXML
-	public void ouvrirProposition(HashMap<String, Integer> offreDemande) {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Proposition.fxml"));
-		try {
-			page = (Pane) loader.load();
-			fenetreProposition = new Stage();
-			fenetreProposition.setTitle("Les Colons de Catanes");
-		    Scene scene = new Scene(page,430,500);
-		    fenetreProposition.setScene(scene);
-		    fenetreProposition.showAndWait();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+    
 }

@@ -138,24 +138,24 @@ public class EchangeController implements Initializable {
 		
 		if(offreValide(offreDemande)){
 			
-			if(choixJoueur.getValue()==serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur()){
+			if(choixJoueur.getValue().equals(serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur())){
 				envoyerPropositionJoueur(serveur.getJoueur(serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur()));
 			}
-			if(choixJoueur.getValue()==serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur()){
+			if(choixJoueur.getValue().equals(serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur())){
 				envoyerPropositionJoueur(serveur.getJoueur(serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur()));
 			}
-			if(choixJoueur.getValue()==serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur()){
+			if(choixJoueur.getValue().equals(serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur())){
 				envoyerPropositionJoueur(serveur.getJoueur(serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur()));
 			}
 			if(serveur.getGestionnairePartie().getPartie().getNombreJoueurs()>3){
-				if(choixJoueur.getValue()==serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur()){
+				if(choixJoueur.getValue().equals(serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur())){
 					envoyerPropositionJoueur(serveur.getJoueur(serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur()));
 				}
 			}
-			if(choixJoueur.getValue()=="Banque"){
+			if(choixJoueur.getValue().equals("Banque")){
 				echangeAvecBanque();
 			}
-			if(choixJoueur.getValue()=="Choisir un joueur"){
+			if(choixJoueur.getValue().equals("Choisir un joueur")){
 				message.setText("Choisir un joueur");
 			}
 			MenuController.fenetreEchange.close();

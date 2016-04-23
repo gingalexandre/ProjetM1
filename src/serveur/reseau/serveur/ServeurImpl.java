@@ -168,7 +168,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	@Override
 	public JoueurServeur getJoueur(String nomJoueur) throws RemoteException {
 		for (JoueurServeur j : joueurServeurs){
-			if(j.getJoueur().getNomUtilisateur()==nomJoueur){
+			if(j.getJoueur().getNomUtilisateur().equals(nomJoueur)){
 				return j;
 			}
 		}

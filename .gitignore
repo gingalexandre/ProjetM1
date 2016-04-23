@@ -226,3 +226,6 @@ buildNumber.properties
 
 ### Sauvegarde ###
 *.json
+
+### Rapport ###
+Rapport/

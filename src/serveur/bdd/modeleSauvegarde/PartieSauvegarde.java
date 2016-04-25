@@ -23,6 +23,11 @@ public class PartieSauvegarde implements Serializable {
 	 * Variable pour la sérialisation
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Booléen pour savoir si la partie a commencé
+	 */
+	
 	/**
 	 * PlateauSauvegarde stockant le plateau
 	 */
@@ -39,6 +44,10 @@ public class PartieSauvegarde implements Serializable {
 	 * Joueur a qui c'est le tour
 	 */
 	private JoueurSauvegarde joueurActuel;
+	/**
+	 * Booléen pour savoir si la partie a commencé
+	 */
+	private boolean isPartieCommence;
 
 	/**
 	 * Constructeur
@@ -48,6 +57,7 @@ public class PartieSauvegarde implements Serializable {
 	public PartieSauvegarde() throws RemoteException {
 		this.plateauCourant = new PlateauSauvegarde(recupererPlateau());
 		Serveur serveur = ConnexionManager.getStaticServeur();
+		this.isPartieCommence = serveur.getGestionnairePartie().getPartie().isPartieCommence();
 		ArrayList<JoueurServeur> joueursServeur = new ArrayList<JoueurServeur>();
 		try {
 			// Récupération de tous les joueurs
@@ -175,5 +185,26 @@ public class PartieSauvegarde implements Serializable {
 	public void setIdPartie(int idPartie) {
 		this.idPartie = idPartie;
 	}
+
+	/**
+	 * Getter du boolean pour savoir si la partie à commencé
+	 * 
+	 * @return booléen
+	 */
+	public boolean isPartieCommence() {
+		return isPartieCommence;
+	}
+
+	/**
+	 * Setter du boolean pour savoir si la partie à commencé
+	 * 
+	 * @param partieCommence
+	 *            booléen
+	 */
+	public void setPartieCommence(boolean partieCommence) {
+		this.isPartieCommence = partieCommence;
+	}
+	
+	
 
 }

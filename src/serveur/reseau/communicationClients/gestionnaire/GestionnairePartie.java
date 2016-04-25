@@ -171,6 +171,7 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	 * @throws RemoteException 
 	 */
 	private void lancerTourPremierJoueur(JoueurInterface joueurPlusVieux) throws RemoteException {
+		partie.setPartieCommence(true);
 		for(JoueurServeur joueurServeur : joueursServeur){
 			// On compare sur le nom d'utilisateur qui est unique
 			if(joueurPlusVieux.getNomUtilisateur().equals(joueurServeur.getJoueur().getNomUtilisateur())){
@@ -223,4 +224,20 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	public boolean isPremierePhasePartie() throws RemoteException{
 		return this.premierePhasePartie;
 	}
+
+	/**
+	 * Méthode permettant de supprimer un Joueur
+	 */
+	public void supprimerJoueur(JoueurInterface joueurSupprime) throws RemoteException {
+		for(JoueurServeur js : joueursServeur){
+			if(js.getJoueur().getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())){
+				joueursServeur.remove(js);
+				break;
+			}
+		}
+		
+	}
+
+	
+
 }

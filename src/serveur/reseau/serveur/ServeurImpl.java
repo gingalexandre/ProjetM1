@@ -164,4 +164,13 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	public void enregistrerPartie() throws RemoteException {
 		new Sauvegarde();
 	}
+	
+	public void supprimerJoueur(JoueurInterface joueurASupprimer) throws RemoteException{
+		for(JoueurServeur js : joueurServeurs){
+			if(js.getJoueur().getNomUtilisateur().equals(joueurASupprimer.getNomUtilisateur())){
+				joueurServeurs.remove(js);
+				break;
+			}
+		}
+	}
 }

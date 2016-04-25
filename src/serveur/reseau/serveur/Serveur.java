@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 import exception.TooMuchPlayerException;
+import serveur.modele.service.JoueurInterface;
 import serveur.reseau.communicationClients.service.GestionnaireBDDInterface;
 import serveur.reseau.communicationClients.service.GestionnairePartieInterface;
 import serveur.reseau.communicationClients.service.GestionnaireUIInterface;
@@ -63,4 +64,11 @@ public interface Serveur extends Remote{
 	 * @throws RemoteException
 	 */
 	GestionnaireUIInterface getGestionnaireUI() throws RemoteException;
+	
+	/**
+	 * Permet de supprimer un Joueur du serveur
+	 * @param joueurASupprimer
+	 * @throws RemoteException
+	 */
+	public void supprimerJoueur(JoueurInterface joueurASupprimer)  throws RemoteException;
 }

@@ -144,4 +144,26 @@ public interface PartieInterface extends Remote{
 	 * @return le nombre de tour qu'il y a eu dans la partie
 	 */
 	int getCompteurTourGlobal() throws RemoteException;
+
+	/**
+	 * Méthode permettant de supprimer un Joueur
+	 * @param joueurSupprime JoueurInterface : joueur à supprimer
+	 * @throws RemoteException 
+	 */
+	void supprimerJoueur(JoueurInterface joueurSupprime) throws RemoteException;
+
+	void setTour(int tour) throws RemoteException;
+	
+	int getTour() throws RemoteException;
+	/**
+	 * Méthode permettant d'affecter null à un joueur
+	 * @param joueurSupprime JoueurInterface : joueur à supprimer
+	 * @throws RemoteException
+	 */
+	public void affecterNullJoueur(JoueurInterface joueurSupprime) throws RemoteException;
+	
+	public boolean isPartieCommence() throws RemoteException;
+
+	public void setPartieCommence(boolean partieCommence) throws RemoteException;
+	
 }

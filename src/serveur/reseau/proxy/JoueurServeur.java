@@ -62,4 +62,16 @@ public interface JoueurServeur extends Remote {
 	void recevoirPriseDeVille(VilleInterface v, JoueurInterface joueurCourrant)throws RemoteException;
 
 	void recevoirGainRessource() throws RemoteException;
+/**
+ * Méthode permettant de supprimer un joueur
+ * @param nomJoueurASupprimer String : nom du joueur à supprimer
+ * @throws RemoteException
+ */
+	void suppressionJoueur(String nomJoueurASupprimer) throws RemoteException;
+	/**
+	 * Méthode permettant de supprimer un joueur avant le début de la partie
+	 * @param nomJoueurASupprimer String : nom du joueur à supprimer
+	 * @throws RemoteException
+	 */
+	void suppressionDepartJoueur(String nomUtilisateur) throws RemoteException;
 }

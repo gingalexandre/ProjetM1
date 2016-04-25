@@ -32,18 +32,20 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	private int id;
 	private Ressource ressources;
 
+	private boolean partieCommence;
+
 	private ArrayList<JoueurInterface> ordreJeu;
 
 	/**
 	 * De 1 à 3 si 3 joueurs De 1 à 4 si 4 joueurs
 	 */
 	private int tour;
-	
+
 	/**
-	 * Compte tous les tours 
+	 * Compte tous les tours
 	 */
 	private int compteurTourGlobal;
-	
+
 	private PlateauInterface plateau;
 
 	/**
@@ -56,16 +58,18 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 		this.tour = 1;
 		this.compteurTourGlobal = 0;
 		this.plateau = p;
+		this.partieCommence = false;
 	}
 
-	/** 
+	/**
 	 * Permet de récupérer le nombre de tour qu'il y a eu dans la partie
+	 * 
 	 * @return le nombre de tour qu'il y a eu dans la partie
 	 */
 	public int getCompteurTourGlobal() throws RemoteException {
 		return this.compteurTourGlobal;
 	}
-	
+
 	/**
 	 * @return le nombre de joueurs de la partie
 	 */
@@ -87,7 +91,11 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	}
 
 	public JoueurInterface getJoueurTour() throws RemoteException {
-		return ordreJeu.get(tour - 1);
+		if (tour != 0) {
+			return ordreJeu.get(tour - 1);
+		} else {
+			return ordreJeu.get(tour);
+		}
 	}
 
 	public ArrayList<JoueurInterface> getOrdreJeu() throws RemoteException {
@@ -201,5 +209,58 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 		// TODO Auto-generated method stub
 		return this.plateau;
 	}
+
+	/**
+	 * Méthode permettant de supprimer un Joueur
+	 * 
+	 * @throws RemoteException
+	 */
+	public void supprimerJoueur(JoueurInterface joueurSupprime) throws RemoteException {
+		for (JoueurInterface js : ordreJeu) {
+			if (js.getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())) {
+				ordreJeu.remove(js);
+				break;
+			}
+		}
+
+		this.affecterNullJoueur(joueurSupprime);
+
+	}
+
+	public void affecterNullJoueur(JoueurInterface joueurSupprime) throws RemoteException {
+		if (joueur1 != null && joueur1.getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())) {
+			joueur1 = null;
+		} else if (joueur2 != null && joueur2.getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())) {
+			joueur2 = null;
+		} else if (joueur3 != null && joueur3.getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())) {
+			joueur3 = null;
+		} else {
+			joueur4 = null;
+		}
+	}
+
+	/**
+	 * Setter de tour
+	 */
+	public void setTour(int tour) {
+		this.tour = tour;
+	}
+
+	/**
+	 * Getter de tour
+	 */
+	public int getTour() throws RemoteException {
+		return this.tour;
+	}
+
+	public boolean isPartieCommence() throws RemoteException{
+		return partieCommence;
+	}
+
+	public void setPartieCommence(boolean partieCommence) throws RemoteException{
+		this.partieCommence = partieCommence;
+	}
+	
+	
 
 }

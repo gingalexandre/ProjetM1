@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import serveur.bdd.modeleSauvegarde.PlateauSauvegarde;
+import serveur.commun.Fonctions;
 import serveur.modele.service.HexagoneInterface;
 import serveur.modele.service.JetonInterface;
 import serveur.modele.service.PlateauInterface;
@@ -42,6 +44,14 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 		setRoutes();
 		setJetons();
 		ajouterVillesAuxHexagones();
+	}
+	
+	
+	public Plateau(PlateauSauvegarde plateau) throws RemoteException{
+		this.hexagones = Fonctions.transformArrayHexagone(plateau.getHexagones());
+		this.villes = Fonctions.transformArrayVille(plateau.getVilles());
+		this.routes = Fonctions.transformArrayRoute(plateau.getRoutes());
+		this.jetons = Fonctions.transformArrayJeton(plateau.getJetons());
 	}
 
 	public static long getSerialversionuid() {

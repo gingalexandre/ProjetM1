@@ -11,6 +11,7 @@ import java.util.Set;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javafx.scene.shape.Line;
+import serveur.bdd.modeleSauvegarde.RouteSauvegarde;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.RouteInterface;
 import serveur.modele.service.VilleInterface;
@@ -30,6 +31,16 @@ public class Route extends UnicastRemoteObject implements RouteInterface, Serial
 		this.arrive = arrive;
 	}
 	
+	public Route(RouteSauvegarde route)  throws RemoteException{
+		this.depart = route.getDepart();
+		this.arrive = route.getArrive();
+		if (route.getOqp() != null) {
+			this.oqp = route.getOqp();
+		} else {
+			this.oqp = null;
+		}
+	}
+
 	public static Line[] transformRouteVueRoute(ArrayList<RouteInterface> routes) throws RemoteException{
 		Line[] vueRoutes = new Line[routes.size()];
 		for(int i = 0; i < routes.size(); i ++){
@@ -127,4 +138,6 @@ public class Route extends UnicastRemoteObject implements RouteInterface, Serial
 		return a && (b2 || c2);
 		//return ((a && (b2 || c2)) || (a && b && c && d ));
 	}
+	
+	public Route() throws RemoteException{};
 }

@@ -27,14 +27,12 @@ public class PropositionController implements Initializable {
 	@FXML
 	private Button accepter, refuser;
 	
-	private Pane pageProposition = null;
 	public Stage fenetreProposition;
 	
 	private HashMap<String, Integer> offreDemande;
 	
 	private Proxy proxy;
 	
-	private String vousPropose;
 	/**
 	 * Serveur de jeu
 	 */
@@ -55,17 +53,19 @@ public class PropositionController implements Initializable {
 	}
 	
 	public void accepterOffre() throws RemoteException{
-		effectuerEchange();
+		System.out.println("yolo");
+		/*effectuerEchange();
 		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" a accepté l'offre"));
-		this.fenetreProposition.close();
+		this.fenetreProposition.close();*/
 	}
 	
 	public void refuserOffre() throws RemoteException{
-		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" a refusé l'offre"));
-		this.fenetreProposition.close();
+		/*serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" a refusé l'offre"));
+		this.fenetreProposition.close();*/
 	}
 	
-	private void setValeursText(HashMap<String, Integer>offreDemande){
+	public void setValeursText(HashMap<String, Integer>offreDemande){
+		this.offreDemande = offreDemande;
 		String v = "";
 		if((offreDemande.get("dBois")>0)||(offreDemande.get("dBle")>0)||(offreDemande.get("dArgile")>0)||(offreDemande.get("dMineraie")>0)||(offreDemande.get("dLaine")>0)){
 			v += "DEMANDE : ";
@@ -108,7 +108,6 @@ public class PropositionController implements Initializable {
 	
 	private void effectuerEchange(){
 		//TODO
-		
 	}
 
 }

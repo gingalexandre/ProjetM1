@@ -281,7 +281,7 @@ public class MenuController implements Initializable {
 	 * Méthode pour permettre le lancement de la popup d'échange et laisser EchangeController prendre le relais pour les méthodes 
 	 * 
 	 */
-	public void ouvrirProposition(String nomExpediteur){
+	public void ouvrirProposition(String nomExpediteur, HashMap<String,Integer> valeurs){
 		Platform.runLater(() -> {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Proposition.fxml"));
 			try {
@@ -289,6 +289,7 @@ public class MenuController implements Initializable {
 				
 				PropositionController controller = loader.getController();
 				controller.setPropostion(nomExpediteur);
+				controller.setValeursText(valeurs);
 				fenetreProposition = new Stage();
 				fenetreProposition.setTitle("Les Colons de Catanes");
 			    Scene scene = new Scene(pageEchange,430,500);

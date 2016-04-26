@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import serveur.modele.Message;
+import serveur.modele.Ressource;
 import serveur.reseau.proxy.Proxy;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
@@ -27,9 +28,9 @@ public class PropositionController implements Initializable {
 	@FXML
 	private Button accepter, refuser;
 	
-	public Stage fenetreProposition;
-	
 	private HashMap<String, Integer> offreDemande;
+	
+	private String expediteur;
 	
 	private Proxy proxy;
 	
@@ -48,20 +49,19 @@ public class PropositionController implements Initializable {
 		serveur = ConnexionManager.getStaticServeur();
 	}
 
-	public void setPropostion(String propostion) {
-		this.proposition.setText(propostion+" vous propose l'échange suivant : ");
+	public void setPropostion(String proposition) {
+		this.expediteur = proposition;
+		this.proposition.setText(proposition+" vous propose l'échange suivant : ");
 	}
 	
 	public void accepterOffre() throws RemoteException{
-		System.out.println("yolo");
-		/*effectuerEchange();
+		effectuerEchange();
 		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" a accepté l'offre"));
-		this.fenetreProposition.close();*/
+		
 	}
 	
 	public void refuserOffre() throws RemoteException{
-		/*serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" a refusé l'offre"));
-		this.fenetreProposition.close();*/
+		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" a refusé l'offre"));
 	}
 	
 	public void setValeursText(HashMap<String, Integer>offreDemande){
@@ -106,8 +106,55 @@ public class PropositionController implements Initializable {
 		this.valeurs.setText(v);
 	}
 	
-	private void effectuerEchange(){
-		//TODO
+	private void effectuerEchange() throws RemoteException{
+		if((this.offreDemande.get("dBois")>0)||(this.offreDemande.get("dBle")>0)||(this.offreDemande.get("dArgile")>0)||(this.offreDemande.get("dMineraie")>0)||(this.offreDemande.get("dLaine")>0)){
+			if(this.offreDemande.get("dBois")>0){
+				serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).getStockRessource().put(Ressource.BOIS, serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).getStockRessource().get(Ressource.BOIS)+this.offreDemande.get("dBois"));
+				proxy.getJoueur().getStockRessource().put(Ressource.BOIS,proxy.getJoueur().getStockRessource().get(Ressource.BOIS)-this.offreDemande.get("dBois"));
+			}
+			if(this.offreDemande.get("dBle")>0){
+				serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).getStockRessource().put(Ressource.BLE, serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).getStockRessource().get(Ressource.BLE)+this.offreDemande.get("dBle"));
+				proxy.getJoueur().getStockRessource().put(Ressource.BLE,proxy.getJoueur().getStockRessource().get(Ressource.BLE)-this.offreDemande.get("dBle"));
+			}
+			if(this.offreDemande.get("dArgile")>0){
+				serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).getStockRessource().put(Ressource.ARGILE, serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).getStockRessource().get(Ressource.ARGILE)+this.offreDemande.get("dArgile"));
+				proxy.getJoueur().getStockRessource().put(Ressource.ARGILE,proxy.getJoueur().getStockRessource().get(Ressource.ARGILE)-this.offreDemande.get("dArgile"));
+			}
+			if(this.offreDemande.get("dMineraie")>0){
+				serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).getStockRessource().put(Ressource.MINERAIE, serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).getStockRessource().get(Ressource.MINERAIE)+this.offreDemande.get("dMineraie"));
+				proxy.getJoueur().getStockRessource().put(Ressource.MINERAIE,proxy.getJoueur().getStockRessource().get(Ressource.MINERAIE)-this.offreDemande.get("dMineraie"));
+			}
+			if(this.offreDemande.get("dLaine")>0){
+				serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).getStockRessource().put(Ressource.LAINE, serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).getStockRessource().get(Ressource.LAINE)+this.offreDemande.get("dLaine"));
+				proxy.getJoueur().getStockRessource().put(Ressource.LAINE,proxy.getJoueur().getStockRessource().get(Ressource.LAINE)-this.offreDemande.get("dLaine"));
+			}
+		}
+		
+		if((this.offreDemande.get("oBois")>0)||(this.offreDemande.get("oBle")>0)||(this.offreDemande.get("oArgile")>0)||(this.offreDemande.get("oMineraie")>0)||(this.offreDemande.get("oLaine")>0)){
+			if(this.offreDemande.get("oBois")>0){
+				serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).getStockRessource().put(Ressource.BOIS, serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).getStockRessource().get(Ressource.BOIS)-this.offreDemande.get("oBois"));
+				proxy.getJoueur().getStockRessource().put(Ressource.BOIS,proxy.getJoueur().getStockRessource().get(Ressource.BOIS)+this.offreDemande.get("oBois"));
+			}
+			if(this.offreDemande.get("oBle")>0){
+				serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).getStockRessource().put(Ressource.BLE, serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).getStockRessource().get(Ressource.BLE)-this.offreDemande.get("oBle"));
+				proxy.getJoueur().getStockRessource().put(Ressource.BLE,proxy.getJoueur().getStockRessource().get(Ressource.BLE)+this.offreDemande.get("oBle"));
+			}
+			if(this.offreDemande.get("oArgile")>0){
+				serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).getStockRessource().put(Ressource.ARGILE, serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).getStockRessource().get(Ressource.ARGILE)-this.offreDemande.get("oArgile"));
+				proxy.getJoueur().getStockRessource().put(Ressource.ARGILE,proxy.getJoueur().getStockRessource().get(Ressource.ARGILE)+this.offreDemande.get("oArgile"));
+			}
+			if(this.offreDemande.get("oMineraie")>0){
+				serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).getStockRessource().put(Ressource.MINERAIE, serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).getStockRessource().get(Ressource.MINERAIE)-this.offreDemande.get("oMineraie"));
+				proxy.getJoueur().getStockRessource().put(Ressource.MINERAIE,proxy.getJoueur().getStockRessource().get(Ressource.MINERAIE)+this.offreDemande.get("oMineraie"));
+			}
+			if(this.offreDemande.get("oLaine")>0){
+				serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).getStockRessource().put(Ressource.LAINE, serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).getStockRessource().get(Ressource.LAINE)-this.offreDemande.get("oLaine"));
+				proxy.getJoueur().getStockRessource().put(Ressource.LAINE,proxy.getJoueur().getStockRessource().get(Ressource.LAINE)+this.offreDemande.get("oLaine"));
+			}
+		}
+		//Actualisation de l'affichage
+		this.proxy.getJoueursController().majRessource();
+		serveur.getGestionnaireUI().diffuserGainRessource();		
 	}
 
 }

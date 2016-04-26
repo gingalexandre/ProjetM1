@@ -29,6 +29,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import serveur.modele.Des;
 import serveur.modele.Message;
@@ -180,9 +181,7 @@ public class MenuController implements Initializable {
             serveur.getGestionnaireUI().diffuserMessage(new Message ("Choisir la case de destination du Voleur"));
 			pc.doActionVoleur();
 		}
-		notifierLancerDes(resultats);
-
-		
+		notifierLancerDes(resultats);		
 	}
 	
 	public void animateDes() {

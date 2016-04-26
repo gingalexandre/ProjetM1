@@ -204,13 +204,13 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 
 	@Override
 	public JoueurInterface getJoueurByName(String nom) throws RemoteException {
-		if (this.joueur1.getNomUtilisateur() == nom) {
+		if (this.joueur1.getNomUtilisateur().equals(nom)) {
 			return this.joueur1;
-		} else if (this.joueur2.getNomUtilisateur() == nom) {
+		} else if (this.joueur2.getNomUtilisateur().equals(nom)) {
 			return this.joueur2;
-		} else if (this.joueur3.getNomUtilisateur() == nom) {
+		} else if (this.joueur3.getNomUtilisateur().equals(nom)) {
 			return this.joueur3;
-		} else if (this.joueur4.getNomUtilisateur() == nom) {
+		} else if (this.joueur4.getNomUtilisateur().equals(nom)) {
 			return this.joueur4;
 		}
 		return null;

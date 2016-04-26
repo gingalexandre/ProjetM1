@@ -57,7 +57,6 @@ public class PropositionController implements Initializable {
 	public void accepterOffre() throws RemoteException{
 		effectuerEchange();
 		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" a accepté l'offre"));
-		
 	}
 	
 	public void refuserOffre() throws RemoteException{

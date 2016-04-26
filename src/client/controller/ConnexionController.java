@@ -54,6 +54,12 @@ public class ConnexionController implements Initializable {
 	public Date dateNaissance;
 
 	public static String nomJoueur;
+	
+	@FXML
+	private Button boutonChargementPartie;
+	
+	private Pane pageChargementPartie = null;
+	private Stage fenetreChargementPartie;
 
 	public void initialize(URL location, ResourceBundle resources) {
 		serveur = ConnexionManager.getStaticServeur();
@@ -163,5 +169,30 @@ public class ConnexionController implements Initializable {
 	 */
 	public void onEnter() throws RemoteException, InterruptedException, TooMuchPlayerException {
 		connexion();
+	}
+	
+	/**
+	 * Permet l'ouverture de la fenêtre permettant de choisir une partie à charger
+	 */
+	public void ouvrirFenetreChargerPartie(){
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/ChargementPartie.fxml"));
+		try {
+			pageChargementPartie = (Pane) loader.load();
+			fenetreChargementPartie = new Stage();
+			fenetreChargementPartie.setTitle("Les Colons de Catanes");
+		    Scene scene = new Scene(pageChargementPartie,430,500);
+		    fenetreChargementPartie.setScene(scene);
+		    fenetreChargementPartie.showAndWait();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Charger une partie
+	 */
+	public void chargerPartie(){
+		//TODO
 	}
 }

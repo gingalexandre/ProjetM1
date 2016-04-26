@@ -287,7 +287,7 @@ public class MenuController implements Initializable {
 				pageEchange = (Pane) loader.load();
 				
 				PropositionController controller = loader.getController();
-				controller.setPropostion(nomExpediteur);
+				controller.setPropositionText(nomExpediteur);
 				controller.setValeursText(valeurs);
 				fenetreProposition = new Stage();
 				fenetreProposition.setTitle("Les Colons de Catanes");

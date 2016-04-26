@@ -22,7 +22,7 @@ import serveur.reseau.serveur.Serveur;
 public class PropositionController implements Initializable {
 	
 	@FXML
-	private Label propostion, valeurs;
+	private Label proposition, valeurs;
 	
 	@FXML
 	private Button accepter, refuser;
@@ -33,7 +33,8 @@ public class PropositionController implements Initializable {
 	private HashMap<String, Integer> offreDemande;
 	
 	private Proxy proxy;
-
+	
+	private String vousPropose;
 	/**
 	 * Serveur de jeu
 	 */
@@ -41,12 +42,16 @@ public class PropositionController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+
 		//Initialisation du proxy
 		proxy = ConnexionManager.getStaticProxy();
 		proxy.setPropositionController(this);
 		
 		serveur = ConnexionManager.getStaticServeur();
+	}
+
+	public void setPropostion(String propostion) {
+		this.proposition.setText(propostion+" vous propose l'échange suivant : ");
 	}
 	
 	public void accepterOffre() throws RemoteException{
@@ -58,34 +63,6 @@ public class PropositionController implements Initializable {
 	public void refuserOffre() throws RemoteException{
 		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" a refusé l'offre"));
 		this.fenetreProposition.close();
-	}
-	
-	public void ouvrirProposition(HashMap<String, Integer> offreDemande, String nomExpediteur){
-		this.offreDemande = offreDemande;
-		Platform.runLater(new Runnable() {
-		    @Override
-		    public void run() {
-		    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Proposition.fxml"));
-		    	try{
-		    		pageProposition = (Pane) loader.load();
-		    	}
-		    	catch(Exception e){
-		    		e.printStackTrace();
-		    	}
-				fenetreProposition = new Stage();
-				fenetreProposition.setTitle("Les Colons de Catanes");
-			    Scene scene = new Scene(pageProposition,430,500);
-			    fenetreProposition.setScene(scene);
-			    fenetreProposition.showAndWait();
-		    }
-		});
-		
-		setPropositionText(nomExpediteur);
-		setValeursText(offreDemande);
-	}
-	
-	private void setPropositionText(String nomExpediteur){
-		this.propostion.setText(nomExpediteur+" vous propose l'échange suivant :");
 	}
 	
 	private void setValeursText(HashMap<String, Integer>offreDemande){

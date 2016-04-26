@@ -77,6 +77,7 @@ public class MenuController implements Initializable {
 	
 	private Pane pageEchange = null;
 	public static Stage fenetreEchange;
+	public static Stage fenetreProposition;
 	
 	
 	
@@ -274,6 +275,30 @@ public class MenuController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Méthode pour permettre le lancement de la popup d'échange et laisser EchangeController prendre le relais pour les méthodes 
+	 * 
+	 */
+	public void ouvrirProposition(String nomExpediteur){
+		Platform.runLater(() -> {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Proposition.fxml"));
+			try {
+				pageEchange = (Pane) loader.load();
+				
+				PropositionController controller = loader.getController();
+				controller.setPropostion(nomExpediteur);
+				fenetreProposition = new Stage();
+				fenetreProposition.setTitle("Les Colons de Catanes");
+			    Scene scene = new Scene(pageEchange,430,500);
+			    fenetreProposition.setScene(scene);
+			    fenetreProposition.showAndWait();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 	}
 	
 	/**

@@ -127,13 +127,12 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	public void envoyerPlateau(PlateauInterface plateau) throws RemoteException {
 		this.plateauController.setPlateau(plateau);
 	}
-	
 
 	@Override
 	public void envoyerProposition(HashMap<String, Integer> offreDemande, String nomExpediteur) throws RemoteException {
-		this.propostionController.ouvrirProposition(offreDemande, nomExpediteur);
+		this.menuController.ouvrirProposition(nomExpediteur);	
 	}
-
+	
 	/**
 	 * Recoit la liste des autres joueurs envoyes par le serveur et l'envoie au controller adequat
 	 * @param autresJoueurs

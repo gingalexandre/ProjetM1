@@ -164,6 +164,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	public void enregistrerPartie() throws RemoteException {
 		new Sauvegarde();
 	}
+<<<<<<< HEAD
 	
 	public void supprimerJoueur(JoueurInterface joueurASupprimer) throws RemoteException{
 		for(JoueurServeur js : joueurServeurs){
@@ -172,5 +173,16 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 				break;
 			}
 		}
+=======
+
+	@Override
+	public JoueurServeur getJoueur(String nomJoueur) throws RemoteException {
+		for (JoueurServeur j : joueurServeurs){
+			if(j.getJoueur().getNomUtilisateur().equals(nomJoueur)){
+				return j;
+			}
+		}
+		return null;
+>>>>>>> Echange
 	}
 }

@@ -251,4 +251,5 @@ public interface JoueurInterface extends Remote {
 	 * @throws RemoteException
 	 */
 	int compareTo(JoueurInterface j) throws RemoteException;
+	
 }

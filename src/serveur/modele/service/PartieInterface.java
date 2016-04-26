@@ -138,6 +138,14 @@ public interface PartieInterface extends Remote {
 	JoueurInterface getJoueurByCouleur(String couleur) throws RemoteException;
 
 	/**
+	 * Récupération d'un joueur en fonction de son nom
+	 * @param couleur
+	 * @return
+	 * @throws RemoteException
+	 */
+	JoueurInterface getJoueurByName(String nom) throws RemoteException;
+	
+	/**
 	 * Définition de l'ordre de jeu en fonction de l'âge des participants
 	 * 
 	 * @throws RemoteException

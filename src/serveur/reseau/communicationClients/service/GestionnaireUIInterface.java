@@ -2,6 +2,7 @@ package serveur.reseau.communicationClients.service;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.HashMap;
 
 import serveur.modele.Message;
 import serveur.modele.service.JoueurInterface;
@@ -48,7 +49,6 @@ public interface GestionnaireUIInterface extends Remote{
 	 * @throws RemoteException
      */
 	void diffuserVoleur(int depart, int arrive) throws RemoteException;
-
 	
 	void diffuserPriseDeRoute(RouteInterface r, JoueurInterface j) throws RemoteException;
 
@@ -63,5 +63,9 @@ public interface GestionnaireUIInterface extends Remote{
 	void diffuserDepartJoueur(JoueurInterface joueurASupprimer) throws RemoteException;
 
 
+
+	void diffuserProposition(JoueurServeur j, HashMap<String, Integer> offreDemande, String nomExpediteur)throws RemoteException;
+
+	
 
 }

@@ -3,6 +3,7 @@ package serveur.reseau.proxy;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import serveur.modele.Message;
 import serveur.modele.service.JoueurInterface;
@@ -29,6 +30,14 @@ public interface JoueurServeur extends Remote {
 	 * @throws RemoteException
 	 */
 	void envoyerPlateau(PlateauInterface plateau) throws RemoteException;
+	
+	/**
+	 * Re�oit la proposition envoy� par le serveur et l'envoie au controller
+	 * @param offreDemande
+	 * @param nomExpediteur
+	 * @throws RemoteException
+	 */
+	void envoyerProposition(HashMap<String, Integer> offreDemande, String nomExpediteur) throws RemoteException;
 	
 	/**
 	 * Set les boutons d'un joueur
@@ -62,6 +71,7 @@ public interface JoueurServeur extends Remote {
 	void recevoirPriseDeVille(VilleInterface v, JoueurInterface joueurCourrant)throws RemoteException;
 
 	void recevoirGainRessource() throws RemoteException;
+<<<<<<< HEAD
 /**
  * Méthode permettant de supprimer un joueur
  * @param nomJoueurASupprimer String : nom du joueur à supprimer
@@ -74,4 +84,8 @@ public interface JoueurServeur extends Remote {
 	 * @throws RemoteException
 	 */
 	void suppressionDepartJoueur(String nomUtilisateur) throws RemoteException;
+=======
+
+	
+>>>>>>> Echange
 }

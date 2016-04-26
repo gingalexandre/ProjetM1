@@ -29,6 +29,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import serveur.modele.Des;
 import serveur.modele.Message;
@@ -75,8 +76,11 @@ public class MenuController implements Initializable {
 	@FXML
 	private Button boutonEchange;
 	
-	private Pane page = null;
+	private Pane pageEchange = null;
 	public static Stage fenetreEchange;
+	public static Stage fenetreProposition;
+	
+	
 	
 	/**
 	 * Pour finir le tour
@@ -94,7 +98,8 @@ public class MenuController implements Initializable {
 	 */
 	private Serveur serveur;
 	
-	private Pane pane;
+	private Pane paneEchange;
+	private Pane paneProposition;
     /**
      * PlateauController qui reporte les actions affectant le platea.
      */
@@ -176,9 +181,7 @@ public class MenuController implements Initializable {
             serveur.getGestionnaireUI().diffuserMessage(new Message ("Choisir la case de destination du Voleur"));
 			pc.doActionVoleur();
 		}
-		notifierLancerDes(resultats);
-
-		
+		notifierLancerDes(resultats);		
 	}
 	
 	public void animateDes() {
@@ -261,16 +264,41 @@ public class MenuController implements Initializable {
 	public void ouvrirEchange(){
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Echange.fxml"));
 		try {
-			page = (Pane) loader.load();
+			pageEchange = (Pane) loader.load();
 			fenetreEchange = new Stage();
 			fenetreEchange.setTitle("Les Colons de Catanes");
-		    Scene scene = new Scene(page,430,500);
+		    Scene scene = new Scene(pageEchange,430,500);
 		    fenetreEchange.setScene(scene);
 		    fenetreEchange.showAndWait();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Méthode pour permettre le lancement de la popup d'échange et laisser EchangeController prendre le relais pour les méthodes 
+	 * 
+	 */
+	public void ouvrirProposition(String nomExpediteur, HashMap<String,Integer> valeurs){
+		Platform.runLater(() -> {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Proposition.fxml"));
+			try {
+				pageEchange = (Pane) loader.load();
+				
+				PropositionController controller = loader.getController();
+				controller.setPropostion(nomExpediteur);
+				controller.setValeursText(valeurs);
+				fenetreProposition = new Stage();
+				fenetreProposition.setTitle("Les Colons de Catanes");
+			    Scene scene = new Scene(pageEchange,430,500);
+			    fenetreProposition.setScene(scene);
+			    fenetreProposition.showAndWait();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 	}
 	
 	/**
@@ -572,4 +600,6 @@ public class MenuController implements Initializable {
     public void setPlateauController(PlateauController pc){
         this.pc = pc;
     }
+
+    
 }

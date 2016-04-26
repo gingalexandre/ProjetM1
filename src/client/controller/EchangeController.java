@@ -136,7 +136,7 @@ public class EchangeController implements Initializable {
 			message.setText("N'entrez que des entiers");
 		}
 		
-		//if(offreValide(offreDemande)){
+		if(offreValide(offreDemande)){
 			
 			if(choixJoueur.getValue().equals(serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur())){
 				envoyerPropositionJoueur(serveur.getJoueur(serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur()));
@@ -159,10 +159,10 @@ public class EchangeController implements Initializable {
 				message.setText("Choisir un joueur");
 			}
 			MenuController.fenetreEchange.close();
-		/*}
+		}
 		else{
 			message.setText("Ressources insuffisantes");
-		}*/
+		}
 	}
 	
 	private boolean offreValide(HashMap<String, Integer> offreDemande) throws RemoteException{

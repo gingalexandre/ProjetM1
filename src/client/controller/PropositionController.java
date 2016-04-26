@@ -55,8 +55,26 @@ public class PropositionController implements Initializable {
 	}
 	
 	public void accepterOffre() throws RemoteException{
-		effectuerEchange();
-		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" a accepté l'offre"));
+		if(assezDeRessources()){
+			effectuerEchange();
+			serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" a accepté l'offre"));
+		}
+		else{
+			serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" ne peut pas procéder à l'échange"));
+		}
+	}
+	
+	private boolean assezDeRessources() throws RemoteException{
+		if((proxy.getJoueur().getStockRessource().get(Ressource.BOIS)>=this.offreDemande.get("dBois")) && 
+			(proxy.getJoueur().getStockRessource().get(Ressource.BLE)>=this.offreDemande.get("dBle")) &&
+			(proxy.getJoueur().getStockRessource().get(Ressource.ARGILE)>=this.offreDemande.get("dArgile")) &&
+			(proxy.getJoueur().getStockRessource().get(Ressource.MINERAIE)>=this.offreDemande.get("dMineraie")) &&
+			(proxy.getJoueur().getStockRessource().get(Ressource.LAINE)>=this.offreDemande.get("dLaine"))){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	
 	public void refuserOffre() throws RemoteException{

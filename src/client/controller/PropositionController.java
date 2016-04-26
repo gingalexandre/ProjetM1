@@ -49,11 +49,19 @@ public class PropositionController implements Initializable {
 		serveur = ConnexionManager.getStaticServeur();
 	}
 
-	public void setPropostion(String proposition) {
+	/**
+	 * Définit le texte de la fenêtre de proposition pour savoir qui propose l'offre
+	 * @param proposition
+	 */
+	public void setPropositionText(String proposition) {
 		this.expediteur = proposition;
 		this.proposition.setText(proposition+" vous propose l'échange suivant : ");
 	}
 	
+	/**
+	 * Dans le cas où le joueur accepte l'offre
+	 * @throws RemoteException
+	 */
 	public void accepterOffre() throws RemoteException{
 		if(assezDeRessources()){
 			effectuerEchange();
@@ -64,6 +72,11 @@ public class PropositionController implements Initializable {
 		}
 	}
 	
+	/**
+	 * Vérifie si le joueur a assez de ressources pour accepter l'offre
+	 * @return
+	 * @throws RemoteException
+	 */
 	private boolean assezDeRessources() throws RemoteException{
 		if((proxy.getJoueur().getStockRessource().get(Ressource.BOIS)>=this.offreDemande.get("dBois")) && 
 			(proxy.getJoueur().getStockRessource().get(Ressource.BLE)>=this.offreDemande.get("dBle")) &&
@@ -77,10 +90,18 @@ public class PropositionController implements Initializable {
 		}
 	}
 	
+	/**
+	 * Dans le cas où le joueur refuse l'offre
+	 * @throws RemoteException
+	 */
 	public void refuserOffre() throws RemoteException{
 		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" a refusé l'offre"));
 	}
 	
+	/**
+	 * Définit le texte des valeurs pour la fenêtre de proposition
+	 * @param offreDemande
+	 */
 	public void setValeursText(HashMap<String, Integer>offreDemande){
 		this.offreDemande = offreDemande;
 		String v = "";
@@ -123,6 +144,10 @@ public class PropositionController implements Initializable {
 		this.valeurs.setText(v);
 	}
 	
+	/**
+	 * Procède à l'échange, ajoute et supprime les ressources des stocks de ressources des joueurs
+	 * @throws RemoteException
+	 */
 	private void effectuerEchange() throws RemoteException{
 		if((this.offreDemande.get("dBois")>0)||(this.offreDemande.get("dBle")>0)||(this.offreDemande.get("dArgile")>0)||(this.offreDemande.get("dMineraie")>0)||(this.offreDemande.get("dLaine")>0)){
 			if(this.offreDemande.get("dBois")>0){

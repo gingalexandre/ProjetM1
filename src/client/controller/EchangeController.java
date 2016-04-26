@@ -91,6 +91,11 @@ public class EchangeController implements Initializable {
 		}
 	}
 	
+	/**
+	 * Initialisation de la comboBox pour le choix du joueur avec qui échanger
+	 * @param nbJoueur
+	 * @throws RemoteException
+	 */
 	@FXML
 	private void initComboBox(int nbJoueur) throws RemoteException{
 		
@@ -133,7 +138,7 @@ public class EchangeController implements Initializable {
 			
 		}
 		catch(Exception e){
-			message.setText("N'entrez que des entiers");
+			message.setText("Invalide !");
 		}
 		
 		if(offreValide(offreDemande)){
@@ -161,21 +166,45 @@ public class EchangeController implements Initializable {
 			MenuController.fenetreEchange.close();
 		}
 		else{
-			message.setText("Ressources insuffisantes");
+			message.setText("Invalide !");
 		}
 	}
 	
+	/**
+	 * Vérifie si l'offre est valide (que le joueur a suffisamment de ressources)
+	 * @param offreDemande
+	 * @return
+	 * @throws RemoteException
+	 */
 	private boolean offreValide(HashMap<String, Integer> offreDemande) throws RemoteException{
 		if(((offreDemande.get("oBois") > proxy.getJoueur().getStockRessource().get(Ressource.BOIS))
 				|| (offreDemande.get("oBle") > proxy.getJoueur().getStockRessource().get(Ressource.BLE))
 				|| (offreDemande.get("oMineraie") > proxy.getJoueur().getStockRessource().get(Ressource.MINERAIE))
 				|| (offreDemande.get("oArgile") > proxy.getJoueur().getStockRessource().get(Ressource.ARGILE))
-				|| (offreDemande.get("oLaine") > proxy.getJoueur().getStockRessource().get(Ressource.LAINE)))){
+				|| (offreDemande.get("oLaine") > proxy.getJoueur().getStockRessource().get(Ressource.LAINE))
+				|| (aucuneValeur()))){
 					return false;			
 		}
 		return true;
 	}
 	
+	
+	/**
+	 * Vérifie si les champs sont remplis
+	 * @return true si aucun champs n'est rempli et false sinon
+	 */
+	private boolean aucuneValeur(){
+		if((offreDemande.get("oBois")<=0)&&(offreDemande.get("oBle")<=0)&&(offreDemande.get("oArgile")<=0)&&(offreDemande.get("oMineraie")<=0)&&(offreDemande.get("oLaine")<=0)
+				&&(offreDemande.get("dBois")<=0)&&(offreDemande.get("dBle")<=0)&&(offreDemande.get("dLaine")<=0)&&(offreDemande.get("dArgile")<=0)&&(offreDemande.get("dMineraie")<=0)){
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Procede à l'échange avec la banque de 4 ressources contre 1 spécifique
+	 * @throws RemoteException
+	 */
 	private void echangeAvecBanque() throws RemoteException{
 		int nbRessourcesEchangeables = 0;
 		if(offreDemande.get("oBois")>=4){
@@ -228,6 +257,11 @@ public class EchangeController implements Initializable {
 		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" vient de faire un échange avec la banque"));
 	}
 	
+	/**
+	 * Envois la demande au joueur concerné
+	 * @param j
+	 * @throws RemoteException
+	 */
 	private void envoyerPropositionJoueur(JoueurServeur j) throws RemoteException{
 		serveur.getGestionnaireUI().diffuserProposition(j, offreDemande, proxy.getJoueur().getNomUtilisateur());
 		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" a proposé une offre à "+j.getJoueur().getNomUtilisateur()));

@@ -5,6 +5,9 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import javafx.scene.shape.Circle;
+import serveur.bdd.modeleSauvegarde.JoueurSauvegarde;
+import serveur.bdd.modeleSauvegarde.RouteSauvegarde;
+import serveur.bdd.modeleSauvegarde.VilleSauvegarde;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.RouteInterface;
 import serveur.modele.service.VilleInterface;
@@ -37,6 +40,28 @@ public class Ville extends UnicastRemoteObject implements VilleInterface {
 
 	public Ville(Point emplacement) throws RemoteException{
 		this.emplacement = emplacement;
+	}
+
+	public Ville(VilleSauvegarde ville) throws RemoteException{
+		this.emplacement = ville.getEmplacement();
+		this.ville_adj1 = ville.getVille_adj1();
+		this.ville_adj2 = ville.getVille_adj2();
+		this.ville_adj3 = ville.getVille_adj3();
+		this.route_adj1 = new Route(ville.getRoute_adj1());
+		this.route_adj2 = new Route(ville.getRoute_adj2());
+		// Dans le cas où la dernière est null suite aux contraintes du plateau
+		if (ville.getRoute_adj3() != null) {
+			this.route_adj3 = new Route(ville.getRoute_adj3());
+		}
+		else{
+			this.route_adj3 = null;
+		}
+		if (ville.getville() != null) {
+			this.oqp = new Joueur(ville.getville());
+		} else {
+			this.oqp = null;
+		}
+		this.gain = ville.getGain();
 	}
 
 	public Point getEmplacement() {
@@ -142,5 +167,7 @@ public class Ville extends UnicastRemoteObject implements VilleInterface {
 			return ;
 		}
 	}
+	
+	public Ville() throws RemoteException{}
 
 }

@@ -5,7 +5,6 @@
  */
 package serveur.modele;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -13,11 +12,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+import serveur.bdd.modeleSauvegarde.JoueurSauvegarde;
 import serveur.modele.carte.Carte;
 import serveur.modele.service.JoueurInterface;
 
@@ -92,6 +87,7 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	
 	
 	
+	
 	public Joueur(int id, String nomUtilisateur, Date dateDeNaissance, String couleur, boolean pret, int pointVictoire,
 			int nbColonie, int nbVille, int nbRoute, HashMap<Integer, Integer> stockRessource, ArrayList<Carte> cartes)
 			throws RemoteException {
@@ -130,6 +126,22 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		this.setDateDeNaissance(dateNaissance);
 		initialisationAttributs();
 	}
+
+	public Joueur(JoueurSauvegarde joueur) throws RemoteException{
+		this.id = joueur.getId();
+		this.nomUtilisateur = joueur.getNomUtilisateur();
+		this.dateDeNaissance = joueur.getDateDeNaissance();
+		this.couleur = joueur.getCouleur();
+		this.pret = joueur.isPret();
+		this.pointVictoire = joueur.getPointVictoire();
+		this.nbColonie = joueur.getNbColonie();
+		this.nbVille = joueur.getNbVille();
+		this.nbRoute = joueur.getNbRoute();
+		this.stockRessource = joueur.getStockRessource();
+		this.cartes = joueur.getCartes();
+	}
+
+
 
 	/**
 	 * Permet d'initialiser des divers attributs d'un joueur
@@ -306,5 +318,6 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	public boolean equals(Object o){
 		return o instanceof Joueur && ((Joueur)o).id==this.id;
 	}
+	
 	
 }

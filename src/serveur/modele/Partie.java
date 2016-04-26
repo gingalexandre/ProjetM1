@@ -11,6 +11,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import serveur.bdd.modeleSauvegarde.PartieSauvegarde;
+import serveur.commun.Fonctions;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PartieInterface;
 import serveur.modele.service.PlateauInterface;
@@ -59,6 +61,15 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 		this.compteurTourGlobal = 0;
 		this.plateau = p;
 		this.partieCommence = false;
+	}
+	
+	public Partie(PartieSauvegarde p) throws RemoteException{
+		this.ordreJeu = Fonctions.transformArrayJoueur(p.getJoueurs());
+		this.ressources = p.getRessources();
+		this.tour = p.getTour();
+		this.compteurTourGlobal = p.getTourGlobal();
+		this.plateau = new Plateau(p.getPlateauCourant());
+		this.partieCommence = true;
 	}
 
 	/**
@@ -275,5 +286,8 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 		}
 		return null;
 	}
+	
+	
+	public Partie() throws RemoteException{}
 
 }

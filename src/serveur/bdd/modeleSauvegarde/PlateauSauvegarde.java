@@ -54,6 +54,8 @@ public class PlateauSauvegarde implements Serializable {
 		this.routes = Fonctions.transformArrayRouteSauvegarde(plateau.getRoutes());
 		this.jetons = Fonctions.transformArrayJetonSauvegarde(plateau.getJetons());
 	}
+	
+
 
 	/**
 	 * Getter de l'ArrayList des hexagones à sauvegarder

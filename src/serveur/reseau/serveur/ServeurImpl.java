@@ -164,7 +164,6 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	public void enregistrerPartie() throws RemoteException {
 		new Sauvegarde();
 	}
-<<<<<<< HEAD
 	
 	public void supprimerJoueur(JoueurInterface joueurASupprimer) throws RemoteException{
 		for(JoueurServeur js : joueurServeurs){
@@ -173,7 +172,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 				break;
 			}
 		}
-=======
+	}
 
 	@Override
 	public JoueurServeur getJoueur(String nomJoueur) throws RemoteException {
@@ -183,6 +182,5 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 			}
 		}
 		return null;
->>>>>>> Echange
 	}
 }

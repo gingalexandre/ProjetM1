@@ -192,7 +192,6 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 		this.joueursController.majRessource();
 	}
 
-<<<<<<< HEAD
 	/**
 	 * Permet de supprimer du menu un joueur ayant quitter la partie
 	 */
@@ -207,8 +206,4 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	public void suppressionDepartJoueur(String nomUtilisateur) throws RemoteException {
 		this.joueursController.suppressionDepartJoueur(nomUtilisateur);
 	}
-=======
-
-	
->>>>>>> Echange
 }

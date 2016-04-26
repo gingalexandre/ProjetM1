@@ -210,7 +210,6 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 		return this.plateau;
 	}
 
-<<<<<<< HEAD
 	/**
 	 * Méthode permettant de supprimer un Joueur
 	 * 
@@ -263,7 +262,6 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	}
 	
 	
-=======
 	@Override
 	public JoueurInterface getJoueurByName(String nom) throws RemoteException {
 		if (this.joueur1.getNomUtilisateur().equals(nom)) {
@@ -277,6 +275,5 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 		}
 		return null;
 	}
->>>>>>> Echange
 
 }

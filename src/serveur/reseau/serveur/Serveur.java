@@ -70,7 +70,6 @@ public interface Serveur extends Remote{
 	 * @throws RemoteException
 	 */
 	GestionnaireUIInterface getGestionnaireUI() throws RemoteException;
-<<<<<<< HEAD
 	
 	/**
 	 * Permet de supprimer un Joueur du serveur
@@ -78,8 +77,4 @@ public interface Serveur extends Remote{
 	 * @throws RemoteException
 	 */
 	public void supprimerJoueur(JoueurInterface joueurASupprimer)  throws RemoteException;
-=======
-
-	
->>>>>>> Echange
 }

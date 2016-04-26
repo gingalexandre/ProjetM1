@@ -1,6 +1,7 @@
 package client.controller;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -13,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import serveur.modele.Message;
 import serveur.reseau.proxy.Proxy;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
@@ -26,7 +28,9 @@ public class PropositionController implements Initializable {
 	private Button accepter, refuser;
 	
 	private Pane pageProposition = null;
-	public static Stage fenetreProposition;
+	public Stage fenetreProposition;
+	
+	private HashMap<String, Integer> offreDemande;
 	
 	private Proxy proxy;
 
@@ -45,16 +49,19 @@ public class PropositionController implements Initializable {
 		serveur = ConnexionManager.getStaticServeur();
 	}
 	
-	public void accepterOffre(){
-		
+	public void accepterOffre() throws RemoteException{
+		effectuerEchange();
+		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" a accepté l'offre"));
+		this.fenetreProposition.close();
 	}
 	
-	public void refuserOffre(){
-		
+	public void refuserOffre() throws RemoteException{
+		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" a refusé l'offre"));
+		this.fenetreProposition.close();
 	}
 	
 	public void ouvrirProposition(HashMap<String, Integer> offreDemande, String nomExpediteur){
-		
+		this.offreDemande = offreDemande;
 		Platform.runLater(new Runnable() {
 		    @Override
 		    public void run() {
@@ -119,8 +126,12 @@ public class PropositionController implements Initializable {
 				v += offreDemande.get("oLaine")+" Laine ";
 			}
 		}
-		
 		this.valeurs.setText(v);
+	}
+	
+	private void effectuerEchange(){
+		//TODO
+		
 	}
 
 }

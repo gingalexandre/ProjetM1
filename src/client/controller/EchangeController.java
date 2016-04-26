@@ -230,5 +230,6 @@ public class EchangeController implements Initializable {
 	
 	private void envoyerPropositionJoueur(JoueurServeur j) throws RemoteException{
 		serveur.getGestionnaireUI().diffuserProposition(j, offreDemande, proxy.getJoueur().getNomUtilisateur());
+		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" a proposé une offre à "+j.getJoueur().getNomUtilisateur()));
 	}
 }

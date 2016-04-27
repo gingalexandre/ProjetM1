@@ -41,7 +41,4 @@ public class TestPoint {
 		
 		assertEquals(p3.compareTo(p),-10);
 	}
-	
-	
-
 }

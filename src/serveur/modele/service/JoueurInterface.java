@@ -26,6 +26,12 @@ public interface JoueurInterface extends Remote {
 	void setStockRessource(HashMap<Integer, Integer> stockRessource) throws RemoteException;
 
 	/**
+	 * Permet de spécifier l'id du joueur
+	 * @param i - id du joueur
+	 */
+	void setId(int i) throws RemoteException;
+	
+	/**
 	 * Permet d'obtenir l'id du joueur
 	 * @return l'id du joueur
 	 * @throws RemoteException
@@ -251,5 +257,7 @@ public interface JoueurInterface extends Remote {
 	 * @throws RemoteException
 	 */
 	int compareTo(JoueurInterface j) throws RemoteException;
+
+	
 	
 }

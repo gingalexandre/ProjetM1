@@ -15,6 +15,7 @@ public class TestDes {
 	public void testLanceDes() throws RemoteException{
 		Des des = new Des();
 		assertTrue(des.lancerDes()[0]<7 && des.lancerDes()[0]>0 && des.lancerDes()[1] < 7 && des.lancerDes()[0]>0);
+		assertTrue((des.lancerDes()[0]+des.lancerDes()[1]) >= 2 && (des.lancerDes()[0]+des.lancerDes()[1]) <= 14);
 	}
 
 }

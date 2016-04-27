@@ -43,7 +43,6 @@ public interface RouteInterface extends Remote{
 	 */
 	int compareTo(RouteInterface r2) throws RemoteException;
 
-	boolean estConstructible(HashMap<Point, VilleInterface> villes, JoueurInterface joueurCourrant,
-			HashSet<Point> pointsDeRoutes) throws RemoteException;
+	boolean estConstructible(HashMap<Point, VilleInterface> villes, JoueurInterface joueurCourrant, HashSet<Point> pointsDeRoutes, VilleInterface villeIgnored) throws RemoteException;
 
 }

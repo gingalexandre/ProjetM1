@@ -22,7 +22,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -367,7 +366,7 @@ public class MenuController implements Initializable {
 		serveur.getGestionnairePartie().lancerProchainTour(joueurTour);
 	}
 	
-	public void demanderRoute(){
+	public void demanderRoute(boolean initPhase,VilleInterface villeIgnored){
 		try{
 			setButtons(true);
 			Serveur serveur = ConnexionManager.getStaticServeur();
@@ -381,17 +380,21 @@ public class MenuController implements Initializable {
 			// Etape 2 : Récupération des points des extremités des points des Routes du joueur qui veut construire dans un set
 			JoueurInterface joueurCourrant = proxy.getJoueur();
 			HashSet<Point> pointsDeRoutes = new HashSet();
-			for(RouteInterface r: p.getRoutes()){
-				if((r.getOqp()!= null) && r.getOqp().equals(joueurCourrant)){
-					pointsDeRoutes.add(r.getDepart());
-					pointsDeRoutes.add(r.getArrive());
+			if(!initPhase){
+				for(RouteInterface r: p.getRoutes()){
+					if((r.getOqp()!= null) && r.getOqp().equals(joueurCourrant)){
+						pointsDeRoutes.add(r.getDepart());
+						pointsDeRoutes.add(r.getArrive());
+					}
 				}
 			}
+			//System.out.println(b+" "+pointsDeRoutes.size());
+			//System.out.println("!");
 			// RECHERCHES DES ROUTES CONSTRUCTIBLES
 			HashMap<Polygon, RouteInterface> routesConstructibles = new HashMap();
 			Group grp = new Group();
 			for(RouteInterface r: p.getRoutes()){
-				if(r.estConstructible(villes, joueurCourrant, pointsDeRoutes)){
+				if(r.estConstructible(villes, joueurCourrant, pointsDeRoutes,villeIgnored)){
 					// Récupération des points pour une écriture plus simple du code
 					double x1 = r.getDepart().getX();
 					double y1 = r.getDepart().getY();
@@ -600,14 +603,19 @@ public class MenuController implements Initializable {
 										setButtons(true,true,false);
 										Point maColo = new Point(c.getCenterX(),c.getCenterY());
 										VilleInterface maFirstColo = null;
+										int i = 0;
 										for (VilleInterface v : p.getVilles()){
 											if (v.getOqp()!=null && v.getOqp().equals(joueurCourrant) && !v.getEmplacement().equals(maColo)){
-												v.setOQP(null);
+												//v.setOQP(null);
 												maFirstColo = v;
+												i++;
+												System.out.println(maFirstColo);
 											}
 										}
-										demanderRoute();
-										if (maFirstColo != null) maFirstColo.setOQP(joueurCourrant);
+										//System.out.println();
+										if (i == 0) maFirstColo=null;
+										demanderRoute(true,maFirstColo);
+										//if (maFirstColo != null) maFirstColo.setOQP(joueurCourrant);
 									}
 								} catch (RemoteException e) {
 									// TODO Auto-generated catch block

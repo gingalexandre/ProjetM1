@@ -125,18 +125,21 @@ public class Route extends UnicastRemoteObject implements RouteInterface, Serial
 	 * @param mesExtremitesDeRoute Ensemble des points de depart et d'arrivée des routes du joueur en parametre
 	 * @return Booléen indiquant si oui ou non le joueur peut construire
 	 */
-	public boolean estConstructible(HashMap<Point,VilleInterface> villes, JoueurInterface joueurCourrant , HashSet<Point> mesExtremitesDeRoute) throws RemoteException {
+	public boolean estConstructible(HashMap<Point,VilleInterface> villes, JoueurInterface joueurCourrant , HashSet<Point> mesExtremitesDeRoute, VilleInterface villeIgnored) throws RemoteException {
 		// Verification si la route est libre
 		boolean a = this.oqp == null;
 		// Verification si la route a le depart ou l'arrivé qui a une colonie a moi 
 		boolean b =  villes.get(depart).getOqp() == null ;
-		boolean b2 = villes.get(depart).getOqp()!=null && villes.get(depart).getOqp().equals(joueurCourrant);
+		boolean b2 = !villes.get(depart).equals(villeIgnored) && villes.get(depart).getOqp()!=null && villes.get(depart).getOqp().equals(joueurCourrant) ;
 		boolean c =  villes.get(arrive).getOqp() == null;
-		boolean c2 = villes.get(arrive).getOqp()!=null && villes.get(arrive).getOqp().equals(joueurCourrant);
+		boolean c2 = !villes.get(arrive).equals(villeIgnored) && villes.get(arrive).getOqp()!=null && villes.get(arrive).getOqp().equals(joueurCourrant);
 		// Verification si la route est la continuité d'une de mes routes
 		boolean d = mesExtremitesDeRoute.contains(this.depart) || mesExtremitesDeRoute.contains(this.arrive);
-		//return a && (b2 || c2);
-		return ((a && (b2 || c2)) || (a && b && c && d ));
+		if (villeIgnored!=null){
+			return ((a && (b2 || c2)) || (a && b && c && d ));
+		} else {
+			return a && (b2 || c2);
+		}
 	}
 	
 	public Route() throws RemoteException{};

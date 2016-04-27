@@ -11,6 +11,7 @@ import javafx.scene.Group;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Polygon;
+import serveur.bdd.modeleSauvegarde.PlateauSauvegarde;
 import serveur.modele.*;
 import serveur.reseau.proxy.Proxy;
 import serveur.reseau.serveur.ConnexionManager;
@@ -92,6 +93,8 @@ public class PlateauController implements Initializable{
 		}
 		Platform.runLater(() -> dessinerPlateau());
 	}
+	
+
 
 	
 	/**

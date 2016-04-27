@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import serveur.bdd.modeleBDD.Jouer;
+import serveur.bdd.modeleBDD.Sauvegarde;
 import serveur.bdd.modeleBDD.Statistiques;
 import serveur.bdd.modeleBDD.Utilisateur;
 import serveur.reseau.communicationClients.service.GestionnaireBDDInterface;
@@ -78,5 +79,12 @@ public class GestionnaireBDD extends UnicastRemoteObject implements Gestionnaire
 		ArrayList<Integer> listeIdPartie = Jouer.recupererIdPartieByIdJoueur(idJoueur);
 		return listeIdPartie;
 		
+	}
+	
+	/**
+	 * Appelle la méthode pour charger la partie à partir de l'id
+	 */
+	public void chargerPartie(int id)throws InterruptedException, RemoteException {
+		Sauvegarde.chargerPartie(id);
 	}
 }

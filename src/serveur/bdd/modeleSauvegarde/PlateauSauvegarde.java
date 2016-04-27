@@ -55,7 +55,10 @@ public class PlateauSauvegarde implements Serializable {
 		this.jetons = Fonctions.transformArrayJetonSauvegarde(plateau.getJetons());
 	}
 	
-
+	/**
+	 * Constructeur vide pour la désérialisation
+	 */
+	public PlateauSauvegarde() {}
 
 	/**
 	 * Getter de l'ArrayList des hexagones à sauvegarder

@@ -74,8 +74,7 @@ public class VilleSauvegarde implements Serializable {
 		// Dans le cas où la dernière est null suite aux contraintes du plateau
 		if (ville.getRoute_adj3() != null) {
 			this.route_adj3 = new RouteSauvegarde(ville.getRoute_adj3());
-		}
-		else{
+		} else {
 			this.route_adj3 = null;
 		}
 		if (ville.getOqp() != null) {
@@ -84,6 +83,13 @@ public class VilleSauvegarde implements Serializable {
 			this.ville = null;
 		}
 		this.gain = ville.getGain();
+	}
+
+	/**
+	 * Constructeur vide pour la désérialisation
+	 */
+	public VilleSauvegarde() throws RemoteException {
+
 	}
 
 	/**
@@ -259,7 +265,15 @@ public class VilleSauvegarde implements Serializable {
 	public void setGain(int gain) {
 		this.gain = gain;
 	}
-	
 
+	/**
+	 * Méthode equals
+	 */
+	public boolean equals(Object o) {
+		return o instanceof VilleSauvegarde && ((VilleSauvegarde) o).emplacement.equals(this.emplacement)
+				&& ((VilleSauvegarde) o).ville_adj1 == this.ville_adj1
+				&& ((VilleSauvegarde) o).ville_adj2 == this.ville_adj2
+				&& ((VilleSauvegarde) o).ville_adj3 == this.ville_adj3;
+	}
 
 }

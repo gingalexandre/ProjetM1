@@ -47,7 +47,7 @@ public class Sauvegarde {
 	 * @throws RemoteException
 	 */
 	public Sauvegarde() throws RemoteException {
-		PartieSauvegarde partieASauvegarder = new PartieSauvegarde();
+		PartieSauvegarde partieASauvegarder = new PartieSauvegarde(true);
 		Partie partieActuelle = null;
 		try {
 			// Recherche si la partie existe déjà
@@ -171,7 +171,7 @@ public class Sauvegarde {
 	/**
 	 * Méthode a appeler pour désérialiser
 	 */
-	public void chargerPartie(int id){
+	public static void chargerPartie(int id){
 		try {
 			Partie partieSauvegarde = Partie.getById(id);
 			InputStream flux=new FileInputStream(partieSauvegarde.getPath()); 

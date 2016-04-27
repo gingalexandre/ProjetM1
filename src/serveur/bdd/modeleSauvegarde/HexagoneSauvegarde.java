@@ -109,6 +109,12 @@ public class HexagoneSauvegarde implements Serializable {
 	}
 
 	/**
+	 * Constructeur vide pour la désérialisation
+	 */
+	public HexagoneSauvegarde() throws RemoteException {
+	}
+
+	/**
 	 * Getter de l'Index de l'Hexagone
 	 * 
 	 * @return l'index de l'Hexagone
@@ -337,6 +343,7 @@ public class HexagoneSauvegarde implements Serializable {
 	public int getType() {
 		return type;
 	}
+
 	/**
 	 * Setter du Type de l'Hexagone
 	 * 
@@ -345,24 +352,27 @@ public class HexagoneSauvegarde implements Serializable {
 	public void setType(int type) {
 		this.type = type;
 	}
+
 	/**
-	 * Getter du Jeton 
+	 * Getter du Jeton
 	 * 
 	 * @return JetonSauvegarde
 	 */
 	public JetonSauvegarde getNumeroJeton() {
 		return numeroJeton;
 	}
+
 	/**
-	 * Setter du Jeton 
+	 * Setter du Jeton
 	 * 
 	 * @param JetonSauvegarde
 	 */
 	public void setNumeroJeton(JetonSauvegarde numeroJeton) {
 		this.numeroJeton = numeroJeton;
 	}
+
 	/**
-	 * Getter du Serialversionuid pour la sérialisation 
+	 * Getter du Serialversionuid pour la sérialisation
 	 * 
 	 * @return long
 	 */
@@ -370,6 +380,10 @@ public class HexagoneSauvegarde implements Serializable {
 		return serialVersionUID;
 	}
 
-
-
+	/**
+	 * Méthode equals
+	 */
+	public boolean equals(Object o) {
+		return o instanceof HexagoneSauvegarde && ((HexagoneSauvegarde) o).indexHexagone == this.indexHexagone;
+	}
 }

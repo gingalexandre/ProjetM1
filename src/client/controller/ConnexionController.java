@@ -62,8 +62,6 @@ public class ConnexionController implements Initializable {
 	private Pane pageChargementPartie = null;
 	private Stage fenetreChargementPartie;
 
-	@FXML
-	private ComboBox<Integer> listePartie;
 
 	public void initialize(URL location, ResourceBundle resources) {
 		serveur = ConnexionManager.getStaticServeur();

@@ -72,7 +72,7 @@ public class PartieSauvegarde implements Serializable {
 	 * 
 	 * @throws RemoteException
 	 */
-	public PartieSauvegarde() throws RemoteException {
+	public PartieSauvegarde(boolean t) throws RemoteException {
 		this.plateauCourant = new PlateauSauvegarde(recupererPlateau());
 		Serveur serveur = ConnexionManager.getStaticServeur();
 		this.ressources = serveur.getGestionnairePartie().getPartie().getRessources();
@@ -110,6 +110,12 @@ public class PartieSauvegarde implements Serializable {
 			e.printStackTrace();
 		}
 
+	}
+
+	/**
+	 * Constructeur vide pour la désérialisation
+	 */
+	public PartieSauvegarde() throws RemoteException {
 	}
 
 	/**

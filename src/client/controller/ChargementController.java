@@ -19,9 +19,11 @@ public class ChargementController implements Initializable{
 	
 	@FXML
 	Button boutonChargerPartie;
+	
+	Serveur serveur = ConnexionManager.getStaticServeur();
 
 	public void initialize(URL location, ResourceBundle resources) {
-		Serveur serveur = ConnexionManager.getStaticServeur();
+		
 		ArrayList<Integer> listeIdPartieSauvegarde = null;
 		try {
 			listeIdPartieSauvegarde = serveur.getGestionnaireBDD()
@@ -39,9 +41,12 @@ public class ChargementController implements Initializable{
 	
 	/**
 	 * Charger une partie
+	 * @throws InterruptedException 
+	 * @throws RemoteException 
 	 */
-	public void chargerPartie() {
-		
+	public void chargerPartie() throws RemoteException, InterruptedException {
+		Integer idPartie = listePartie.getValue();
+		serveur.getGestionnaireBDD().chargerPartie(idPartie);
 	}
 
 }

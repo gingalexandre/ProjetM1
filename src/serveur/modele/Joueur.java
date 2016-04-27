@@ -314,7 +314,9 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 			return 0;
 		}
 	}
-	
+	/**
+	 * Méthode equals
+	 */
 	public boolean equals(Object o){
 		return o instanceof Joueur && ((Joueur)o).id==this.id;
 	}

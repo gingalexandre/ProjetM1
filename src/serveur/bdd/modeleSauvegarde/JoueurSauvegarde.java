@@ -100,6 +100,13 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
+	 * Constructeur vide pour la désérialisation
+	 */
+	public JoueurSauvegarde() {
+
+	}
+
+	/**
 	 * Getter de l'Id
 	 * 
 	 * @return Integer
@@ -124,165 +131,229 @@ public class JoueurSauvegarde implements Serializable {
 		this.id = id;
 	}
 
-	/** Getter du Compteur de Joueur présent sur le serveur
+	/**
+	 * Getter du Compteur de Joueur présent sur le serveur
+	 * 
 	 * @return Integer
 	 */
 	public static int getCompteurDeJoueur() {
 		return compteurDeJoueur;
 	}
 
-	/** Setter du Compteur de Joueur présent sur le serveur
+	/**
+	 * Setter du Compteur de Joueur présent sur le serveur
+	 * 
 	 * @param compteurDeJoueur
 	 */
 	public static void setCompteurDeJoueur(int compteurDeJoueur) {
 		JoueurSauvegarde.compteurDeJoueur = compteurDeJoueur;
 	}
 
-	/** Getter du Nom de l'Utilisateur
+	/**
+	 * Getter du Nom de l'Utilisateur
+	 * 
 	 * @return String
 	 */
 	public String getNomUtilisateur() {
 		return nomUtilisateur;
 	}
 
-	/** Setter du Nom de l'Utilisateur
-	 * @param String nomUtilisateur
+	/**
+	 * Setter du Nom de l'Utilisateur
+	 * 
+	 * @param String
+	 *            nomUtilisateur
 	 */
 	public void setNomUtilisateur(String nomUtilisateur) {
 		this.nomUtilisateur = nomUtilisateur;
 	}
 
-	/** Getter de la Date de Naissance du Joueur
+	/**
+	 * Getter de la Date de Naissance du Joueur
+	 * 
 	 * @return Date
 	 */
 	public Date getDateDeNaissance() {
 		return dateDeNaissance;
 	}
 
-	/** Setter de la Date de Naissance du Joueur
-	 * @param Date dateDeNaissance
+	/**
+	 * Setter de la Date de Naissance du Joueur
+	 * 
+	 * @param Date
+	 *            dateDeNaissance
 	 */
 	public void setDateDeNaissance(Date dateDeNaissance) {
 		this.dateDeNaissance = dateDeNaissance;
 	}
 
-	/** Getter de la couleur du Joueur
+	/**
+	 * Getter de la couleur du Joueur
+	 * 
 	 * @return String
 	 */
 	public String getCouleur() {
 		return couleur;
 	}
 
-	/** Setter de la couleur du Joueur
-	 * @param String couleur
+	/**
+	 * Setter de la couleur du Joueur
+	 * 
+	 * @param String
+	 *            couleur
 	 */
 	public void setCouleur(String couleur) {
 		this.couleur = couleur;
 	}
 
-	/** Getter du booléen pour voir si le Joueur est prêt pour la partie
+	/**
+	 * Getter du booléen pour voir si le Joueur est prêt pour la partie
+	 * 
 	 * @return Booléen
 	 */
 	public boolean isPret() {
 		return pret;
 	}
 
-	/** Setter du booléen  pour voir si le Joueur est prêt pour la partie
-	 * @param Booléen pret
+	/**
+	 * Setter du booléen pour voir si le Joueur est prêt pour la partie
+	 * 
+	 * @param Booléen
+	 *            pret
 	 */
 	public void setPret(boolean pret) {
 		this.pret = pret;
 	}
 
-	/** Getter du nombre de points de victoire du Joueur
+	/**
+	 * Getter du nombre de points de victoire du Joueur
+	 * 
 	 * @return Integer
 	 */
 	public int getPointVictoire() {
 		return pointVictoire;
 	}
 
-	/** Setter du nombre de points de victoire du Joueur
-	 * @param Integer pointVictoire
+	/**
+	 * Setter du nombre de points de victoire du Joueur
+	 * 
+	 * @param Integer
+	 *            pointVictoire
 	 */
 	public void setPointVictoire(int pointVictoire) {
 		this.pointVictoire = pointVictoire;
 	}
 
-	/** Getter du nombre de Colonie du Joueur
+	/**
+	 * Getter du nombre de Colonie du Joueur
+	 * 
 	 * @return Integer
 	 */
 	public int getNbColonie() {
 		return nbColonie;
 	}
 
-	/** Setter du nombre de Colonie du Joueur
-	 * @param Integer nbColonie
+	/**
+	 * Setter du nombre de Colonie du Joueur
+	 * 
+	 * @param Integer
+	 *            nbColonie
 	 */
 	public void setNbColonie(int nbColonie) {
 		this.nbColonie = nbColonie;
 	}
 
-	/** Getter du nombre de Ville du Joueur
+	/**
+	 * Getter du nombre de Ville du Joueur
+	 * 
 	 * @return Integer
 	 */
 	public int getNbVille() {
 		return nbVille;
 	}
 
-	/** Setter du nombre de Ville du Joueur
-	 * @param Integer nbVille
+	/**
+	 * Setter du nombre de Ville du Joueur
+	 * 
+	 * @param Integer
+	 *            nbVille
 	 */
 	public void setNbVille(int nbVille) {
 		this.nbVille = nbVille;
 	}
 
-	/** Getter du nombre de Route du Joueur
+	/**
+	 * Getter du nombre de Route du Joueur
+	 * 
 	 * @return Integer
 	 */
 	public int getNbRoute() {
 		return nbRoute;
 	}
 
-	/** Setter du nombre de Route du Joueur
-	 * @param Integer nbRoute
+	/**
+	 * Setter du nombre de Route du Joueur
+	 * 
+	 * @param Integer
+	 *            nbRoute
 	 */
 	public void setNbRoute(int nbRoute) {
 		this.nbRoute = nbRoute;
 	}
 
-	/** Getter du Serialversionuid
+	/**
+	 * Getter du Serialversionuid
+	 * 
 	 * @return Long
 	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	/** Getter de la Map des Ressources du Joueur Schéma de la Map : <Identifiant Ressource, Nombre>
+	/**
+	 * Getter de la Map des Ressources du Joueur Schéma de la Map : <Identifiant
+	 * Ressource, Nombre>
+	 * 
 	 * @return HashMap<Integer, Integer>
 	 */
 	public HashMap<Integer, Integer> getStockRessource() {
 		return stockRessource;
 	}
 
-	/** Setter de la Map des Ressources du Joueur Schéma de la Map : <Identifiant Ressource, Nombre>
-	 * @param HashMap<Integer, Integer> stockRessource 
+	/**
+	 * Setter de la Map des Ressources du Joueur Schéma de la Map : <Identifiant
+	 * Ressource, Nombre>
+	 * 
+	 * @param HashMap<Integer,
+	 *            Integer> stockRessource
 	 */
 	public void setStockRessource(HashMap<Integer, Integer> stockRessource) {
 		this.stockRessource = stockRessource;
 	}
 
-	/** Getter de la liste de carte du Joueur
-	 * @return  ArrayList<Carte>
+	/**
+	 * Getter de la liste de carte du Joueur
+	 * 
+	 * @return ArrayList<Carte>
 	 */
 	public ArrayList<Carte> getCartes() {
 		return cartes;
 	}
 
-	/** Setter de la liste de carte du Joueur
-	 * @param ArrayList<Carte> cartes
+	/**
+	 * Setter de la liste de carte du Joueur
+	 * 
+	 * @param ArrayList<Carte>
+	 *            cartes
 	 */
 	public void setCartes(ArrayList<Carte> cartes) {
 		this.cartes = cartes;
 	}
 
+	/**
+	 * Méthode equals
+	 */
+	public boolean equals(Object o) {
+		return o instanceof JoueurSauvegarde && ((JoueurSauvegarde) o).id == this.id;
+	}
 }

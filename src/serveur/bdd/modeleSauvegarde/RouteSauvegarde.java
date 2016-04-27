@@ -53,6 +53,12 @@ public class RouteSauvegarde implements Serializable {
 	}
 
 	/**
+	 * Constructeur vide pour la désérialisation
+	 */
+	public RouteSauvegarde() throws RemoteException {
+	}
+
+	/**
 	 * Getter du Point de départ
 	 * 
 	 * @return Point
@@ -102,10 +108,19 @@ public class RouteSauvegarde implements Serializable {
 	/**
 	 * Setter pour le Joueur propriétaire de la Route
 	 * 
-	 * @param Joueur oqp
+	 * @param Joueur
+	 *            oqp
 	 */
 	public void setOqp(Joueur oqp) {
 		this.oqp = oqp;
+	}
+
+	/**
+	 * Méthode equals
+	 */
+	public boolean equals(Object o) {
+		return o instanceof RouteSauvegarde && ((RouteSauvegarde) o).depart.equals(this.depart)
+				&& ((RouteSauvegarde) o).arrive.equals(this.arrive);
 	}
 
 }

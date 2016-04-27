@@ -38,7 +38,7 @@ public class Jeton extends UnicastRemoteObject implements JetonInterface {
 	}
 	
 	public Jeton(JetonSauvegarde jetonSauvegarde) throws RemoteException{
-		numeroJeton = DistributeurJeton.getInstance().donnerJeton();
+		numeroJeton = jetonSauvegarde.getNumeroJeton();
 		emplacement = jetonSauvegarde.getEmplacement();
 	}
 

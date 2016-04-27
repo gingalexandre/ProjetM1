@@ -192,7 +192,7 @@ public class Sauvegarde {
 			}
 		
 			catch (Exception e){
-			System.out.println(e.toString());
+			e.printStackTrace();
 		}
 	}
 

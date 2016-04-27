@@ -179,8 +179,9 @@ public class Fonctions {
 			throws RemoteException {
 		ArrayList<VilleInterface> res = new ArrayList<VilleInterface>();
 		for (VilleSauvegarde ville : villes) {
-
-			res.add(new Ville(ville));
+			if (ville != null) {
+				res.add(new Ville(ville));
+			}
 
 		}
 		return res;

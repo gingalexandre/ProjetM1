@@ -65,7 +65,6 @@ public class PropositionController implements Initializable {
 		else{
 			serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" ne peut pas procéder à l'échange"));
 		}
-		MenuController.fenetreProposition.close();
 	}
 	
 	/**
@@ -92,7 +91,6 @@ public class PropositionController implements Initializable {
 	 */
 	public void refuserOffre() throws RemoteException{
 		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" a refusé l'offre"));
-		MenuController.fenetreProposition.close();
 	}
 	
 	/**

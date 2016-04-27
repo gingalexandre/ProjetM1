@@ -39,7 +39,12 @@ public class PropositionController implements Initializable {
 
 		//Initialisation du proxy
 		proxy = ConnexionManager.getStaticProxy();
-		proxy.setPropositionController(this);
+		try {
+			proxy.setPropositionController(this);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		serveur = ConnexionManager.getStaticServeur();
 	}

@@ -63,7 +63,12 @@ public class EchangeController implements Initializable {
 		
 		//Initialisation du proxy
 		proxy = ConnexionManager.getStaticProxy();
-		proxy.setEchangeController(this);
+		try {
+			proxy.setEchangeController(this);
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		imgLaine.setImage(new Image("file:Ressources/ressources/ressource_laine.png"));
 		imgBois.setImage(new Image("file:Ressources/ressources/ressource_Bois.png"));

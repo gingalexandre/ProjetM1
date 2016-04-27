@@ -88,7 +88,12 @@ public class ReglesController implements Initializable{
 		
 		//Initialisation du proxy
 		proxy = ConnexionManager.getStaticProxy();
-		proxy.setReglesController(this);
+		try {
+			proxy.setReglesController(this);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 				
 		serveur = ConnexionManager.getStaticServeur();
 		

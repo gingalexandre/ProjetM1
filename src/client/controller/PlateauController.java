@@ -83,10 +83,11 @@ public class PlateauController implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		recupererAttributs();
-		enregistrerController();
-		VuePrincipale.paneUsed = mainPane;
+
 		try {
+			recupererAttributs();
+			enregistrerController();
+			VuePrincipale.paneUsed = mainPane;
 			recupererPlateau();
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -107,8 +108,9 @@ public class PlateauController implements Initializable{
 
 	/**
 	 * Indique au proxy que cette classe est le controller du plateau
+	 * @throws RemoteException 
 	 */
-	private void enregistrerController() {
+	private void enregistrerController() throws RemoteException {
 		Proxy proxy = ConnexionManager.getStaticProxy();
 		proxy.setPlateauController(this);
 	}

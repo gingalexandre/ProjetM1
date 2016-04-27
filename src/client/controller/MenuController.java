@@ -133,7 +133,12 @@ public class MenuController implements Initializable {
 		
 		//Initialisation du proxy
 		proxy = ConnexionManager.getStaticProxy();
-		proxy.setMenuController(this);
+		try {
+			proxy.setMenuController(this);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		serveur = ConnexionManager.getStaticServeur();
 	}

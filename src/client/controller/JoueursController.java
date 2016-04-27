@@ -68,7 +68,12 @@ public class JoueursController implements Initializable {
 		proxy = ConnexionManager.getStaticProxy();
 		// Indique au proxy que le JoueursController du joueur est cette classe.
 		// Permet au proxy d'appeler des méthodes de cette classe
-		proxy.setJoueursController(this);
+		try {
+			proxy.setJoueursController(this);
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		try {
 			// Envoi à CHAQUE joueur la liste de tous les joueurs, sauf

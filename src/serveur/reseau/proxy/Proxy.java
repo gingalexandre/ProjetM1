@@ -69,47 +69,47 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	/**
 	 * @param chatController
 	 */
-	public void setChatController(ChatController chatController){
+	public void setChatController(ChatController chatController)throws RemoteException {
 		this.chatController = chatController;
 	}
 
 	/**
 	 * @param plateauController
 	 */
-	public void setPlateauController(PlateauController plateauController) {
+	public void setPlateauController(PlateauController plateauController) throws RemoteException {
 		this.plateauController = plateauController;
 	}
 	
 	/**
 	 * @param menuController
 	 */
-	public void setMenuController(MenuController menuController) {
+	public void setMenuController(MenuController menuController) throws RemoteException {
 		this.menuController = menuController;
 	}
 	
 	/**
 	 * @param echangeController
 	 */
-	public void setEchangeController(EchangeController echangeController){
+	public void setEchangeController(EchangeController echangeController) throws RemoteException {
 		this.echangeController = echangeController;
 	}
 	
 	/**
 	 * @param joueursController
 	 */
-	public void setJoueursController(JoueursController joueursController){
+	public void setJoueursController(JoueursController joueursController) throws RemoteException {
 		this.joueursController = joueursController;
 	}
 
-	public JoueursController getJoueursController(){
+	public JoueursController getJoueursController() throws RemoteException {
 		return joueursController;
 	}
 	
-	public void setPropositionController(PropositionController propositionController) {
+	public void setPropositionController(PropositionController propositionController)throws RemoteException  {
 		this.propostionController = propositionController;
 	}
 	
-	public void setReglesController(ReglesController reglesController) {
+	public void setReglesController(ReglesController reglesController)throws RemoteException  {
 		this.reglesController = reglesController;
 	}
 
@@ -155,7 +155,7 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	/**
 	 * @return le joueur associe au proxy
 	 */
-	public JoueurInterface getJoueur(){
+	public JoueurInterface getJoueur() throws RemoteException {
 		return joueur;
 	}
 

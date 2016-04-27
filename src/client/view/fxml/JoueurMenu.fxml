@@ -146,7 +146,7 @@
                                         </AnchorPane>
                                         <AnchorPane GridPane.rowIndex="0" GridPane.columnIndex="3">
                                             <children>
-                                                <Label id="nbcarte" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                                                <Label id="nbCarteJoueur1" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane id="imageRoute" style="-fx-opacity: 0.25" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="4">
@@ -195,7 +195,7 @@
                                         </AnchorPane>
                                         <AnchorPane GridPane.rowIndex="0" GridPane.columnIndex="3">
                                             <children>
-                                                <Label id="nbcarte" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                                                <Label id="nbCarteJoueur2" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane id="imageRoute" style="-fx-opacity: 0.25" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="4">
@@ -244,7 +244,7 @@
                                         </AnchorPane>
                                         <AnchorPane GridPane.rowIndex="0" GridPane.columnIndex="3">
                                             <children>
-                                                <Label id="nbcarte" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                                                <Label id="nbCarteJoueur3" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane id="imageRoute" style="-fx-opacity: 0.25" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="4">

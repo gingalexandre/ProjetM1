@@ -12,8 +12,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import serveur.modele.Ressource;
 import serveur.modele.service.JoueurInterface;
@@ -35,6 +33,9 @@ public class JoueursController implements Initializable {
 
 	@FXML
 	private Label autreUnName, autreDeuxName, autreTroisName;
+	
+	@FXML
+	private Label nbCarteJoueur1, nbCarteJoueur2, nbCarteJoueur3;
 
 	/**
 	 * Serveur de jeu
@@ -113,6 +114,46 @@ public class JoueursController implements Initializable {
 		Platform.runLater(() -> this.nbBois.setText("" + stockJoueur.get(Ressource.BOIS)));
 		Platform.runLater(() -> this.nbCaillou.setText("" + stockJoueur.get(Ressource.MINERAIE)));
 		Platform.runLater(() -> this.nbLaine.setText("" + stockJoueur.get(Ressource.LAINE)));
+	}
+	
+	
+	public void majNbCarte() throws RemoteException{
+		String nomJoueur = "";
+		for(int i = 0; i<serveur.getGestionnairePartie().getPartie().getNombreJoueurs()-1; i++){
+				switch (i){
+				case 0:
+					nomJoueur = this.autreUnName.getText();
+					break;
+				case 1:
+					nomJoueur = this.autreDeuxName.getText();
+					break;
+				case 2:
+					nomJoueur = this.autreTroisName.getText();
+					break;
+				default :
+					break;
+				}
+				int nbCarte = 0;
+				nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.ARGILE);
+				nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.BLE);
+				nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.BOIS);
+				nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.MINERAIE);
+				nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.LAINE);
+				int n = nbCarte;
+				switch (i){
+				case 0:
+					Platform.runLater(() -> this.nbCarteJoueur1.setText("" + n));
+					break;
+				case 1:
+					Platform.runLater(() -> this.nbCarteJoueur2.setText("" + n));
+					break;
+				case 2:
+					Platform.runLater(() -> this.nbCarteJoueur3.setText("" + n));
+					break;
+				default :
+					break;
+			}
+		}
 	}
 
 	/**

@@ -85,4 +85,6 @@ public interface JoueurServeur extends Remote {
 		 */
 		void suppressionDepartJoueur(String nomUtilisateur) throws RemoteException;
 
+		void envoyerNbCarte() throws RemoteException;
+
 }

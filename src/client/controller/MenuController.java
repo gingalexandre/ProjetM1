@@ -254,6 +254,7 @@ public class MenuController implements Initializable {
 		//Actualisation de l'affichage
 		this.proxy.getJoueursController().majRessource();
 		serveur.getGestionnaireUI().diffuserGainRessource();
+		serveur.getGestionnaireUI().diffuserGainCarteRessource();
 	}
 	
 	/**

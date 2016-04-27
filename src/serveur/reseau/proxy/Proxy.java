@@ -205,4 +205,9 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	public void suppressionDepartJoueur(String nomUtilisateur) throws RemoteException {
 		this.joueursController.suppressionDepartJoueur(nomUtilisateur);
 	}
+
+	@Override
+	public void envoyerNbCarte() throws RemoteException {
+		this.joueursController.majNbCarte();
+	}
 }

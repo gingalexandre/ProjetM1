@@ -1,0 +1,3 @@
+A mettre dans les deux main :
+
+-Djava.security.policy=file:${workspace_loc}/ProjetM1/security.policy -Djava.rmi.server.codebase=file:${workspace_loc}/ProjetM1/bin/

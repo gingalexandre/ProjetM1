@@ -33,9 +33,8 @@ public class ConnexionManager {
 	 */
 	private ConnexionManager(){
 		System.setSecurityManager(new SecurityManager());
-		String serveurURL = "rmi://10.10.190.80:42000/serveur";
-		System.out.println(serveurURL);
-		//String serveurURL = "rmi://127.0.0.1:42000/serveur";
+		//String serveurURL = "rmi://10.10.190.80:42000/serveur";
+		String serveurURL = "rmi://127.0.0.1:42000/serveur";
 		try {
 			this.serveur = (Serveur) Naming.lookup(serveurURL);
 			this.proxy = new Proxy();

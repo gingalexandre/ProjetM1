@@ -4,6 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * Interface qui s'occupe des échanges de la BDD sur le serveur 
@@ -47,4 +48,11 @@ public interface GestionnaireBDDInterface extends Remote{
 	 * @throws InterruptedException 
 	 */
 	Date getDateNaissanceUtilisateur(String nomUtilisateur) throws InterruptedException, RemoteException;
+
+	/**
+	 * Permet de récupérer les partie à partir du nom du Joueur
+	 * @param nom : String : nom du Joueur
+	 * @return ArrayList<Integer> : liste des id de la partie
+	 */
+	ArrayList<Integer> recupererPartieByName(String nom)  throws InterruptedException, RemoteException;
 }

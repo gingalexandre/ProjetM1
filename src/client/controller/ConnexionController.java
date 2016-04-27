@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -54,12 +55,15 @@ public class ConnexionController implements Initializable {
 	public Date dateNaissance;
 
 	public static String nomJoueur;
-	
+
 	@FXML
-	private Button boutonChargementPartie;
-	
+	private Button boutonChargerPartie;
+
 	private Pane pageChargementPartie = null;
 	private Stage fenetreChargementPartie;
+
+	@FXML
+	private ComboBox<Integer> listePartie;
 
 	public void initialize(URL location, ResourceBundle resources) {
 		serveur = ConnexionManager.getStaticServeur();
@@ -170,29 +174,48 @@ public class ConnexionController implements Initializable {
 	public void onEnter() throws RemoteException, InterruptedException, TooMuchPlayerException {
 		connexion();
 	}
-	
+
 	/**
-	 * Permet l'ouverture de la fenêtre permettant de choisir une partie à charger
+	 * Permet l'ouverture de la fenêtre permettant de choisir une partie à
+	 * charger
+	 * 
+	 * @throws InterruptedException
 	 */
-	public void ouvrirFenetreChargerPartie(){
+	public void ouvrirFenetreChargerPartie() throws InterruptedException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/ChargementPartie.fxml"));
 		try {
-			pageChargementPartie = (Pane) loader.load();
-			fenetreChargementPartie = new Stage();
-			fenetreChargementPartie.setTitle("Les Colons de Catanes");
-		    Scene scene = new Scene(pageChargementPartie,430,500);
-		    fenetreChargementPartie.setScene(scene);
-		    fenetreChargementPartie.showAndWait();
+			boolean connexionOk = serveur.getGestionnaireBDD().verificationConnexion(nomUtilisateur.getText(),
+					Fonction.crypte(mdp.getText()));
+			if (connexionOk) {
+				pageChargementPartie = (Pane) loader.load();
+				
+				ArrayList<Integer> listeIdPartieSauvegarde = serveur.getGestionnaireBDD()
+						.recupererPartieByName(nomUtilisateur.getText());
+				if (listeIdPartieSauvegarde != null && listeIdPartieSauvegarde.size() > 0) {
+					listePartie = new ComboBox<Integer>();
+					listePartie.getItems().addAll(listeIdPartieSauvegarde);
+					fenetreChargementPartie = new Stage();
+					fenetreChargementPartie.setTitle("Les Colons de Catanes");
+					Scene scene = new Scene(pageChargementPartie, 430, 500);
+					fenetreChargementPartie.setScene(scene);
+					fenetreChargementPartie.showAndWait();
+				}
+				else{
+					utilisateurErreur.setText("Erreur, aucune partie sauvegardée.");
+				}
+			} else {
+				utilisateurErreur.setText("Erreur, utilisateur inconnu, inscrivez-vous.");
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Charger une partie
 	 */
-	public void chargerPartie(){
-		//TODO
+	public void chargerPartie() {
+		// TODO
 	}
 }

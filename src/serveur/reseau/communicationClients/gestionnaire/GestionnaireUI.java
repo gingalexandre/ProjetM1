@@ -162,4 +162,11 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	public void diffuserProposition(JoueurServeur j, HashMap<String, Integer> offreDemande, String nomExpediteur) throws RemoteException {
 		j.envoyerProposition(offreDemande, nomExpediteur);
 	}
+
+	@Override
+	public void diffuserGainCarteRessource() throws RemoteException {
+		for (JoueurServeur js : joueurServeurs) {
+			js.envoyerNbCarte();
+		}		
+	}
 }

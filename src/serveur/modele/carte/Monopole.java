@@ -8,7 +8,9 @@ import java.io.Serializable;
  * @author Yohann Hugo
  */
 public class Monopole implements Carte, Serializable{
-
+	
+	private String nomCarte = "Carte Monopole";
+	
     /**
 	 * 
 	 */
@@ -43,4 +45,9 @@ public class Monopole implements Carte, Serializable{
     public String getCheminImage() {
         return CHEMIN;
     }
+
+	@Override
+	public String getNom() {
+		return this.nomCarte;
+	}
 }

@@ -78,14 +78,17 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	private ArrayList<Carte> cartes = new ArrayList<Carte>();
 
 	/**
+	 * Points de victoires supplémentaires
+	 */
+	boolean routeLaPlusLongue, armeeLaPlusPuissante = false;
+	
+	/**
 	 * Constructeur de joueur
 	 * Est appele lors de l'ajout d'un proxy sur le serveur
 	 */
 	public Joueur() throws RemoteException{
 		initialisationAttributs();
 	}
-	
-	
 	
 	
 	public Joueur(int id, String nomUtilisateur, Date dateDeNaissance, String couleur, boolean pret, int pointVictoire,
@@ -105,6 +108,32 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		this.cartes = cartes;
 	}
 
+	public void aUneRoutePlusLongue(Joueur j){
+		//TODO
+	}
+	
+	public void aUneArmeePlusGrande(Joueur j){
+		//TODO
+	}
+
+	public boolean isRouteLaPlusLongue() {
+		return routeLaPlusLongue;
+	}
+
+
+	public void setRouteLaPlusLongue(boolean routeLaPlusLongue) {
+		this.routeLaPlusLongue = routeLaPlusLongue;
+	}
+
+
+	public boolean isArmeeLaPlusPuissante() {
+		return armeeLaPlusPuissante;
+	}
+
+
+	public void setArmeeLaPlusPuissante(boolean armeeLaPlusPuissante) {
+		this.armeeLaPlusPuissante = armeeLaPlusPuissante;
+	}
 
 
 	/**
@@ -227,7 +256,11 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	}
 
 	public void ajouterPointVictoire()  throws RemoteException{
-		this.setPointVictoire(this.getPointVictoire() + 1);
+		this.pointVictoire++;
+	}
+	
+	public void supprimerPointVictoire()  throws RemoteException{
+		this.pointVictoire--;
 	}
 	
 	public String getNomUtilisateur()  throws RemoteException{

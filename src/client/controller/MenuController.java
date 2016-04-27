@@ -11,6 +11,8 @@ import client.commun.Fonction;
 import client.view.VuePrincipale;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +21,8 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -33,6 +37,10 @@ import serveur.modele.Des;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
 import serveur.modele.Point;
+<<<<<<< HEAD
+=======
+import serveur.modele.carte.Carte;
+>>>>>>> affichageJoueurs
 import serveur.modele.service.HexagoneInterface;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
@@ -77,6 +85,21 @@ public class MenuController implements Initializable {
 	public static Stage fenetreEchange;
 	public static Stage fenetreProposition;
 	
+<<<<<<< HEAD
+=======
+	/**
+	 * Pour les cartes
+	 */
+	@FXML
+	private ChoiceBox<String> listeCarte;
+	
+	/**
+	 * Pour la construction
+	 */
+	@FXML
+	private Button boutonConstruireRoute, boutonConstruireColonie, boutonConstruireVille;
+	
+>>>>>>> affichageJoueurs
 	/**
 	 * Pour finir le tour
 	 */
@@ -105,6 +128,14 @@ public class MenuController implements Initializable {
 		//Initialisation des dés
 		de1.setImage(new Image(numeroSix));
 		de2.setImage(new Image(numeroSix));
+		
+		//Initialisation de la liste de cartes
+		listeCarte.valueProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				//newValue => l'item selectionné
+			}    
+	      });
 		
 		//Initialisation du proxy
 		proxy = ConnexionManager.getStaticProxy();
@@ -140,11 +171,19 @@ public class MenuController implements Initializable {
 			Platform.runLater(() -> boutonDes.setDisable(boo[0]));
 			Platform.runLater(() -> boutonEchange.setDisable(boo[0]));
 			Platform.runLater(() -> boutonFinTour.setDisable(boo[0]));
+			Platform.runLater(() -> boutonConstruireRoute.setDisable(boo[0]));
+			Platform.runLater(() -> boutonConstruireColonie.setDisable(boo[0]));
+			Platform.runLater(() -> boutonConstruireVille.setDisable(boo[0]));
+			Platform.runLater(() -> listeCarte.setDisable(boo[0]));
 		}
 		else {
 			Platform.runLater(() -> boutonDes.setDisable(boo[0]));
 			Platform.runLater(() -> boutonEchange.setDisable(boo[1]));
 			Platform.runLater(() -> boutonFinTour.setDisable(boo[2]));
+			Platform.runLater(() -> boutonConstruireRoute.setDisable(boo[0]));
+			Platform.runLater(() -> boutonConstruireColonie.setDisable(boo[0]));
+			Platform.runLater(() -> boutonConstruireVille.setDisable(boo[0]));
+			Platform.runLater(() -> listeCarte.setDisable(boo[0]));
 		}
 	}
 
@@ -249,6 +288,16 @@ public class MenuController implements Initializable {
 		//Actualisation de l'affichage
 		this.proxy.getJoueursController().majRessource();
 		serveur.getGestionnaireUI().diffuserGainRessource();
+		serveur.getGestionnaireUI().diffuserGainCarteRessource();
+	}
+	
+	/**
+	 * Actualisation de la liste de cartes
+	 */
+	public void majListeCarte() throws RemoteException{
+		for(Carte carte : proxy.getJoueur().getCartes()){
+			this.listeCarte.getItems().add(carte.getNom());
+		}
 	}
 	
 	/**

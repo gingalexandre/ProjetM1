@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 public class Invention implements Carte, Serializable {
 
+	private String nomCarte = "Carte Invention";
 
     /**
 	 * 
@@ -45,5 +46,10 @@ public class Invention implements Carte, Serializable {
     public String getCheminImage() {
         return CHEMIN;
     }
+
+	@Override
+	public String getNom() {
+		return this.nomCarte;
+	}
 
 }

@@ -35,7 +35,7 @@ public class Route extends UnicastRemoteObject implements RouteInterface, Serial
 		this.depart = route.getDepart();
 		this.arrive = route.getArrive();
 		if (route.getOqp() != null) {
-			this.oqp = route.getOqp();
+			this.oqp = new Joueur(route.getOqp());
 		} else {
 			this.oqp = null;
 		}

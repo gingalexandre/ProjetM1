@@ -135,23 +135,23 @@
                                         <RowConstraints percentHeight="100.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <AnchorPane id="imageVictoire" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                                        <AnchorPane fx:id="imageVictoire" GridPane.rowIndex="0" GridPane.columnIndex="0">
                                         </AnchorPane>
                                         <AnchorPane GridPane.rowIndex="0" GridPane.columnIndex="1">
                                             <children>
-                                                <Label id="nbVictoire" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                                                <Label fx:id="nbVictoire" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane id="imageCarte"  GridPane.rowIndex="0" GridPane.columnIndex="2">
+                                        <AnchorPane fx:id="imageCarte"  GridPane.rowIndex="0" GridPane.columnIndex="2">
                                         </AnchorPane>
                                         <AnchorPane GridPane.rowIndex="0" GridPane.columnIndex="3">
                                             <children>
-                                                <Label id="nbCarteJoueur1" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                                                <Label fx:id="nbCarteJoueur1" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane id="imageRoute" style="-fx-opacity: 0.25" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="4">
+                                        <AnchorPane fx:id="imageRoute" style="-fx-opacity: 0.25" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="4">
                                         </AnchorPane>
-                                        <AnchorPane id="imageSoldat" style="-fx-opacity: 0.25" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="5">
+                                        <AnchorPane fx:id="imageSoldat" style="-fx-opacity: 0.25" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="5">
                                         </AnchorPane>
                                     </children>
                                 </GridPane>
@@ -184,23 +184,23 @@
                                         <RowConstraints percentHeight="100.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <AnchorPane id="imageVictoire" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                                        <AnchorPane fx:id="imageVictoire" GridPane.rowIndex="0" GridPane.columnIndex="0">
                                         </AnchorPane>
                                         <AnchorPane GridPane.rowIndex="0" GridPane.columnIndex="1">
                                             <children>
-                                                <Label id="nbVictoire" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                                                <Label fx:id="nbVictoire" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane id="imageCarte"  GridPane.rowIndex="0" GridPane.columnIndex="2">
+                                        <AnchorPane fx:id="imageCarte"  GridPane.rowIndex="0" GridPane.columnIndex="2">
                                         </AnchorPane>
                                         <AnchorPane GridPane.rowIndex="0" GridPane.columnIndex="3">
                                             <children>
-                                                <Label id="nbCarteJoueur2" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                                                <Label fx:id="nbCarteJoueur2" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane id="imageRoute" style="-fx-opacity: 0.25" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="4">
+                                        <AnchorPane fx:id="imageRoute" style="-fx-opacity: 0.25" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="4">
                                         </AnchorPane>
-                                        <AnchorPane id="imageSoldat" style="-fx-opacity: 0.25" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="5">
+                                        <AnchorPane fx:id="imageSoldat" style="-fx-opacity: 0.25" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="5">
                                         </AnchorPane>
                                     </children>
                                 </GridPane>
@@ -233,23 +233,23 @@
                                         <RowConstraints percentHeight="100.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <AnchorPane id="imageVictoire" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                                        <AnchorPane fx:id="imageVictoire" GridPane.rowIndex="0" GridPane.columnIndex="0">
                                         </AnchorPane>
                                         <AnchorPane GridPane.rowIndex="0" GridPane.columnIndex="1">
                                             <children>
-                                                <Label id="nbVictoire" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                                                <Label fx:id="nbVictoire" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane id="imageCarte"  GridPane.rowIndex="0" GridPane.columnIndex="2">
+                                        <AnchorPane fx:id="imageCarte"  GridPane.rowIndex="0" GridPane.columnIndex="2">
                                         </AnchorPane>
                                         <AnchorPane GridPane.rowIndex="0" GridPane.columnIndex="3">
                                             <children>
-                                                <Label id="nbCarteJoueur3" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                                                <Label fx:id="nbCarteJoueur3" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane id="imageRoute" style="-fx-opacity: 0.25" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="4">
+                                        <AnchorPane fx:id="imageRoute" style="-fx-opacity: 0.25" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="4">
                                         </AnchorPane>
-                                        <AnchorPane id="imageSoldat" style="-fx-opacity: 0.25" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="5">
+                                        <AnchorPane fx:id="imageSoldat" style="-fx-opacity: 0.25" visible="true" GridPane.rowIndex="0" GridPane.columnIndex="5">
                                         </AnchorPane>
                                     </children>
                                 </GridPane>

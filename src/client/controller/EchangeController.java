@@ -181,24 +181,10 @@ public class EchangeController implements Initializable {
 				|| (offreDemande.get("oBle") > proxy.getJoueur().getStockRessource().get(Ressource.BLE))
 				|| (offreDemande.get("oMineraie") > proxy.getJoueur().getStockRessource().get(Ressource.MINERAIE))
 				|| (offreDemande.get("oArgile") > proxy.getJoueur().getStockRessource().get(Ressource.ARGILE))
-				|| (offreDemande.get("oLaine") > proxy.getJoueur().getStockRessource().get(Ressource.LAINE))
-				|| (aucuneValeur()))){
+				|| (offreDemande.get("oLaine") > proxy.getJoueur().getStockRessource().get(Ressource.LAINE)))){
 					return false;			
 		}
 		return true;
-	}
-	
-	
-	/**
-	 * Vérifie si les champs sont remplis
-	 * @return true si aucun champs n'est rempli et false sinon
-	 */
-	private boolean aucuneValeur(){
-		if((offreDemande.get("oBois")<=0)&&(offreDemande.get("oBle")<=0)&&(offreDemande.get("oArgile")<=0)&&(offreDemande.get("oMineraie")<=0)&&(offreDemande.get("oLaine")<=0)
-				&&(offreDemande.get("dBois")<=0)&&(offreDemande.get("dBle")<=0)&&(offreDemande.get("dLaine")<=0)&&(offreDemande.get("dArgile")<=0)&&(offreDemande.get("dMineraie")<=0)){
-			return true;
-		}
-		return false;
 	}
 	
 	/**

@@ -20,6 +20,7 @@ import serveur.modele.service.JetonInterface;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.RouteInterface;
 import serveur.modele.service.VilleInterface;
+import serveur.reseau.proxy.JoueurServeur;
 
 /**
  * Classe permettant de stocker les fonctions communes aux autres classes
@@ -44,8 +45,6 @@ public class Fonctions {
 		}
 		return new String(md.digest(entree.getBytes()));
 	}
-	
-	
 
 	/**
 	 * Méthode permettant de convertir une ArrayList<HexagoneInterface> en
@@ -125,7 +124,7 @@ public class Fonctions {
 		}
 		return res;
 	}
-	
+
 	/**
 	 * Méthode permettant de convertir une ArrayList<JetonSauvegarde> en
 	 * ArrayList<JetonInterface>
@@ -147,7 +146,6 @@ public class Fonctions {
 		}
 		return res;
 	}
-	
 
 	/**
 	 * Méthode permettant de convertir une ArrayList<HexagoneSauvegarde> en
@@ -171,7 +169,7 @@ public class Fonctions {
 	 * Méthode permettant de convertir une ArrayList<VilleSauvegarde> en
 	 * ArrayList<VilleSauvegarde>
 	 * 
-	 * @param hexagones
+	 * @param villes
 	 *            ArrayList<VilleSauvegarde>
 	 * @return ArrayList<VilleInterface>
 	 * @throws RemoteException
@@ -192,7 +190,7 @@ public class Fonctions {
 	 * Méthode permettant de convertir une ArrayList<RouteSauvegarde> en
 	 * ArrayList<RouteSauvegarde>
 	 * 
-	 * @param hexagones
+	 * @param routes
 	 *            ArrayList<RouteSauvegarde>
 	 * @return ArrayList<RouteInterface>
 	 * @throws RemoteException
@@ -205,13 +203,12 @@ public class Fonctions {
 		}
 		return res;
 	}
-	
-	
+
 	/**
 	 * Méthode permettant de convertir une ArrayList<JoueurSauvegarde> en
 	 * ArrayList<JoueurInterface>
 	 * 
-	 * @param hexagones
+	 * @param joueurs
 	 *            ArrayList<JoueurSauvegarde>
 	 * @return ArrayList<JoueurInterface>
 	 * @throws RemoteException
@@ -224,5 +221,26 @@ public class Fonctions {
 		}
 		return res;
 	}
-	
+
+	/**
+	 * Méthode permettant de convertir une ArrayList<JoueurServeur> en ArrayList
+	 * <JoueurSauvegarde>
+	 * 
+	 * @param joueursServeur
+	 *            ArrayList<JoueurServeur>
+	 * @return ArrayList<JoueurSauvegarde>
+	 * @throws RemoteException
+	 */
+	public static ArrayList<JoueurSauvegarde> transformArrayJoueurSauvegarde(ArrayList<JoueurServeur> joueursServeur)
+			throws RemoteException {
+
+		ArrayList<JoueurSauvegarde> res = new ArrayList<JoueurSauvegarde>();
+		for (JoueurServeur js : joueursServeur) {
+
+			res.add(new JoueurSauvegarde(js.getJoueur()));
+
+		}
+		return res;
+	}
+
 }

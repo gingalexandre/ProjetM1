@@ -9,6 +9,7 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import serveur.commun.Fonctions;
 import serveur.modele.Plateau;
 import serveur.modele.Ressource;
 import serveur.modele.service.JoueurInterface;
@@ -86,18 +87,8 @@ public class PartieSauvegarde implements Serializable {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-
-		for (JoueurServeur js : joueursServeur) {
-
-			try {
-				// Conversion de chaque JoueurInterface en JoueurSauvegarde
-				JoueurSauvegarde joueur = new JoueurSauvegarde(js.getJoueur());
-				this.joueurs.add(joueur);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-
-		}
+		
+		this.joueurs = Fonctions.transformArrayJoueurSauvegarde(joueursServeur);
 		JoueurInterface joueurInterfaceActuel;
 		PartieInterface partie = null;
 		try {

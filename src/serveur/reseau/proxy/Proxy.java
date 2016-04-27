@@ -11,6 +11,7 @@ import client.controller.JoueursController;
 import client.controller.MenuController;
 import client.controller.PlateauController;
 import client.controller.PropositionController;
+import client.controller.ReglesController;
 import serveur.modele.Message;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
@@ -30,6 +31,11 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	 * Controller du menu
 	 */
 	private MenuController menuController;
+	
+	/**
+	 * Controller des règles
+	 */
+	private ReglesController reglesController;
 	
 	/**
 	 * Controller des échanges
@@ -102,6 +108,10 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	public void setPropositionController(PropositionController propositionController) {
 		this.propostionController = propositionController;
 	}
+	
+	public void setReglesController(ReglesController reglesController) {
+		this.reglesController = reglesController;
+	}
 
 	/**
 	 * Recoit le message transmit par le serveur et l'envoie au joueur et
@@ -168,6 +178,10 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	@Override
 	public void setButtons(boolean boo) throws RemoteException {
 		this.menuController.setButtons(boo);
+	}
+	
+	public void setButtonsSauvegarde(boolean boo) throws RemoteException{
+		this.reglesController.setButtonsSauvegarde(boo);
 	}
 
 

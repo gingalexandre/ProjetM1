@@ -37,10 +37,7 @@ import serveur.modele.Des;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
 import serveur.modele.Point;
-<<<<<<< HEAD
-=======
 import serveur.modele.carte.Carte;
->>>>>>> affichageJoueurs
 import serveur.modele.service.HexagoneInterface;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
@@ -85,8 +82,6 @@ public class MenuController implements Initializable {
 	public static Stage fenetreEchange;
 	public static Stage fenetreProposition;
 	
-<<<<<<< HEAD
-=======
 	/**
 	 * Pour les cartes
 	 */
@@ -99,7 +94,6 @@ public class MenuController implements Initializable {
 	@FXML
 	private Button boutonConstruireRoute, boutonConstruireColonie, boutonConstruireVille;
 	
->>>>>>> affichageJoueurs
 	/**
 	 * Pour finir le tour
 	 */
@@ -164,7 +158,7 @@ public class MenuController implements Initializable {
 	}
 	
 	/**
-	 * Méthode de réactivation des boutons
+	 * Méthode de désactivation/réactivation des boutons
 	 */
 	public void setButtons(boolean... boo) {
 		if (boo.length==1){
@@ -467,6 +461,7 @@ public class MenuController implements Initializable {
 								if(isInitTurn()){
 									setButtons(true,true,false);
 								}else{
+									proxy.setButtonsSauvegarde(false);
 									setButtons(false);
 								}
 							} catch (RemoteException e) {
@@ -591,6 +586,7 @@ public class MenuController implements Initializable {
 									serveur.getGestionnaireUI().diffuserPriseDeVille(v, joueurCourrant);
 									setButtons(false);
 									if(isInitTurn()){
+										proxy.setButtonsSauvegarde(true);
 										setButtons(true,true,false);
 										Point maColo = new Point(c.getCenterX(),c.getCenterY());
 										VilleInterface maFirstColo = null;

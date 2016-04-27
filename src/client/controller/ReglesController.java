@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 
 import client.view.VuePrincipale;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -49,6 +50,10 @@ public class ReglesController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void setButtonsSauvegarde(boolean boo) {
+		Platform.runLater(() -> boutonSauvegarde.setDisable(boo));
 	}
 	
 	@FXML

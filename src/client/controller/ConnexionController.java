@@ -187,20 +187,19 @@ public class ConnexionController implements Initializable {
 			boolean connexionOk = serveur.getGestionnaireBDD().verificationConnexion(nomUtilisateur.getText(),
 					Fonction.crypte(mdp.getText()));
 			if (connexionOk) {
+				nomJoueur = nomUtilisateur.getText();
 				pageChargementPartie = (Pane) loader.load();
-				
+
 				ArrayList<Integer> listeIdPartieSauvegarde = serveur.getGestionnaireBDD()
 						.recupererPartieByName(nomUtilisateur.getText());
 				if (listeIdPartieSauvegarde != null && listeIdPartieSauvegarde.size() > 0) {
-					listePartie = new ComboBox<Integer>();
-					listePartie.getItems().addAll(listeIdPartieSauvegarde);
+					
 					fenetreChargementPartie = new Stage();
 					fenetreChargementPartie.setTitle("Les Colons de Catanes");
 					Scene scene = new Scene(pageChargementPartie, 430, 500);
 					fenetreChargementPartie.setScene(scene);
 					fenetreChargementPartie.showAndWait();
-				}
-				else{
+				} else {
 					utilisateurErreur.setText("Erreur, aucune partie sauvegardée.");
 				}
 			} else {
@@ -212,10 +211,4 @@ public class ConnexionController implements Initializable {
 		}
 	}
 
-	/**
-	 * Charger une partie
-	 */
-	public void chargerPartie() {
-		// TODO
-	}
 }

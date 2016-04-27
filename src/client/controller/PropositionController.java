@@ -5,15 +5,10 @@ import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import serveur.modele.Message;
 import serveur.modele.Ressource;
 import serveur.reseau.proxy.Proxy;

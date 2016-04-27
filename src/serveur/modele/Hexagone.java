@@ -5,7 +5,6 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import serveur.bdd.modeleSauvegarde.HexagoneSauvegarde;
-import serveur.bdd.modeleSauvegarde.JetonSauvegarde;
 import serveur.commun.DistributeurType;
 import serveur.commun.Fonctions;
 import serveur.modele.service.HexagoneInterface;
@@ -55,8 +54,7 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 
 	private Jeton numeroJeton;
 
-	public Hexagone(int indexHexagone, Point a, Point b, Point c, Point d, Point e, Point f, int type)
-			throws RemoteException {
+	public Hexagone(int indexHexagone, Point a, Point b, Point c, Point d, Point e, Point f, int type) throws RemoteException {
 		super();
 		this.indexHexagone = indexHexagone;
 		this.a = a;
@@ -86,35 +84,8 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 		} else {
 			this.numeroJeton = null;
 		}
-		
 	}
 	
-	public Hexagone() throws RemoteException{}
-
-	public Point getB() {
-		return b;
-	}
-
-	public Point getC() {
-		return c;
-	}
-
-	public Point getE() {
-		return e;
-	}
-
-	public Point getF() {
-		return f;
-	}
-
-	public Point getA() {
-		return a;
-	}
-
-	public Point getD() {
-		return d;
-	}
-
 	public Hexagone(double xCentre, double yCentre, double size, int indexHexagone) throws RemoteException {
 		double x1 = xCentre;
 		double y1 = yCentre + size;
@@ -153,7 +124,32 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 			this.type = Hexagone.DESERT;
 			VOLEUR = true;
 		}
+	}
+	
+	public Hexagone() throws RemoteException{}
 
+	public Point getB() {
+		return b;
+	}
+
+	public Point getC() {
+		return c;
+	}
+
+	public Point getE() {
+		return e;
+	}
+
+	public Point getF() {
+		return f;
+	}
+
+	public Point getA() {
+		return a;
+	}
+
+	public Point getD() {
+		return d;
 	}
 
 	public void setRessourceByType() {

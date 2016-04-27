@@ -138,6 +138,7 @@ public class EchangeController implements Initializable {
 			
 		}
 		catch(Exception e){
+			e.printStackTrace();
 			message.setText("Invalide !");
 		}
 		

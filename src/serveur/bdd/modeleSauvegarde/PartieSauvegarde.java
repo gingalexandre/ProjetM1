@@ -11,7 +11,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import serveur.commun.Fonctions;
 import serveur.modele.Plateau;
-import serveur.modele.Ressource;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PartieInterface;
 import serveur.reseau.proxy.JoueurServeur;
@@ -55,10 +54,7 @@ public class PartieSauvegarde implements Serializable {
 	 * Booléen pour savoir si la partie a commencé
 	 */
 	private boolean isPartieCommence;
-	/**
-	 * Ressource
-	 */
-	private Ressource ressources;
+
 	/**
 	 * Tour
 	 */
@@ -76,7 +72,6 @@ public class PartieSauvegarde implements Serializable {
 	public PartieSauvegarde(boolean t) throws RemoteException {
 		this.plateauCourant = new PlateauSauvegarde(recupererPlateau());
 		Serveur serveur = ConnexionManager.getStaticServeur();
-		this.ressources = serveur.getGestionnairePartie().getPartie().getRessources();
 		this.isPartieCommence = serveur.getGestionnairePartie().getPartie().isPartieCommence();
 		this.tour = serveur.getGestionnairePartie().getPartie().getTour();
 		this.tourGlobal = serveur.getGestionnairePartie().getPartie().getCompteurTourGlobal();
@@ -244,23 +239,6 @@ public class PartieSauvegarde implements Serializable {
 		return null;
 	}
 
-	/**
-	 * Getter de Ressource
-	 * 
-	 * @return Ressource
-	 */
-	public Ressource getRessources() {
-		return ressources;
-	}
-
-	/**
-	 * Setter de Ressource
-	 * 
-	 * @param Ressource
-	 */
-	public void setRessources(Ressource ressources) {
-		this.ressources = ressources;
-	}
 
 	/**
 	 * Getter de Tour

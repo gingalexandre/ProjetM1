@@ -32,7 +32,10 @@ public class ConnexionManager {
 	 * Constructeur priv� se connectant au serveur
 	 */
 	private ConnexionManager(){
-		String serveurURL = "rmi://127.0.0.1:42000/serveur";
+		System.setSecurityManager(new SecurityManager());
+		String serveurURL = "rmi://10.10.190.80:42000/serveur";
+		System.out.println(serveurURL);
+		//String serveurURL = "rmi://127.0.0.1:42000/serveur";
 		try {
 			this.serveur = (Serveur) Naming.lookup(serveurURL);
 			this.proxy = new Proxy();

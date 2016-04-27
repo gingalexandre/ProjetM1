@@ -65,7 +65,6 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	
 	public Partie(PartieSauvegarde p) throws RemoteException{
 		this.ordreJeu = Fonctions.transformArrayJoueur(p.getJoueurs());
-		this.ressources = p.getRessources();
 		this.tour = p.getTour();
 		this.compteurTourGlobal = p.getTourGlobal();
 		this.plateau = new Plateau(p.getPlateauCourant());

@@ -135,8 +135,8 @@ public class Route extends UnicastRemoteObject implements RouteInterface, Serial
 		boolean c2 = villes.get(arrive).getOqp()!=null && villes.get(arrive).getOqp().equals(joueurCourrant);
 		// Verification si la route est la continuité d'une de mes routes
 		boolean d = mesExtremitesDeRoute.contains(this.depart) || mesExtremitesDeRoute.contains(this.arrive);
-		return a && (b2 || c2);
-		//return ((a && (b2 || c2)) || (a && b && c && d ));
+		//return a && (b2 || c2);
+		return ((a && (b2 || c2)) || (a && b && c && d ));
 	}
 	
 	public Route() throws RemoteException{};

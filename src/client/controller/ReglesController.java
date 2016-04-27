@@ -1,20 +1,24 @@
 package client.controller;
 
 import java.io.IOException;
+import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.ResourceBundle;
 
 import client.view.VuePrincipale;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import serveur.reseau.proxy.Proxy;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
 
-public class ReglesController {
+public class ReglesController implements Initializable{
 	
 	@FXML
 	private Button boutonRegles;
@@ -29,6 +33,17 @@ public class ReglesController {
 	
 	private Pane page = null;
 	public static Stage statsFenetre;
+	
+	/**
+	 * Proxy client
+	 */
+	private Proxy proxy;
+	
+	/**
+	 * Serveur de jeu
+	 */
+	private Serveur serveur;
+	
 	
 	public void afficherRegles(){
 				VuePrincipale v= new VuePrincipale();
@@ -66,6 +81,17 @@ public class ReglesController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		//Initialisation du proxy
+		proxy = ConnexionManager.getStaticProxy();
+		proxy.setReglesController(this);
+				
+		serveur = ConnexionManager.getStaticServeur();
+		
 	}
 
 }

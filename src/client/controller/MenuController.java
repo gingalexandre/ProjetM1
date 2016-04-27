@@ -160,7 +160,7 @@ public class MenuController implements Initializable {
 	/**
 	 * Méthode de désactivation/réactivation des boutons
 	 */
-	public void setButtons(boolean... boo) {
+	public void setButtons(boolean... boo) throws RemoteException{
 		if (boo.length==1){
 			Platform.runLater(() -> boutonDes.setDisable(boo[0]));
 			Platform.runLater(() -> boutonEchange.setDisable(boo[0]));
@@ -178,6 +178,13 @@ public class MenuController implements Initializable {
 			Platform.runLater(() -> boutonConstruireColonie.setDisable(boo[0]));
 			Platform.runLater(() -> boutonConstruireVille.setDisable(boo[0]));
 			Platform.runLater(() -> listeCarte.setDisable(boo[0]));
+		}
+		
+		if(isInitTurn()){
+			proxy.setButtonsSauvegarde(true);
+		}
+		else{
+			proxy.setButtonsSauvegarde(false);
 		}
 	}
 
@@ -461,7 +468,6 @@ public class MenuController implements Initializable {
 								if(isInitTurn()){
 									setButtons(true,true,false);
 								}else{
-									proxy.setButtonsSauvegarde(false);
 									setButtons(false);
 								}
 							} catch (RemoteException e) {
@@ -586,7 +592,6 @@ public class MenuController implements Initializable {
 									serveur.getGestionnaireUI().diffuserPriseDeVille(v, joueurCourrant);
 									setButtons(false);
 									if(isInitTurn()){
-										proxy.setButtonsSauvegarde(true);
 										setButtons(true,true,false);
 										Point maColo = new Point(c.getCenterX(),c.getCenterY());
 										VilleInterface maFirstColo = null;

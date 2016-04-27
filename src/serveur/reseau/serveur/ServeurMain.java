@@ -10,7 +10,7 @@ import java.text.ParsePosition;
 public class ServeurMain {
 
 	public static void main(String[] args) throws RemoteException, MalformedURLException {
-		System.setSecurityManager(new SecurityManager());
+		//System.setSecurityManager(new SecurityManager());
 		LocateRegistry.createRegistry(42000);
 		
 		System.setProperty("java.rmi.server.hostname", "127.0.0.1");

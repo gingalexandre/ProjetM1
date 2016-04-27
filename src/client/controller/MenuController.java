@@ -37,6 +37,7 @@ import serveur.modele.Des;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
 import serveur.modele.Point;
+import serveur.modele.carte.Carte;
 import serveur.modele.service.HexagoneInterface;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
@@ -122,10 +123,7 @@ public class MenuController implements Initializable {
 		de1.setImage(new Image(numeroSix));
 		de2.setImage(new Image(numeroSix));
 		
-		//Initialisation des cartes
-		listeCarte.getItems().add("Carte 1");
-		listeCarte.getItems().add("Carte 2");
-		listeCarte.getItems().add("Carte 3");
+		//Initialisation de la liste de cartes
 		listeCarte.valueProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -285,6 +283,15 @@ public class MenuController implements Initializable {
 		this.proxy.getJoueursController().majRessource();
 		serveur.getGestionnaireUI().diffuserGainRessource();
 		serveur.getGestionnaireUI().diffuserGainCarteRessource();
+	}
+	
+	/**
+	 * Actualisation de la liste de cartes
+	 */
+	public void majListeCarte() throws RemoteException{
+		for(Carte carte : proxy.getJoueur().getCartes()){
+			this.listeCarte.getItems().add(carte.getNom());
+		}
 	}
 	
 	/**

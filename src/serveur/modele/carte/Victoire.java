@@ -7,6 +7,8 @@ package serveur.modele.carte;
  */
 public class Victoire implements Carte{
 
+	private String nomCarte = "Carte Victoire";
+	
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -39,4 +41,9 @@ public class Victoire implements Carte{
     public String getCheminImage() {
         return CHEMIN;
     }
+
+	@Override
+	public String getNom() {
+		return this.getNom();
+	}
 }

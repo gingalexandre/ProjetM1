@@ -11,5 +11,7 @@ public interface Carte extends Serializable{
 
     public void doAction();
     public String getCheminImage();
+    
+    public String getNom();
 
 }

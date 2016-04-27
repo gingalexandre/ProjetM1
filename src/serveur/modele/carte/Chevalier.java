@@ -8,7 +8,9 @@ import java.io.Serializable;
  * @author Yohann Hugo
  */
 public class Chevalier implements Carte, Serializable{
-
+	
+	private String nomCarte = "Carte Chevalier";
+	
     /**
 	 * 
 	 */
@@ -43,4 +45,9 @@ public class Chevalier implements Carte, Serializable{
     public String getCheminImage() {
         return CHEMIN;
     }
+
+	@Override
+	public String getNom() {
+		return this.nomCarte;
+	}
 }

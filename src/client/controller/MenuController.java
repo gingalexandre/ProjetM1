@@ -3,7 +3,6 @@ package client.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ResourceBundle;
@@ -29,13 +28,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import serveur.modele.Des;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
 import serveur.modele.Point;
-import serveur.modele.Ville;
 import serveur.modele.service.HexagoneInterface;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
@@ -79,8 +76,6 @@ public class MenuController implements Initializable {
 	private Pane pageEchange = null;
 	public static Stage fenetreEchange;
 	public static Stage fenetreProposition;
-	
-	
 	
 	/**
 	 * Pour finir le tour

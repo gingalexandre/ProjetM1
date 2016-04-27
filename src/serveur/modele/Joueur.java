@@ -170,6 +170,10 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		this.stockRessource = stockRessource;
 	}
 
+	public void setId(int id) throws RemoteException{
+		this.id = id;
+	}
+	
 	public int getId() throws RemoteException{
 		return this.id;
 	}

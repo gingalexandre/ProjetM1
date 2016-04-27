@@ -138,6 +138,7 @@ public class EchangeController implements Initializable {
 			
 		}
 		catch(Exception e){
+			e.printStackTrace();
 			message.setText("Invalide !");
 		}
 		
@@ -177,11 +178,11 @@ public class EchangeController implements Initializable {
 	 * @throws RemoteException
 	 */
 	private boolean offreValide(HashMap<String, Integer> offreDemande) throws RemoteException{
-		if(((offreDemande.get("oBois") > proxy.getJoueur().getStockRessource().get(Ressource.BOIS))
-				|| (offreDemande.get("oBle") > proxy.getJoueur().getStockRessource().get(Ressource.BLE))
-				|| (offreDemande.get("oMineraie") > proxy.getJoueur().getStockRessource().get(Ressource.MINERAIE))
-				|| (offreDemande.get("oArgile") > proxy.getJoueur().getStockRessource().get(Ressource.ARGILE))
-				|| (offreDemande.get("oLaine") > proxy.getJoueur().getStockRessource().get(Ressource.LAINE))
+		if(((offreDemande.get("oBois") >= proxy.getJoueur().getStockRessource().get(Ressource.BOIS))
+				|| (offreDemande.get("oBle") >= proxy.getJoueur().getStockRessource().get(Ressource.BLE))
+				|| (offreDemande.get("oMineraie") >= proxy.getJoueur().getStockRessource().get(Ressource.MINERAIE))
+				|| (offreDemande.get("oArgile") >= proxy.getJoueur().getStockRessource().get(Ressource.ARGILE))
+				|| (offreDemande.get("oLaine") >= proxy.getJoueur().getStockRessource().get(Ressource.LAINE))
 				|| (aucuneValeur()))){
 					return false;			
 		}

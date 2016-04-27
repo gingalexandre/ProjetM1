@@ -5,15 +5,10 @@ import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import serveur.modele.Message;
 import serveur.modele.Ressource;
 import serveur.reseau.proxy.Proxy;
@@ -70,6 +65,7 @@ public class PropositionController implements Initializable {
 		else{
 			serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" ne peut pas procéder à l'échange"));
 		}
+		MenuController.fenetreProposition.close();
 	}
 	
 	/**
@@ -96,6 +92,7 @@ public class PropositionController implements Initializable {
 	 */
 	public void refuserOffre() throws RemoteException{
 		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" a refusé l'offre"));
+		MenuController.fenetreProposition.close();
 	}
 	
 	/**

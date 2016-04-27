@@ -3,9 +3,7 @@ package serveur.bdd.modeleSauvegarde;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 
-import serveur.modele.Joueur;
 import serveur.modele.Point;
-import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.RouteInterface;
 
 /**
@@ -31,7 +29,7 @@ public class RouteSauvegarde implements Serializable {
 	/**
 	 * Joueur : à qui appartient la route (null si personne)
 	 */
-	private JoueurInterface oqp;
+	private JoueurSauvegarde oqp;
 
 	/**
 	 * Constructeur
@@ -46,7 +44,7 @@ public class RouteSauvegarde implements Serializable {
 		this.arrive = route.getArrive();
 		// Dans le cas où une route n'appartient à personne
 		if (route.getOqp() != null) {
-			this.oqp = route.getOqp();
+			this.oqp = new JoueurSauvegarde(route.getOqp());
 		} else {
 			this.oqp = null;
 		}
@@ -101,7 +99,7 @@ public class RouteSauvegarde implements Serializable {
 	 * 
 	 * @return Joueur
 	 */
-	public JoueurInterface getOqp() {
+	public JoueurSauvegarde getOqp() {
 		return oqp;
 	}
 
@@ -111,7 +109,7 @@ public class RouteSauvegarde implements Serializable {
 	 * @param Joueur
 	 *            oqp
 	 */
-	public void setOqp(Joueur oqp) {
+	public void setOqp(JoueurSauvegarde oqp) {
 		this.oqp = oqp;
 	}
 

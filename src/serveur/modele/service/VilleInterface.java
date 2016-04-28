@@ -45,23 +45,14 @@ public interface VilleInterface extends Remote{
 	 */
 	void setVillesAdj(int v1, int v2, int v3) throws RemoteException;
 
-	/**
-	 * @return la route adjacente 1
-	 * @throws RemoteException
-	 */
-	Route getRoute_adj1() throws RemoteException;
 
-	/**
-	 * @return la route adjacente 2
-	 * @throws RemoteException
-	 */
-	Route getRoute_adj2() throws RemoteException;
+	RouteInterface getRoute_adj1() throws RemoteException;
 
-	/**
-	 * @return la route adjacente 3
-	 * @throws RemoteException
-	 */
-	Route getRoute_adj3() throws RemoteException;
+	RouteInterface getRoute_adj2() throws RemoteException;
+
+	RouteInterface getRoute_adj3() throws RemoteException;
+	
+	void ajouterRoute(RouteInterface r) throws RemoteException;
 
 	/**
 	 * @return la ville adjacente 1
@@ -97,6 +88,6 @@ public interface VilleInterface extends Remote{
 	 * @return si la colonie est une ville
 	 * @throws RemoteException
 	 */
-	boolean isColonieVille() throws RemoteException;
+	boolean isVille() throws RemoteException;
 
 }

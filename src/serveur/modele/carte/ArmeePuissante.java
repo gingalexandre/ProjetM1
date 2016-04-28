@@ -5,7 +5,9 @@ package serveur.modele.carte;
  * @author Yohann Hugo
  */
 public class ArmeePuissante implements Carte {
-
+	
+	private String nomCarte = "Armée la plus puissante";
+	
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -43,4 +45,9 @@ public class ArmeePuissante implements Carte {
     public String getCheminImage() {
         return CHEMIN;
     }
+
+	@Override
+	public String getNom() {
+		return this.nomCarte;
+	}
 }

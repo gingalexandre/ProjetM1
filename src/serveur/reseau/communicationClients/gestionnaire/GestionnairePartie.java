@@ -9,6 +9,7 @@ import serveur.modele.Message;
 import serveur.modele.Partie;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PartieInterface;
+import serveur.modele.service.PlateauInterface;
 import serveur.reseau.communicationClients.service.GestionnairePartieInterface;
 import serveur.reseau.proxy.JoueurServeur;
 
@@ -30,12 +31,16 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	 */
 	private Partie partie;
 	
+	private boolean premierePhasePartie;
+	
 	/**
 	 * Constructeur de la classe GestionnairePartie
+	 * @param plateauInterface 
 	 * @param plateau - plateau de jeu
 	 */
-	public GestionnairePartie() throws RemoteException{
-		this.partie = new Partie();
+	public GestionnairePartie(PlateauInterface plateauInterface) throws RemoteException{
+		this.partie = new Partie(plateauInterface);
+		this.premierePhasePartie = true;
 	}
 
 	/**
@@ -166,10 +171,12 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	 * @throws RemoteException 
 	 */
 	private void lancerTourPremierJoueur(JoueurInterface joueurPlusVieux) throws RemoteException {
+		partie.setPartieCommence(true);
 		for(JoueurServeur joueurServeur : joueursServeur){
 			// On compare sur le nom d'utilisateur qui est unique
 			if(joueurPlusVieux.getNomUtilisateur().equals(joueurServeur.getJoueur().getNomUtilisateur())){
 				joueurServeur.setButtons(false);
+				joueurServeur.lancerTour();
 			}
 			else{
 				joueurServeur.setButtons(true);
@@ -195,4 +202,42 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	public ArrayList<JoueurServeur> recupererTousLesJoueurs() throws RemoteException {	
 		return joueursServeur;
 	}
+
+	@Override
+	public void lancerProchainTour(JoueurInterface joueurTour) throws RemoteException {
+		for(JoueurServeur joueurServeur : joueursServeur) {
+			if(joueurServeur.getJoueur().getNomUtilisateur().equals(joueurTour.getNomUtilisateur())){
+				joueurServeur.lancerTour();
+			}
+		}
+		// On vérifie si on est toujours dans la première "phase" de la partie
+		if(this.partie.getCompteurTourGlobal() == this.partie.getNombreJoueurs()*2){
+			this.premierePhasePartie = false;
+		}
+	}
+
+	/** 
+	 * Permet de savoir  si on est encore dans la première phase de la partie
+	 * @return true si on est encore dans la première phase de la partie, false sinon
+	 */
+	@Override
+	public boolean isPremierePhasePartie() throws RemoteException{
+		return this.premierePhasePartie;
+	}
+
+	/**
+	 * Méthode permettant de supprimer un Joueur
+	 */
+	public void supprimerJoueur(JoueurInterface joueurSupprime) throws RemoteException {
+		for(JoueurServeur js : joueursServeur){
+			if(js.getJoueur().getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())){
+				joueursServeur.remove(js);
+				break;
+			}
+		}
+		
+	}
+
+	
+
 }

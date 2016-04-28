@@ -4,11 +4,17 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javafx.scene.shape.Line;
+import serveur.bdd.modeleSauvegarde.RouteSauvegarde;
+import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.RouteInterface;
+import serveur.modele.service.VilleInterface;
 import serveur.view.VueRoute;
 
 public class Route extends UnicastRemoteObject implements RouteInterface, Serializable{
@@ -17,7 +23,7 @@ public class Route extends UnicastRemoteObject implements RouteInterface, Serial
 	
 	private Point depart;
 	private Point arrive;
-	private Joueur oqp;
+	private JoueurInterface oqp;
 	
 	public Route(Point depart, Point arrive) throws RemoteException{
 		super();
@@ -25,6 +31,16 @@ public class Route extends UnicastRemoteObject implements RouteInterface, Serial
 		this.arrive = arrive;
 	}
 	
+	public Route(RouteSauvegarde route)  throws RemoteException{
+		this.depart = route.getDepart();
+		this.arrive = route.getArrive();
+		if (route.getOqp() != null) {
+			this.oqp = new Joueur(route.getOqp());
+		} else {
+			this.oqp = null;
+		}
+	}
+
 	public static Line[] transformRouteVueRoute(ArrayList<RouteInterface> routes) throws RemoteException{
 		Line[] vueRoutes = new Line[routes.size()];
 		for(int i = 0; i < routes.size(); i ++){
@@ -33,7 +49,8 @@ public class Route extends UnicastRemoteObject implements RouteInterface, Serial
 		return vueRoutes;
 	}
 
-	public Joueur getOqp() throws RemoteException{
+	
+	public JoueurInterface getOqp() throws RemoteException{
 		return this.oqp;
 	}
 	
@@ -59,7 +76,7 @@ public class Route extends UnicastRemoteObject implements RouteInterface, Serial
 	    return 0;
 	}
 	
-	public void setOQP(Joueur j) throws RemoteException{
+	public void setOQP(JoueurInterface j) throws RemoteException{
 		this.oqp = j;
 	}
 
@@ -100,4 +117,30 @@ public class Route extends UnicastRemoteObject implements RouteInterface, Serial
 	public String toString() {
 		return "Route [depart=" + depart + ", arrive=" + arrive + ", oqp=" + oqp + "]";
 	}
+	
+	/**
+	 * Méthode permettant de savoir si le joueur donnée en paramètre peut construire sur la route
+	 * @param villes Table qui a chaque Point associe la Ville ou Colonie 
+	 * @param joueurCourrant Joueur qui souhaite construire une route
+	 * @param mesExtremitesDeRoute Ensemble des points de depart et d'arrivée des routes du joueur en parametre
+	 * @return Booléen indiquant si oui ou non le joueur peut construire
+	 */
+	public boolean estConstructible(HashMap<Point,VilleInterface> villes, JoueurInterface joueurCourrant , HashSet<Point> mesExtremitesDeRoute, VilleInterface villeIgnored) throws RemoteException {
+		// Verification si la route est libre
+		boolean a = this.oqp == null;
+		// Verification si la route a le depart ou l'arrivé qui a une colonie a moi 
+		boolean b =  villes.get(depart).getOqp() == null ;
+		boolean b2 = !villes.get(depart).equals(villeIgnored) && villes.get(depart).getOqp()!=null && villes.get(depart).getOqp().equals(joueurCourrant) ;
+		boolean c =  villes.get(arrive).getOqp() == null;
+		boolean c2 = !villes.get(arrive).equals(villeIgnored) && villes.get(arrive).getOqp()!=null && villes.get(arrive).getOqp().equals(joueurCourrant);
+		// Verification si la route est la continuité d'une de mes routes
+		boolean d = mesExtremitesDeRoute.contains(this.depart) || mesExtremitesDeRoute.contains(this.arrive);
+		if (villeIgnored!=null){
+			return ((a && (b2 || c2)) || (a && b && c && d ));
+		} else {
+			return a && (b2 || c2);
+		}
+	}
+	
+	public Route() throws RemoteException{};
 }

@@ -1,8 +1,12 @@
 package serveur.bdd.modeleBDD;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.rmi.RemoteException;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
@@ -14,6 +18,8 @@ import serveur.bdd.modeleSauvegarde.PartieSauvegarde;
 import serveur.modele.Joueur;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
+
+// METTRE DANS LA METHODE A LA FIN POUR DISTRIBUER LES DONNÉES SAUVEGARDÉES AUX JOUEURS
 
 /**
  * Classe permettant la sauvegarde de la partie
@@ -41,7 +47,7 @@ public class Sauvegarde {
 	 * @throws RemoteException
 	 */
 	public Sauvegarde() throws RemoteException {
-		PartieSauvegarde partieASauvegarder = new PartieSauvegarde();
+		PartieSauvegarde partieASauvegarder = new PartieSauvegarde(true);
 		Partie partieActuelle = null;
 		try {
 			// Recherche si la partie existe déjà
@@ -160,6 +166,34 @@ public class Sauvegarde {
 	 */
 	public void setJsonOutputFile(File jsonOutputFile) {
 		Sauvegarde.jsonOutputFile = jsonOutputFile;
+	}
+	
+	/**
+	 * Méthode a appeler pour désérialiser
+	 */
+	public static void chargerPartie(int id){
+		try {
+			Partie partieSauvegarde = Partie.getById(id);
+			InputStream flux=new FileInputStream(partieSauvegarde.getPath()); 
+			InputStreamReader lecture=new InputStreamReader(flux);
+			BufferedReader buff=new BufferedReader(lecture);
+			StringBuffer json = new StringBuffer();
+			String ligne;
+			// Lecture du contenu
+			while ((ligne=buff.readLine())!=null){
+				json.append(ligne);
+			}
+			buff.close(); 
+			String res = new String(json);
+			// Déserialisation
+			PartieSauvegarde partieACharger = PartieSauvegarde.deserialiser(res);
+			new serveur.modele.Partie(partieACharger);
+			// TODO ENVOYER ICI LES DONNEES AUX JOUEURS CO SUR LE SERVEUR
+			}
+		
+			catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 
 }

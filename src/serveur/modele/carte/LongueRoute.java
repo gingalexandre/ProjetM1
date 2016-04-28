@@ -7,6 +7,8 @@ import java.io.Serializable;
  */
 public class LongueRoute implements Carte, Serializable {
 
+	private String nomCarte = "Plus longue route";
+	
     /**
 	 * 
 	 */
@@ -49,4 +51,9 @@ public class LongueRoute implements Carte, Serializable {
     public String getCheminImage() {
         return CHEMIN;
     }
+
+	@Override
+	public String getNom() {
+		return this.nomCarte;
+	}
 }

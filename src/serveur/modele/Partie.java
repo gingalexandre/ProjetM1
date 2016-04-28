@@ -11,8 +11,11 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import serveur.bdd.modeleSauvegarde.PartieSauvegarde;
+import serveur.commun.Fonctions;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PartieInterface;
+import serveur.modele.service.PlateauInterface;
 
 /**
  *
@@ -31,6 +34,8 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	private int id;
 	private Ressource ressources;
 
+	private boolean partieCommence;
+
 	private ArrayList<JoueurInterface> ordreJeu;
 
 	/**
@@ -39,13 +44,40 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	private int tour;
 
 	/**
+	 * Compte tous les tours
+	 */
+	private int compteurTourGlobal;
+
+	private PlateauInterface plateau;
+
+	/**
 	 * @param plateau
 	 *            - plateau de la partie
 	 */
-	public Partie() throws RemoteException {
+	public Partie(PlateauInterface p) throws RemoteException {
 		this.ordreJeu = new ArrayList<>();
 		this.ressources = new Ressource();
 		this.tour = 1;
+		this.compteurTourGlobal = 0;
+		this.plateau = p;
+		this.partieCommence = false;
+	}
+	
+	public Partie(PartieSauvegarde p) throws RemoteException{
+		this.ordreJeu = Fonctions.transformArrayJoueur(p.getJoueurs());
+		this.tour = p.getTour();
+		this.compteurTourGlobal = p.getTourGlobal();
+		this.plateau = new Plateau(p.getPlateauCourant());
+		this.partieCommence = true;
+	}
+
+	/**
+	 * Permet de récupérer le nombre de tour qu'il y a eu dans la partie
+	 * 
+	 * @return le nombre de tour qu'il y a eu dans la partie
+	 */
+	public int getCompteurTourGlobal() throws RemoteException {
+		return this.compteurTourGlobal;
 	}
 
 	/**
@@ -69,7 +101,11 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	}
 
 	public JoueurInterface getJoueurTour() throws RemoteException {
-		return ordreJeu.get(tour - 1);
+		if (tour != 0) {
+			return ordreJeu.get(tour - 1);
+		} else {
+			return ordreJeu.get(tour);
+		}
 	}
 
 	public ArrayList<JoueurInterface> getOrdreJeu() throws RemoteException {
@@ -84,6 +120,7 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 		tour = (tour + 1) % (getNombreJoueurs() + 1);
 		if (tour == 0)
 			tour++;
+		compteurTourGlobal++;
 	}
 
 	public JoueurInterface getJoueurByCouleur(String couleur) throws RemoteException {
@@ -176,5 +213,80 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	@Override
+	public PlateauInterface getPlateau() {
+		// TODO Auto-generated method stub
+		return this.plateau;
+	}
+
+	/**
+	 * Méthode permettant de supprimer un Joueur
+	 * 
+	 * @throws RemoteException
+	 */
+	public void supprimerJoueur(JoueurInterface joueurSupprime) throws RemoteException {
+		for (JoueurInterface js : ordreJeu) {
+			if (js.getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())) {
+				ordreJeu.remove(js);
+				break;
+			}
+		}
+
+		this.affecterNullJoueur(joueurSupprime);
+
+	}
+
+	public void affecterNullJoueur(JoueurInterface joueurSupprime) throws RemoteException {
+		if (joueur1 != null && joueur1.getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())) {
+			joueur1 = null;
+		} else if (joueur2 != null && joueur2.getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())) {
+			joueur2 = null;
+		} else if (joueur3 != null && joueur3.getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())) {
+			joueur3 = null;
+		} else {
+			joueur4 = null;
+		}
+	}
+
+	/**
+	 * Setter de tour
+	 */
+	public void setTour(int tour) {
+		this.tour = tour;
+	}
+
+	/**
+	 * Getter de tour
+	 */
+	public int getTour() throws RemoteException {
+		return this.tour;
+	}
+
+	public boolean isPartieCommence() throws RemoteException{
+		return partieCommence;
+	}
+
+	public void setPartieCommence(boolean partieCommence) throws RemoteException{
+		this.partieCommence = partieCommence;
+	}
+	
+	
+	@Override
+	public JoueurInterface getJoueurByName(String nom) throws RemoteException {
+		if (this.joueur1.getNomUtilisateur().equals(nom)) {
+			return this.joueur1;
+		} else if (this.joueur2.getNomUtilisateur().equals(nom)) {
+			return this.joueur2;
+		} else if (this.joueur3.getNomUtilisateur().equals(nom)) {
+			return this.joueur3;
+		} else if (this.joueur4.getNomUtilisateur().equals(nom)) {
+			return this.joueur4;
+		}
+		return null;
+	}
+	
+	
+	public Partie() throws RemoteException{}
 
 }

@@ -4,7 +4,10 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
+import serveur.bdd.modeleBDD.Jouer;
+import serveur.bdd.modeleBDD.Sauvegarde;
 import serveur.bdd.modeleBDD.Statistiques;
 import serveur.bdd.modeleBDD.Utilisateur;
 import serveur.reseau.communicationClients.service.GestionnaireBDDInterface;
@@ -66,5 +69,22 @@ public class GestionnaireBDD extends UnicastRemoteObject implements Gestionnaire
 	 */
 	public Date getDateNaissanceUtilisateur(String nomUtilisateur) throws InterruptedException, RemoteException {
 		return Utilisateur.getDateNaissance(nomUtilisateur);
+	}
+
+	/**
+	 * Permet de récupérer la liste des id des Parties par le nom d'utilisateur
+	 */
+	public ArrayList<Integer> recupererPartieByName(String nom)  throws InterruptedException, RemoteException {
+		int idJoueur = Utilisateur.getJoueurByName(nom).getId();
+		ArrayList<Integer> listeIdPartie = Jouer.recupererIdPartieByIdJoueur(idJoueur);
+		return listeIdPartie;
+		
+	}
+	
+	/**
+	 * Appelle la méthode pour charger la partie à partir de l'id
+	 */
+	public void chargerPartie(int id)throws InterruptedException, RemoteException {
+		Sauvegarde.chargerPartie(id);
 	}
 }

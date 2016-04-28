@@ -2,9 +2,13 @@ package serveur.reseau.communicationClients.service;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.HashMap;
 
 import serveur.modele.Message;
+import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
+import serveur.modele.service.RouteInterface;
+import serveur.modele.service.VilleInterface;
 import serveur.reseau.proxy.JoueurServeur;
 
 /**
@@ -45,4 +49,25 @@ public interface GestionnaireUIInterface extends Remote{
 	 * @throws RemoteException
      */
 	void diffuserVoleur(int depart, int arrive) throws RemoteException;
+	
+	void diffuserPriseDeRoute(RouteInterface r, JoueurInterface j) throws RemoteException;
+
+	void diffuserPriseDeVille(VilleInterface v, JoueurInterface joueurCourrant) throws RemoteException;
+
+	void diffuserGainRessource() throws RemoteException;
+	/**
+	 * Permet de diffuser le fait qu'un joueur est parti
+	 * @param joueurASupprimer JoueurInterface : joueur ayant quitté le jeu
+	 * @throws RemoteException
+	 */
+	void diffuserDepartJoueur(JoueurInterface joueurASupprimer) throws RemoteException;
+
+
+
+	void diffuserProposition(JoueurServeur j, HashMap<String, Integer> offreDemande, String nomExpediteur)throws RemoteException;
+
+	void diffuserGainCarteRessource() throws RemoteException;
+
+	
+
 }

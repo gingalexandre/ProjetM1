@@ -1,16 +1,19 @@
 package serveur.modele;
 
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import javafx.scene.shape.Circle;
+import serveur.bdd.modeleSauvegarde.JoueurSauvegarde;
+import serveur.bdd.modeleSauvegarde.RouteSauvegarde;
+import serveur.bdd.modeleSauvegarde.VilleSauvegarde;
 import serveur.modele.service.JoueurInterface;
+import serveur.modele.service.RouteInterface;
 import serveur.modele.service.VilleInterface;
 import serveur.view.VueVille;
 
-public class Ville extends UnicastRemoteObject implements VilleInterface, Serializable {
+public class Ville extends UnicastRemoteObject implements VilleInterface {
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,11 +25,11 @@ public class Ville extends UnicastRemoteObject implements VilleInterface, Serial
 
 	private int ville_adj3;
 
-	private Route route_adj1;
+	private RouteInterface route_adj1;
 
-	private Route route_adj2;
+	private RouteInterface route_adj2;
 
-	private Route route_adj3;
+	private RouteInterface route_adj3;
 
 	private JoueurInterface oqp;
 
@@ -37,6 +40,28 @@ public class Ville extends UnicastRemoteObject implements VilleInterface, Serial
 
 	public Ville(Point emplacement) throws RemoteException{
 		this.emplacement = emplacement;
+	}
+
+	public Ville(VilleSauvegarde ville) throws RemoteException{
+		this.emplacement = ville.getEmplacement();
+		this.ville_adj1 = ville.getVille_adj1();
+		this.ville_adj2 = ville.getVille_adj2();
+		this.ville_adj3 = ville.getVille_adj3();
+		this.route_adj1 = new Route(ville.getRoute_adj1());
+		this.route_adj2 = new Route(ville.getRoute_adj2());
+		// Dans le cas où la dernière est null suite aux contraintes du plateau
+		if (ville.getRoute_adj3() != null) {
+			this.route_adj3 = new Route(ville.getRoute_adj3());
+		}
+		else{
+			this.route_adj3 = null;
+		}
+		if (ville.getville() != null) {
+			this.oqp = new Joueur(ville.getville());
+		} else {
+			this.oqp = null;
+		}
+		this.gain = ville.getGain();
 	}
 
 	public Point getEmplacement() {
@@ -53,11 +78,11 @@ public class Ville extends UnicastRemoteObject implements VilleInterface, Serial
 
 	public boolean estLibre(JoueurInterface proprio, ArrayList<VilleInterface> villes) throws RemoteException{
 		return ((this.oqp == null)
-				&& (((this.ville_adj1 != -1) && (villes.get(this.ville_adj1).getOqp() == null))
-						&& ((this.ville_adj2 != -1) && (villes.get(this.ville_adj2).getOqp() == null))
-						&& ((this.ville_adj3 != -1) && (villes.get(this.ville_adj3).getOqp() == null)))
+				&& ((((this.ville_adj1 != -1) && (villes.get(this.ville_adj1).getOqp() == null) || this.ville_adj1 == -1))
+						&& (((this.ville_adj2 != -1) && (villes.get(this.ville_adj2).getOqp() == null)|| this.ville_adj2 == -1))
+						&& (((this.ville_adj3 != -1) && (villes.get(this.ville_adj3).getOqp() == null))|| this.ville_adj3 == -1))
 				&& ((this.route_adj1.getOqp() == proprio) || (this.route_adj2.getOqp() == proprio)
-						|| (this.route_adj3.getOqp() == proprio)));
+						|| ((this.route_adj3==null) || (this.route_adj3.getOqp() == proprio))));
 	}
 
 	public void colonieToVille(JoueurInterface j) throws RemoteException{
@@ -77,15 +102,15 @@ public class Ville extends UnicastRemoteObject implements VilleInterface, Serial
 		this.ville_adj3 = v3;
 	}
 
-	public Route getRoute_adj1() {
+	public RouteInterface getRoute_adj1() {
 		return route_adj1;
 	}
 
-	public Route getRoute_adj2() {
+	public RouteInterface getRoute_adj2() {
 		return route_adj2;
 	}
 
-	public Route getRoute_adj3() {
+	public RouteInterface getRoute_adj3() {
 		return route_adj3;
 	}
 
@@ -116,7 +141,7 @@ public class Ville extends UnicastRemoteObject implements VilleInterface, Serial
 		return gain;
 	}
 
-	public boolean isColonieVille() {
+	public boolean isVille() {
 		return colonieVille;
 	}
 
@@ -125,5 +150,24 @@ public class Ville extends UnicastRemoteObject implements VilleInterface, Serial
 		return "Ville [emplacement=" + emplacement + ", oqp=" + oqp + ", gain=" + gain + ", colonieVille="
 				+ colonieVille + "]";
 	}
+
+	@Override
+	public void ajouterRoute(RouteInterface r) throws RemoteException {
+		// TODO Auto-generated method stub
+		if (this.route_adj1 == null) {
+			route_adj1 = r;
+			return ;
+		}
+		if (this.route_adj2 == null) {
+			route_adj2 = r;
+			return ;
+		}
+		if (this.route_adj3 == null) {
+			route_adj3 = r;
+			return ;
+		}
+	}
+	
+	public Ville() throws RemoteException{}
 
 }

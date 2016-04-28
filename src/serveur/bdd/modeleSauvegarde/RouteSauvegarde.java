@@ -3,7 +3,6 @@ package serveur.bdd.modeleSauvegarde;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 
-import serveur.modele.Joueur;
 import serveur.modele.Point;
 import serveur.modele.service.RouteInterface;
 
@@ -30,7 +29,7 @@ public class RouteSauvegarde implements Serializable {
 	/**
 	 * Joueur : à qui appartient la route (null si personne)
 	 */
-	private Joueur oqp;
+	private JoueurSauvegarde oqp;
 
 	/**
 	 * Constructeur
@@ -45,10 +44,16 @@ public class RouteSauvegarde implements Serializable {
 		this.arrive = route.getArrive();
 		// Dans le cas où une route n'appartient à personne
 		if (route.getOqp() != null) {
-			this.oqp = route.getOqp();
+			this.oqp = new JoueurSauvegarde(route.getOqp());
 		} else {
 			this.oqp = null;
 		}
+	}
+
+	/**
+	 * Constructeur vide pour la désérialisation
+	 */
+	public RouteSauvegarde() throws RemoteException {
 	}
 
 	/**
@@ -94,17 +99,26 @@ public class RouteSauvegarde implements Serializable {
 	 * 
 	 * @return Joueur
 	 */
-	public Joueur getOqp() {
+	public JoueurSauvegarde getOqp() {
 		return oqp;
 	}
 
 	/**
 	 * Setter pour le Joueur propriétaire de la Route
 	 * 
-	 * @param Joueur oqp
+	 * @param Joueur
+	 *            oqp
 	 */
-	public void setOqp(Joueur oqp) {
+	public void setOqp(JoueurSauvegarde oqp) {
 		this.oqp = oqp;
+	}
+
+	/**
+	 * Méthode equals
+	 */
+	public boolean equals(Object o) {
+		return o instanceof RouteSauvegarde && ((RouteSauvegarde) o).depart.equals(this.depart)
+				&& ((RouteSauvegarde) o).arrive.equals(this.arrive);
 	}
 
 }

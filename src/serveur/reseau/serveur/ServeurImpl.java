@@ -59,7 +59,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 		this.nombre_max_joueurs = nombre_max_joueurs;
 		gestionnaireBDD = new GestionnaireBDD();
 		gestionnaireUI = new GestionnaireUI();
-		gestionnairePartie = new GestionnairePartie();
+		gestionnairePartie = new GestionnairePartie(this.gestionnaireUI.getPlateau());
 	}
 	
 	/**
@@ -163,5 +163,24 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	@Override
 	public void enregistrerPartie() throws RemoteException {
 		new Sauvegarde();
+	}
+	
+	public void supprimerJoueur(JoueurInterface joueurASupprimer) throws RemoteException{
+		for(JoueurServeur js : joueurServeurs){
+			if(js.getJoueur().getNomUtilisateur().equals(joueurASupprimer.getNomUtilisateur())){
+				joueurServeurs.remove(js);
+				break;
+			}
+		}
+	}
+
+	@Override
+	public JoueurServeur getJoueur(String nomJoueur) throws RemoteException {
+		for (JoueurServeur j : joueurServeurs){
+			if(j.getJoueur().getNomUtilisateur().equals(nomJoueur)){
+				return j;
+			}
+		}
+		return null;
 	}
 }

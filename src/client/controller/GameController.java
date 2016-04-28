@@ -1,13 +1,11 @@
 package client.controller;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Menu;
-import serveur.modele.Plateau;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * Created by Yohann Hugo on 22/04/2016.

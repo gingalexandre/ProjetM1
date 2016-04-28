@@ -5,27 +5,33 @@ import java.io.Serializable;
 public class Point implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	double x;
 	double y;
-	
+
 	public Point(double x, double y) {
 		super();
-		this.x = ((double)((int) x));
-		this.y = ((double)((int) y));
+		this.x = ((double) ((int) x));
+		this.y = ((double) ((int) y));
 	}
-	
-    public double getX() {
-        return x;
-    }
 
-    public double getY() {
-        return y;
-    }
-   
-    @Override
+	/**
+	 * Constructeur vide pour la désérialisation
+	 */
+	public Point() {
+	}
+
+	public double getX() {
+		return x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	@Override
 	public int hashCode() {
-		return ((int) x)*3+((int) y)*7;
+		return ((int) x) * 3 + ((int) y) * 7;
 	}
 
 	@Override
@@ -43,25 +49,22 @@ public class Point implements Serializable {
 			return false;
 		return true;
 	}
-    
-    public String toString(){
-    	return "x:"+this.x+"-y:"+this.y+"\n";
-    }
-    
-    public int compareTo(Point p){
-    	if(this.y>p.y){
-    		return -10;
-    	}
-    	else if((this.y == p.y)&&(this.x > p.x)){
-    		return -10;
-    	}
-    	else if((this.y == p.y)&&(this.x<p.x)){
-    		return 10;
-    	}
-    	else{
-    		return 0;
-    	}
-    }
+
+	public String toString() {
+		return "x:" + this.x + "-y:" + this.y + "\n";
+	}
+
+	public int compareTo(Point p) {
+		if (this.y > p.y) {
+			return -10;
+		} else if ((this.y == p.y) && (this.x > p.x)) {
+			return -10;
+		} else if ((this.y == p.y) && (this.x < p.x)) {
+			return 10;
+		} else {
+			return 0;
+		}
+	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -74,8 +77,5 @@ public class Point implements Serializable {
 	public void setY(double y) {
 		this.y = y;
 	}
-    
-	
-    
-        
+
 }

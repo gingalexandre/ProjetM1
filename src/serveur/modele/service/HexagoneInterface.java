@@ -2,6 +2,7 @@ package serveur.modele.service;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import serveur.modele.Jeton;
 import serveur.modele.Point;
@@ -68,7 +69,7 @@ public interface HexagoneInterface extends Remote{
 	 * @return la ressource associe à l'hexagone
 	 * @throws RemoteException
 	 */
-	Ressource getRessource() throws RemoteException;
+	int getRessource() throws RemoteException;
 
 	/**
 	 * @return le numero de l'hexagone
@@ -80,7 +81,7 @@ public interface HexagoneInterface extends Remote{
 	 * @return les villes adjacentres de l'hexagone sous forme de tableau
 	 * @throws RemoteException
 	 */
-	Ville[] getVilleAdj() throws RemoteException;
+	ArrayList<VilleInterface> getVilleAdj() throws RemoteException;
 
 	/**
 	 * @return le centre de l'hexagone
@@ -105,5 +106,5 @@ public interface HexagoneInterface extends Remote{
 	 * @throws RemoteException
 	 */
 	void setVOLEUR(boolean VOLEUR) throws RemoteException;
-
+	
 }

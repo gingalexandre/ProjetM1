@@ -53,7 +53,12 @@ public class ChatController implements Initializable{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		enregistrerController();
+		try {
+			enregistrerController();
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		listenerVues();
 		proprietesComposants();
 		try{
@@ -68,8 +73,9 @@ public class ChatController implements Initializable{
 	
 	/**
 	 * Indique au serveur le controller chat distant
+	 * @throws RemoteException 
 	 */
-	private void enregistrerController() {
+	private void enregistrerController() throws RemoteException {
 		proxy = ConnexionManager.getStaticProxy();
 		// Indique au proxy que le ChatController du joueur est cette classe
 		proxy.setChatController(this);

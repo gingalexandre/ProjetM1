@@ -4,9 +4,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-
 import javafx.scene.shape.Circle;
+import serveur.bdd.modeleSauvegarde.JetonSauvegarde;
 import serveur.commun.DistributeurJeton;
 import serveur.modele.service.JetonInterface;
 import serveur.view.VueJeton;
@@ -31,9 +30,16 @@ public class Jeton extends UnicastRemoteObject implements JetonInterface {
 
 	private int numeroJeton;
 
+	public Jeton() throws RemoteException{}
+	
 	public Jeton(Hexagone hexagone) throws RemoteException{
 		numeroJeton = DistributeurJeton.getInstance().donnerJeton();
 		emplacement = hexagone.getCentre();
+	}
+	
+	public Jeton(JetonSauvegarde jetonSauvegarde) throws RemoteException{
+		numeroJeton = jetonSauvegarde.getNumeroJeton();
+		emplacement = jetonSauvegarde.getEmplacement();
 	}
 
 	public int getNumeroJeton() throws RemoteException{

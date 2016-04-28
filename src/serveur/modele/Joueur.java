@@ -12,6 +12,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import serveur.bdd.modeleSauvegarde.JoueurSauvegarde;
 import serveur.modele.carte.Carte;
 import serveur.modele.service.JoueurInterface;
 
@@ -77,13 +78,17 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	private ArrayList<Carte> cartes = new ArrayList<Carte>();
 
 	/**
+	 * Points de victoires supplémentaires
+	 */
+	boolean routeLaPlusLongue, armeeLaPlusPuissante = false;
+	
+	/**
 	 * Constructeur de joueur
 	 * Est appele lors de l'ajout d'un proxy sur le serveur
 	 */
 	public Joueur() throws RemoteException{
 		initialisationAttributs();
 	}
-	
 	
 	
 	public Joueur(int id, String nomUtilisateur, Date dateDeNaissance, String couleur, boolean pret, int pointVictoire,
@@ -103,6 +108,32 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		this.cartes = cartes;
 	}
 
+	public void aUneRoutePlusLongue(Joueur j){
+		//TODO
+	}
+	
+	public void aUneArmeePlusGrande(Joueur j){
+		//TODO
+	}
+
+	public boolean isRouteLaPlusLongue() {
+		return routeLaPlusLongue;
+	}
+
+
+	public void setRouteLaPlusLongue(boolean routeLaPlusLongue) {
+		this.routeLaPlusLongue = routeLaPlusLongue;
+	}
+
+
+	public boolean isArmeeLaPlusPuissante() {
+		return armeeLaPlusPuissante;
+	}
+
+
+	public void setArmeeLaPlusPuissante(boolean armeeLaPlusPuissante) {
+		this.armeeLaPlusPuissante = armeeLaPlusPuissante;
+	}
 
 
 	/**
@@ -124,6 +155,22 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		this.setDateDeNaissance(dateNaissance);
 		initialisationAttributs();
 	}
+
+	public Joueur(JoueurSauvegarde joueur) throws RemoteException{
+		this.id = joueur.getId();
+		this.nomUtilisateur = joueur.getNomUtilisateur();
+		this.dateDeNaissance = joueur.getDateDeNaissance();
+		this.couleur = joueur.getCouleur();
+		this.pret = joueur.isPret();
+		this.pointVictoire = joueur.getPointVictoire();
+		this.nbColonie = joueur.getNbColonie();
+		this.nbVille = joueur.getNbVille();
+		this.nbRoute = joueur.getNbRoute();
+		this.stockRessource = joueur.getStockRessource();
+		this.cartes = joueur.getCartes();
+	}
+
+
 
 	/**
 	 * Permet d'initialiser des divers attributs d'un joueur
@@ -152,6 +199,10 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		this.stockRessource = stockRessource;
 	}
 
+	public void setId(int id) throws RemoteException{
+		this.id = id;
+	}
+	
 	public int getId() throws RemoteException{
 		return this.id;
 	}
@@ -205,7 +256,11 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	}
 
 	public void ajouterPointVictoire()  throws RemoteException{
-		this.setPointVictoire(this.getPointVictoire() + 1);
+		this.pointVictoire++;
+	}
+	
+	public void supprimerPointVictoire()  throws RemoteException{
+		this.pointVictoire--;
 	}
 	
 	public String getNomUtilisateur()  throws RemoteException{
@@ -296,4 +351,12 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 			return 0;
 		}
 	}
+	/**
+	 * Méthode equals
+	 */
+	public boolean equals(Object o){
+		return o instanceof Joueur && ((Joueur)o).id==this.id;
+	}
+	
+	
 }

@@ -1,0 +1,3 @@
+git pull
+git branch -a
+git checkout --track origin/nom_branche_distante

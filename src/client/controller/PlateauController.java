@@ -3,12 +3,15 @@ package client.controller;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+
+import client.view.VuePrincipale;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Polygon;
+import serveur.bdd.modeleSauvegarde.PlateauSauvegarde;
 import serveur.modele.*;
 import serveur.reseau.proxy.Proxy;
 import serveur.reseau.serveur.ConnexionManager;
@@ -80,16 +83,19 @@ public class PlateauController implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		recupererAttributs();
-		enregistrerController();
 
 		try {
+			recupererAttributs();
+			enregistrerController();
+			VuePrincipale.paneUsed = mainPane;
 			recupererPlateau();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 		Platform.runLater(() -> dessinerPlateau());
 	}
+	
+
 
 	
 	/**
@@ -102,8 +108,9 @@ public class PlateauController implements Initializable{
 
 	/**
 	 * Indique au proxy que cette classe est le controller du plateau
+	 * @throws RemoteException 
 	 */
-	private void enregistrerController() {
+	private void enregistrerController() throws RemoteException {
 		Proxy proxy = ConnexionManager.getStaticProxy();
 		proxy.setPlateauController(this);
 	}
@@ -128,21 +135,21 @@ public class PlateauController implements Initializable{
 		imgView.setFitWidth(650);
 		imgView.setLayoutX(50);
 		mainPane.getChildren().add(imgView);
-
+		
 		try {
 			// Ajout des hexagones
 			hexagones = new Group();
 			hexagones.getChildren().addAll(VueHexagone.transformVueHexagone(plateau.getHexagones()));
 	
+			//Ajout des routes
+			routes = new Group();
+	        routes.getChildren().addAll(Route.transformRouteVueRoute(plateau.getRoutes()));
+	        
 			//Ajout des villes
 			villes = new Group();
 	        Circle[] t = Ville.transformVilleVueVille(plateau.getVilles());
 			villes = new Group();
 			villes.getChildren().addAll(t);
-	
-			//Ajout des routes
-			routes = new Group();
-	        routes.getChildren().addAll(Route.transformRouteVueRoute(plateau.getRoutes()));
 	
 			//Ajout des jetons
 			jetons = new Group();
@@ -151,8 +158,8 @@ public class PlateauController implements Initializable{
 	
 			// Construction du Pane principal
 			mainPane.getChildren().add(hexagones);
-			mainPane.getChildren().add(villes);
 			mainPane.getChildren().add(routes);
+			mainPane.getChildren().add(villes);
 			mainPane.getChildren().add(jetons);
 	        mainPane.setStyle("-fx-background-color: #4e6c91");
 		}catch(RemoteException e){

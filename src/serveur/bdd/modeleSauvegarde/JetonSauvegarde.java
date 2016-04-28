@@ -43,6 +43,12 @@ public class JetonSauvegarde implements Serializable {
 	}
 
 	/**
+	 * Constructeur vide pour la désérialisation
+	 */
+	public JetonSauvegarde() throws RemoteException {
+	}
+
+	/**
 	 * Getter de l'Emplacement
 	 * 
 	 * @return Point
@@ -78,6 +84,14 @@ public class JetonSauvegarde implements Serializable {
 	 */
 	public void setNumeroJeton(int numeroJeton) {
 		this.numeroJeton = numeroJeton;
+	}
+
+	/**
+	 * Méthode equals
+	 */
+	public boolean equals(Object o) {
+		return o instanceof JetonSauvegarde && ((JetonSauvegarde) o).emplacement.equals(this.emplacement)
+				&& ((JetonSauvegarde) o).numeroJeton == this.numeroJeton;
 	}
 
 }

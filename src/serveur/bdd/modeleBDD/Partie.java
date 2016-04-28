@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import serveur.bdd.Base;
 import serveur.bdd.modeleSauvegarde.JoueurSauvegarde;
+import serveur.bdd.modeleSauvegarde.PartieSauvegarde;
 import serveur.commun.Fonctions;
 
 /**
@@ -46,6 +47,7 @@ public class Partie {
 		// Création du checksum
 		this.checksum = Fonctions.crypte(contenu);
 	}
+
 
 	/**
 	 * Méthode permettant de retrouver une Partie par son id

@@ -2,10 +2,10 @@ package serveur.bdd.modeleSauvegarde;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
+import serveur.commun.Fonctions;
 import serveur.modele.Point;
-import serveur.modele.Ressource;
-import serveur.modele.Ville;
 import serveur.modele.service.HexagoneInterface;
 
 /**
@@ -29,7 +29,7 @@ public class HexagoneSauvegarde implements Serializable {
 	/**
 	 * Ressource que produit l'hexagone
 	 */
-	private Ressource ressource;
+	private int ressource;
 	/**
 	 * Id de l'hexagone
 	 */
@@ -37,7 +37,7 @@ public class HexagoneSauvegarde implements Serializable {
 	/**
 	 * Tableau de ville adjacente à l'hexagone
 	 */
-	private Ville[] villeAdj = new Ville[6];
+	private ArrayList<VilleSauvegarde> villeAdj = new ArrayList<VilleSauvegarde>();
 	/**
 	 * Booléen stockant le fait que le voleur est ou non placé sur l'hexagone
 	 */
@@ -91,7 +91,7 @@ public class HexagoneSauvegarde implements Serializable {
 		this.indexHexagone = hex.getIndexHexagone();
 		this.ressource = hex.getRessource();
 		this.numero = hex.getNumero();
-		this.villeAdj = hex.getVilleAdj();
+		this.villeAdj = Fonctions.transformArrayVilleSauvegarde(hex.getVilleAdj());
 		VOLEUR = hex.getVOLEUR();
 		this.a = hex.getA();
 		this.b = hex.getB();
@@ -106,6 +106,12 @@ public class HexagoneSauvegarde implements Serializable {
 		} else {
 			this.numeroJeton = null;
 		}
+	}
+
+	/**
+	 * Constructeur vide pour la désérialisation
+	 */
+	public HexagoneSauvegarde() throws RemoteException {
 	}
 
 	/**
@@ -132,7 +138,7 @@ public class HexagoneSauvegarde implements Serializable {
 	 * 
 	 * @return la Ressource de l'Hexagone
 	 */
-	public Ressource getRessource() {
+	public int getRessource() {
 		return ressource;
 	}
 
@@ -142,7 +148,7 @@ public class HexagoneSauvegarde implements Serializable {
 	 * @param ressource
 	 *            Ressource de l'Hexagone
 	 */
-	public void setRessource(Ressource ressource) {
+	public void setRessource(int ressource) {
 		this.ressource = ressource;
 	}
 
@@ -170,7 +176,7 @@ public class HexagoneSauvegarde implements Serializable {
 	 * 
 	 * @return Tableau de Ville de l'Hexagone
 	 */
-	public Ville[] getVilleAdj() {
+	public ArrayList<VilleSauvegarde> getVilleAdj() {
 		return villeAdj;
 	}
 
@@ -180,7 +186,7 @@ public class HexagoneSauvegarde implements Serializable {
 	 * @param villeAdj
 	 *            Tableau de Ville de l'Hexagone
 	 */
-	public void setVilleAdj(Ville[] villeAdj) {
+	public void setVilleAdj(ArrayList<VilleSauvegarde> villeAdj) {
 		this.villeAdj = villeAdj;
 	}
 
@@ -337,6 +343,7 @@ public class HexagoneSauvegarde implements Serializable {
 	public int getType() {
 		return type;
 	}
+
 	/**
 	 * Setter du Type de l'Hexagone
 	 * 
@@ -345,24 +352,27 @@ public class HexagoneSauvegarde implements Serializable {
 	public void setType(int type) {
 		this.type = type;
 	}
+
 	/**
-	 * Getter du Jeton 
+	 * Getter du Jeton
 	 * 
 	 * @return JetonSauvegarde
 	 */
 	public JetonSauvegarde getNumeroJeton() {
 		return numeroJeton;
 	}
+
 	/**
-	 * Setter du Jeton 
+	 * Setter du Jeton
 	 * 
 	 * @param JetonSauvegarde
 	 */
 	public void setNumeroJeton(JetonSauvegarde numeroJeton) {
 		this.numeroJeton = numeroJeton;
 	}
+
 	/**
-	 * Getter du Serialversionuid pour la sérialisation 
+	 * Getter du Serialversionuid pour la sérialisation
 	 * 
 	 * @return long
 	 */
@@ -370,4 +380,10 @@ public class HexagoneSauvegarde implements Serializable {
 		return serialVersionUID;
 	}
 
+	/**
+	 * Méthode equals
+	 */
+	public boolean equals(Object o) {
+		return o instanceof HexagoneSauvegarde && ((HexagoneSauvegarde) o).indexHexagone == this.indexHexagone;
+	}
 }

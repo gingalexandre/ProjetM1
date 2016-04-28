@@ -38,6 +38,8 @@ public class TestSauvegarde {
 		String contenu = "";
 		contenu = objectMapper.writeValueAsString(hexSauv);
 		assertTrue(contenu != "");
+		HexagoneSauvegarde h2 = objectMapper.readValue(contenu, HexagoneSauvegarde.class);
+		assertTrue(h2.equals(hexSauv));
 	}
 
 	@Test
@@ -48,15 +50,22 @@ public class TestSauvegarde {
 		String contenu = "";
 		contenu = objectMapper.writeValueAsString(jetonSauv);
 		assertTrue(contenu != "");
+		JetonSauvegarde jet2 = objectMapper.readValue(contenu, JetonSauvegarde.class);
+		assertTrue(jet2.equals(jetonSauv));
 	}
 
 	@Test
 	public void genererSauvegardeVille() throws JsonGenerationException, JsonMappingException, IOException {
 		Ville ville = new Ville(new Point(1.0, 2.0));
+		ville.ajouterRoute(new Route(new Point(1.0, 2.0), new Point(1.0, 2.0)));
+		ville.ajouterRoute(new Route(new Point(1.0, 2.0), new Point(1.0, 2.0)));
+		ville.ajouterRoute(new Route(new Point(1.0, 2.0), new Point(1.0, 2.0)));
 		VilleSauvegarde villeSauv = new VilleSauvegarde(ville);
 		String contenu = "";
 		contenu = objectMapper.writeValueAsString(villeSauv);
 		assertTrue(contenu != "");
+		VilleSauvegarde v2 = objectMapper.readValue(contenu, VilleSauvegarde.class);
+		assertTrue(v2.equals(villeSauv));
 	}
 
 	@Test
@@ -66,6 +75,8 @@ public class TestSauvegarde {
 		String contenu = "";
 		contenu = objectMapper.writeValueAsString(routeSauv);
 		assertTrue(contenu != "");
+		RouteSauvegarde r2 = objectMapper.readValue(contenu, RouteSauvegarde.class);
+		assertTrue(r2.equals(routeSauv));
 	}
 
 	@Test
@@ -76,6 +87,8 @@ public class TestSauvegarde {
 		String contenu = "";
 		contenu = objectMapper.writeValueAsString(joueurSauv);
 		assertTrue(contenu != "");
+		JoueurSauvegarde j2 = objectMapper.readValue(contenu, JoueurSauvegarde.class);
+		assertTrue(j2.equals(joueurSauv));
 	}
 
 }

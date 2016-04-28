@@ -3,15 +3,20 @@ package serveur.reseau.proxy;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import client.controller.ChatController;
 import client.controller.EchangeController;
-import client.controller.MenuController;
 import client.controller.JoueursController;
+import client.controller.MenuController;
 import client.controller.PlateauController;
+import client.controller.PropositionController;
+import client.controller.ReglesController;
 import serveur.modele.Message;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
+import serveur.modele.service.RouteInterface;
+import serveur.modele.service.VilleInterface;
 
 public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 
@@ -26,6 +31,11 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	 * Controller du menu
 	 */
 	private MenuController menuController;
+	
+	/**
+	 * Controller des règles
+	 */
+	private ReglesController reglesController;
 	
 	/**
 	 * Controller des échanges
@@ -43,6 +53,11 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	private PlateauController plateauController;
 	
 	/**
+	 * Controller des propositions
+	 */
+	private PropositionController propostionController;
+	
+	/**
 	 * Joueur associe au proxy
 	 */
 	private JoueurInterface joueur;
@@ -54,40 +69,48 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	/**
 	 * @param chatController
 	 */
-	public void setChatController(ChatController chatController){
+	public void setChatController(ChatController chatController)throws RemoteException {
 		this.chatController = chatController;
 	}
 
 	/**
 	 * @param plateauController
 	 */
-	public void setPlateauController(PlateauController plateauController) {
+	public void setPlateauController(PlateauController plateauController) throws RemoteException {
 		this.plateauController = plateauController;
 	}
 	
 	/**
 	 * @param menuController
 	 */
-	public void setMenuController(MenuController menuController) {
+	public void setMenuController(MenuController menuController) throws RemoteException {
 		this.menuController = menuController;
 	}
 	
 	/**
 	 * @param echangeController
 	 */
-	public void setEchangeController(EchangeController echangeController){
+	public void setEchangeController(EchangeController echangeController) throws RemoteException {
 		this.echangeController = echangeController;
 	}
 	
 	/**
 	 * @param joueursController
 	 */
-	public void setJoueursController(JoueursController joueursController){
+	public void setJoueursController(JoueursController joueursController) throws RemoteException {
 		this.joueursController = joueursController;
 	}
 
-	public JoueursController getJoueursController(){
+	public JoueursController getJoueursController() throws RemoteException {
 		return joueursController;
+	}
+	
+	public void setPropositionController(PropositionController propositionController)throws RemoteException  {
+		this.propostionController = propositionController;
+	}
+	
+	public void setReglesController(ReglesController reglesController)throws RemoteException  {
+		this.reglesController = reglesController;
 	}
 
 	/**
@@ -114,6 +137,11 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 		this.plateauController.setPlateau(plateau);
 	}
 
+	@Override
+	public void envoyerProposition(HashMap<String, Integer> offreDemande, String nomExpediteur) throws RemoteException {
+		this.menuController.ouvrirProposition(nomExpediteur, offreDemande);
+	}
+	
 	/**
 	 * Recoit la liste des autres joueurs envoyes par le serveur et l'envoie au controller adequat
 	 * @param autresJoueurs
@@ -127,7 +155,7 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	/**
 	 * @return le joueur associe au proxy
 	 */
-	public JoueurInterface getJoueur(){
+	public JoueurInterface getJoueur() throws RemoteException {
 		return joueur;
 	}
 
@@ -151,5 +179,49 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	public void setButtons(boolean boo) throws RemoteException {
 		this.menuController.setButtons(boo);
 	}
+	
+	public void setButtonsSauvegarde(boolean boo) throws RemoteException{
+		this.reglesController.setButtonsSauvegarde(boo);
+	}
 
+
+	@Override
+	public void lancerTour() throws RemoteException{
+		this.menuController.demanderColonie(true);
+	}
+
+	@Override
+	public void recevoirPriseDeRoute(RouteInterface r, JoueurInterface j) throws RemoteException {
+		this.menuController.dessinerRoute(r,j);
+	}
+
+	@Override
+	public void recevoirPriseDeVille(VilleInterface v, JoueurInterface joueurCourrant) throws RemoteException {
+		this.menuController.dessinerVille(v, joueurCourrant);
+	}
+
+	@Override
+	public void recevoirGainRessource() throws RemoteException {
+		this.joueursController.majRessource();
+	}
+
+	/**
+	 * Permet de supprimer du menu un joueur ayant quitter la partie
+	 */
+	public void suppressionJoueur(String nomJoueurASupprimer) throws RemoteException {
+		this.joueursController.suppressionJoueur(nomJoueurASupprimer);
+		
+	}
+
+	/**
+	 * Permet de supprimer du menu un joueur ayant quitter avant le début de la partie
+	 */
+	public void suppressionDepartJoueur(String nomUtilisateur) throws RemoteException {
+		this.joueursController.suppressionDepartJoueur(nomUtilisateur);
+	}
+
+	@Override
+	public void envoyerNbCarte() throws RemoteException {
+		this.joueursController.majNbCarte();
+	}
 }

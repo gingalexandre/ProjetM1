@@ -1,9 +1,15 @@
 package serveur.bdd.modeleSauvegarde;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+
+import serveur.commun.Fonctions;
 import serveur.modele.Plateau;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PartieInterface;
@@ -23,6 +29,11 @@ public class PartieSauvegarde implements Serializable {
 	 * Variable pour la sérialisation
 	 */
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Booléen pour savoir si la partie a commencé
+	 */
+
 	/**
 	 * PlateauSauvegarde stockant le plateau
 	 */
@@ -39,15 +50,31 @@ public class PartieSauvegarde implements Serializable {
 	 * Joueur a qui c'est le tour
 	 */
 	private JoueurSauvegarde joueurActuel;
+	/**
+	 * Booléen pour savoir si la partie a commencé
+	 */
+	private boolean isPartieCommence;
+
+	/**
+	 * Tour
+	 */
+	private int tour;
+	/**
+	 * Tour total
+	 */
+	private int tourGlobal;
 
 	/**
 	 * Constructeur
 	 * 
 	 * @throws RemoteException
 	 */
-	public PartieSauvegarde() throws RemoteException {
+	public PartieSauvegarde(boolean t) throws RemoteException {
 		this.plateauCourant = new PlateauSauvegarde(recupererPlateau());
 		Serveur serveur = ConnexionManager.getStaticServeur();
+		this.isPartieCommence = serveur.getGestionnairePartie().getPartie().isPartieCommence();
+		this.tour = serveur.getGestionnairePartie().getPartie().getTour();
+		this.tourGlobal = serveur.getGestionnairePartie().getPartie().getCompteurTourGlobal();
 		ArrayList<JoueurServeur> joueursServeur = new ArrayList<JoueurServeur>();
 		try {
 			// Récupération de tous les joueurs
@@ -55,18 +82,8 @@ public class PartieSauvegarde implements Serializable {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-
-		for (JoueurServeur js : joueursServeur) {
-
-			try {
-				// Conversion de chaque JoueurInterface en JoueurSauvegarde
-				JoueurSauvegarde joueur = new JoueurSauvegarde(js.getJoueur());
-				this.joueurs.add(joueur);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-
-		}
+		
+		this.joueurs = Fonctions.transformArrayJoueurSauvegarde(joueursServeur);
 		JoueurInterface joueurInterfaceActuel;
 		PartieInterface partie = null;
 		try {
@@ -79,6 +96,12 @@ public class PartieSauvegarde implements Serializable {
 			e.printStackTrace();
 		}
 
+	}
+
+	/**
+	 * Constructeur vide pour la désérialisation
+	 */
+	public PartieSauvegarde() throws RemoteException {
 	}
 
 	/**
@@ -174,6 +197,83 @@ public class PartieSauvegarde implements Serializable {
 	 */
 	public void setIdPartie(int idPartie) {
 		this.idPartie = idPartie;
+	}
+
+	/**
+	 * Getter du boolean pour savoir si la partie à commencé
+	 * 
+	 * @return booléen
+	 */
+	public boolean getIsPartieCommence() {
+		return isPartieCommence;
+	}
+
+	/**
+	 * Setter du boolean pour savoir si la partie à commencé
+	 * 
+	 * @param partieCommence
+	 *            booléen
+	 */
+	public void setPartieCommence(boolean partieCommence) {
+		this.isPartieCommence = partieCommence;
+	}
+
+	/**
+	 * Méthode pour déserialiser
+	 * 
+	 * @param json
+	 *            : String json en entrée
+	 * @return l'Objet Partie Sauvegarde
+	 */
+	public static PartieSauvegarde deserialiser(String json) {
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			return objectMapper.readValue(json, PartieSauvegarde.class);
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+
+	/**
+	 * Getter de Tour
+	 * 
+	 * @return int
+	 */
+	public int getTour() {
+		return tour;
+	}
+
+	/**
+	 * Setter de Tour
+	 * 
+	 * @param int
+	 */
+	public void setTour(int tour) {
+		this.tour = tour;
+	}
+
+	/**
+	 * Getter de TourGlobale
+	 * 
+	 * @return int
+	 */
+	public int getTourGlobal() {
+		return tourGlobal;
+	}
+
+	/**
+	 * Setter de TourGlobale
+	 * 
+	 * @param int
+	 */
+	public void setTourGlobal(int tourGlobal) {
+		this.tourGlobal = tourGlobal;
 	}
 
 }

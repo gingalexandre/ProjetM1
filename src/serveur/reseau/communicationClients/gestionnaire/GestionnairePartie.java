@@ -189,9 +189,14 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	 * @throws RemoteException
 	 */
 	public void finirTour(String nomJoueurActuel) throws RemoteException {
+		// Passage au tour suivant
 		partie.incrementeTour();
+		
+		// On récupère le joueur suivant et on active ses boutons
 		JoueurInterface joueurTour = this.partie.getJoueurTour();
 		enableBoutons(joueurTour);
+		
+		// Diffusion message
 		for(JoueurServeur joueurServeur : joueursServeur) {
 			joueurServeur.recevoirMessage(new Message(nomJoueurActuel+" a terminé son tour."+"\nC'est à "+joueurTour.getNomUtilisateur()+" de jouer."));
 		}

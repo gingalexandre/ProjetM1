@@ -360,10 +360,7 @@ public class MenuController implements Initializable {
 		this.setButtons(true);
 		
 		//Lancement du tour du joueur suivant
-		JoueurInterface joueurTour = serveur.getGestionnairePartie().finirTour();
-		
-		serveur.getGestionnaireUI().diffuserMessage(new Message("C'est à "+joueurTour.getNomUtilisateur()+" de jouer"));
-		serveur.getGestionnairePartie().lancerProchainTour(joueurTour);
+		serveur.getGestionnairePartie().finirTour();
 	}
 	
 	public void demanderRoute(boolean initPhase,VilleInterface villeIgnored){

@@ -14,6 +14,7 @@ import serveur.modele.service.VilleInterface;
 import serveur.reseau.communicationClients.service.GestionnaireUIInterface;
 import serveur.reseau.proxy.JoueurServeur;
 import serveur.reseau.serveur.ConnexionManager;
+import serveur.reseau.serveur.Serveur;
 
 /**
  * Classe qui s'occupe des echanges concernant l'interface entre les clients et
@@ -124,38 +125,31 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	 * Permet de diffuser le fait que le joueur x est parti
 	 */
 	public void diffuserDepartJoueur(JoueurInterface joueurSupprime) throws RemoteException {
+		Serveur serveur = ConnexionManager.getInstance().getServeur();
 		// Dans le cas où la partie n'a pas commencée
-		if (!ConnexionManager.getInstance().getServeur().getGestionnairePartie().getPartie().isPartieCommence()) {
-			ConnexionManager.getInstance().getServeur().getGestionnairePartie().getPartie()
-					.affecterNullJoueur(joueurSupprime);
-			ConnexionManager.getInstance().getServeur().supprimerJoueur(joueurSupprime);
+		if (!serveur.getGestionnairePartie().getPartie().isPartieCommence()) {
+			serveur.getGestionnairePartie().getPartie().affecterNullJoueur(joueurSupprime);
+			serveur.supprimerJoueur(joueurSupprime);
 			for (JoueurServeur js : joueurServeurs) {
 				js.suppressionDepartJoueur(joueurSupprime.getNomUtilisateur());
 			}
-			ConnexionManager.getInstance().getServeur().envoyerNombreJoueursConnectes();
+			serveur.envoyerNombreJoueursConnectes();
 		} else {
 			// Si c'était le tour du joueur qui part, on le termine et le jeu
 			// continu
-			if (ConnexionManager.getInstance().getServeur().getGestionnairePartie().getPartie().getJoueurTour()
-					.getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())) {
-				JoueurInterface joueurTour = ConnexionManager.getInstance().getServeur().getGestionnairePartie()
-						.finirTour();
-				ConnexionManager.getInstance().getServeur().getGestionnairePartie().lancerProchainTour(joueurTour);
-				this.diffuserMessage(new Message("C'est au tour de " + joueurTour.getNomUtilisateur()));
+			if (serveur.getGestionnairePartie().getPartie().getJoueurTour().getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())) {
+				serveur.getGestionnairePartie().finirTour();
 			}
 			// Suppression du joueur
 			joueurServeurs.remove(joueurSupprime);
 			for (JoueurServeur js : joueurServeurs) {
 				js.suppressionJoueur(joueurSupprime.getNomUtilisateur());
 			}
-			ConnexionManager.getInstance().getServeur().getGestionnairePartie().getPartie().setTour(
-					ConnexionManager.getInstance().getServeur().getGestionnairePartie().getPartie().getTour() - 1);
-
+			serveur.getGestionnairePartie().getPartie().setTour(serveur.getGestionnairePartie().getPartie().getTour() - 1);
 		}
 		// Suppression complète du serveur
-		ConnexionManager.getInstance().getServeur().getGestionnairePartie().supprimerJoueur(joueurSupprime);
-		ConnexionManager.getInstance().getServeur().getGestionnairePartie().getPartie()
-				.supprimerJoueur(joueurSupprime);
+		serveur.getGestionnairePartie().supprimerJoueur(joueurSupprime);
+		serveur.getGestionnairePartie().getPartie().supprimerJoueur(joueurSupprime);
 	}
 
 	@Override

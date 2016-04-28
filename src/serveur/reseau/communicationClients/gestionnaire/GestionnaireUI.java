@@ -126,24 +126,25 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	 */
 	public void diffuserDepartJoueur(JoueurInterface joueurSupprime) throws RemoteException {
 		Serveur serveur = ConnexionManager.getInstance().getServeur();
+		String nomJoueurSupprime = joueurSupprime.getNomUtilisateur();
 		// Dans le cas où la partie n'a pas commencée
 		if (!serveur.getGestionnairePartie().getPartie().isPartieCommence()) {
 			serveur.getGestionnairePartie().getPartie().affecterNullJoueur(joueurSupprime);
 			serveur.supprimerJoueur(joueurSupprime);
 			for (JoueurServeur js : joueurServeurs) {
-				js.suppressionDepartJoueur(joueurSupprime.getNomUtilisateur());
+				js.suppressionDepartJoueur(nomJoueurSupprime);
 			}
 			serveur.envoyerNombreJoueursConnectes();
 		} else {
 			// Si c'était le tour du joueur qui part, on le termine et le jeu
 			// continu
 			if (serveur.getGestionnairePartie().getPartie().getJoueurTour().getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())) {
-				serveur.getGestionnairePartie().finirTour();
+				serveur.getGestionnairePartie().finirTour(nomJoueurSupprime);
 			}
 			// Suppression du joueur
 			joueurServeurs.remove(joueurSupprime);
 			for (JoueurServeur js : joueurServeurs) {
-				js.suppressionJoueur(joueurSupprime.getNomUtilisateur());
+				js.suppressionJoueur(nomJoueurSupprime);
 			}
 			serveur.getGestionnairePartie().getPartie().setTour(serveur.getGestionnairePartie().getPartie().getTour() - 1);
 		}

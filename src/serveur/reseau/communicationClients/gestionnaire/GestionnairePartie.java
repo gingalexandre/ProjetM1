@@ -188,14 +188,12 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	 * Finit le tour d'un joueur et renvoie le joueur suivant
 	 * @throws RemoteException
 	 */
-	public void finirTour() throws RemoteException {
-		
+	public void finirTour(String nomJoueurActuel) throws RemoteException {
 		partie.incrementeTour();
-		
 		JoueurInterface joueurTour = this.partie.getJoueurTour();
 		enableBoutons(joueurTour);
 		for(JoueurServeur joueurServeur : joueursServeur) {
-			joueurServeur.recevoirMessage(new Message("C'est à "+joueurTour.getNomUtilisateur()+" de jouer"));
+			joueurServeur.recevoirMessage(new Message(nomJoueurActuel+" a terminé son tour."+"\nC'est à "+joueurTour.getNomUtilisateur()+" de jouer."));
 		}
 		lancerProchainTour(joueurTour);
 	}

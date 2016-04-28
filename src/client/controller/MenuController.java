@@ -355,12 +355,11 @@ public class MenuController implements Initializable {
 	 * @throws RemoteException 
 	 */
 	public void finirLeTour() throws RemoteException{
-		String nomJoueur = proxy.getJoueur().getNomUtilisateur();
-		serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" a fini son tour"));
+		String nomJoueurActuel = proxy.getJoueur().getNomUtilisateur();
 		this.setButtons(true);
 		
 		//Lancement du tour du joueur suivant
-		serveur.getGestionnairePartie().finirTour();
+		serveur.getGestionnairePartie().finirTour(nomJoueurActuel);
 	}
 	
 	public void demanderRoute(boolean initPhase,VilleInterface villeIgnored){
@@ -606,7 +605,6 @@ public class MenuController implements Initializable {
 												//v.setOQP(null);
 												maFirstColo = v;
 												i++;
-												System.out.println(maFirstColo);
 											}
 										}
 										//System.out.println();

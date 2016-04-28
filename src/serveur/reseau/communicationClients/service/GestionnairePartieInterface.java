@@ -86,7 +86,7 @@ public interface GestionnairePartieInterface extends Remote {
 	 * 
 	 * @throws RemoteException
 	 */
-	void finirTour() throws RemoteException;
+	void finirTour(String nomUtilisateurActuel) throws RemoteException;
 
 	/**
 	 * Renvoi la partie

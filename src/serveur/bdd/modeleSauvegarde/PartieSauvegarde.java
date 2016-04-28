@@ -204,7 +204,7 @@ public class PartieSauvegarde implements Serializable {
 	 * 
 	 * @return booléen
 	 */
-	public boolean isPartieCommence() {
+	public boolean getIsPartieCommence() {
 		return isPartieCommence;
 	}
 

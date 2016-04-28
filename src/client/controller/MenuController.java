@@ -138,6 +138,8 @@ public class MenuController implements Initializable {
 		de1.setImage(new Image(distribuerDes(resultats[0])));
 		de2.setImage(new Image(distribuerDes(resultats[1])));
 
+        notifierLancerDes(resultats);
+
         int des_val = 0;
 		for(int i = 0; i<resultats.length;i++){
 			des_val += resultats[i];
@@ -148,9 +150,7 @@ public class MenuController implements Initializable {
             serveur.getGestionnaireUI().diffuserMessage(new Message ("Choisir la case de destination du Voleur"));
 			pc.doActionVoleur();
 		}
-		notifierLancerDes(resultats);
 
-		
 	}
 	
 	public void animateDes() {

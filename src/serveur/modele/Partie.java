@@ -13,9 +13,8 @@ import java.util.Comparator;
 
 import serveur.bdd.modeleSauvegarde.PartieSauvegarde;
 import serveur.commun.Fonctions;
-import serveur.modele.service.JoueurInterface;
-import serveur.modele.service.PartieInterface;
-import serveur.modele.service.PlateauInterface;
+import serveur.modele.carte.Paquet;
+import serveur.modele.service.*;
 
 /**
  *
@@ -48,10 +47,18 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	 */
 	private int compteurTourGlobal;
 
+	/**
+	 * Plateau de la partie.
+	 */
 	private PlateauInterface plateau;
 
 	/**
-	 * @param plateau
+	 * Deck de carte de la partie;
+	 */
+	private PaquetInterface deck;
+
+	/**
+	 * @param p
 	 *            - plateau de la partie
 	 */
 	public Partie(PlateauInterface p) throws RemoteException {
@@ -61,6 +68,7 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 		this.compteurTourGlobal = 0;
 		this.plateau = p;
 		this.partieCommence = false;
+		this.deck = new Paquet();
 	}
 	
 	public Partie(PartieSauvegarde p) throws RemoteException{
@@ -288,5 +296,14 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	
 	
 	public Partie() throws RemoteException{}
+
+	/**
+	 * Renvoi la première carte du paquet.
+	 * @return
+	 * @throws RemoteException
+     */
+	public CarteInterface piocheDeck() throws RemoteException{
+		return this.deck.pioche();
+	}
 
 }

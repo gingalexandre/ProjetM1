@@ -1,11 +1,13 @@
 package serveur.modele.carte;
 
+import serveur.modele.service.CarteInterface;
+
 /**
  *Carte construction qui permettent de gagner de façon permanente deux routes au joueur jouant la classe.
  *
  * @author Yohann Hugo
  */
-public class Route implements Carte{
+public class Route implements CarteInterface {
 	
 	private String nomCarte = "Carte Route";
 	

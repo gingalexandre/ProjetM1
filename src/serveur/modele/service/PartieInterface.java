@@ -139,7 +139,7 @@ public interface PartieInterface extends Remote {
 
 	/**
 	 * Récupération d'un joueur en fonction de son nom
-	 * @param couleur
+	 * @param nom
 	 * @return
 	 * @throws RemoteException
 	 */
@@ -209,5 +209,12 @@ public interface PartieInterface extends Remote {
 	 *            booléen
 	 */
 	public void setPartieCommence(boolean partieCommence) throws RemoteException;
+
+	/**
+	 * Renvoi la première carte du deck de la partie concernée.
+	 * @return Carte
+	 * @throws RemoteException
+     */
+	public CarteInterface piocheDeck() throws RemoteException;
 
 }

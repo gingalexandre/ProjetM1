@@ -14,17 +14,18 @@
     <children>
         <GridPane fx:id="menuGridPane" visible="false" gridLinesVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
-                <ColumnConstraints percentWidth="9.0" hgrow="SOMETIMES" />
-                <ColumnConstraints percentWidth="9.0" hgrow="SOMETIMES" />
-                <ColumnConstraints percentWidth="9.0" hgrow="SOMETIMES" />
-                <ColumnConstraints percentWidth="9.0" hgrow="SOMETIMES" />
-                <ColumnConstraints percentWidth="9.0" hgrow="SOMETIMES" />
-                <ColumnConstraints percentWidth="9.0" hgrow="SOMETIMES" />
-                <ColumnConstraints percentWidth="9.0" hgrow="SOMETIMES" />
-                <ColumnConstraints percentWidth="9.0" hgrow="SOMETIMES" />
-                <ColumnConstraints percentWidth="9.0" hgrow="SOMETIMES" />
+                <ColumnConstraints percentWidth="8.0" hgrow="SOMETIMES" />
+                <ColumnConstraints percentWidth="8.0" hgrow="SOMETIMES" />
+                <ColumnConstraints percentWidth="8.0" hgrow="SOMETIMES" />
+                <ColumnConstraints percentWidth="8.0" hgrow="SOMETIMES" />
+                <ColumnConstraints percentWidth="8.0" hgrow="SOMETIMES" />
+                <ColumnConstraints percentWidth="8.0" hgrow="SOMETIMES" />
+                <ColumnConstraints percentWidth="8.0" hgrow="SOMETIMES" />
+                <ColumnConstraints percentWidth="8.0" hgrow="SOMETIMES" />
+                <ColumnConstraints percentWidth="8.0" hgrow="SOMETIMES" />
                 <ColumnConstraints percentWidth="10.0" hgrow="SOMETIMES" />
-                <ColumnConstraints percentWidth="9.0" hgrow="SOMETIMES" />
+                <ColumnConstraints percentWidth="10.0" hgrow="SOMETIMES" />
+                <ColumnConstraints percentWidth="8.0" hgrow="SOMETIMES" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints vgrow="SOMETIMES" percentHeight="100.0"/>
@@ -72,15 +73,20 @@
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="8">
                     <children>
-                        <ChoiceBox fx:id="listeCarte" disable="true" blendMode="SRC_ATOP" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                        <Button mnemonicParsing="false" disable="true" fx:id="boutonPioche" onAction="#piocheCarte" text="Pioche" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="9">
                     <children>
-                        <Button mnemonicParsing="false" disable="true" fx:id="boutonEchange" onAction="#ouvrirEchange" text="Echange"  AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                        <ChoiceBox fx:id="listeCarte" disable="true" blendMode="SRC_ATOP" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="10">
+                    <children>
+                        <Button mnemonicParsing="false" disable="true" fx:id="boutonEchange" onAction="#ouvrirEchange" text="Echange"  AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+                <AnchorPane GridPane.columnIndex="11">
                     <children>
                         <Button mnemonicParsing="false" disable="true" fx:id="boutonFinTour" onAction="#finirLeTour" text="Fin du tour" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                     </children>

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import serveur.modele.Joueur;
-import serveur.modele.carte.Carte;
 
 public interface JoueurInterface extends Remote {
 
@@ -141,14 +140,14 @@ public interface JoueurInterface extends Remote {
 	 * @return la liste des cartes du joueur
 	 * @throws RemoteException
 	 */
-	ArrayList<Carte> getCartes() throws RemoteException;
+	ArrayList<CarteInterface> getCartes() throws RemoteException;
 	
 	/**
 	 * Permet d'ajouter une carte à la liste des cartes du joueur
 	 * @param carte - carte à ajouter
 	 * @throws RemoteException
 	 */
-	void addCartes(Carte carte) throws RemoteException;
+	void addCartes(CarteInterface carte) throws RemoteException;
 	
 	/**
 	 * Permet d'obtenir le nombre de routes du joueur
@@ -214,14 +213,14 @@ public interface JoueurInterface extends Remote {
 	 * @param carte - carte à jouer
 	 * @throws RemoteException
 	 */
-	void jouerCarteDevelopement(Carte carte) throws RemoteException;
+	void jouerCarteDevelopement(CarteInterface carte) throws RemoteException;
 	
 	/**
 	 * Permet au joueur de jouer une carte spéciale 
 	 * @param carte - carte à jouer
 	 * @throws RemoteException
 	 */
-	void joueurCarteSpeciale(Carte carte) throws RemoteException;
+	void joueurCarteSpeciale(CarteInterface carte) throws RemoteException;
 	
 	/**
 	 * Permet au joueur d'ajouter des points de victoire

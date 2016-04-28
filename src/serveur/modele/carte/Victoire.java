@@ -1,11 +1,13 @@
 package serveur.modele.carte;
 
+import serveur.modele.service.CarteInterface;
+
 /**
  * Carte victoire qui permettent de gagner de façon permanente deux points de victoire au joueur jouant la classe.
  *
  * @author Yohann Hugo
  */
-public class Victoire implements Carte{
+public class Victoire implements CarteInterface {
 
 	private String nomCarte = "Carte Victoire";
 	

@@ -1,5 +1,7 @@
 package serveur.modele.carte;
 
+import serveur.modele.service.CarteInterface;
+
 import java.io.Serializable;
 
 /**
@@ -7,7 +9,7 @@ import java.io.Serializable;
  *
  * @author Yohann Hugo
  */
-public class Invention implements Carte, Serializable {
+public class Invention implements CarteInterface, Serializable {
 
 	private String nomCarte = "Carte Invention";
 

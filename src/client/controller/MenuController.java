@@ -36,12 +36,8 @@ import serveur.modele.Des;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
 import serveur.modele.Point;
-import serveur.modele.carte.Carte;
-import serveur.modele.service.HexagoneInterface;
-import serveur.modele.service.JoueurInterface;
-import serveur.modele.service.PlateauInterface;
-import serveur.modele.service.RouteInterface;
-import serveur.modele.service.VilleInterface;
+import serveur.modele.service.*;
+import serveur.modele.service.CarteInterface;
 import serveur.reseau.proxy.Proxy;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
@@ -301,7 +297,7 @@ public class MenuController implements Initializable {
 	 * Actualisation de la liste de cartes
 	 */
 	public void majListeCarte() throws RemoteException{
-		for(Carte carte : proxy.getJoueur().getCartes()){
+		for(CarteInterface carte : proxy.getJoueur().getCartes()){
 			this.listeCarte.getItems().add(carte.getNom());
 		}
 	}
@@ -566,8 +562,7 @@ public class MenuController implements Initializable {
 	
 	/**
 	 * Méthodes permettant à l'utilisateur de choisir où placer sa colonie
-	 * @param depart booleen indiquant si c'est le depart auquel cas on pose où on ne tiens pas compte des routes
-	 * @param s 
+	 * @param depart booleen indiquant si c'est le depart auquel cas on pose où on ne tiens pas compte des route
 	 */
 	public void demanderColonie(boolean depart){	
 		try {
@@ -660,5 +655,11 @@ public class MenuController implements Initializable {
         this.pc = pc;
     }
 
-    
+	/**
+	 *
+	 * @return
+     */
+	public CarteInterface piocheCarte() throws RemoteException{
+		return null;
+	}
 }

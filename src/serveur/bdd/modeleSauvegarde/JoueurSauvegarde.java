@@ -6,7 +6,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import serveur.modele.carte.Carte;
+import serveur.modele.service.CarteInterface;
 import serveur.modele.service.JoueurInterface;
 
 /**
@@ -70,7 +70,7 @@ public class JoueurSauvegarde implements Serializable {
 	/**
 	 * Cartes du joueur
 	 */
-	private ArrayList<Carte> cartes = new ArrayList<Carte>();
+	private ArrayList<CarteInterface> cartes = new ArrayList<CarteInterface>();
 
 	/**
 	 * Constructeur
@@ -161,8 +161,7 @@ public class JoueurSauvegarde implements Serializable {
 	/**
 	 * Setter du Nom de l'Utilisateur
 	 * 
-	 * @param String
-	 *            nomUtilisateur
+	 * @param nomUtilisateur
 	 */
 	public void setNomUtilisateur(String nomUtilisateur) {
 		this.nomUtilisateur = nomUtilisateur;
@@ -180,8 +179,7 @@ public class JoueurSauvegarde implements Serializable {
 	/**
 	 * Setter de la Date de Naissance du Joueur
 	 * 
-	 * @param Date
-	 *            dateDeNaissance
+	 * @param dateDeNaissance
 	 */
 	public void setDateDeNaissance(Date dateDeNaissance) {
 		this.dateDeNaissance = dateDeNaissance;
@@ -199,8 +197,7 @@ public class JoueurSauvegarde implements Serializable {
 	/**
 	 * Setter de la couleur du Joueur
 	 * 
-	 * @param String
-	 *            couleur
+	 * @param couleur
 	 */
 	public void setCouleur(String couleur) {
 		this.couleur = couleur;
@@ -218,8 +215,7 @@ public class JoueurSauvegarde implements Serializable {
 	/**
 	 * Setter du booléen pour voir si le Joueur est prêt pour la partie
 	 * 
-	 * @param Booléen
-	 *            pret
+	 * @param pret
 	 */
 	public void setPret(boolean pret) {
 		this.pret = pret;
@@ -237,8 +233,7 @@ public class JoueurSauvegarde implements Serializable {
 	/**
 	 * Setter du nombre de points de victoire du Joueur
 	 * 
-	 * @param Integer
-	 *            pointVictoire
+	 * @param pointVictoire
 	 */
 	public void setPointVictoire(int pointVictoire) {
 		this.pointVictoire = pointVictoire;
@@ -256,8 +251,7 @@ public class JoueurSauvegarde implements Serializable {
 	/**
 	 * Setter du nombre de Colonie du Joueur
 	 * 
-	 * @param Integer
-	 *            nbColonie
+	 * @param nbColonie
 	 */
 	public void setNbColonie(int nbColonie) {
 		this.nbColonie = nbColonie;
@@ -275,8 +269,7 @@ public class JoueurSauvegarde implements Serializable {
 	/**
 	 * Setter du nombre de Ville du Joueur
 	 * 
-	 * @param Integer
-	 *            nbVille
+	 * @param nbVille
 	 */
 	public void setNbVille(int nbVille) {
 		this.nbVille = nbVille;
@@ -294,8 +287,7 @@ public class JoueurSauvegarde implements Serializable {
 	/**
 	 * Setter du nombre de Route du Joueur
 	 * 
-	 * @param Integer
-	 *            nbRoute
+	 * @param nbRoute
 	 */
 	public void setNbRoute(int nbRoute) {
 		this.nbRoute = nbRoute;
@@ -324,8 +316,7 @@ public class JoueurSauvegarde implements Serializable {
 	 * Setter de la Map des Ressources du Joueur Schéma de la Map : <Identifiant
 	 * Ressource, Nombre>
 	 * 
-	 * @param HashMap<Integer,
-	 *            Integer> stockRessource
+	 * @param stockRessource
 	 */
 	public void setStockRessource(HashMap<Integer, Integer> stockRessource) {
 		this.stockRessource = stockRessource;
@@ -334,19 +325,18 @@ public class JoueurSauvegarde implements Serializable {
 	/**
 	 * Getter de la liste de carte du Joueur
 	 * 
-	 * @return ArrayList<Carte>
+	 * @return ArrayList<CarteInterface>
 	 */
-	public ArrayList<Carte> getCartes() {
+	public ArrayList<CarteInterface> getCartes() {
 		return cartes;
 	}
 
 	/**
 	 * Setter de la liste de carte du Joueur
 	 * 
-	 * @param ArrayList<Carte>
-	 *            cartes
+	 * @param cartes
 	 */
-	public void setCartes(ArrayList<Carte> cartes) {
+	public void setCartes(ArrayList<CarteInterface> cartes) {
 		this.cartes = cartes;
 	}
 

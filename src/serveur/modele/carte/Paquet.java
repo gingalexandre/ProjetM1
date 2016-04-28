@@ -1,5 +1,7 @@
 package serveur.modele.carte;
 
+import serveur.modele.service.CarteInterface;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,7 +11,7 @@ import java.util.List;
  *
  * @author Yohann HUGO
  */
-public class Paquet {
+public class Paquet implements serveur.modele.service.PaquetInterface {
 
     /**
      * Attribut NBCARTE pour le nombre de carte totale dans le paquet.
@@ -55,7 +57,7 @@ public class Paquet {
     /**
      * Attribut deck pour l'ensemble des cartes restantes.
      */
-    private List<Carte> deck = new LinkedList<>();
+    private List<CarteInterface> deck = new LinkedList<>();
 
     /**
      * Constructeur du paquet.
@@ -110,8 +112,9 @@ public class Paquet {
      * Méthode permettant de piocher la première carte du paquet.
      * @return piochee une carte.
      */
-    public Carte pioche(){
-        Carte piochee = deck.get(0);
+    @Override
+    public CarteInterface pioche(){
+        CarteInterface piochee = deck.get(0);
         deck.remove(0);
         return piochee;
     }
@@ -120,14 +123,16 @@ public class Paquet {
      * Getter deck
      * @retun deck la liste des cartes
      */
-    public List<Carte> getDeck() {
+    @Override
+    public List<CarteInterface> getDeck() {
         return deck;
     }
 
     /**
      * Setter deck
      */
-    public void setDeck(List<Carte> deck) {
+    @Override
+    public void setDeck(List<CarteInterface> deck) {
         this.deck = deck;
     }
 
@@ -135,6 +140,7 @@ public class Paquet {
      * Getter carte spécial longue route
      * @retun lr carte sépciale longue route
      */
+    @Override
     public LongueRoute getLr() {
         return lr;
     }
@@ -142,6 +148,7 @@ public class Paquet {
     /**
      * Setter carte spécial longue route
      */
+    @Override
     public void setLr(LongueRoute lr) {
         this.lr = lr;
     }
@@ -150,6 +157,7 @@ public class Paquet {
      * Getter carte spécial armée puissante
      * @retun lr carte sépciale armée puissante
      */
+    @Override
     public ArmeePuissante getAp() {
         return ap;
     }
@@ -157,6 +165,7 @@ public class Paquet {
     /**
      * Setter carte spécial armée puissante
      */
+    @Override
     public void setAp(ArmeePuissante ap) {
         this.ap = ap;
     }

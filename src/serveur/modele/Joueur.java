@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import serveur.bdd.modeleSauvegarde.JoueurSauvegarde;
-import serveur.modele.carte.Carte;
+import serveur.modele.service.CarteInterface;
 import serveur.modele.service.JoueurInterface;
 
 /**
@@ -75,7 +75,7 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	/**
 	 * Cartes du joueur
 	 */
-	private ArrayList<Carte> cartes = new ArrayList<Carte>();
+	private ArrayList<CarteInterface> cartes = new ArrayList<CarteInterface>();
 
 	/**
 	 * Points de victoires supplémentaires
@@ -92,7 +92,7 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	
 	
 	public Joueur(int id, String nomUtilisateur, Date dateDeNaissance, String couleur, boolean pret, int pointVictoire,
-			int nbColonie, int nbVille, int nbRoute, HashMap<Integer, Integer> stockRessource, ArrayList<Carte> cartes)
+			int nbColonie, int nbVille, int nbRoute, HashMap<Integer, Integer> stockRessource, ArrayList<CarteInterface> cartes)
 			throws RemoteException {
 		super();
 		this.id = id;
@@ -247,11 +247,11 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 
 	}
 
-	public void jouerCarteDevelopement(Carte carte)  throws RemoteException{
+	public void jouerCarteDevelopement(CarteInterface carte)  throws RemoteException{
 
 	}
 
-	public void joueurCarteSpeciale(Carte carte)  throws RemoteException{
+	public void joueurCarteSpeciale(CarteInterface carte)  throws RemoteException{
 
 	}
 
@@ -323,11 +323,11 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		this.pointVictoire = pointVictoire;
 	}
 
-	public ArrayList<Carte> getCartes()  throws RemoteException{
+	public ArrayList<CarteInterface> getCartes()  throws RemoteException{
 		return cartes;
 	}
 
-	public void addCartes(Carte carte)  throws RemoteException{
+	public void addCartes(CarteInterface carte)  throws RemoteException{
 		this.cartes.add(carte);
 	}
 

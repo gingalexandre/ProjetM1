@@ -26,7 +26,7 @@ import serveur.modele.Joueur;
 import serveur.modele.Point;
 import serveur.modele.Route;
 import serveur.modele.Ville;
-import serveur.modele.carte.Carte;
+import serveur.modele.service.CarteInterface;
 
 public class TestSauvegarde {
 	private static ObjectMapper objectMapper = new ObjectMapper().setVisibility(JsonMethod.FIELD, Visibility.ANY);;
@@ -82,7 +82,7 @@ public class TestSauvegarde {
 	@Test
 	public void genererSauvegardeJoueur() throws JsonGenerationException, JsonMappingException, IOException {
 		Joueur joueur = new Joueur(1, "toto", Date.valueOf(LocalDate.now()), "bleu", true, 0, 0, 0, 0,
-				new HashMap<Integer, Integer>(), new ArrayList<Carte>());
+				new HashMap<Integer, Integer>(), new ArrayList<CarteInterface>());
 		JoueurSauvegarde joueurSauv = new JoueurSauvegarde(joueur);
 		String contenu = "";
 		contenu = objectMapper.writeValueAsString(joueurSauv);

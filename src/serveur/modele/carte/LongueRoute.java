@@ -1,11 +1,13 @@
 package serveur.modele.carte;
 
+import serveur.modele.service.CarteInterface;
+
 import java.io.Serializable;
 
 /**
  * @auhtor Yohann Hugo
  */
-public class LongueRoute implements Carte, Serializable {
+public class LongueRoute implements CarteInterface, Serializable {
 
 	private String nomCarte = "Plus longue route";
 	

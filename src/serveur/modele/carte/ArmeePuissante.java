@@ -1,10 +1,12 @@
 package serveur.modele.carte;
 
+import serveur.modele.service.CarteInterface;
+
 /**
  * Classe représente la Carte de l'armee la plus puissante.
  * @author Yohann Hugo
  */
-public class ArmeePuissante implements Carte {
+public class ArmeePuissante implements CarteInterface {
 	
 	private String nomCarte = "Armée la plus puissante";
 	

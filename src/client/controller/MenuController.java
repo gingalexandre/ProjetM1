@@ -72,6 +72,9 @@ public class MenuController implements Initializable {
 	 */
 	@FXML
 	private Button boutonEchange;
+
+	@FXML
+	private Button boutonPioche;
 	
 	private Pane pageEchange = null;
 	public static Stage fenetreEchange;
@@ -111,6 +114,7 @@ public class MenuController implements Initializable {
      * PlateauController qui reporte les actions affectant le platea.
      */
 	private PlateauController pc;
+
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -169,6 +173,7 @@ public class MenuController implements Initializable {
 			Platform.runLater(() -> boutonConstruireColonie.setDisable(boo[0]));
 			Platform.runLater(() -> boutonConstruireVille.setDisable(boo[0]));
 			Platform.runLater(() -> listeCarte.setDisable(boo[0]));
+			Platform.runLater(() -> boutonPioche.setDisable(boo[0]));
 		}
 		else {
 			Platform.runLater(() -> boutonDes.setDisable(boo[0]));
@@ -178,6 +183,7 @@ public class MenuController implements Initializable {
 			Platform.runLater(() -> boutonConstruireColonie.setDisable(boo[0]));
 			Platform.runLater(() -> boutonConstruireVille.setDisable(boo[0]));
 			Platform.runLater(() -> listeCarte.setDisable(boo[0]));
+			Platform.runLater(() -> boutonPioche.setDisable(boo[0]));
 		}
 		
 		if(isInitTurn()){
@@ -656,10 +662,25 @@ public class MenuController implements Initializable {
     }
 
 	/**
-	 *
+	 * Pioche de la carte.
 	 * @return
      */
-	public CarteInterface piocheCarte() throws RemoteException{
-		return null;
+	public void piocheCarte() throws RemoteException {
+		//TODO tester si ressources sont suffisantes et les décrémentés.
+		CarteInterface carte = serveur.getGestionnairePartie().getPartie().piocheDeck();
+		if (carte != null) {
+			CarteInterface test = carte;
+			proxy.getJoueur().addCartes(carte);
+			Platform.runLater(() -> {
+				try {
+					listeCarte.getItems().add(test.getNom());
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			});
+			serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur() + " a acheté une carte développement."));
+		}else{
+            serveur.getGestionnaireUI().diffuserMessage(new Message("Le deck de carte développement est vide."));
+        }
 	}
 }

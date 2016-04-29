@@ -3,13 +3,15 @@ package serveur.modele.carte;
 import serveur.modele.service.CarteInterface;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * Carte chevalier du jeu : ces cartes permettent de déplacer le voleur d'une case à l'autre.
  *
  * @author Yohann Hugo
  */
-public class Chevalier implements CarteInterface, Serializable{
+public class Chevalier extends UnicastRemoteObject implements CarteInterface{
 	
 	private String nomCarte = "Carte Chevalier";
 	
@@ -25,14 +27,14 @@ public class Chevalier implements CarteInterface, Serializable{
     /**
      * Constructeur
      */
-    public Chevalier(){
+    public Chevalier() throws RemoteException {
     }
 
     /**
      * Action provoquer lorsqu'un joueur utilise la carte de type de chevalier.
      */
     @Override
-    public void doAction() {
+    public void doAction() throws RemoteException {
         /*
         TODO nécessite la séléction d'hexagone.
          */
@@ -44,12 +46,12 @@ public class Chevalier implements CarteInterface, Serializable{
      * @return chemin de la ressource de l'image.
      */
     @Override
-    public String getCheminImage() {
+    public String getCheminImage() throws RemoteException {
         return CHEMIN;
     }
 
 	@Override
-	public String getNom() {
+	public String getNom() throws RemoteException {
 		return this.nomCarte;
 	}
 }

@@ -2,12 +2,15 @@ package serveur.modele.carte;
 
 import serveur.modele.service.CarteInterface;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
 /**
  * Carte victoire qui permettent de gagner de façon permanente deux points de victoire au joueur jouant la classe.
  *
  * @author Yohann Hugo
  */
-public class Victoire implements CarteInterface {
+public class Victoire extends UnicastRemoteObject implements CarteInterface {
 
 	private String nomCarte = "Carte Victoire";
 	
@@ -21,14 +24,14 @@ public class Victoire implements CarteInterface {
     /**
      * Constructeur
      */
-    public Victoire(){
+    public Victoire()throws RemoteException{
     }
 
     /**
      * Action provoquer lorsqu'un joueur utilise la carte de type de progrès victoire.
      */
     @Override
-    public void doAction() {
+    public void doAction() throws RemoteException{
         /*
         currentPlayer.setPointVictoire(currentPlayer.getPointVictoire()+2);
          */
@@ -40,12 +43,12 @@ public class Victoire implements CarteInterface {
      * @return chemin de la ressource de l'image.
      */
     @Override
-    public String getCheminImage() {
+    public String getCheminImage()throws RemoteException {
         return CHEMIN;
     }
 
 	@Override
-	public String getNom() {
-		return this.getNom();
+	public String getNom()throws RemoteException {
+		return this.nomCarte;
 	}
 }

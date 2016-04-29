@@ -3,11 +3,13 @@ package serveur.modele.carte;
 import serveur.modele.service.CarteInterface;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * @auhtor Yohann Hugo
  */
-public class LongueRoute implements CarteInterface, Serializable {
+public class LongueRoute extends UnicastRemoteObject implements CarteInterface {
 
 	private String nomCarte = "Plus longue route";
 	
@@ -29,14 +31,14 @@ public class LongueRoute implements CarteInterface, Serializable {
     /**
      * Constructeur
      */
-    public LongueRoute(){
+    public LongueRoute() throws RemoteException {
     }
 
     /**
      * Action provoquer lorsqu'un joueur reçoit la carte de longue route.
      */
     @Override
-    public void doAction() {
+    public void doAction() throws RemoteException {
         /*
 
         currentPlayer.setPointVictoire(currentPlayer.getPointVictoire()+2);
@@ -50,12 +52,12 @@ public class LongueRoute implements CarteInterface, Serializable {
      * @return chemin de la ressource de l'image.
      */
     @Override
-    public String getCheminImage() {
+    public String getCheminImage() throws RemoteException {
         return CHEMIN;
     }
 
 	@Override
-	public String getNom() {
+	public String getNom() throws RemoteException {
 		return this.nomCarte;
 	}
 }

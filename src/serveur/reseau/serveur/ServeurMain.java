@@ -1,25 +1,19 @@
-package serveur.reseau.serveur;
-
-import java.net.MalformedURLException;
+package serveur.reseau.serveur;import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.text.NumberFormat;
-import java.text.ParsePosition;
+import java.text.ParsePosition;public class ServeurMain {    public static void main(String[] args) throws RemoteException, MalformedURLException {
+	//System.setSecurityManager(new SecurityManager());
+	LocateRegistry.createRegistry(42000);
 
-public class ServeurMain {
-
-	public static void main(String[] args) throws RemoteException, MalformedURLException {
-		//System.setSecurityManager(new SecurityManager());
-		LocateRegistry.createRegistry(42000);
-		
-		System.setProperty("java.rmi.server.hostname", "192.168.1.14");
-		if(argumentCorrect(args)){
-			Naming.rebind("rmi://192.168.1.14:42000/serveur", new ServeurImpl(Integer.parseInt(args[0])));
-			System.out.println("Serveur lancé correctement");
-		}
+	System.setProperty("java.rmi.server.hostname", "127.0.0.1");
+	if(argumentCorrect(args)){
+		Naming.rebind("rmi://127.0.0.1:42000/serveur", new ServeurImpl(Integer.parseInt(args[0])));
+		System.out.println("Serveur lancé correctement");
 	}
-	
+}
+
 	/**
 	 * Vérifie que args a la bonne valeur
 	 * @param args
@@ -46,7 +40,7 @@ public class ServeurMain {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Vérifie que le string est un nombre
 	 * @param str

@@ -2,6 +2,7 @@ package serveur.modele.carte;
 
 import serveur.modele.service.CarteInterface;
 
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,12 +48,12 @@ public class Paquet implements serveur.modele.service.PaquetInterface {
     /**
      * Attribut ap pour la carte spéciale armée puissante.
      */
-    private ArmeePuissante ap = new ArmeePuissante();
+    private ArmeePuissante ap;
 
     /**
      * Attribut lr pour la carte spéciale longue rotue.
      */
-    private LongueRoute lr = new LongueRoute();
+    private LongueRoute lr;
 
     /**
      * Attribut deck pour l'ensemble des cartes restantes.
@@ -62,7 +63,7 @@ public class Paquet implements serveur.modele.service.PaquetInterface {
     /**
      * Constructeur du paquet.
      */
-    public Paquet(){
+    public Paquet() throws RemoteException {
         ap = new ArmeePuissante();
         lr = new LongueRoute();
 
@@ -113,7 +114,8 @@ public class Paquet implements serveur.modele.service.PaquetInterface {
      * @return piochee une carte.
      */
     @Override
-    public CarteInterface pioche(){
+    public CarteInterface pioche() throws RemoteException {
+        if(deck.isEmpty()) return null;
         CarteInterface piochee = deck.get(0);
         deck.remove(0);
         return piochee;
@@ -124,7 +126,7 @@ public class Paquet implements serveur.modele.service.PaquetInterface {
      * @retun deck la liste des cartes
      */
     @Override
-    public List<CarteInterface> getDeck() {
+    public List<CarteInterface> getDeck() throws RemoteException {
         return deck;
     }
 
@@ -132,7 +134,7 @@ public class Paquet implements serveur.modele.service.PaquetInterface {
      * Setter deck
      */
     @Override
-    public void setDeck(List<CarteInterface> deck) {
+    public void setDeck(List<CarteInterface> deck) throws RemoteException {
         this.deck = deck;
     }
 
@@ -141,7 +143,7 @@ public class Paquet implements serveur.modele.service.PaquetInterface {
      * @retun lr carte sépciale longue route
      */
     @Override
-    public LongueRoute getLr() {
+    public LongueRoute getLr() throws RemoteException {
         return lr;
     }
 
@@ -149,7 +151,7 @@ public class Paquet implements serveur.modele.service.PaquetInterface {
      * Setter carte spécial longue route
      */
     @Override
-    public void setLr(LongueRoute lr) {
+    public void setLr(LongueRoute lr) throws RemoteException {
         this.lr = lr;
     }
 
@@ -158,7 +160,7 @@ public class Paquet implements serveur.modele.service.PaquetInterface {
      * @retun lr carte sépciale armée puissante
      */
     @Override
-    public ArmeePuissante getAp() {
+    public ArmeePuissante getAp() throws RemoteException {
         return ap;
     }
 
@@ -166,7 +168,7 @@ public class Paquet implements serveur.modele.service.PaquetInterface {
      * Setter carte spécial armée puissante
      */
     @Override
-    public void setAp(ArmeePuissante ap) {
+    public void setAp(ArmeePuissante ap) throws RemoteException {
         this.ap = ap;
     }
 }

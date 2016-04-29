@@ -3,13 +3,15 @@ package serveur.modele.carte;
 import serveur.modele.service.CarteInterface;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * Carte d'innovation : ces cartes permettent d'obtenir deux d'une ressource.
  *
  * @author Yohann Hugo
  */
-public class Invention implements CarteInterface, Serializable {
+public class Invention extends UnicastRemoteObject implements CarteInterface {
 
 	private String nomCarte = "Carte Invention";
 
@@ -26,14 +28,14 @@ public class Invention implements CarteInterface, Serializable {
     /**
      * Constructeur
      */
-    public Invention(){
+    public Invention() throws RemoteException {
     }
 
     /**
      * Action provoquer lorsqu'un joueur utilise la carte de type de progrès ressource.
      */
     @Override
-    public void doAction() {
+    public void doAction() throws RemoteException {
         /*
          currentPlayer.getStockRessource().put(ressourceChoisie, currentPlayer.getStockRessource().get(ressourceChoisie)+2);
          */
@@ -45,12 +47,12 @@ public class Invention implements CarteInterface, Serializable {
      * @return chemin de la ressource de l'image.
      */
     @Override
-    public String getCheminImage() {
+    public String getCheminImage() throws RemoteException {
         return CHEMIN;
     }
 
 	@Override
-	public String getNom() {
+	public String getNom() throws RemoteException {
 		return this.nomCarte;
 	}
 

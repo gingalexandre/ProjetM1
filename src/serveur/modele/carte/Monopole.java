@@ -3,13 +3,15 @@ package serveur.modele.carte;
 import serveur.modele.service.CarteInterface;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * Carte de Monopole d'une ressource. Le joueur reçoit toutes les cartes d'un type choisi des autres joueurs.
  *
  * @author Yohann Hugo
  */
-public class Monopole implements CarteInterface, Serializable{
+public class Monopole extends UnicastRemoteObject implements CarteInterface{
 	
 	private String nomCarte = "Carte Monopole";
 	
@@ -25,14 +27,14 @@ public class Monopole implements CarteInterface, Serializable{
     /**
      * Constructeur
      */
-    public Monopole(){
+    public Monopole() throws RemoteException {
     }
 
     /**
      * Action provoquer lorsqu'un joueur utilise la carte de type de Monopole.
      */
     @Override
-    public void doAction() {
+    public void doAction() throws RemoteException {
         /*
          currentPlayer.getStockRessource().put(ressourceChoisie, currentPlayer.getStockRessource().get(ressourceChoisie)+quantite);
          */
@@ -44,12 +46,12 @@ public class Monopole implements CarteInterface, Serializable{
      * @return chemin de la ressource de l'image.
      */
     @Override
-    public String getCheminImage() {
+    public String getCheminImage() throws RemoteException {
         return CHEMIN;
     }
 
 	@Override
-	public String getNom() {
+	public String getNom() throws RemoteException {
 		return this.nomCarte;
 	}
 }

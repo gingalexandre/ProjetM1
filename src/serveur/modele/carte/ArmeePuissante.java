@@ -2,11 +2,14 @@ package serveur.modele.carte;
 
 import serveur.modele.service.CarteInterface;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
 /**
  * Classe représente la Carte de l'armee la plus puissante.
  * @author Yohann Hugo
  */
-public class ArmeePuissante implements CarteInterface {
+public class ArmeePuissante extends UnicastRemoteObject implements CarteInterface {
 	
 	private String nomCarte = "Armée la plus puissante";
 	
@@ -25,14 +28,14 @@ public class ArmeePuissante implements CarteInterface {
     /**
      * Constructeur
      */
-    public ArmeePuissante(){
+    public ArmeePuissante() throws RemoteException {
     }
 
     /**
      * Action provoquer lorsqu'un joueur reçoit la carte d'armée la plus puissant.
      */
     @Override
-    public void doAction(){
+    public void doAction() throws RemoteException {
     /*
         currentPlayer.setPointVictoire(currentPlayer.getPointVictoire()+2);
         f(Player!=null) Player.setPointVictoire(Player.getPointVictoire()-2);*/
@@ -44,12 +47,12 @@ public class ArmeePuissante implements CarteInterface {
      * @return chemin de la ressource de l'image.
      */
     @Override
-    public String getCheminImage() {
+    public String getCheminImage()throws RemoteException {
         return CHEMIN;
     }
 
 	@Override
-	public String getNom() {
+	public String getNom() throws RemoteException {
 		return this.nomCarte;
 	}
 }

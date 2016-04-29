@@ -176,7 +176,7 @@ public class Route extends UnicastRemoteObject implements RouteInterface, Serial
 		ArrayList<RouteInterface> res = new ArrayList<RouteInterface>();
 		VilleInterface v;
 		if (isExtremite>0){
-			v = villes.get(this.getArrive());
+			v = villes.get(this.getDepart());			
 		} else {
 			v = villes.get(this.getArrive());
 		}

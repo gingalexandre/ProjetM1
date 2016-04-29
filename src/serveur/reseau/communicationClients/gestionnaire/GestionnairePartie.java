@@ -205,15 +205,15 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 
 	@Override
 	public void lancerProchainTour(JoueurInterface joueurTour) throws RemoteException {
-		for(JoueurServeur joueurServeur : joueursServeur) {
-			if(joueurServeur.getJoueur().getNomUtilisateur().equals(joueurTour.getNomUtilisateur())){
-				joueurServeur.lancerTour();
-			}
-		}
 		// On vérifie si on est toujours dans la première "phase" de la partie
 		if(this.partie.getCompteurTourGlobal() == this.partie.getNombreJoueurs()*2){
 			this.premierePhasePartie = false;
 		}
+		for(JoueurServeur joueurServeur : joueursServeur) {
+			if(joueurServeur.getJoueur().getNomUtilisateur().equals(joueurTour.getNomUtilisateur())){
+				joueurServeur.lancerTour();
+			}
+		}	
 	}
 
 	/** 

@@ -316,10 +316,10 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 		System.out.println(extremites.size());
 		for(RouteInterface r : extremites){
 			Point extremite = (r.isExtremite(ville)>0) ? r.getDepart() : r.getArrive();  
-			chercherToutesLesRoutes(ville, extremite,r,new HashSet<RouteInterface>(), 1,resultats,j);
+			chercherToutesLesRoutes(ville, extremite,r,new HashSet<RouteInterface>(), 0,resultats,j);
 		}	
 		Collections.sort(resultats);
-		return resultats.get(0);
+		return resultats.get(resultats.size()-1);
 	} 
 	
 	private void chercherToutesLesRoutes(HashMap<Point,VilleInterface> villes, Point extremite,RouteInterface current,Set<RouteInterface> visites, int size, ArrayList<Integer> res,JoueurInterface j) throws RemoteException {

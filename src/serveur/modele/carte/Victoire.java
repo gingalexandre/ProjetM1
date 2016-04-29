@@ -1,5 +1,6 @@
 package serveur.modele.carte;
 
+import serveur.bdd.modeleSauvegarde.CarteSauvegarde;
 import serveur.modele.service.CarteInterface;
 
 import java.rmi.RemoteException;
@@ -25,6 +26,15 @@ public class Victoire extends UnicastRemoteObject implements CarteInterface {
      * Constructeur
      */
     public Victoire()throws RemoteException{
+    }
+    
+    /**
+     * Constructeur
+     * @param carte 
+     */
+    public Victoire(CarteSauvegarde carte)throws RemoteException{
+    	this.nomCarte = carte.getNom();
+    	this.CHEMIN = carte.getChemin();
     }
 
     /**

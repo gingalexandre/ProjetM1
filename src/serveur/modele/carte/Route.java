@@ -1,5 +1,6 @@
 package serveur.modele.carte;
 
+import serveur.bdd.modeleSauvegarde.CarteSauvegarde;
 import serveur.modele.service.CarteInterface;
 
 import java.rmi.RemoteException;
@@ -27,7 +28,12 @@ public class Route extends UnicastRemoteObject implements CarteInterface {
     public Route()throws RemoteException {
     }
 
-    /**
+    public Route(CarteSauvegarde carte) throws RemoteException {
+		this.nomCarte = carte.getNom();
+		this.CHEMIN = carte.getChemin();
+	}
+
+	/**
      * Action provoquer lorsqu'un joueur utilise la carte de type de progrès construction.
      */
     @Override

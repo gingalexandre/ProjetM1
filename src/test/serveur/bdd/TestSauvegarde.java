@@ -15,9 +15,11 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
 
+import serveur.bdd.modeleSauvegarde.CarteSauvegarde;
 import serveur.bdd.modeleSauvegarde.HexagoneSauvegarde;
 import serveur.bdd.modeleSauvegarde.JetonSauvegarde;
 import serveur.bdd.modeleSauvegarde.JoueurSauvegarde;
+import serveur.bdd.modeleSauvegarde.PaquetSauvegarde;
 import serveur.bdd.modeleSauvegarde.RouteSauvegarde;
 import serveur.bdd.modeleSauvegarde.VilleSauvegarde;
 import serveur.modele.Hexagone;
@@ -26,10 +28,12 @@ import serveur.modele.Joueur;
 import serveur.modele.Point;
 import serveur.modele.Route;
 import serveur.modele.Ville;
+import serveur.modele.carte.Paquet;
 import serveur.modele.service.CarteInterface;
 
 public class TestSauvegarde {
 	private static ObjectMapper objectMapper = new ObjectMapper().setVisibility(JsonMethod.FIELD, Visibility.ANY);;
+	private static Paquet paquet;
 
 	@Test
 	public void genererSauvegardeHexagone() throws JsonGenerationException, JsonMappingException, IOException {
@@ -83,12 +87,35 @@ public class TestSauvegarde {
 	public void genererSauvegardeJoueur() throws JsonGenerationException, JsonMappingException, IOException {
 		Joueur joueur = new Joueur(1, "toto", Date.valueOf(LocalDate.now()), "bleu", true, 0, 0, 0, 0,
 				new HashMap<Integer, Integer>(), new ArrayList<CarteInterface>());
+		paquet = new Paquet();
+		joueur.addCartes(paquet.pioche());
 		JoueurSauvegarde joueurSauv = new JoueurSauvegarde(joueur);
 		String contenu = "";
 		contenu = objectMapper.writeValueAsString(joueurSauv);
 		assertTrue(contenu != "");
 		JoueurSauvegarde j2 = objectMapper.readValue(contenu, JoueurSauvegarde.class);
 		assertTrue(j2.equals(joueurSauv));
+	}
+
+	@Test
+	public void genererSauvegardeCarte() throws JsonGenerationException, JsonMappingException, IOException {
+		CarteInterface carte = paquet.pioche();
+		CarteSauvegarde carteSauv = new CarteSauvegarde(carte);
+		String contenu = "";
+		contenu = objectMapper.writeValueAsString(carteSauv);
+		assertTrue(contenu != "");
+		CarteSauvegarde c2 = objectMapper.readValue(contenu, CarteSauvegarde.class);
+		assertTrue(c2.equals(carteSauv));
+	}
+	
+	@Test
+	public void genererSauvegardePaquet() throws JsonGenerationException, JsonMappingException, IOException {
+		String contenu = "";
+		PaquetSauvegarde pSauv = new PaquetSauvegarde(paquet);
+		contenu = objectMapper.writeValueAsString(pSauv);
+		assertTrue(contenu != "");
+		PaquetSauvegarde p2 = objectMapper.readValue(contenu, PaquetSauvegarde.class);
+		assertTrue(p2.equals(pSauv));
 	}
 
 }

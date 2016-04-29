@@ -1,5 +1,6 @@
 package serveur.modele.carte;
 
+import serveur.bdd.modeleSauvegarde.CarteSauvegarde;
 import serveur.modele.service.CarteInterface;
 
 import java.io.Serializable;
@@ -30,7 +31,12 @@ public class Monopole extends UnicastRemoteObject implements CarteInterface{
     public Monopole() throws RemoteException {
     }
 
-    /**
+    public Monopole(CarteSauvegarde carte) throws RemoteException {
+		this.nomCarte = carte.getChemin();
+		this.CHEMIN = carte.getChemin();
+	}
+
+	/**
      * Action provoquer lorsqu'un joueur utilise la carte de type de Monopole.
      */
     @Override

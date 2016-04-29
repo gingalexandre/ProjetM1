@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import serveur.bdd.modeleSauvegarde.JoueurSauvegarde;
+import serveur.commun.Fonctions;
 import serveur.modele.service.CarteInterface;
 import serveur.modele.service.JoueurInterface;
 
@@ -167,7 +168,7 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		this.nbVille = joueur.getNbVille();
 		this.nbRoute = joueur.getNbRoute();
 		this.stockRessource = joueur.getStockRessource();
-		this.cartes = joueur.getCartes();
+		this.cartes = Fonctions.transformArrayCarte(joueur.getCartes());
 	}
 
 

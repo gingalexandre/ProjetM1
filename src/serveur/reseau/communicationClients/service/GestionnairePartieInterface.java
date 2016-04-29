@@ -115,5 +115,5 @@ public interface GestionnairePartieInterface extends Remote {
 	 */
 	void supprimerJoueur(JoueurInterface joueurSupprime) throws RemoteException;
 
-
+	void supprimerJoueur(JoueurServeur joueur) throws RemoteException;
 }

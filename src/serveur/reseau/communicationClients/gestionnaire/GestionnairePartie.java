@@ -189,7 +189,6 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	 * @throws RemoteException
 	 */
 	public void finirTour(String nomJoueurActuel) throws RemoteException {
-		this.joueursServeur.get(0).getJoueur().ajouterPointVictoire();
 		if(!partieTerminee(this.partie.getJoueurTour())){ // La partie n'est pas terminée, on passe au tour suivant
 			// Passage au tour suivant
 			partie.incrementeTour();
@@ -207,7 +206,7 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 		else{ // La partie est terminée
 			for(JoueurServeur joueurServeur : joueursServeur) {
 				joueurServeur.recevoirMessage(new Message(nomJoueurActuel+" a gagné la partie. Il a 10 ou plus points de victoire. Félicitations !"));
-				joueurServeur.setButtons(true);
+				joueurServeur.activerQuitterPartie();
 			}
 		}
 	}
@@ -260,10 +259,11 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 				joueursServeur.remove(js);
 				break;
 			}
-		}
-		
+		}	
 	}
 
-	
-
+	@Override
+	public void supprimerJoueur(JoueurServeur joueur) {
+		this.joueursServeur.remove(joueur);
+	}
 }

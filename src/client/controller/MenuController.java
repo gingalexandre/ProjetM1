@@ -1,8 +1,10 @@
 package client.controller;
 
 import java.io.IOException;
+import java.net.SocketException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.rmi.UnmarshalException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ResourceBundle;
@@ -91,7 +93,7 @@ public class MenuController implements Initializable {
 	 * Pour la construction
 	 */
 	@FXML
-	private Button boutonConstruireRoute, boutonConstruireColonie, boutonConstruireVille;
+	private Button boutonConstruireRoute, boutonConstruireColonie, boutonConstruireVille, boutonQuitter;
 	
 	/**
 	 * Pour finir le tour
@@ -152,7 +154,7 @@ public class MenuController implements Initializable {
 		
 		String nomJoueur = proxy.getJoueur().getNomUtilisateur();
 		serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" est prêt !"));
-		
+			
 		JoueurInterface joueur = proxy.getJoueur();
 		serveur.getGestionnairePartie().joueurPret(joueur);
 	}
@@ -166,22 +168,26 @@ public class MenuController implements Initializable {
 	 */
 	public void setButtons(boolean... boo) throws RemoteException{
 		if (boo.length==1){
-			Platform.runLater(() -> boutonDes.setDisable(boo[0]));
-			Platform.runLater(() -> boutonEchange.setDisable(boo[0]));
-			Platform.runLater(() -> boutonFinTour.setDisable(boo[0]));
-			Platform.runLater(() -> boutonConstruireRoute.setDisable(boo[0]));
-			Platform.runLater(() -> boutonConstruireColonie.setDisable(boo[0]));
-			Platform.runLater(() -> boutonConstruireVille.setDisable(boo[0]));
-			Platform.runLater(() -> listeCarte.setDisable(boo[0]));
+			Platform.runLater(() -> {
+				boutonDes.setDisable(boo[0]);
+				boutonEchange.setDisable(boo[0]);
+				boutonFinTour.setDisable(boo[0]);
+				boutonConstruireRoute.setDisable(boo[0]);
+				boutonConstruireColonie.setDisable(boo[0]);
+				boutonConstruireVille.setDisable(boo[0]);
+				listeCarte.setDisable(boo[0]);
+			});
 		}
 		else {
-			Platform.runLater(() -> boutonDes.setDisable(boo[0]));
-			Platform.runLater(() -> boutonEchange.setDisable(boo[1]));
-			Platform.runLater(() -> boutonFinTour.setDisable(boo[2]));
-			Platform.runLater(() -> boutonConstruireRoute.setDisable(boo[0]));
-			Platform.runLater(() -> boutonConstruireColonie.setDisable(boo[0]));
-			Platform.runLater(() -> boutonConstruireVille.setDisable(boo[0]));
-			Platform.runLater(() -> listeCarte.setDisable(boo[0]));
+			Platform.runLater(() -> {
+				boutonDes.setDisable(boo[0]);
+				boutonEchange.setDisable(boo[1]);
+				boutonFinTour.setDisable(boo[2]);
+				boutonConstruireRoute.setDisable(boo[0]);
+				boutonConstruireColonie.setDisable(boo[0]);
+				boutonConstruireVille.setDisable(boo[0]);
+				listeCarte.setDisable(boo[0]);
+			});
 		}
 		
 		if(isInitTurn()){
@@ -190,6 +196,17 @@ public class MenuController implements Initializable {
 		else{
 			proxy.setButtonsSauvegarde(false);
 		}
+	}
+	
+	/**
+	 * Fait apparaitre le bouton pour quitter la partie
+	 */
+	public void activerQuitterPartie(){
+		Platform.runLater(() -> {
+			menuGridPane.setVisible(false);
+			pretGridPane.setVisible(true);
+			boutonQuitter.setVisible(true);
+		});
 	}
 
 	/**
@@ -653,6 +670,15 @@ public class MenuController implements Initializable {
     public void setPlateauController(PlateauController pc){
         this.pc = pc;
     }
-
     
+    @FXML
+    public void quitterPartie() throws RemoteException{
+    	try{
+    		serveur.quitterPartie(proxy.getJoueur());
+    		System.exit(0);
+    	}
+    	catch(UnmarshalException e){ // Le serveur n'existe plus
+    		System.exit(0);
+    	}
+    }
 }

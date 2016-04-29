@@ -164,4 +164,9 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 			js.envoyerNbCarte();
 		}		
 	}
+
+	@Override
+	public void supprimerJoueur(JoueurServeur joueur) throws RemoteException{
+		this.joueurServeurs.remove(joueur);
+	}
 }

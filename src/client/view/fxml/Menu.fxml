@@ -88,19 +88,20 @@
             </children>
         </GridPane>
         <GridPane fx:id="pretGridPane" layoutX="1.0" layoutY="-1.0" prefHeight="100.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <AnchorPane>
-		       <children>
-		           <Button mnemonicParsing="false" onAction="#joueurPret" fx:id="pret" text="Prêt !" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
-		       </children>
-		    </AnchorPane>
-         </children>
+        	<columnConstraints>
+          		<ColumnConstraints hgrow="SOMETIMES" />
+        	</columnConstraints>
+        	<rowConstraints>
+            	<RowConstraints vgrow="SOMETIMES" />
+        	</rowConstraints>
+         	<children>
+            	<AnchorPane>
+		       		<children>
+		           		<Button mnemonicParsing="false" onAction="#joueurPret" fx:id="boutonPret" text="Prêt !" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+		           		<Button mnemonicParsing="false" visible="false" onAction="#quitterPartie" fx:id="boutonQuitter" text="Quitter la partie !" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+		       		</children>
+		    	</AnchorPane>
+         	</children>
       </GridPane>
     </children>
 </AnchorPane>

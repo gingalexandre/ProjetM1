@@ -183,4 +183,27 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 		}
 		return null;
 	}
+
+	@Override
+	public synchronized void quitterPartie(JoueurInterface joueur) throws RemoteException{
+		JoueurServeur aSupprimer = null;
+		for (JoueurServeur j : joueurServeurs){
+			if(j.getJoueur().getNomUtilisateur().equals(joueur.getNomUtilisateur())){
+				aSupprimer = j;
+			}
+		}
+		if(aSupprimer != null){
+			supprimerJoueurQuitterPartie(aSupprimer);
+			this.getGestionnaireUI().diffuserMessage(new Message(joueur.getNomUtilisateur()+ " s'est déconnecté."));
+		}
+		if(joueurServeurs.size() == 0){
+			System.exit(0);
+		}
+	}
+	
+	private void supprimerJoueurQuitterPartie(JoueurServeur joueur) throws RemoteException{
+		this.joueurServeurs.remove(joueur);
+		this.getGestionnairePartie().supprimerJoueur(joueur);
+		this.getGestionnaireUI().supprimerJoueur(joueur);
+	}
 }

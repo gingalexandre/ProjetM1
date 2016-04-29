@@ -87,4 +87,6 @@ public interface JoueurServeur extends Remote {
 
 		void envoyerNbCarte() throws RemoteException;
 
+		void activerQuitterPartie() throws RemoteException;
+
 }

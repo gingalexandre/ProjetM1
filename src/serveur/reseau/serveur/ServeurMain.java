@@ -3,7 +3,9 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.text.NumberFormat;
-import java.text.ParsePosition;public class ServeurMain {    public static void main(String[] args) throws RemoteException, MalformedURLException {
+import java.text.ParsePosition;public class ServeurMain {
+
+	public static void main(String[] args) throws RemoteException, MalformedURLException {
 	//System.setSecurityManager(new SecurityManager());
 	LocateRegistry.createRegistry(42000);
 

@@ -2,6 +2,7 @@ package client.commun;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Scanner;
 
 import javafx.scene.paint.Color;
 
@@ -24,6 +25,56 @@ public class Fonction {
 		for(int i=1;i<tab.length;i++){
 			if(tab[i]>tab[res]){
 				res = i;
+			}
+		}
+		return res;
+	}
+	
+	/**
+	 * Fonction permettant de vérifier les int lors de la saisie du sucre
+	 * 
+	 * @param entree
+	 *            : Phrase à afficher au début et lors d'une mauvaise saisie
+	 * @param borneMin
+	 *            : int : borne minimum de la saisie
+	 * @param borneMax
+	 *            : int : borne maximum à ne pas dépasser pour la saisie
+	 * @return Integer : l'int saisi et vérifié
+	 */
+	public static boolean verificationNombre(String entree, int borneMin, int borneMax) {
+		int res = -1;
+		if (res <= borneMin || res > borneMax) {
+			try {
+				Scanner sc = new Scanner(entree);
+				res = sc.nextInt();
+				return true;
+			} catch (Exception e) {
+				// TODO: handle exception
+				return false;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Fonction permettant la vérification des entrées String
+	 * 
+	 * @param entree
+	 *            : String : Phrase a afficher au début et lors d'une mauvaise
+	 *            saisie
+	 * @return String vérifié.
+	 */
+	public static String verificationString(String entree) {
+		
+		String res = "";
+		while (res.length() == 0 || res.length() > 50 || res.matches("^\\p{Digit}+$")) {
+			try {
+				System.out.println(entree);
+				Scanner sc = new Scanner(System.in);
+				res = sc.nextLine();
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("Entrée invalide !");
 			}
 		}
 		return res;
@@ -80,4 +131,5 @@ public class Fonction {
 		}
 		return new String(md.digest(entree.getBytes()));
 	}
+
 }

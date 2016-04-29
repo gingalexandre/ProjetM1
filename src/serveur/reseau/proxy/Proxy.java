@@ -224,4 +224,9 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	public void envoyerNbCarte() throws RemoteException {
 		this.joueursController.majNbCarte();
 	}
+
+	@Override
+	public void activerQuitterPartie() throws RemoteException{
+		this.menuController.activerQuitterPartie();
+	}
 }

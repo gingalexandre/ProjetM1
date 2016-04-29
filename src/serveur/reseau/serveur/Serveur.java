@@ -76,5 +76,7 @@ public interface Serveur extends Remote{
 	 * @param joueurASupprimer
 	 * @throws RemoteException
 	 */
-	public void supprimerJoueur(JoueurInterface joueurASupprimer)  throws RemoteException;
+	void supprimerJoueur(JoueurInterface joueurASupprimer)  throws RemoteException;
+
+    void quitterPartie(JoueurInterface nomJoueur) throws RemoteException;
 }

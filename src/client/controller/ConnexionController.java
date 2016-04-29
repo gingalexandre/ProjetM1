@@ -86,32 +86,35 @@ public class ConnexionController implements Initializable {
 	 */
 	@FXML
 	public void connexion() throws RemoteException, InterruptedException, TooMuchPlayerException {
-		ArrayList<JoueurServeur> listeJoueurs = new ArrayList<JoueurServeur>();
-		boolean connexionOk = false;
-		try {
-			serveur = ConnexionManager.getStaticServeur();
-			listeJoueurs = serveur.getGestionnairePartie().recupererTousLesJoueurs();
-			connexionOk = serveur.getGestionnaireBDD().verificationConnexion(nomUtilisateur.getText(),
-					Fonction.crypte(mdp.getText()));
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		// Si le joueur n'est pas déjà présent sur le serveur
-		if (this.joueurPresent(listeJoueurs)) {
-			utilisateurErreur.setText("Joueur déjà présent sur la partie.");
-		} else {
-			// Si le joueur existe
-			if (connexionOk) {
-				nomJoueur = nomUtilisateur.getText();
-				dateNaissance = serveur.getGestionnaireBDD().getDateNaissanceUtilisateur(nomJoueur);
-				enregistrerJoueur(nomJoueur, dateNaissance);
-
-				lancerJeu();
-			} else {
-				utilisateurErreur.setText("Erreur, utilisateur inconnu, inscrivez-vous.");
+		if(!serveur.getGestionnairePartie().getPartie().isPartieCommence()){ // La partie a pas commencé, le joueur peut se connecter tranquille
+			ArrayList<JoueurServeur> listeJoueurs = new ArrayList<JoueurServeur>();
+			boolean connexionOk = false;
+			try {
+				serveur = ConnexionManager.getStaticServeur();
+				listeJoueurs = serveur.getGestionnairePartie().recupererTousLesJoueurs();
+				connexionOk = serveur.getGestionnaireBDD().verificationConnexion(nomUtilisateur.getText(),
+						Fonction.crypte(mdp.getText()));
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
+			// Si le joueur n'est pas déjà présent sur le serveur
+			if (this.joueurPresent(listeJoueurs)) {
+				utilisateurErreur.setText("Joueur déjà présent sur la partie.");
+			} else {
+				// Si le joueur existe
+				if (connexionOk) {
+					nomJoueur = nomUtilisateur.getText();
+					dateNaissance = serveur.getGestionnaireBDD().getDateNaissanceUtilisateur(nomJoueur);
+					enregistrerJoueur(nomJoueur, dateNaissance);
+	
+					lancerJeu();
+				} else {
+					utilisateurErreur.setText("Erreur, utilisateur inconnu, inscrivez-vous.");
+				}
+			}
+		}else{
+			utilisateurErreur.setText("Désolé ! La partie a déjà commencé.");
 		}
-
 	}
 
 	/**

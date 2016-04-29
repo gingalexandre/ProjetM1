@@ -331,6 +331,14 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		this.cartes.add(carte);
 	}
 
+	public CarteInterface getCartes(int index)  throws RemoteException{
+		return this.cartes.get(index);
+	}
+
+	public void removeCartes(int index)  throws RemoteException{
+		this.cartes.remove(index);
+	}
+
 	public int getNbRoute()  throws RemoteException{
 		return nbRoute;
 	}

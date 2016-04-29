@@ -14,17 +14,18 @@
     <children>
         <GridPane fx:id="menuGridPane" visible="false" gridLinesVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
+                <ColumnConstraints percentWidth="7.5" hgrow="SOMETIMES" />
+                <ColumnConstraints percentWidth="7.5" hgrow="SOMETIMES" />
+                <ColumnConstraints percentWidth="7.5" hgrow="SOMETIMES" />
+                <ColumnConstraints percentWidth="7.5" hgrow="SOMETIMES" />
+                <ColumnConstraints percentWidth="7.5" hgrow="SOMETIMES" />
+                <ColumnConstraints percentWidth="7.5" hgrow="SOMETIMES" />
+                <ColumnConstraints percentWidth="7.5" hgrow="SOMETIMES" />
+                <ColumnConstraints percentWidth="7.5" hgrow="SOMETIMES" />
                 <ColumnConstraints percentWidth="8.0" hgrow="SOMETIMES" />
                 <ColumnConstraints percentWidth="8.0" hgrow="SOMETIMES" />
                 <ColumnConstraints percentWidth="8.0" hgrow="SOMETIMES" />
                 <ColumnConstraints percentWidth="8.0" hgrow="SOMETIMES" />
-                <ColumnConstraints percentWidth="8.0" hgrow="SOMETIMES" />
-                <ColumnConstraints percentWidth="8.0" hgrow="SOMETIMES" />
-                <ColumnConstraints percentWidth="8.0" hgrow="SOMETIMES" />
-                <ColumnConstraints percentWidth="8.0" hgrow="SOMETIMES" />
-                <ColumnConstraints percentWidth="8.0" hgrow="SOMETIMES" />
-                <ColumnConstraints percentWidth="10.0" hgrow="SOMETIMES" />
-                <ColumnConstraints percentWidth="10.0" hgrow="SOMETIMES" />
                 <ColumnConstraints percentWidth="8.0" hgrow="SOMETIMES" />
             </columnConstraints>
             <rowConstraints>
@@ -83,10 +84,15 @@
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="10">
                     <children>
-                        <Button mnemonicParsing="false" disable="true" fx:id="boutonEchange" onAction="#ouvrirEchange" text="Echange"  AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                        <Button mnemonicParsing="false" disable="true" fx:id="boutonCarte" onAction="#jouerCarte" text="Jouer Carte"  AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="11">
+                    <children>
+                        <Button mnemonicParsing="false" disable="true" fx:id="boutonEchange" onAction="#ouvrirEchange" text="Echange"  AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+                <AnchorPane GridPane.columnIndex="12">
                     <children>
                         <Button mnemonicParsing="false" disable="true" fx:id="boutonFinTour" onAction="#finirLeTour" text="Fin du tour" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                     </children>

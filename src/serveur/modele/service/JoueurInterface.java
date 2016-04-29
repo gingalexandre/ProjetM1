@@ -148,6 +148,21 @@ public interface JoueurInterface extends Remote {
 	 * @throws RemoteException
 	 */
 	void addCartes(CarteInterface carte) throws RemoteException;
+
+	/**
+	 * Permet de récupérer une carte.
+	 * @param index index de la carte a prendre
+	 * @return Une carte
+	 * @throws RemoteException
+     */
+	public CarteInterface getCartes(int index)  throws RemoteException;
+
+	/**
+	 * Permet de supprimer une carte.
+	 * @param index index de la carte a supprimer
+	 * @throws RemoteException
+	 */
+	public void removeCartes(int index)  throws RemoteException;
 	
 	/**
 	 * Permet d'obtenir le nombre de routes du joueur

@@ -35,9 +35,7 @@ public class Chevalier extends UnicastRemoteObject implements CarteInterface{
      */
     @Override
     public void doAction() throws RemoteException {
-        /*
-        TODO nécessite la séléction d'hexagone.
-         */
+
     }
 
     /**

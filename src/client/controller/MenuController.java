@@ -22,6 +22,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -32,6 +34,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
 import serveur.modele.Des;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
@@ -73,8 +76,17 @@ public class MenuController implements Initializable {
 	@FXML
 	private Button boutonEchange;
 
+    /**
+     * Bouton pour lancer l'action de piocher
+     */
 	@FXML
 	private Button boutonPioche;
+
+    /**
+     * Bonton pour lancer l'action de la carte séléctionner en choice box.
+     */
+    @FXML
+    private Button boutonCarte;
 	
 	private Pane pageEchange = null;
 	public static Stage fenetreEchange;
@@ -107,7 +119,7 @@ public class MenuController implements Initializable {
 	 * Serveur de jeu
 	 */
 	private Serveur serveur;
-	
+
 	private Pane paneEchange;
 	private Pane paneProposition;
     /**
@@ -126,10 +138,10 @@ public class MenuController implements Initializable {
 		listeCarte.valueProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				//newValue => l'item selectionné
-			}    
-	      });
-		
+
+            }
+        });
+
 		//Initialisation du proxy
 		proxy = ConnexionManager.getStaticProxy();
 		try {
@@ -174,6 +186,7 @@ public class MenuController implements Initializable {
 			Platform.runLater(() -> boutonConstruireVille.setDisable(boo[0]));
 			Platform.runLater(() -> listeCarte.setDisable(boo[0]));
 			Platform.runLater(() -> boutonPioche.setDisable(boo[0]));
+            Platform.runLater(() -> boutonCarte.setDisable(boo[0]));
 		}
 		else {
 			Platform.runLater(() -> boutonDes.setDisable(boo[0]));
@@ -184,6 +197,7 @@ public class MenuController implements Initializable {
 			Platform.runLater(() -> boutonConstruireVille.setDisable(boo[0]));
 			Platform.runLater(() -> listeCarte.setDisable(boo[0]));
 			Platform.runLater(() -> boutonPioche.setDisable(boo[0]));
+            Platform.runLater(() -> boutonCarte.setDisable(boo[0]));
 		}
 		
 		if(isInitTurn()){
@@ -663,24 +677,37 @@ public class MenuController implements Initializable {
 
 	/**
 	 * Pioche de la carte.
-	 * @return
      */
 	public void piocheCarte() throws RemoteException {
 		//TODO tester si ressources sont suffisantes et les décrémentés.
 		CarteInterface carte = serveur.getGestionnairePartie().getPartie().piocheDeck();
 		if (carte != null) {
-			CarteInterface test = carte;
-			proxy.getJoueur().addCartes(carte);
+			CarteInterface card = carte;
 			Platform.runLater(() -> {
-				try {
-					listeCarte.getItems().add(test.getNom());
-				} catch (RemoteException e) {
-					e.printStackTrace();
-				}
-			});
+                try {
+                    listeCarte.getItems().add(card.getNom());
+                    proxy.getJoueur().addCartes(carte);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            });
 			serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur() + " a acheté une carte développement."));
 		}else{
             serveur.getGestionnaireUI().diffuserMessage(new Message("Le deck de carte développement est vide."));
         }
 	}
+
+    public void jouerCarte() throws RemoteException {
+        int index = listeCarte.getSelectionModel().getSelectedIndex();
+
+        System.out.println(listeCarte.getSelectionModel().getSelectedItem());
+        System.out.println("Index -->" +index);
+        CarteInterface carte = proxy.getJoueur().getCartes(index);
+        System.out.println("Carte -->" +carte.getNom());
+        if(carte != null){
+            serveur.getGestionnaireUI().diffuserMessage(new Message("Playing card : "+carte.getNom()));
+            listeCarte.getItems().remove(index);
+            proxy.getJoueur().removeCartes(index);
+        }
+    }
 }

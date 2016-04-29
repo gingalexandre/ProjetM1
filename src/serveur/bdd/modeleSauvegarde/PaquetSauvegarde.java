@@ -5,10 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import serveur.commun.Fonctions;
-import serveur.modele.carte.ArmeePuissante;
-import serveur.modele.carte.LongueRoute;
 import serveur.modele.carte.Paquet;
-import serveur.modele.service.CarteInterface;
 
 public class PaquetSauvegarde {
 

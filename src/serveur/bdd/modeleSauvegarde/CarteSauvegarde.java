@@ -3,9 +3,6 @@ package serveur.bdd.modeleSauvegarde;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.annotate.JsonValue;
-
 import serveur.modele.Route;
 import serveur.modele.carte.ArmeePuissante;
 import serveur.modele.carte.Chevalier;

@@ -123,7 +123,6 @@ public class EchangeController implements Initializable {
 			}
 		}
 		choixJoueur.getItems().add("Banque");
-		choixJoueur.getItems().add("Paquet de cartes");
 	}
 	
 	/**
@@ -170,9 +169,6 @@ public class EchangeController implements Initializable {
 			}
 			if(choixJoueur.getValue().equals("Banque")){
 				echangeAvecBanque();
-			}
-			if(choixJoueur.getValue().equals("Paquet de cartes")){
-				echangerAvecPaquet();
 			}
 			if(choixJoueur.getValue().equals("Choisir un joueur")){
 				message.setText("Choisir un joueur");
@@ -270,10 +266,6 @@ public class EchangeController implements Initializable {
 		this.proxy.getJoueursController().majRessource();
 		serveur.getGestionnaireUI().diffuserGainRessource();
 		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+message));
-	}
-	
-	private void echangerAvecPaquet(){
-		//TODO
 	}
 	
 	/**

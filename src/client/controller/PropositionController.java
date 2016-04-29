@@ -143,7 +143,12 @@ public class PropositionController implements Initializable {
 				v += offreDemande.get("oLaine")+" Laine ";
 			}
 		}
-		this.valeurs.setText(v);
+		if(v.equals("")){
+			this.valeurs.setText("Des bisous contre des câlins !");
+		}
+		else{
+			this.valeurs.setText(v);
+		}
 	}
 	
 	/**

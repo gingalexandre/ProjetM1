@@ -86,7 +86,7 @@ public interface GestionnairePartieInterface extends Remote {
 	 * 
 	 * @throws RemoteException
 	 */
-	JoueurInterface finirTour() throws RemoteException;
+	void finirTour(String nomUtilisateurActuel) throws RemoteException;
 
 	/**
 	 * Renvoi la partie
@@ -115,5 +115,5 @@ public interface GestionnairePartieInterface extends Remote {
 	 */
 	void supprimerJoueur(JoueurInterface joueurSupprime) throws RemoteException;
 
-
+	void supprimerJoueur(JoueurServeur joueur) throws RemoteException;
 }

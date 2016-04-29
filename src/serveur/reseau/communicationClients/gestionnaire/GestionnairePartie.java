@@ -188,12 +188,37 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	 * Finit le tour d'un joueur et renvoie le joueur suivant
 	 * @throws RemoteException
 	 */
-	public JoueurInterface finirTour() throws RemoteException {
-		partie.incrementeTour();
-		
-		JoueurInterface joueurTour = this.partie.getJoueurTour();
-		enableBoutons(joueurTour);
-		return joueurTour;
+	public void finirTour(String nomJoueurActuel) throws RemoteException {
+		if(!partieTerminee(this.partie.getJoueurTour())){ // La partie n'est pas terminée, on passe au tour suivant
+			// Passage au tour suivant
+			partie.incrementeTour();
+			
+			// On récupère le joueur suivant et on active ses boutons
+			JoueurInterface joueurTour = this.partie.getJoueurTour();
+			enableBoutons(joueurTour);
+			
+			// Diffusion message
+			for(JoueurServeur joueurServeur : joueursServeur) {
+				joueurServeur.recevoirMessage(new Message(nomJoueurActuel+" a terminé son tour."+"\nC'est à "+joueurTour.getNomUtilisateur()+" de jouer."));
+			}
+			lancerProchainTour(joueurTour);
+		}
+		else{ // La partie est terminée
+			for(JoueurServeur joueurServeur : joueursServeur) {
+				joueurServeur.recevoirMessage(new Message(nomJoueurActuel+" a gagné la partie. Il a 10 ou plus points de victoire. Félicitations !"));
+				joueurServeur.activerQuitterPartie();
+			}
+		}
+	}
+
+	/**
+	 * Indique si la partie est terminée (le joueur a 10 ou plus points de victoire)
+	 * @param joueurTour - joueur actuel
+	 * @return true si la partie est terminée, false sinon
+	 * @throws RemoteException
+	 */
+	private boolean partieTerminee(JoueurInterface joueurTour) throws RemoteException {
+		return joueurTour.getPointVictoire() >= 10;
 	}
 
 	/**
@@ -234,10 +259,11 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 				joueursServeur.remove(js);
 				break;
 			}
-		}
-		
+		}	
 	}
 
-	
-
+	@Override
+	public void supprimerJoueur(JoueurServeur joueur) {
+		this.joueursServeur.remove(joueur);
+	}
 }

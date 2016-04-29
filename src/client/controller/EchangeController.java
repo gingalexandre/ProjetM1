@@ -5,6 +5,8 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+
+import client.commun.Fonction;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -104,21 +106,24 @@ public class EchangeController implements Initializable {
 	@FXML
 	private void initComboBox(int nbJoueur) throws RemoteException{
 		
-		if(serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur()!=proxy.getJoueur().getNomUtilisateur())
-		choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur());
-		
-		if(serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur()!=proxy.getJoueur().getNomUtilisateur())
-		choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur());
-		
-		if(serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur()!=proxy.getJoueur().getNomUtilisateur())
-		choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur());
-		
-		choixJoueur.getItems().add("Banque");
-		
-		if(nbJoueur>3){
-			if(serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur()!=proxy.getJoueur().getNomUtilisateur())
-			choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur());
+		if(!serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur().equals(proxy.getJoueur().getNomUtilisateur())){
+			choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur());
 		}
+		
+		if(!serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur().equals(proxy.getJoueur().getNomUtilisateur())){
+			choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur());
+		}
+		
+		if(!serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur().equals(proxy.getJoueur().getNomUtilisateur())){
+			choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur());
+		}
+		if(nbJoueur>3){
+			if(!serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur().equals(proxy.getJoueur().getNomUtilisateur())){
+				choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur());
+			}
+		}
+		choixJoueur.getItems().add("Banque");
+		choixJoueur.getItems().add("Paquet de cartes");
 	}
 	
 	/**
@@ -166,6 +171,9 @@ public class EchangeController implements Initializable {
 			if(choixJoueur.getValue().equals("Banque")){
 				echangeAvecBanque();
 			}
+			if(choixJoueur.getValue().equals("Paquet de cartes")){
+				echangerAvecPaquet();
+			}
 			if(choixJoueur.getValue().equals("Choisir un joueur")){
 				message.setText("Choisir un joueur");
 			}
@@ -183,14 +191,21 @@ public class EchangeController implements Initializable {
 	 * @throws RemoteException
 	 */
 	private boolean offreValide(HashMap<String, Integer> offreDemande) throws RemoteException{
+		boolean isValide = true;
+		//L'utilisateur n'a pas assez de ressources pour proposer l'offre
 		if(((offreDemande.get("oBois") > proxy.getJoueur().getStockRessource().get(Ressource.BOIS))
 				|| (offreDemande.get("oBle") > proxy.getJoueur().getStockRessource().get(Ressource.BLE))
 				|| (offreDemande.get("oMineraie") > proxy.getJoueur().getStockRessource().get(Ressource.MINERAIE))
 				|| (offreDemande.get("oArgile") > proxy.getJoueur().getStockRessource().get(Ressource.ARGILE))
 				|| (offreDemande.get("oLaine") > proxy.getJoueur().getStockRessource().get(Ressource.LAINE)))){
-					return false;			
+			isValide = false;
 		}
-		return true;
+		//Les valeurs sont positives
+		else if(((offreDemande.get("oBois") < 0)	|| (offreDemande.get("oBle") < 0) || (offreDemande.get("oMineraie") < 0) || (offreDemande.get("oArgile") < 0) || (offreDemande.get("oLaine") < 0)
+				|| (offreDemande.get("dBois") < 0)	|| (offreDemande.get("dBle") < 0) || (offreDemande.get("dMineraie") < 0) || (offreDemande.get("dArgile") < 0) || (offreDemande.get("dLaine") < 0))){
+			isValide = false;			
+		}
+		return isValide;
 	}
 	
 	/**
@@ -215,28 +230,36 @@ public class EchangeController implements Initializable {
 			nbRessourcesEchangeables += offreDemande.get("oLaine")/4;
 		}
 		
-		while(nbRessourcesEchangeables>=0){
-			while(offreDemande.get("dBois")>=0){
+		String message = "";
+		if(nbRessourcesEchangeables>0){
+			message = " vient de faire un échange avec la banque";
+		}
+		else{
+			message = " a tenté d'arnarquer la banque";
+		}
+		
+		while(nbRessourcesEchangeables>0){
+			while(offreDemande.get("dBois")>0){
 				proxy.getJoueur().ajoutRessource(Ressource.BOIS, 1);
 				nbRessourcesEchangeables--;
 				offreDemande.put("dBois",offreDemande.get("dBois")-1);
 			}
-			while(offreDemande.get("dBle")>=0){
+			while(offreDemande.get("dBle")>0){
 				proxy.getJoueur().ajoutRessource(Ressource.BLE, 1);
 				nbRessourcesEchangeables--;
 				offreDemande.put("dBle",offreDemande.get("dBle")-1);
 			}
-			while(offreDemande.get("dMineraie")>=0){
+			while(offreDemande.get("dMineraie")>0){
 				proxy.getJoueur().ajoutRessource(Ressource.MINERAIE, 1);
 				nbRessourcesEchangeables--;
 				offreDemande.put("dMineraie",offreDemande.get("dMineraie")-1);
 			}
-			while(offreDemande.get("dArgile")>=0){
+			while(offreDemande.get("dArgile")>0){
 				proxy.getJoueur().ajoutRessource(Ressource.ARGILE, 1);
 				nbRessourcesEchangeables--;
 				offreDemande.put("dArgile",offreDemande.get("dArgile")-1);
 			}
-			while(offreDemande.get("dLaine")>=0){
+			while(offreDemande.get("dLaine")>0){
 				proxy.getJoueur().ajoutRessource(Ressource.LAINE, 1);
 				nbRessourcesEchangeables--;
 				offreDemande.put("dLaine",offreDemande.get("dLaine")-1);
@@ -246,7 +269,11 @@ public class EchangeController implements Initializable {
 		//Actualisation de l'affichage
 		this.proxy.getJoueursController().majRessource();
 		serveur.getGestionnaireUI().diffuserGainRessource();
-		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" vient de faire un échange avec la banque"));
+		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+message));
+	}
+	
+	private void echangerAvecPaquet(){
+		//TODO
 	}
 	
 	/**

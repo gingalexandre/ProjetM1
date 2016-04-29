@@ -14,6 +14,7 @@ import serveur.bdd.modeleSauvegarde.PlateauSauvegarde;
 import serveur.commun.Fonctions;
 import serveur.modele.service.HexagoneInterface;
 import serveur.modele.service.JetonInterface;
+import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
 import serveur.modele.service.RouteInterface;
 import serveur.modele.service.VilleInterface;
@@ -297,7 +298,54 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 		return listeVilles;
 	}
 	
+	public int calculerRouteLaPlusLongue(JoueurInterface j) throws RemoteException{
+		HashMap<Point,VilleInterface> ville = new HashMap<Point,VilleInterface>();
+		for (VilleInterface v : villes){
+			ville.put(v.getEmplacement(),v);
+		}
+		ArrayList<RouteInterface> extremites = new ArrayList<RouteInterface>();
+		for (RouteInterface r : routes){
+			if (r.getOqp()!= null && r.getOqp().equals(j)){
+				System.out.println("toto");
+				if (r.isExtremite(ville) != 0){
+					extremites.add(r);
+				}
+			}
+		}
+		ArrayList<Integer> resultats = new ArrayList<Integer>();
+		System.out.println(extremites.size());
+		for(RouteInterface r : extremites){
+			Point extremite = (r.isExtremite(ville)>0) ? r.getDepart() : r.getArrive();  
+			chercherToutesLesRoutes(ville, extremite,r,new HashSet<RouteInterface>(), 1,resultats,j);
+		}	
+		Collections.sort(resultats);
+		return resultats.get(0);
+	} 
 	
+	private void chercherToutesLesRoutes(HashMap<Point,VilleInterface> villes, Point extremite,RouteInterface current,Set<RouteInterface> visites, int size, ArrayList<Integer> res,JoueurInterface j) throws RemoteException {
+		size++;
+		visites.add(current);
+		int isExtremite = current.isExtremite(villes);
+		if (isExtremite!=0){
+			res.add(size);
+			size--;
+		}
+		else {
+			isExtremite = (current.getDepart().equals(extremite)) ? 1 : -1 ;
+			ArrayList<RouteInterface> successeur = current.getSuccesseurs(isExtremite,j,villes,visites);
+			if (successeur.size()!=0){
+				for (RouteInterface r : successeur){
+					chercherToutesLesRoutes(villes, extremite, current, visites, size, res, j);
+					size--;
+				}
+			}else {
+				res.add(size);
+				size--;
+			}
+		}
+	}
+
+
 	@Override
 	public String toString() {
 		return "Plateau [hexagones=" + hexagones + ", points=" + points + ", villes=" + villes + ", routes=" + routes

@@ -135,12 +135,54 @@ public class Route extends UnicastRemoteObject implements RouteInterface, Serial
 		boolean c2 = !villes.get(arrive).equals(villeIgnored) && villes.get(arrive).getOqp()!=null && villes.get(arrive).getOqp().equals(joueurCourrant);
 		// Verification si la route est la continuité d'une de mes routes
 		boolean d = mesExtremitesDeRoute.contains(this.depart) || mesExtremitesDeRoute.contains(this.arrive);
-		if (villeIgnored!=null){
-			return ((a && (b2 || c2)) || (a && b && c && d ));
-		} else {
-			return a && (b2 || c2);
-		}
+		return ((a && (b2 || c2)) || (a && b && c && d ));
 	}
 	
-	public Route() throws RemoteException{};
+	public Route() throws RemoteException{}
+
+	/**
+	 * Methode pour savoir si une route est une extremité
+	 * @param villes Map<Point,VilleInterface> donnant pour chaque point la ville a cette emplacement
+	 * @return 1 : extremité sur le depart , -1 extremité sur l'arrivée, 0 route avec suite 
+	 */
+	public int isExtremite(HashMap<Point,VilleInterface> villes) throws RemoteException {
+		JoueurInterface proprio = getOqp();
+		VilleInterface vdep = villes.get(this.getDepart());
+		VilleInterface varr = villes.get(this.getArrive());
+		boolean laVilleDArriveeEstAQqnDAutre,laVilleDeDepartEstAQqnDAutre,RouteAdj1DepartPasAMoi,RouteAdj2DepartPasAMoi,RouteAdj3DepartPasAMoi,RouteAdj1ArriveePasAMoi,RouteAdj2ArriveePasAMoi,RouteAdj3ArriveePasAMoi;
+		laVilleDArriveeEstAQqnDAutre = (villes.get(this.getArrive()).getOqp()!=null && !villes.get(this.getArrive()).getOqp().equals(proprio));
+		laVilleDeDepartEstAQqnDAutre = (villes.get(this.getDepart()).getOqp()!=null && !villes.get(this.getDepart()).getOqp().equals(proprio));
+		RouteAdj1DepartPasAMoi = (!vdep.getRoute_adj1().equals(this) && vdep.getRoute_adj1().getOqp()!= null && !vdep.getRoute_adj1().getOqp().equals(proprio));
+		RouteAdj2DepartPasAMoi = (!vdep.getRoute_adj2().equals(this) && vdep.getRoute_adj2().getOqp()!= null && !vdep.getRoute_adj2().getOqp().equals(proprio));
+		RouteAdj3DepartPasAMoi = (vdep.getRoute_adj3()!= null && !vdep.getRoute_adj3().equals(this) && vdep.getRoute_adj3().getOqp()!= null && !vdep.getRoute_adj3().getOqp().equals(proprio));
+		RouteAdj1ArriveePasAMoi = (!varr.getRoute_adj1().equals(this) && varr.getRoute_adj1().getOqp()!= null && !varr.getRoute_adj1().getOqp().equals(proprio));
+		RouteAdj2ArriveePasAMoi = (!varr.getRoute_adj2().equals(this) && varr.getRoute_adj2().getOqp()!= null && !varr.getRoute_adj2().getOqp().equals(proprio));
+		RouteAdj3ArriveePasAMoi = (varr.getRoute_adj3()!= null && !varr.getRoute_adj3().equals(this) && varr.getRoute_adj3().getOqp()!= null && !varr.getRoute_adj3().getOqp().equals(proprio));
+		System.out.println("laVilleDeDepartEstAQqnDAutre :"+laVilleDeDepartEstAQqnDAutre);
+		System.out.println("1 : "+RouteAdj1DepartPasAMoi);
+		System.out.println("2 : "+RouteAdj2DepartPasAMoi);
+		System.out.println("3 : "+RouteAdj3DepartPasAMoi);
+		System.out.println("laVilleDArriveeEstAQqnDAutre :"+laVilleDArriveeEstAQqnDAutre);
+		System.out.println("1 : "+RouteAdj1ArriveePasAMoi);
+		System.out.println("2 : "+RouteAdj2ArriveePasAMoi);
+		System.out.println("3 : "+RouteAdj3ArriveePasAMoi);
+		if (!laVilleDeDepartEstAQqnDAutre || (RouteAdj1DepartPasAMoi && RouteAdj2DepartPasAMoi && RouteAdj3DepartPasAMoi)) return 1;
+		if (!laVilleDArriveeEstAQqnDAutre || (RouteAdj1ArriveePasAMoi && RouteAdj2ArriveePasAMoi && RouteAdj3ArriveePasAMoi)) return -1;
+		return 0;
+	}
+
+	@Override
+	public ArrayList<RouteInterface> getSuccesseurs(int isExtremite, JoueurInterface j, HashMap<Point,VilleInterface> villes,Set<RouteInterface> visite) throws RemoteException {
+		ArrayList<RouteInterface> res = new ArrayList<RouteInterface>();
+		VilleInterface v;
+		if (isExtremite>0){
+			v = villes.get(this.getArrive());
+		} else {
+			v = villes.get(this.getArrive());
+		}
+		if (v.getRoute_adj1().getOqp()!=null && v.getRoute_adj1().getOqp().equals(j) && !visite.contains(v.getRoute_adj1())) res.add(v.getRoute_adj1());
+		if (v.getRoute_adj2().getOqp()!=null && v.getRoute_adj2().getOqp().equals(j) && !visite.contains(v.getRoute_adj2())) res.add(v.getRoute_adj2());
+		if (v.getRoute_adj3()!= null && v.getRoute_adj3().getOqp()!=null && v.getRoute_adj3().getOqp().equals(j) && !visite.contains(v.getRoute_adj3())) res.add(v.getRoute_adj3());
+		return res;
+	}
 }

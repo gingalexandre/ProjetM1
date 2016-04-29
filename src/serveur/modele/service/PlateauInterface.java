@@ -89,6 +89,6 @@ public interface PlateauInterface extends Remote{
 	 */
 	ArrayList<VilleInterface> getVilleAdjacenteByCase(Integer caseConsernee) throws RemoteException;
 	
-	
+	int calculerRouteLaPlusLongue(JoueurInterface j) throws RemoteException;
 
 }

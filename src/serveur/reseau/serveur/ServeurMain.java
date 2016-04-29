@@ -13,9 +13,9 @@ public class ServeurMain {
 		//System.setSecurityManager(new SecurityManager());
 		LocateRegistry.createRegistry(42000);
 		
-		System.setProperty("java.rmi.server.hostname", "192.168.1.14");
+		System.setProperty("java.rmi.server.hostname", "127.0.0.1");
 		if(argumentCorrect(args)){
-			Naming.rebind("rmi://192.168.1.14:42000/serveur", new ServeurImpl(Integer.parseInt(args[0])));
+			Naming.rebind("rmi://127.0.0.1:42000/serveur", new ServeurImpl(Integer.parseInt(args[0])));
 			System.out.println("Serveur lancé correctement");
 		}
 	}

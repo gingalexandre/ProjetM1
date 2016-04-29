@@ -187,7 +187,12 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 
 	@Override
 	public void lancerTour() throws RemoteException{
-		this.menuController.demanderColonie(true);
+		if (menuController.isInitTurn()){
+			this.menuController.demanderColonie(true);
+		}
+		else {
+			this.menuController.demanderRoute(false, null);
+		}
 	}
 
 	@Override
@@ -223,5 +228,9 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	@Override
 	public void envoyerNbCarte() throws RemoteException {
 		this.joueursController.majNbCarte();
+	}
+	
+	public void init() throws RemoteException {
+		if (this.menuController.isInitTurn())this.menuController.demanderColonie(true);
 	}
 }

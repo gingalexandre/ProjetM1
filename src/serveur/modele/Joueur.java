@@ -368,6 +368,10 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		this.nbRoute = nbRoute;
 	}
 
+	/**
+	 * Incrémente le nombre qui permet de savoir combien de carte chevalier le joueur à jouer. Nécessaire au calcul pour la plus grande armée.
+	 * @throws RemoteException
+     */
 	public void incrementeGuerrier() throws RemoteException{
 		this.guerrier++;
 	}

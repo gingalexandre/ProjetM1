@@ -279,6 +279,10 @@ public interface JoueurInterface extends Remote {
 	 */
 	int compareTo(JoueurInterface j) throws RemoteException;
 
+	/**
+	 * Permet d'incrémenter le nombre de chevalier jouer par un joueur.
+	 * @throws RemoteException
+     */
 	public void incrementeGuerrier() throws RemoteException;
 	
 }

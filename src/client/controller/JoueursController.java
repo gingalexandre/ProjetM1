@@ -93,7 +93,7 @@ public class JoueursController implements Initializable {
 		nbBois.setText("0");
 		try {
 			nomJoueur.setText(joueur.getNomUtilisateur());
-			nbVictoire.setText("2");
+			nbVictoire.setText("0");
 			// Appel de la méthode permettant de transformer la couleur de
 			// français à anglais pour pouvoir changer le style
 			String couleurAnglais = Fonction.couleurEnRGB(joueur.getCouleur());

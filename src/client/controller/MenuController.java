@@ -125,9 +125,14 @@ public class MenuController implements Initializable {
 	private Pane paneEchange;
 	private Pane paneProposition;
     /**
-     * PlateauController qui reporte les actions affectant le platea.
+     * PlateauController qui reporte les actions affectant le plateau.
      */
 	private PlateauController pc;
+
+	/**
+	 * CarteController qui gère els actions des cartes
+	 */
+	private CarteController carteController;
 
 
 	@Override
@@ -688,6 +693,14 @@ public class MenuController implements Initializable {
     }
 
 	/**
+	 * Initialise le controller.
+	 * @param cc PlateauContoller.
+	 */
+	public void setCarteController(CarteController cc){
+		this.carteController = cc;
+	}
+
+	/**
 	 * Pioche de la carte.
      */
 	public void piocheCarte() throws RemoteException {
@@ -709,17 +722,19 @@ public class MenuController implements Initializable {
         }
 	}
 
+	/**
+	 * Méthode qui permet de jouer une carte.
+	 * @throws RemoteException
+     */
     public void jouerCarte() throws RemoteException {
         int index = listeCarte.getSelectionModel().getSelectedIndex();
-
         System.out.println(listeCarte.getSelectionModel().getSelectedItem());
-        System.out.println("Index -->" + index);
         CarteInterface carte = proxy.getJoueur().getCartes(index);
-        System.out.println("Carte -->" + carte.getNom());
         if (carte != null) {
-            serveur.getGestionnaireUI().diffuserMessage(new Message("Playing card : " + carte.getNom()));
+            serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" joue la carte : " + carte.getNom()+"."));
             listeCarte.getItems().remove(index);
             proxy.getJoueur().removeCartes(index);
+			carteController.doActionCarte(carte);
         }
     }
     

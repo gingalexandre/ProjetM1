@@ -30,7 +30,6 @@ public class Victoire extends UnicastRemoteObject implements CarteInterface {
     /**
      * Action provoquer lorsqu'un joueur utilise la carte de type de progrès victoire.
      */
-    @Override
     public void doAction() throws RemoteException{
         /*
         currentPlayer.setPointVictoire(currentPlayer.getPointVictoire()+2);

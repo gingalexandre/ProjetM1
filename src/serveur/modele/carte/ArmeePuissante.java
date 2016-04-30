@@ -34,7 +34,7 @@ public class ArmeePuissante extends UnicastRemoteObject implements CarteInterfac
     /**
      * Action provoquer lorsqu'un joueur reçoit la carte d'armée la plus puissant.
      */
-    @Override
+
     public void doAction() throws RemoteException {
     /*
         currentPlayer.setPointVictoire(currentPlayer.getPointVictoire()+2);

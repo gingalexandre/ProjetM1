@@ -25,8 +25,12 @@ public class GameController implements Initializable{
     @FXML MenuController menuController;
     @FXML PlateauController plateauController;
 
+    public CarteController carteController;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        carteController = new CarteController(plateauController);
         menuController.setPlateauController(plateauController);
+        menuController.setCarteController(carteController);
     }
 }

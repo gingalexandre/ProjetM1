@@ -5,9 +5,12 @@ import java.net.SocketException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.rmi.UnmarshalException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import client.commun.Fonction;
 import client.view.VuePrincipale;
@@ -43,6 +46,7 @@ import serveur.modele.Plateau;
 import serveur.modele.Point;
 import serveur.modele.service.*;
 import serveur.modele.service.CarteInterface;
+import serveur.reseau.proxy.JoueurServeur;
 import serveur.reseau.proxy.Proxy;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
@@ -90,9 +94,10 @@ public class MenuController implements Initializable {
     @FXML
     private Button boutonCarte;
 	
-	private Pane pageEchange = null;
+	private Pane pagePopup = null;
 	public static Stage fenetreEchange;
 	public static Stage fenetreProposition;
+	public static Stage fenetreVol;
 	
 	/**
 	 * Pour les cartes
@@ -122,8 +127,6 @@ public class MenuController implements Initializable {
 	 */
 	private Serveur serveur;
 
-	private Pane paneEchange;
-	private Pane paneProposition;
     /**
      * PlateauController qui reporte les actions affectant le platea.
      */
@@ -252,8 +255,18 @@ public class MenuController implements Initializable {
 		if(des_val != 7){
 			extractionRessources(resultats);
 		}else{
-            serveur.getGestionnaireUI().diffuserMessage(new Message ("Choisir la case de destination du Voleur"));
 			pc.doActionVoleur();
+			HashMap<String, Integer> listeJoueursVoles = serveur.getGestionnairePartie().getPartie().getNomJoueursVoles();
+			
+			Set cles = listeJoueursVoles.keySet();
+			Iterator it = cles.iterator();
+			while (it.hasNext()){
+			   String nom = (String) it.next();
+			   Integer moitierRessource = listeJoueursVoles.get(nom);
+			   serveur.getGestionnaireUI().envoyerVol(moitierRessource, serveur.getJoueur(nom));
+			}
+			
+			
 		}
 	}
 	
@@ -347,10 +360,10 @@ public class MenuController implements Initializable {
 	public void ouvrirEchange(){
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Echange.fxml"));
 		try {
-			pageEchange = (Pane) loader.load();
+			pagePopup = (Pane) loader.load();
 			fenetreEchange = new Stage();
 			fenetreEchange.setTitle("Les Colons de Catanes");
-		    Scene scene = new Scene(pageEchange,430,500);
+		    Scene scene = new Scene(pagePopup,430,500);
 		    fenetreEchange.setScene(scene);
 		    fenetreEchange.showAndWait();
 		} catch (IOException e) {
@@ -367,16 +380,40 @@ public class MenuController implements Initializable {
 		Platform.runLater(() -> {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Proposition.fxml"));
 			try {
-				pageEchange = (Pane) loader.load();
+				pagePopup = (Pane) loader.load();
 				
 				PropositionController controller = loader.getController();
 				controller.setPropositionText(nomExpediteur);
 				controller.setValeursText(valeurs);
 				fenetreProposition = new Stage();
 				fenetreProposition.setTitle("Les Colons de Catanes");
-			    Scene scene = new Scene(pageEchange,430,500);
+			    Scene scene = new Scene(pagePopup,430,500);
 			    fenetreProposition.setScene(scene);
 			    fenetreProposition.showAndWait();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+	}
+	
+	/**
+	 * Méthode pour permettre le lancement de la popup de vol et laisser VolController prendre le relais pour les méthodes 
+	 * 
+	 */
+	public void ouvrirVol(int maxRessource) {
+		Platform.runLater(() -> {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Vol.fxml"));
+			try {
+				pagePopup = (Pane) loader.load();
+				
+				VolController controller = loader.getController();
+				controller.setValeursText(maxRessource);
+				fenetreVol = new Stage();
+				fenetreVol.setTitle("Les Colons de Catanes");
+			    Scene scene = new Scene(pagePopup,430,500);
+			    fenetreVol.setScene(scene);
+			    fenetreVol.showAndWait();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -727,4 +764,6 @@ public class MenuController implements Initializable {
     		System.exit(0);
     	}
     }
+
+	
 }

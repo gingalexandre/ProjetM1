@@ -24,9 +24,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import serveur.view.VueHexagone;
-import serveur.modele.Jeton;
-import serveur.modele.Route;
-import serveur.modele.Ville;
 import serveur.modele.service.HexagoneInterface;
 import serveur.modele.service.PlateauInterface;
 
@@ -193,8 +190,8 @@ public class PlateauController implements Initializable{
 	/**
 	 * Permet l'action du voleur.
 	 */
-	public void doActionVoleur(){
-
+	public void doActionVoleur() throws RemoteException{
+		serveur.getGestionnaireUI().diffuserMessage(new Message ("Choisir la case de destination du Voleur"));
 		mainPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
 		{
 			@Override
@@ -210,7 +207,7 @@ public class PlateauController implements Initializable{
 						if(polygon.contains(point)){
 							try {
 								serveur.getGestionnaireUI().diffuserVoleur(depart,i);
-								serveur.getGestionnaireUI().diffuserMessage(new Message ("Déplacement de la case : "+(depart+1)+" à la case "+(i+1)+"."));
+								serveur.getGestionnaireUI().diffuserMessage(new Message ("Déplacement du voleur de la case : "+(depart+1)+" à la case "+(i+1)+"."));
 								mainPane.removeEventHandler(MouseEvent.MOUSE_CLICKED, this);
 							} catch (RemoteException e) {
 								e.printStackTrace();

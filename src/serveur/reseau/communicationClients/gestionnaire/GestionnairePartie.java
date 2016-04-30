@@ -270,4 +270,5 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	public void supprimerJoueur(JoueurServeur joueur) {
 		this.joueursServeur.remove(joueur);
 	}
+	
 }

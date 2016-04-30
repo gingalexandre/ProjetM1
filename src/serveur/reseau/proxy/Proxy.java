@@ -12,6 +12,7 @@ import client.controller.MenuController;
 import client.controller.PlateauController;
 import client.controller.PropositionController;
 import client.controller.ReglesController;
+import client.controller.VolController;
 import serveur.modele.Message;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
@@ -56,6 +57,11 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	 * Controller des propositions
 	 */
 	private PropositionController propostionController;
+	
+	/**
+	 * Controller des vols
+	 */
+	private VolController volController;
 	
 	/**
 	 * Joueur associe au proxy
@@ -228,5 +234,15 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	@Override
 	public void activerQuitterPartie() throws RemoteException{
 		this.menuController.activerQuitterPartie();
+	}
+
+	@Override
+	public void envoyerVol(int ressourcesMax) throws RemoteException {
+		this.menuController.ouvrirVol(ressourcesMax);
+	}
+
+	public void setVolController(VolController volController) throws RemoteException{
+		this.volController = volController;
+		
 	}
 }

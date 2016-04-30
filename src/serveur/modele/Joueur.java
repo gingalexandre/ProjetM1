@@ -12,6 +12,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.annotation.Resource;
+
 import serveur.bdd.modeleSauvegarde.JoueurSauvegarde;
 import serveur.commun.Fonctions;
 import serveur.modele.service.CarteInterface;
@@ -52,6 +54,11 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	 * Point de victoires du joueur
 	 */
 	private int pointVictoire;
+	
+	/**
+	 * Nombre de cartes en main
+	 */
+	private int nbCarte;
 
 	/**
 	 * Nombre de colonies du joueur
@@ -115,6 +122,16 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	
 	public void aUneArmeePlusGrande(Joueur j){
 		//TODO
+	}
+	
+	public int getNbCarte() {
+		int nbCarte = 0;
+		nbCarte += this.stockRessource.get(Ressource.ARGILE);
+		nbCarte += this.stockRessource.get(Ressource.BOIS);
+		nbCarte += this.stockRessource.get(Ressource.BLE);
+		nbCarte += this.stockRessource.get(Ressource.MINERAIE);
+		nbCarte += this.stockRessource.get(Ressource.LAINE);
+		return nbCarte;
 	}
 
 	public boolean isRouteLaPlusLongue() {

@@ -46,6 +46,7 @@ public class PropositionController implements Initializable {
 			e.printStackTrace();
 		}
 		
+		
 		serveur = ConnexionManager.getStaticServeur();
 	}
 

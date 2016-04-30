@@ -52,6 +52,13 @@ public interface JoueurInterface extends Remote {
 	void setNbColonie(int nbColonie) throws RemoteException;
 	
 	/**
+	 * Permet d'obtenir le nombre de carte du joueur
+	 * @return le nombre de carte du joueur
+	 * @throws RemoteException
+	 */
+	int getNbCarte() throws RemoteException;
+	
+	/**
 	 * Permet d'obtenir le nombre de villes du joueur
 	 * @return le nombre de colonies du joueur
 	 * @throws RemoteException

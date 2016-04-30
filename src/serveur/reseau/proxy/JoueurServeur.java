@@ -89,4 +89,5 @@ public interface JoueurServeur extends Remote {
 
 		void activerQuitterPartie() throws RemoteException;
 
+		void envoyerVol(int ressourcesMax) throws RemoteException;
 }

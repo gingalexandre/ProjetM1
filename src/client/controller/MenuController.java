@@ -394,7 +394,7 @@ public class MenuController implements Initializable {
 	 * Actualisation de la liste de cartes
 	 */
 	public void majListeCarte() throws RemoteException{
-		for(CarteInterface carte : proxy.getJoueur().getCarte()){
+		for(CarteInterface carte : proxy.getJoueur().getCartes()){
 			this.listeCarte.getItems().add(carte.getNom());
 		}
 	}

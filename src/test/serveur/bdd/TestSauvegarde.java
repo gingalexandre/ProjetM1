@@ -88,7 +88,7 @@ public class TestSauvegarde {
 		Joueur joueur = new Joueur(1, "toto", Date.valueOf(LocalDate.now()), "bleu", true, 0, 0, 0, 0,
 				new HashMap<Integer, Integer>(), new ArrayList<CarteInterface>());
 		paquet = new Paquet();
-		joueur.addCartes(paquet.pioche());
+		joueur.addCarte(paquet.pioche());
 		JoueurSauvegarde joueurSauv = new JoueurSauvegarde(joueur);
 		String contenu = "";
 		contenu = objectMapper.writeValueAsString(joueurSauv);

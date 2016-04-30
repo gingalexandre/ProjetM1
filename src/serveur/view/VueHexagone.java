@@ -3,16 +3,13 @@ package serveur.view;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import javafx.scene.effect.BlurType;
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.effect.InnerShadow;
-import javafx.scene.paint.Color;
-import serveur.modele.Hexagone;
-import serveur.modele.service.HexagoneInterface;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
+import serveur.modele.Hexagone;
+import serveur.modele.service.HexagoneInterface;
 
 public class VueHexagone extends Polygon {
 	

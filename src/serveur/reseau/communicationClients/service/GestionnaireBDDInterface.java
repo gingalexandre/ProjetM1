@@ -6,8 +6,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import serveur.reseau.proxy.JoueurServeur;
-
 /**
  * Interface qui s'occupe des échanges de la BDD sur le serveur
  * 

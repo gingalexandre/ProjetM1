@@ -12,6 +12,9 @@ import serveur.reseau.serveur.ConnexionManager;
  */
 public class MainController implements Initializable{
 	
+	/** 
+	 * Méthode d'initialisation
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// Connexion au serveur

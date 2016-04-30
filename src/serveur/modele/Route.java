@@ -6,9 +6,6 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Set;
-
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javafx.scene.shape.Line;
 import serveur.bdd.modeleSauvegarde.RouteSauvegarde;

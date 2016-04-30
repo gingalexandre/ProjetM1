@@ -1,7 +1,7 @@
 package serveur.view;
 
-import serveur.modele.Point;
 import javafx.scene.shape.Circle;
+import serveur.modele.Point;
 
 public class VueVille extends Circle{
 

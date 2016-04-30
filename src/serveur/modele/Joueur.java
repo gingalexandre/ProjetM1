@@ -12,8 +12,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.annotation.Resource;
-
 import serveur.bdd.modeleSauvegarde.JoueurSauvegarde;
 import serveur.commun.Fonctions;
 import serveur.modele.service.CarteInterface;

@@ -1,10 +1,10 @@
 package serveur.modele.carte;
 
-import serveur.modele.service.CarteInterface;
-
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
+
+import serveur.modele.service.CarteInterface;
 
 /**
  * Classe symbolisant le paquet de carte pour une partie.

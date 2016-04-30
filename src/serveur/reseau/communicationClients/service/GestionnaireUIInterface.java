@@ -2,7 +2,6 @@ package serveur.reseau.communicationClients.service;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import serveur.modele.Message;

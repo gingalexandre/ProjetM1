@@ -5,27 +5,29 @@ import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 import client.view.VuePrincipale;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
-import serveur.bdd.modeleSauvegarde.PlateauSauvegarde;
-import serveur.modele.*;
+import serveur.modele.Jeton;
+import serveur.modele.Message;
+import serveur.modele.Route;
+import serveur.modele.Ville;
+import serveur.modele.service.HexagoneInterface;
+import serveur.modele.service.PlateauInterface;
 import serveur.reseau.proxy.Proxy;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
-import javafx.application.Platform;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
 import serveur.view.VueHexagone;
-import serveur.modele.service.HexagoneInterface;
-import serveur.modele.service.PlateauInterface;
 
 /**
  * Controller du plateau

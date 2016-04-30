@@ -5,7 +5,6 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import serveur.modele.Point;
-import serveur.modele.Route;
 
 public interface VilleInterface extends Remote{
 

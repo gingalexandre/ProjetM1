@@ -1,18 +1,19 @@
 package test.serveur.modele;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.rmi.RemoteException;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import serveur.modele.Joueur;
 import serveur.modele.Ressource;
 import serveur.modele.carte.Chevalier;
-
-import static org.junit.Assert.*;
-
-import java.rmi.RemoteException;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * @author Arthur

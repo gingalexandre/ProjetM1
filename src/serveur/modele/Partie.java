@@ -15,7 +15,11 @@ import java.util.HashMap;
 import serveur.bdd.modeleSauvegarde.PartieSauvegarde;
 import serveur.commun.Fonctions;
 import serveur.modele.carte.Paquet;
-import serveur.modele.service.*;
+import serveur.modele.service.CarteInterface;
+import serveur.modele.service.JoueurInterface;
+import serveur.modele.service.PaquetInterface;
+import serveur.modele.service.PartieInterface;
+import serveur.modele.service.PlateauInterface;
 
 /**
  *

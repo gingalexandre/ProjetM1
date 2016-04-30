@@ -1,7 +1,7 @@
 package serveur.view;
 
-import serveur.modele.Point;
 import javafx.scene.shape.Line;
+import serveur.modele.Point;
 
 public class VueRoute extends Line {
 

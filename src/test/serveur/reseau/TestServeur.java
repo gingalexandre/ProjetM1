@@ -1,5 +1,6 @@
 package test.serveur.reseau;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.net.MalformedURLException;
@@ -16,9 +17,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import exception.TooMuchPlayerException;
-
-import static org.junit.Assert.*;
-
 import serveur.modele.service.JoueurInterface;
 import serveur.reseau.proxy.JoueurServeur;
 import serveur.reseau.proxy.Proxy;

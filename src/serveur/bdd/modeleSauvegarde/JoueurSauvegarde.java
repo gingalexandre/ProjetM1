@@ -6,7 +6,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import serveur.modele.service.CarteInterface;
+import serveur.commun.Fonctions;
 import serveur.modele.service.JoueurInterface;
 
 /**
@@ -70,7 +70,7 @@ public class JoueurSauvegarde implements Serializable {
 	/**
 	 * Cartes du joueur
 	 */
-	private ArrayList<CarteInterface> cartes = new ArrayList<CarteInterface>();
+	private ArrayList<CarteSauvegarde> cartes = new ArrayList<CarteSauvegarde>();
 
 	/**
 	 * Constructeur
@@ -96,7 +96,7 @@ public class JoueurSauvegarde implements Serializable {
 		this.nbVille = joueur.getNbVille();
 		this.nbRoute = joueur.getNbRoute();
 		this.stockRessource = joueur.getStockRessource();
-		this.cartes = joueur.getCarte();
+	//	this.cartes = joueur.getCartes();
 	}
 
 	/**
@@ -327,7 +327,7 @@ public class JoueurSauvegarde implements Serializable {
 	 * 
 	 * @return ArrayList<CarteInterface>
 	 */
-	public ArrayList<CarteInterface> getCartes() {
+	public ArrayList<CarteSauvegarde> getCartes() {
 		return cartes;
 	}
 
@@ -336,7 +336,7 @@ public class JoueurSauvegarde implements Serializable {
 	 * 
 	 * @param cartes
 	 */
-	public void setCartes(ArrayList<CarteInterface> cartes) {
+	public void setCartes(ArrayList<CarteSauvegarde> cartes) {
 		this.cartes = cartes;
 	}
 

@@ -10,11 +10,16 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 
 import serveur.bdd.modeleSauvegarde.PartieSauvegarde;
 import serveur.commun.Fonctions;
 import serveur.modele.carte.Paquet;
-import serveur.modele.service.*;
+import serveur.modele.service.CarteInterface;
+import serveur.modele.service.JoueurInterface;
+import serveur.modele.service.PaquetInterface;
+import serveur.modele.service.PartieInterface;
+import serveur.modele.service.PlateauInterface;
 
 /**
  *
@@ -304,6 +309,26 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
      */
 	public CarteInterface piocheDeck() throws RemoteException{
 		return this.deck.pioche();
+	}
+
+	@Override
+	public HashMap<String, Integer> getNomJoueursVoles() throws RemoteException{
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		if (this.joueur1.getNbCarte()>7) {
+			map.put(this.joueur1.getNomUtilisateur(), this.joueur1.getNbCarte()/2);
+		}
+		if (this.joueur2.getNbCarte()>7) {
+			map.put(this.joueur2.getNomUtilisateur(), this.joueur2.getNbCarte()/2);
+		}
+		if (this.joueur3.getNbCarte()>7) {
+			map.put(this.joueur3.getNomUtilisateur(), this.joueur3.getNbCarte()/2);
+		}
+		if(this.joueur4 != null){
+			if (this.joueur4.getNbCarte()>7) {
+				map.put(this.joueur4.getNomUtilisateur(), this.joueur4.getNbCarte()/2);
+			}
+		}
+		return map;
 	}
 
 }

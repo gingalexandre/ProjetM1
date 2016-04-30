@@ -1,28 +1,20 @@
 package client.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-import client.commun.Fonction;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import serveur.modele.Joueur;
 import serveur.modele.Message;
 import serveur.modele.Ressource;
-import serveur.modele.service.JoueurInterface;
 import serveur.reseau.proxy.JoueurServeur;
 import serveur.reseau.proxy.Proxy;
 import serveur.reseau.serveur.ConnexionManager;
@@ -49,8 +41,9 @@ public class EchangeController implements Initializable {
 	@FXML
 	private Label message;
 	
-	private Proxy proxy;
-	
+	/**
+	 * HashMap pour les échanges
+	 */
 	private HashMap<String,Integer> offreDemande;
 	
 	/**
@@ -59,17 +52,22 @@ public class EchangeController implements Initializable {
 	private Serveur serveur;
 	
 	/**
+	 * Proxy du joueur
+	 */
+	private Proxy proxy;
+	
+	/**
 	 * Méthode d'initialisation
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		//Initialisation du proxy
+		//Initialisation du proxy et du serveur
+		serveur = ConnexionManager.getStaticServeur();
 		proxy = ConnexionManager.getStaticProxy();
+		
 		try {
 			proxy.setEchangeController(this);
-		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (RemoteException e) {
+			e.printStackTrace();
 		}
 		
 		imgLaine.setImage(new Image("file:Ressources/ressources/ressource_laine.png"));
@@ -77,8 +75,6 @@ public class EchangeController implements Initializable {
 		imgMineraie.setImage(new Image("file:Ressources/ressources/ressource_Mineraie.png"));
 		imgArgile.setImage(new Image("file:Ressources/ressources/ressource_Argile.png"));
 		imgBle.setImage(new Image("file:Ressources/ressources/ressource_Ble.png"));
-		
-		serveur = ConnexionManager.getStaticServeur();
 		
 		demandeArgile.setText("0");
 		demandeBle.setText("0");
@@ -105,25 +101,24 @@ public class EchangeController implements Initializable {
 	 */
 	@FXML
 	private void initComboBox(int nbJoueur) throws RemoteException{
-		
-		if(!serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur().equals(proxy.getJoueur().getNomUtilisateur())){
+		String nomUtilisateur = proxy.getJoueur().getNomUtilisateur();
+		if(!serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur().equals(nomUtilisateur)){
 			choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur());
 		}
 		
-		if(!serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur().equals(proxy.getJoueur().getNomUtilisateur())){
+		if(!serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur().equals(nomUtilisateur)){
 			choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur());
 		}
 		
-		if(!serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur().equals(proxy.getJoueur().getNomUtilisateur())){
+		if(!serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur().equals(nomUtilisateur)){
 			choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur());
 		}
 		if(nbJoueur>3){
-			if(!serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur().equals(proxy.getJoueur().getNomUtilisateur())){
+			if(!serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur().equals(nomUtilisateur)){
 				choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur());
 			}
 		}
 		choixJoueur.getItems().add("Banque");
-		choixJoueur.getItems().add("Paquet de cartes");
 	}
 	
 	/**
@@ -131,7 +126,6 @@ public class EchangeController implements Initializable {
 	 */
 	@FXML
 	private void proposerOffre() throws RemoteException{
-		
 		offreDemande = new HashMap<String, Integer>();
 		try{
 			offreDemande.put("dBois",Integer.parseInt(demandeBois.getText()));
@@ -145,7 +139,6 @@ public class EchangeController implements Initializable {
 			offreDemande.put("oMineraie",Integer.parseInt(offreMineraie.getText()));
 			offreDemande.put("oArgile",Integer.parseInt(offreArgile.getText()));
 			offreDemande.put("oLaine",Integer.parseInt(offreLaine.getText()));
-			
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -153,7 +146,6 @@ public class EchangeController implements Initializable {
 		}
 		
 		if(offreValide(offreDemande)){
-			
 			if(choixJoueur.getValue().equals(serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur())){
 				envoyerPropositionJoueur(serveur.getJoueur(serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur()));
 			}
@@ -170,9 +162,6 @@ public class EchangeController implements Initializable {
 			}
 			if(choixJoueur.getValue().equals("Banque")){
 				echangeAvecBanque();
-			}
-			if(choixJoueur.getValue().equals("Paquet de cartes")){
-				echangerAvecPaquet();
 			}
 			if(choixJoueur.getValue().equals("Choisir un joueur")){
 				message.setText("Choisir un joueur");
@@ -270,10 +259,6 @@ public class EchangeController implements Initializable {
 		this.proxy.getJoueursController().majRessource();
 		serveur.getGestionnaireUI().diffuserGainRessource();
 		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+message));
-	}
-	
-	private void echangerAvecPaquet(){
-		//TODO
 	}
 	
 	/**

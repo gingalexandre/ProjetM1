@@ -52,6 +52,13 @@ public interface JoueurInterface extends Remote {
 	void setNbColonie(int nbColonie) throws RemoteException;
 	
 	/**
+	 * Permet d'obtenir le nombre de carte du joueur
+	 * @return le nombre de carte du joueur
+	 * @throws RemoteException
+	 */
+	int getNbCarte() throws RemoteException;
+	
+	/**
 	 * Permet d'obtenir le nombre de villes du joueur
 	 * @return le nombre de colonies du joueur
 	 * @throws RemoteException
@@ -140,7 +147,7 @@ public interface JoueurInterface extends Remote {
 	 * @return la liste des cartes du joueur
 	 * @throws RemoteException
 	 */
-	ArrayList<CarteInterface> getCarte() throws RemoteException;
+	ArrayList<CarteInterface> getCartes() throws RemoteException;
 	
 	/**
 	 * Permet d'ajouter une carte à la liste des cartes du joueur

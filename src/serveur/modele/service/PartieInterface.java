@@ -3,6 +3,7 @@ package serveur.modele.service;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import serveur.modele.Ressource;
 
@@ -216,5 +217,11 @@ public interface PartieInterface extends Remote {
 	 * @throws RemoteException
      */
 	public CarteInterface piocheDeck() throws RemoteException;
+	
+	/**
+	 * Permet de voler la moitier des ressources d'un joueur qui a plus de 7 cartes
+	 * @throws RemoteException
+	 */
+	HashMap<String, Integer> getNomJoueursVoles() throws RemoteException;
 
 }

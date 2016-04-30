@@ -4,7 +4,10 @@ import java.rmi.RemoteException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
+import serveur.bdd.modeleSauvegarde.CarteSauvegarde;
 import serveur.bdd.modeleSauvegarde.HexagoneSauvegarde;
 import serveur.bdd.modeleSauvegarde.JetonSauvegarde;
 import serveur.bdd.modeleSauvegarde.JoueurSauvegarde;
@@ -15,6 +18,13 @@ import serveur.modele.Jeton;
 import serveur.modele.Joueur;
 import serveur.modele.Route;
 import serveur.modele.Ville;
+import serveur.modele.carte.ArmeePuissante;
+import serveur.modele.carte.Chevalier;
+import serveur.modele.carte.Invention;
+import serveur.modele.carte.LongueRoute;
+import serveur.modele.carte.Monopole;
+import serveur.modele.carte.Victoire;
+import serveur.modele.service.CarteInterface;
 import serveur.modele.service.HexagoneInterface;
 import serveur.modele.service.JetonInterface;
 import serveur.modele.service.JoueurInterface;
@@ -239,6 +249,84 @@ public class Fonctions {
 		for (JoueurServeur js : joueursServeur) {
 
 			res.add(new JoueurSauvegarde(js.getJoueur()));
+
+		}
+		return res;
+	}
+	
+	/**
+	 * Méthode permettant de convertir une ArrayList<JoueurServeur> en ArrayList
+	 * <JoueurSauvegarde>
+	 * 
+	 * @param joueursServeur
+	 *            ArrayList<JoueurServeur>
+	 * @return ArrayList<JoueurSauvegarde>
+	 * @throws RemoteException
+	 */
+	public static ArrayList<CarteSauvegarde> transformArrayCarteSauvegarde(ArrayList<CarteInterface> cartesServeur)
+			throws RemoteException {
+
+		ArrayList<CarteSauvegarde> res = new ArrayList<CarteSauvegarde>();
+		for (CarteInterface carte : cartesServeur) {
+
+			res.add(new CarteSauvegarde(carte));
+
+		}
+		return res;
+	}
+
+	public static ArrayList<CarteInterface> transformArrayCarte(ArrayList<CarteSauvegarde> cartes) {
+		ArrayList<CarteInterface> res = new ArrayList<CarteInterface>();
+		for (CarteSauvegarde carte : cartes) {
+
+			try {
+				res.add(Fonctions.addCarte(carte));
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		return res;
+	}
+
+	public static CarteInterface addCarte(CarteSauvegarde carte) throws RemoteException {
+		if (carte.getType().equals("ArmeePuissante")){
+		return new ArmeePuissante(carte);	
+		}
+		else if (carte.getType().equals("Chevalier")){
+			return new Chevalier(carte);
+		}
+		else if (carte.getType().equals("Invention")){
+			return new Invention(carte);
+		}
+		else if (carte.getType().equals("LongueRoute")){
+			return new LongueRoute(carte);
+		}
+		else if (carte.getType().equals("Monopole")){
+			return new Monopole(carte);
+		}
+		else if (carte.getType().equals("Route")){
+			return new serveur.modele.carte.Route(carte);
+		}
+		else if (carte.getType().equals("Victoire")){
+			return new Victoire(carte);
+		}
+		else{
+			return null;
+		}
+	}
+
+	public static LinkedList<CarteSauvegarde> transformArrayCarte(List<CarteInterface> cartes) {
+		LinkedList<CarteSauvegarde> res = new LinkedList<CarteSauvegarde>();
+		for (CarteInterface carte : cartes) {
+
+			try {
+				res.add(new CarteSauvegarde(carte));
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		}
 		return res;

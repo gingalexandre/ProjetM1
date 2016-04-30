@@ -6,7 +6,9 @@ import java.rmi.RemoteException;
 import java.rmi.UnmarshalException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import client.commun.Fonction;
 import client.view.VuePrincipale;
@@ -37,13 +39,21 @@ import serveur.modele.Des;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
 import serveur.modele.Point;
-import serveur.modele.service.*;
 import serveur.modele.service.CarteInterface;
+import serveur.modele.service.HexagoneInterface;
+import serveur.modele.service.JoueurInterface;
+import serveur.modele.service.PlateauInterface;
+import serveur.modele.service.RouteInterface;
+import serveur.modele.service.VilleInterface;
 import serveur.reseau.proxy.Proxy;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
 
 
+/**
+ * @author jerome
+ *
+ */
 public class MenuController implements Initializable {
 	
 	/**
@@ -69,6 +79,12 @@ public class MenuController implements Initializable {
 	private Button boutonDes;
 	
 	/**
+	 * Pour finir le tour
+	 */
+	@FXML
+	private Button boutonFinTour;
+	
+	/**
 	 * Pour les échanges
 	 */
 	@FXML
@@ -85,54 +101,51 @@ public class MenuController implements Initializable {
      */
     @FXML
     private Button boutonCarte;
-	
-	private Pane pageEchange = null;
-	public static Stage fenetreEchange;
-	public static Stage fenetreProposition;
-	
-	/**
-	 * Pour les cartes
-	 */
-	@FXML
-	private ChoiceBox<String> listeCarte;
-	
-	/**
+    
+    /**
 	 * Pour la construction
 	 */
 	@FXML
 	private Button boutonConstruireRoute, boutonConstruireColonie, boutonConstruireVille, boutonQuitter;
 	
 	/**
-	 * Pour finir le tour
+	 * Pane popup
 	 */
-	@FXML
-	private Button boutonFinTour;
+	private Pane pagePopup = null;
 	
 	/**
-	 * Proxy client
+	 * Diverses fenêtres
 	 */
-	private Proxy proxy;
+	public static Stage fenetreEchange, fenetreProposition, fenetreVol;
 	
-	/**
-	 * Serveur de jeu
-	 */
-	private Serveur serveur;
-
-	private Pane paneEchange;
-	private Pane paneProposition;
-    /**
-     * PlateauController qui reporte les actions affectant le plateau.
-     */
-	private PlateauController pc;
 
 	/**
 	 * CarteController qui gère els actions des cartes
 	 */
 	private CarteController carteController;
 
+	@FXML
+	private ChoiceBox<String> listeCarte;
+	
+	   /**
+     * PlateauController qui reporte les actions affectant le platea.
+     */
+	private PlateauController pc;
+	
+	/**
+	 * Serveur de jeu
+	 */
+	private Serveur serveur;
+	
+	/**
+	 * Proxy client
+	 */
+	private Proxy proxy;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		serveur = ConnexionManager.getStaticServeur();
+		
 		//Initialisation des dés
 		de1.setImage(new Image(numeroSix));
 		de2.setImage(new Image(numeroSix));
@@ -150,12 +163,43 @@ public class MenuController implements Initializable {
 		try {
 			proxy.setMenuController(this);
 		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Méthode pour permettre le lancement de la popup d'échange et laisser EchangeController prendre le relais pour les méthodes 
+	 */
+	@FXML
+	public void ouvrirEchange(){
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Echange.fxml"));
+		try {
+			pagePopup = (Pane) loader.load();
+			fenetreEchange = new Stage();
+			fenetreEchange.setTitle("Les Colons de Catanes");
+		    Scene scene = new Scene(pagePopup,430,500);
+		    fenetreEchange.setScene(scene);
+		    fenetreEchange.showAndWait();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		serveur = ConnexionManager.getStaticServeur();
 	}
+	
+	/**
+	 * Permet de quitter la partie. Se délenche quand la partie est terminée et que l'utilisateur appuie sur le bouton pour quitter la partie.
+	 * @throws RemoteException
+	 */
+	@FXML
+    public void quitterPartie() throws RemoteException{
+    	try{
+    		serveur.quitterPartie(proxy.getJoueur());
+    		System.exit(0);
+    	}
+    	catch(UnmarshalException e){ // Le serveur n'existe plus
+    		System.exit(0);
+    	}
+    }
 	
 	/**
 	 * Méthode de lancement de la partie
@@ -228,7 +272,6 @@ public class MenuController implements Initializable {
 
 	/**
 	 * Méthodes pour les dés
-	 * 
 	 * lancerDes()
 	 * animationDes()
 	 * distributionDes()
@@ -253,11 +296,22 @@ public class MenuController implements Initializable {
 		if(des_val != 7){
 			extractionRessources(resultats);
 		}else{
-            serveur.getGestionnaireUI().diffuserMessage(new Message ("Choisir la case de destination du Voleur"));
 			pc.doActionVoleur();
+			HashMap<String, Integer> listeJoueursVoles = serveur.getGestionnairePartie().getPartie().getNomJoueursVoles();
+			
+			Set<String> cles = listeJoueursVoles.keySet();
+			Iterator<String> it = cles.iterator();
+			while (it.hasNext()){
+			   String nom = (String) it.next();
+			   Integer moitierRessource = listeJoueursVoles.get(nom);
+			   serveur.getGestionnaireUI().envoyerVol(moitierRessource, serveur.getJoueur(nom));
+			}
 		}
 	}
 	
+	/**
+	 * Permet d'animer les dès
+	 */
 	public void animateDes() {
 		RotateTransition rt1 = new RotateTransition(Duration.millis(1000), de1);
 	    RotateTransition rt2 = new RotateTransition(Duration.millis(1000), de2);
@@ -267,6 +321,11 @@ public class MenuController implements Initializable {
 	    rt2.play();
 	}
 
+	/**
+	 * Permet d'avoir le string correspondant au score du dès
+	 * @param de
+	 * @return un string correspondant au score du dès
+	 */
 	private String distribuerDes(Integer de) {
 		switch (de) {
 		case 1:
@@ -344,40 +403,45 @@ public class MenuController implements Initializable {
 	 * Méthode pour permettre le lancement de la popup d'échange et laisser EchangeController prendre le relais pour les méthodes 
 	 * 
 	 */
-	@FXML
-	public void ouvrirEchange(){
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Echange.fxml"));
-		try {
-			pageEchange = (Pane) loader.load();
-			fenetreEchange = new Stage();
-			fenetreEchange.setTitle("Les Colons de Catanes");
-		    Scene scene = new Scene(pageEchange,430,500);
-		    fenetreEchange.setScene(scene);
-		    fenetreEchange.showAndWait();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Méthode pour permettre le lancement de la popup d'échange et laisser EchangeController prendre le relais pour les méthodes 
-	 * 
-	 */
 	public void ouvrirProposition(String nomExpediteur, HashMap<String,Integer> valeurs){
 		Platform.runLater(() -> {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Proposition.fxml"));
 			try {
-				pageEchange = (Pane) loader.load();
+				pagePopup = (Pane) loader.load();
 				
 				PropositionController controller = loader.getController();
 				controller.setPropositionText(nomExpediteur);
 				controller.setValeursText(valeurs);
 				fenetreProposition = new Stage();
 				fenetreProposition.setTitle("Les Colons de Catanes");
-			    Scene scene = new Scene(pageEchange,430,500);
+			    Scene scene = new Scene(pagePopup,430,500);
 			    fenetreProposition.setScene(scene);
 			    fenetreProposition.showAndWait();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+	}
+	
+	/**
+	 * Méthode pour permettre le lancement de la popup de vol et laisser VolController prendre le relais pour les méthodes 
+	 * 
+	 */
+	public void ouvrirVol(int maxRessource) {
+		Platform.runLater(() -> {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Vol.fxml"));
+			try {
+				pagePopup = (Pane) loader.load();
+				
+				VolController controller = loader.getController();
+				controller.setValeursText(maxRessource);
+				fenetreVol = new Stage();
+				fenetreVol.setTitle("Les Colons de Catanes");
+			    Scene scene = new Scene(pagePopup,430,500);
+			    fenetreVol.setScene(scene);
+			    fenetreVol.showAndWait();
+			    
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -397,20 +461,23 @@ public class MenuController implements Initializable {
 		serveur.getGestionnairePartie().finirTour(nomJoueurActuel);
 	}
 	
-	public void demanderRoute(boolean initPhase,VilleInterface villeIgnored){
+	/**
+	 * Demande une route
+	 * @param initPhase
+	 * @param villeIgnored
+	 */
+	public void demanderRoute(boolean initPhase, VilleInterface villeIgnored){
 		try{
-			setButtons(true);
-			Serveur serveur = ConnexionManager.getStaticServeur();
 			PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
 			// INITIALISATION
 			// Etape 1 : Création d'une map avec chaque point qui associe la ville de cet emplacement
-			HashMap<Point,VilleInterface> villes = new HashMap();
+			HashMap<Point,VilleInterface> villes = new HashMap<Point, VilleInterface>();
 			for(VilleInterface v : p.getVilles()){
 				villes.put(v.getEmplacement(), v);
 			}
 			// Etape 2 : Récupération des points des extremités des points des Routes du joueur qui veut construire dans un set
 			JoueurInterface joueurCourrant = proxy.getJoueur();
-			HashSet<Point> pointsDeRoutes = new HashSet();
+			HashSet<Point> pointsDeRoutes = new HashSet<Point>();
 			if(!initPhase){
 				for(RouteInterface r: p.getRoutes()){
 					if((r.getOqp()!= null) && r.getOqp().equals(joueurCourrant)){
@@ -422,7 +489,7 @@ public class MenuController implements Initializable {
 			//System.out.println(b+" "+pointsDeRoutes.size());
 			//System.out.println("!");
 			// RECHERCHES DES ROUTES CONSTRUCTIBLES
-			HashMap<Polygon, RouteInterface> routesConstructibles = new HashMap();
+			HashMap<Polygon, RouteInterface> routesConstructibles = new HashMap<Polygon, RouteInterface>();
 			Group grp = new Group();
 			for(RouteInterface r: p.getRoutes()){
 				if(r.estConstructible(villes, joueurCourrant, pointsDeRoutes,villeIgnored)){
@@ -523,6 +590,12 @@ public class MenuController implements Initializable {
 		}
 	}
 
+	/**
+	 * Permet de dessiner une route
+	 * @param r
+	 * @param j
+	 * @throws RemoteException
+	 */
 	public void dessinerRoute(RouteInterface r, JoueurInterface j) throws RemoteException {
 		double x1 = r.getDepart().getX();
 		double y1 = r.getDepart().getY();
@@ -662,10 +735,13 @@ public class MenuController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 	}
 
+	/**
+	 * Permet de dessiner une ville
+	 * @param v
+	 * @param joueurCourrant
+	 */
 	public void dessinerVille(VilleInterface v, JoueurInterface joueurCourrant) {
 		// TODO Auto-generated method stub
 		try {
@@ -677,7 +753,6 @@ public class MenuController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 
     /**
@@ -734,15 +809,5 @@ public class MenuController implements Initializable {
 			}
         }
     }
-    
-    @FXML
-    public void quitterPartie() throws RemoteException{
-    	try{
-    		serveur.quitterPartie(proxy.getJoueur());
-    		System.exit(0);
-    	}
-    	catch(UnmarshalException e){ // Le serveur n'existe plus
-    		System.exit(0);
-    	}
-    }
+
 }

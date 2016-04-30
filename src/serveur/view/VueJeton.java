@@ -1,14 +1,12 @@
 package serveur.view;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import serveur.modele.Jeton;
-import serveur.modele.Point;
 import serveur.modele.service.JetonInterface;
 
 public class VueJeton extends Circle {

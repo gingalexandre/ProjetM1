@@ -1,12 +1,13 @@
 package test.serveur.modele.carte;
 
 
-import serveur.modele.carte.Paquet;
-import org.junit.Test;
+import static org.junit.Assert.assertTrue;
 
 import java.rmi.RemoteException;
 
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
+
+import serveur.modele.carte.Paquet;
 
 /**
  * Classe de test du Paquet.

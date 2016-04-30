@@ -1,9 +1,10 @@
 package serveur.modele.carte;
 
-import serveur.modele.service.CarteInterface;
-
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+
+import serveur.bdd.modeleSauvegarde.CarteSauvegarde;
+import serveur.modele.service.CarteInterface;
 
 /**
  * Classe représente la Carte de l'armee la plus puissante.
@@ -31,7 +32,12 @@ public class ArmeePuissante extends UnicastRemoteObject implements CarteInterfac
     public ArmeePuissante() throws RemoteException {
     }
 
-    /**
+    public ArmeePuissante(CarteSauvegarde carte) throws RemoteException {
+		this.nomCarte = carte.getNom();
+		this.CHEMIN = carte.getChemin();
+	}
+
+	/**
      * Action provoquer lorsqu'un joueur reçoit la carte d'armée la plus puissant.
      */
 

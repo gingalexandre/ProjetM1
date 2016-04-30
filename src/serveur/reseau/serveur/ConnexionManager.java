@@ -1,7 +1,9 @@
 package serveur.reseau.serveur;import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
-import java.rmi.RemoteException;import serveur.reseau.proxy.Proxy;/**
+import java.rmi.RemoteException;
+
+import serveur.reseau.proxy.Proxy;/**
  * Singleton g�rant la connexion au serveur
  * @author jerome
  */

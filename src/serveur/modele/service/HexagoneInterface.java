@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 import serveur.modele.Jeton;
 import serveur.modele.Point;
-import serveur.modele.Ressource;
-import serveur.modele.Ville;
 
 public interface HexagoneInterface extends Remote{
 

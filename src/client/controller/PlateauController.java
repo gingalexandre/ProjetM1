@@ -5,30 +5,29 @@ import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 import client.view.VuePrincipale;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Polygon;
-import serveur.bdd.modeleSauvegarde.PlateauSauvegarde;
-import serveur.modele.*;
-import serveur.reseau.proxy.Proxy;
-import serveur.reseau.serveur.ConnexionManager;
-import serveur.reseau.serveur.Serveur;
-import javafx.application.Platform;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import serveur.view.VueHexagone;
+import javafx.scene.shape.Polygon;
 import serveur.modele.Jeton;
+import serveur.modele.Message;
 import serveur.modele.Route;
 import serveur.modele.Ville;
 import serveur.modele.service.HexagoneInterface;
 import serveur.modele.service.PlateauInterface;
+import serveur.reseau.proxy.Proxy;
+import serveur.reseau.serveur.ConnexionManager;
+import serveur.reseau.serveur.Serveur;
+import serveur.view.VueHexagone;
 
 /**
  * Controller du plateau
@@ -38,21 +37,6 @@ public class PlateauController implements Initializable{
 
 	@FXML
 	public Pane mainPane;
-	
-	/**
-	 * Plateau de jeu
-	 */
-	private PlateauInterface plateau;
-	
-	/**
-	 * Serveur de jeu
-	 */
-	private Serveur serveur;
-	
-	/**
-	 * Proxy avec le serveur
-	 */
-	private Proxy proxy;
 
 	/**
 	 * Group rassemblant les hexagones dans le mainPane
@@ -74,16 +58,26 @@ public class PlateauController implements Initializable{
 	 */
 	private Group jetons;
 
-
+	/**
+	 * Plateau de jeu
+	 */
+	private PlateauInterface plateau;
+	
+	/**
+	 * Serveur de jeu
+	 */
+	private Serveur serveur;
+	
+	/**
+	 * Proxy avec le serveur
+	 */
+	private Proxy proxy;
+	
 	/**
 	 * Méthode d'initialisation
-	 * @param location
-	 * @param resources
      */
-	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
 		try {
 			recupererAttributs();
 			enregistrerController();
@@ -94,10 +88,7 @@ public class PlateauController implements Initializable{
 		}
 		Platform.runLater(() -> dessinerPlateau());
 	}
-	
 
-
-	
 	/**
 	 * Récupère les attributs de ConnexionManager
 	 */
@@ -123,6 +114,14 @@ public class PlateauController implements Initializable{
 		serveur.getGestionnaireUI().envoyerPlateau(proxy);
 	}
 
+	/**
+	 * Permet de set l'attribut plateau
+	 * @param plateau - Plateau envoy� par le proxy RMI 
+	 */
+	public void setPlateau(PlateauInterface plateau){
+		this.plateau = plateau;
+	}
+	
 	/**
 	 * Dessine le plateau
 	 * @throws RemoteException 
@@ -166,15 +165,6 @@ public class PlateauController implements Initializable{
 			e.printStackTrace();
 		}
 	}
-	
-	/**
-	 * Permet de set l'attribut plateau
-	 * @param plateau - Plateau envoy� par le proxy RMI 
-	 */
-	public void setPlateau(PlateauInterface plateau){
-		this.plateau = plateau;
-	}
-
 
 	/**
 	 * Update des hexagones concerné par le changement du voleur
@@ -193,13 +183,8 @@ public class PlateauController implements Initializable{
 	/**
 	 * Permet l'action du voleur.
 	 */
-	public void doActionVoleur(){
-
-		try {
-			serveur.getGestionnaireUI().diffuserMessage(new Message ("Sélectionner l'hexagone d'arrivé du voleur."));
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
+	public void doActionVoleur() throws RemoteException{
+		serveur.getGestionnaireUI().diffuserMessage(new Message ("Choisir la case de destination du Voleur"));
 		mainPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
 		{
 			@Override
@@ -215,7 +200,7 @@ public class PlateauController implements Initializable{
 						if(polygon.contains(point)){
 							try {
 								serveur.getGestionnaireUI().diffuserVoleur(depart,i);
-								serveur.getGestionnaireUI().diffuserMessage(new Message ("Déplacement de la case : "+(depart+1)+" à la case "+(i+1)+"."));
+								serveur.getGestionnaireUI().diffuserMessage(new Message ("Déplacement du voleur de la case : "+(depart+1)+" à la case "+(i+1)+"."));
 								mainPane.removeEventHandler(MouseEvent.MOUSE_CLICKED, this);
 							} catch (RemoteException e) {
 								e.printStackTrace();

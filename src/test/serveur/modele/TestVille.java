@@ -12,8 +12,6 @@ import org.junit.Test;
 
 import serveur.modele.Joueur;
 import serveur.modele.Plateau;
-import serveur.modele.Route;
-import serveur.modele.Ville;
 import serveur.modele.service.RouteInterface;
 import serveur.modele.service.VilleInterface;
 

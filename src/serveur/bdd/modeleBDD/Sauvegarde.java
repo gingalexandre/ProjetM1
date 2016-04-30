@@ -15,6 +15,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
 
 import serveur.bdd.modeleSauvegarde.PartieSauvegarde;
+import serveur.commun.Fonctions;
 import serveur.modele.Joueur;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
@@ -185,10 +186,16 @@ public class Sauvegarde {
 			}
 			buff.close(); 
 			String res = new String(json);
-			// Déserialisation
-			PartieSauvegarde partieACharger = PartieSauvegarde.deserialiser(res);
-			new serveur.modele.Partie(partieACharger);
-			// TODO ENVOYER ICI LES DONNEES AUX JOUEURS CO SUR LE SERVEUR
+			if(partieSauvegarde.getChecksum() == Fonctions.crypte(res)){
+				// Déserialisation
+				PartieSauvegarde partieACharger = PartieSauvegarde.deserialiser(res);
+				new serveur.modele.Partie(partieACharger);
+				// TODO ENVOYER ICI LES DONNEES AUX JOUEURS CO SUR LE SERVEUR
+			}
+			else{
+				//TODO faire une popup ?
+			}
+
 			}
 		
 			catch (Exception e){

@@ -201,7 +201,9 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 			for(JoueurServeur joueurServeur : joueursServeur) {
 				joueurServeur.recevoirMessage(new Message(nomJoueurActuel+" a terminé son tour."+"\nC'est à "+joueurTour.getNomUtilisateur()+" de jouer."));
 			}
-			lancerProchainTour(joueurTour);
+			if(this.premierePhasePartie){ // Si on est dans la première phase, on affiche les colonies/route à construire
+				lancerProchainTour(joueurTour);
+			}
 		}
 		else{ // La partie est terminée
 			for(JoueurServeur joueurServeur : joueursServeur) {
@@ -230,14 +232,16 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 
 	@Override
 	public void lancerProchainTour(JoueurInterface joueurTour) throws RemoteException {
-		for(JoueurServeur joueurServeur : joueursServeur) {
-			if(joueurServeur.getJoueur().getNomUtilisateur().equals(joueurTour.getNomUtilisateur())){
-				joueurServeur.lancerTour();
-			}
-		}
 		// On vérifie si on est toujours dans la première "phase" de la partie
 		if(this.partie.getCompteurTourGlobal() == this.partie.getNombreJoueurs()*2){
 			this.premierePhasePartie = false;
+		}
+		else{
+			for(JoueurServeur joueurServeur : joueursServeur) {
+				if(joueurServeur.getJoueur().getNomUtilisateur().equals(joueurTour.getNomUtilisateur())){
+					joueurServeur.lancerTour();
+				}
+			}
 		}
 	}
 
@@ -266,4 +270,5 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	public void supprimerJoueur(JoueurServeur joueur) {
 		this.joueursServeur.remove(joueur);
 	}
+	
 }

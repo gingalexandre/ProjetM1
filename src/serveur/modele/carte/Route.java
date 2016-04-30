@@ -1,9 +1,10 @@
 package serveur.modele.carte;
 
-import serveur.modele.service.CarteInterface;
-
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+
+import serveur.bdd.modeleSauvegarde.CarteSauvegarde;
+import serveur.modele.service.CarteInterface;
 
 /**
  *Carte construction qui permettent de gagner de façon permanente deux routes au joueur jouant la classe.
@@ -27,7 +28,12 @@ public class Route extends UnicastRemoteObject implements CarteInterface {
     public Route()throws RemoteException {
     }
 
-    /**
+    public Route(CarteSauvegarde carte) throws RemoteException {
+		this.nomCarte = carte.getNom();
+		this.CHEMIN = carte.getChemin();
+	}
+
+	/**
      * Action provoquer lorsqu'un joueur utilise la carte de type de progrès construction.
      */
     public void doAction() throws RemoteException{

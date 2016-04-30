@@ -12,17 +12,18 @@ import javafx.scene.Parent;
  */
 public class GameController implements Initializable{
 
-    //  Include des éléments
     /**
      * Element inclus plateau.
      */
     @FXML private Parent plateau;
+    
     /**
      * Element inclus menu.
      */
     @FXML private Parent menu;
 
     @FXML MenuController menuController;
+    
     @FXML PlateauController plateauController;
 
     public CarteController carteController;

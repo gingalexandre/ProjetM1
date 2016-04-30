@@ -5,8 +5,6 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import javafx.scene.shape.Circle;
-import serveur.bdd.modeleSauvegarde.JoueurSauvegarde;
-import serveur.bdd.modeleSauvegarde.RouteSauvegarde;
 import serveur.bdd.modeleSauvegarde.VilleSauvegarde;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.RouteInterface;

@@ -1,10 +1,10 @@
 package serveur.modele.service;
 
-import serveur.modele.carte.ArmeePuissante;
-import serveur.modele.carte.LongueRoute;
-
 import java.rmi.RemoteException;
 import java.util.List;
+
+import serveur.modele.carte.ArmeePuissante;
+import serveur.modele.carte.LongueRoute;
 
 /**
  * Created by Yohann Hugo on 28/04/2016.

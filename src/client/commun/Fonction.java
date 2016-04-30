@@ -8,6 +8,11 @@ import javafx.scene.paint.Color;
 
 public class Fonction {
 
+	/**
+	 * Obtient l'index de la plus petite valeur d'un tableau
+	 * @param tab - tableau sur lequel est appliqué la méthode
+	 * @return l'index de la plus petite valeur d'un tableau
+	 */
 	public static int getIndexMinValue(Double[] tab){
 		if(tab == null || tab.length == 0) {return -1;} 
 		int res = 0;
@@ -19,6 +24,11 @@ public class Fonction {
 		return res;
 	}
 	
+	/**
+	 * Obtient l'index de la plus grande valeur d'un tableau
+	 * @param tab - tableau sur lequel est appliqué la méthode
+	 * @return l'index de la plus grande valeur d'un tableau
+	 */
 	public static int getIndexMaxValue(Double[] tab){
 		if (tab == null || tab.length == 0) { return -1;}
 		int res = 0;
@@ -32,24 +42,22 @@ public class Fonction {
 	
 	/**
 	 * Fonction permettant de vérifier les int lors de la saisie du sucre
-	 * 
-	 * @param entree
-	 *            : Phrase à afficher au début et lors d'une mauvaise saisie
-	 * @param borneMin
-	 *            : int : borne minimum de la saisie
-	 * @param borneMax
-	 *            : int : borne maximum à ne pas dépasser pour la saisie
-	 * @return Integer : l'int saisi et vérifié
+	 * @param entree - Phrase à afficher au début et lors d'une mauvaise saisie
+	 * @param borneMin - int : borne minimum de la saisie
+	 * @param borneMax - int : borne maximum à ne pas dépasser pour la saisie
+	 * @return l'int saisi et vérifié
 	 */
 	public static boolean verificationNombre(String entree, int borneMin, int borneMax) {
 		int res = -1;
+		Scanner sc = null;
 		if (res <= borneMin || res > borneMax) {
 			try {
-				Scanner sc = new Scanner(entree);
+				sc = new Scanner(entree);
 				res = sc.nextInt();
+				sc.close();
 				return true;
 			} catch (Exception e) {
-				// TODO: handle exception
+				sc.close();
 				return false;
 			}
 		}
@@ -58,22 +66,19 @@ public class Fonction {
 	
 	/**
 	 * Fonction permettant la vérification des entrées String
-	 * 
-	 * @param entree
-	 *            : String : Phrase a afficher au début et lors d'une mauvaise
-	 *            saisie
+	 * @param entree - String : Phrase a afficher au début et lors d'une mauvaise saisie
 	 * @return String vérifié.
 	 */
 	public static String verificationString(String entree) {
-		
 		String res = "";
+		Scanner sc = null;
 		while (res.length() == 0 || res.length() > 50 || res.matches("^\\p{Digit}+$")) {
 			try {
-				System.out.println(entree);
-				Scanner sc = new Scanner(System.in);
+				sc = new Scanner(System.in);
 				res = sc.nextLine();
+				sc.close();
 			} catch (Exception e) {
-				// TODO: handle exception
+				sc.close();
 				System.out.println("Entrée invalide !");
 			}
 		}
@@ -100,6 +105,11 @@ public class Fonction {
 		}
 	}
 	
+	/**
+	 * Permet de récupérer les valeurs RGB sous forme de string d'une couleur
+	 * @param couleurEnFrancais
+	 * @return les valeurs RGB de la couleur en parametre
+	 */
 	public static String couleurEnRGB(String couleurEnFrancais){
 		switch(couleurEnFrancais){
 			case "rouge":
@@ -131,5 +141,4 @@ public class Fonction {
 		}
 		return new String(md.digest(entree.getBytes()));
 	}
-
 }

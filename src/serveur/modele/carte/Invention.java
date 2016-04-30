@@ -1,10 +1,10 @@
 package serveur.modele.carte;
 
-import serveur.modele.service.CarteInterface;
-
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+
+import serveur.bdd.modeleSauvegarde.CarteSauvegarde;
+import serveur.modele.service.CarteInterface;
 
 /**
  * Carte d'innovation : ces cartes permettent d'obtenir deux d'une ressource.
@@ -31,7 +31,12 @@ public class Invention extends UnicastRemoteObject implements CarteInterface {
     public Invention() throws RemoteException {
     }
 
-    /**
+    public Invention(CarteSauvegarde carte) throws RemoteException {
+		this.nomCarte = carte.getNom();
+		this.CHEMIN = carte.getChemin();
+	}
+
+	/**
      * Action provoquer lorsqu'un joueur utilise la carte de type de progrès ressource.
      */
     public void doAction() throws RemoteException {

@@ -17,7 +17,14 @@ import serveur.reseau.serveur.Serveur;
 
 public class InscriptionController implements Initializable {
 
+	/**
+	 * Taille max du mdp
+	 */
 	private static final int MAXSIZE = 10;
+
+	/**
+	 * Taille min du mdp (très sécurisé attention)
+	 */
 	private static final int MINSIZE = 2;
 
 	@FXML
@@ -36,12 +43,10 @@ public class InscriptionController implements Initializable {
 	private DatePicker dateNaissance;
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-
-	}
+	public void initialize(URL location, ResourceBundle resources) {}
 
 	/**
-	 * M�thode permettant de valider une inscription, si c'est bon elle ferme la fen�tre inscription
+	 * Méthode permettant de valider une inscription, si c'est bon elle ferme la fenêtre inscription
 	 * @throws InterruptedException
 	 * @throws RemoteException 
 	 */

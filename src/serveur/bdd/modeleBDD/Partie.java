@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import serveur.bdd.Base;
 import serveur.bdd.modeleSauvegarde.JoueurSauvegarde;
-import serveur.bdd.modeleSauvegarde.PartieSauvegarde;
 import serveur.commun.Fonctions;
 
 /**

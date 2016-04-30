@@ -1,10 +1,10 @@
 package test.client;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import client.commun.*;
+import client.commun.Fonction;
 
 public class TestFonctions {
 	/**

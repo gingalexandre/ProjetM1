@@ -20,19 +20,19 @@ public class ChargementController implements Initializable{
 	@FXML
 	Button boutonChargerPartie;
 	
-	Serveur serveur = ConnexionManager.getStaticServeur();
+	/**
+	 * Serveur de jeu
+	 */
+	Serveur serveur;
 
 	public void initialize(URL location, ResourceBundle resources) {
-		
+		serveur = ConnexionManager.getStaticServeur();
 		ArrayList<Integer> listeIdPartieSauvegarde = null;
 		try {
-			listeIdPartieSauvegarde = serveur.getGestionnaireBDD()
-					.recupererPartieByName(ConnexionController.nomJoueur);
+			listeIdPartieSauvegarde = serveur.getGestionnaireBDD().recupererPartieByName(ConnexionController.nomJoueur);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		listePartie.getItems().addAll(listeIdPartieSauvegarde);

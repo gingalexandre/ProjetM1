@@ -1,8 +1,10 @@
 package test.serveur.modele;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+
 import java.rmi.RemoteException;
+
+import org.junit.Test;
 
 import serveur.modele.Des;
 

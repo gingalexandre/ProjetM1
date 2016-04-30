@@ -69,4 +69,6 @@ public interface GestionnaireUIInterface extends Remote{
 	void diffuserGainCarteRessource() throws RemoteException;
 
 	void supprimerJoueur(JoueurServeur joueur) throws RemoteException;
+
+	void envoyerVol(int ressourcesMax, JoueurServeur j) throws RemoteException;
 }

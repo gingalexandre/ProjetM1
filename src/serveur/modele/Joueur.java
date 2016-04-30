@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import serveur.bdd.modeleSauvegarde.JoueurSauvegarde;
+import serveur.commun.Fonctions;
 import serveur.modele.service.CarteInterface;
 import serveur.modele.service.JoueurInterface;
 
@@ -51,6 +52,11 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	 * Point de victoires du joueur
 	 */
 	private int pointVictoire;
+	
+	/**
+	 * Nombre de cartes en main
+	 */
+	private int nbCarte;
 
 	/**
 	 * Nombre de colonies du joueur
@@ -113,6 +119,24 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		this.cartes = cartes;
 	}
 
+	public void aUneRoutePlusLongue(Joueur j){
+		//TODO
+	}
+	
+	public void aUneArmeePlusGrande(Joueur j){
+		//TODO
+	}
+	
+	public int getNbCarte() {
+		int nbCarte = 0;
+		nbCarte += this.stockRessource.get(Ressource.ARGILE);
+		nbCarte += this.stockRessource.get(Ressource.BOIS);
+		nbCarte += this.stockRessource.get(Ressource.BLE);
+		nbCarte += this.stockRessource.get(Ressource.MINERAIE);
+		nbCarte += this.stockRessource.get(Ressource.LAINE);
+		return nbCarte;
+	}
+
 	public boolean isRouteLaPlusLongue() {
 		return routeLaPlusLongue;
 	}
@@ -164,7 +188,7 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		this.nbVille = joueur.getNbVille();
 		this.nbRoute = joueur.getNbRoute();
 		this.stockRessource = joueur.getStockRessource();
-		this.cartes = joueur.getCartes();
+		this.cartes = Fonctions.transformArrayCarte(joueur.getCartes());
 	}
 
 
@@ -320,7 +344,7 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		this.pointVictoire = pointVictoire;
 	}
 
-	public ArrayList<CarteInterface> getCarte() throws RemoteException{
+	public ArrayList<CarteInterface> getCartes() throws RemoteException{
 		return cartes;
 	}
 

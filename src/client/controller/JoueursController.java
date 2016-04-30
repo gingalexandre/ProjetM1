@@ -70,18 +70,19 @@ public class JoueursController implements Initializable {
 		// Permet au proxy d'appeler des méthodes de cette classe
 		try {
 			proxy.setJoueursController(this);
-		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-		try {
 			// Envoi à CHAQUE joueur la liste de tous les joueurs, sauf
 			// lui-même. Permet de réaliser correctement l'affichage
 			// des autres joueurs sur l'interface
 			((GestionnairePartieInterface) serveur.getGestionnairePartie()).envoyerAutresJoueurs();
 			// Récupération du joueur pour pouvoir obtenir ses informations
 			joueur = proxy.getJoueur();
+			
+			nomJoueur.setText(joueur.getNomUtilisateur());
+			
+			// Appel de la méthode permettant de transformer la couleur de
+			// français à anglais pour pouvoir changer le style
+			String couleurAnglais = Fonction.couleurEnRGB(joueur.getCouleur());
+			couleurJoueur.setStyle("-fx-background-color: " + couleurAnglais + ";");
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -91,9 +92,10 @@ public class JoueursController implements Initializable {
 		nbCaillou.setText("0");
 		nbLaine.setText("0");
 		nbBois.setText("0");
+
 		try {
 			nomJoueur.setText(joueur.getNomUtilisateur());
-			nbVictoire.setText("0");
+			nbVictoire.setText(Integer.toString(joueur.getPointVictoire()));
 			// Appel de la méthode permettant de transformer la couleur de
 			// français à anglais pour pouvoir changer le style
 			String couleurAnglais = Fonction.couleurEnRGB(joueur.getCouleur());
@@ -108,24 +110,28 @@ public class JoueursController implements Initializable {
 
 	/**
 	 * Mise à jour de l'affichage des ressources du joueur actuel
-	 * 
 	 * @throws RemoteException
 	 */
 
 	public void majRessource() throws RemoteException {
 		HashMap<Integer, Integer> stockJoueur = proxy.getJoueur().getStockRessource();
-		Platform.runLater(() -> this.nbArgile.setText("" + stockJoueur.get(Ressource.ARGILE)));
-		Platform.runLater(() -> this.nbBle.setText("" + stockJoueur.get(Ressource.BLE)));
-		Platform.runLater(() -> this.nbBois.setText("" + stockJoueur.get(Ressource.BOIS)));
-		Platform.runLater(() -> this.nbCaillou.setText("" + stockJoueur.get(Ressource.MINERAIE)));
-		Platform.runLater(() -> this.nbLaine.setText("" + stockJoueur.get(Ressource.LAINE)));
+		Platform.runLater(() -> {
+			this.nbArgile.setText("" + stockJoueur.get(Ressource.ARGILE));
+			this.nbBle.setText("" + stockJoueur.get(Ressource.BLE));
+			this.nbBois.setText("" + stockJoueur.get(Ressource.BOIS));
+			this.nbCaillou.setText("" + stockJoueur.get(Ressource.MINERAIE));
+			this.nbLaine.setText("" + stockJoueur.get(Ressource.LAINE));
+		});
 	}
 	
-	
+	/**
+	 * Méthode mettant à jour le nombre de cartes
+	 * @throws RemoteException
+	 */
 	public void majNbCarte() throws RemoteException{
 		String nomJoueur = "";
 		for(int i = 0; i<serveur.getGestionnairePartie().getPartie().getNombreJoueurs()-1; i++){
-				switch (i){
+			switch (i){
 				case 0:
 					nomJoueur = this.autreUnName.getText();
 					break;
@@ -137,15 +143,15 @@ public class JoueursController implements Initializable {
 					break;
 				default :
 					break;
-				}
-				int nbCarte = 0;
-				nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.ARGILE);
-				nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.BLE);
-				nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.BOIS);
-				nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.MINERAIE);
-				nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.LAINE);
-				int n = nbCarte;
-				switch (i){
+			}
+			int nbCarte = 0;
+			nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.ARGILE);
+			nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.BLE);
+			nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.BOIS);
+			nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.MINERAIE);
+			nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.LAINE);
+			int n = nbCarte;
+			switch (i){
 				case 0:
 					Platform.runLater(() -> this.nbCarteJoueur1.setText("" + n));
 					break;
@@ -162,13 +168,9 @@ public class JoueursController implements Initializable {
 	}
 
 	/**
-	 * Méthode permettant de modifier la valeur de la ressource passé en
-	 * paramètre
-	 * 
-	 * @param nomRessource
-	 *            : String nom de la ressource à modifier
-	 * @param nombre
-	 *            : int nombre à modifier
+	 * Méthode permettant de modifier la valeur de la ressource passé en paramètre
+	 * @param nomRessource - nom de la ressource à modifier
+	 * @param nombre - nombre à modifier
 	 */
 	public void modifierRessource(String nomRessource, int nombre) {
 		Label ressource = distribuerLabelRessource(nomRessource);
@@ -178,10 +180,8 @@ public class JoueursController implements Initializable {
 
 	/**
 	 * Méthode renvoyant le Label correspondant au nom de la ressource
-	 * 
-	 * @param nomRessource
-	 *            : String : nom de la ressource
-	 * @return Label : label correspondant
+	 * @param nomRessource - nom de la ressource
+	 * @return le label correspondant
 	 */
 	public Label distribuerLabelRessource(String nomRessource) {
 		switch (nomRessource) {
@@ -202,7 +202,6 @@ public class JoueursController implements Initializable {
 
 	/**
 	 * Reçoit la liste des autres joueurs connectés au serveur
-	 * 
 	 * @param autresJoueurs
 	 */
 	public void recevoirAutresJoueurs(ArrayList<JoueurInterface> autresJoueurs) throws RemoteException {
@@ -241,26 +240,11 @@ public class JoueursController implements Initializable {
 				}
 			}
 		});
-		/*
-		 * for(int i=0;i<this.autresJoueurs.size();i++){ if(i==0){ Joueur p =
-		 * autresJoueurs.get(0); autreUnName.setText(p.getNomUtilisateur());
-		 * String couleurAnglais = Fonction.couleurEnAnglais(p.getCouleur());
-		 * autreUn.setStyle("-fx-background-color: "+couleurAnglais+";"); }
-		 * if(i==1){ Joueur p = autresJoueurs.get(1);
-		 * autreDeuxName.setText(p.getNomUtilisateur()); String couleurAnglais =
-		 * Fonction.couleurEnAnglais(p.getCouleur()); autreDeux.setStyle(
-		 * "-fx-background-color: "+couleurAnglais+";"); } if(i==2){ Joueur p =
-		 * autresJoueurs.get(2); autreTroisName.setText(p.getNomUtilisateur());
-		 * String couleurAnglais = Fonction.couleurEnAnglais(p.getCouleur());
-		 * autreTrois.setStyle("-fx-background-color: "+couleurAnglais+";"); } }
-		 */
 	}
 
 	/**
 	 * Permet de griser un GridPane
-	 * 
-	 * @param gridPaneAGriser
-	 *            GridPane à griser
+	 * @param gridPaneAGriser - GridPane à griser
 	 */
 	public void griserGridPane(GridPane gridPaneAGriser) {
 		ColorAdjust colorAdjust = new ColorAdjust();
@@ -268,15 +252,17 @@ public class JoueursController implements Initializable {
 		gridPaneAGriser.setEffect(colorAdjust);
 	}
 	
-	public void supprimerGridPane(GridPane gridPaneAGriser) {
-		gridPaneAGriser = new GridPane();
+	/**
+	 * Permet de supprimer un GridPane
+	 * @param gridPaneASupprimer
+	 */
+	public void supprimerGridPane(GridPane gridPaneASupprimer) {
+		gridPaneASupprimer = new GridPane();
 	}
 
 	/**
 	 * Permet de trouver le joueur qu'il faut supprimer du menu
-	 * 
-	 * @param nomJoueurASupprimer
-	 *            String nom du Joueur
+	 * @param nomJoueurASupprimer - nom du joueur à supprimer
 	 */
 	public void suppressionJoueur(String nomJoueurASupprimer) {
 		if (nomJoueurASupprimer.equals(autreUnName.getText())) {
@@ -288,6 +274,10 @@ public class JoueursController implements Initializable {
 		}
 	}
 
+	/**
+	 * Update l'UI en haut quand un joueur se deco
+	 * @param nomUtilisateur
+	 */
 	public void suppressionDepartJoueur(String nomUtilisateur) {
 		if (nomUtilisateur.equals(autreUnName.getText())) {
 			Platform.runLater(() -> autreUnName.setText(""));

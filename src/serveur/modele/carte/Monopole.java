@@ -1,10 +1,10 @@
 package serveur.modele.carte;
 
-import serveur.modele.service.CarteInterface;
-
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+
+import serveur.bdd.modeleSauvegarde.CarteSauvegarde;
+import serveur.modele.service.CarteInterface;
 
 /**
  * Carte de Monopole d'une ressource. Le joueur reçoit toutes les cartes d'un type choisi des autres joueurs.
@@ -30,7 +30,12 @@ public class Monopole extends UnicastRemoteObject implements CarteInterface{
     public Monopole() throws RemoteException {
     }
 
-    /**
+    public Monopole(CarteSauvegarde carte) throws RemoteException {
+		this.nomCarte = carte.getChemin();
+		this.CHEMIN = carte.getChemin();
+	}
+
+	/**
      * Action provoquer lorsqu'un joueur utilise la carte de type de Monopole.
      */
     public void doAction() throws RemoteException {

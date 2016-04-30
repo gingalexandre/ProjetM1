@@ -5,7 +5,6 @@ import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import serveur.modele.Joueur;
 import serveur.modele.Point;
 
 public interface RouteInterface extends Remote{

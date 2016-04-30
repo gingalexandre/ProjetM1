@@ -57,6 +57,11 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	private CarteController carteController;
 	
 	/**
+	 * Controller des vols
+	 */
+	private VolController volController;
+	
+	/**
 	 * Joueur associe au proxy
 	 */
 	private JoueurInterface joueur;
@@ -234,5 +239,15 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	@Override
 	public void activerQuitterPartie() throws RemoteException{
 		this.menuController.activerQuitterPartie();
+	}
+
+	@Override
+	public void envoyerVol(int ressourcesMax) throws RemoteException {
+		this.menuController.ouvrirVol(ressourcesMax);
+	}
+
+	public void setVolController(VolController volController) throws RemoteException{
+		this.volController = volController;
+		
 	}
 }

@@ -169,4 +169,9 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	public void supprimerJoueur(JoueurServeur joueur) throws RemoteException{
 		this.joueurServeurs.remove(joueur);
 	}
+
+	@Override
+	public void envoyerVol(int ressourcesMax, JoueurServeur j) throws RemoteException {
+		j.envoyerVol(ressourcesMax);
+	}
 }

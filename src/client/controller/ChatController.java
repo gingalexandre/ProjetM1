@@ -5,10 +5,6 @@ import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 import client.commun.Fonction;
-import serveur.modele.Message;
-import serveur.reseau.proxy.Proxy;
-import serveur.reseau.serveur.ConnexionManager;
-import serveur.reseau.serveur.Serveur;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -20,6 +16,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import serveur.modele.Message;
+import serveur.reseau.proxy.Proxy;
+import serveur.reseau.serveur.ConnexionManager;
+import serveur.reseau.serveur.Serveur;
 
 /**
  * Controller du chat
@@ -53,16 +53,15 @@ public class ChatController implements Initializable{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		serveur = ConnexionManager.getStaticServeur();
 		try {
 			enregistrerController();
-		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (RemoteException e) {
+			e.printStackTrace();
 		}
 		listenerVues();
 		proprietesComposants();
 		try{
-			serveur = ConnexionManager.getStaticServeur();
 			serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" vient de se connecter"));
 			serveur.envoyerNombreJoueursConnectes();
 		}
@@ -118,17 +117,19 @@ public class ChatController implements Initializable{
 	 */
 	public void afficherMessage(Message message){
 		if(message.isSystem()){
-			Platform.runLater(() -> textFlowPrincipal.getChildren().add(creerStyleTexteMessage(message)));
-			Platform.runLater(() -> textFlowSysteme.getChildren().add(creerStyleTexteMessage(message)));
+			Platform.runLater(() -> {
+				textFlowPrincipal.getChildren().add(creerStyleTexteMessage(message));
+				textFlowSysteme.getChildren().add(creerStyleTexteMessage(message));
+			});
 		}
 		else{
-			Platform.runLater(() -> textFlowPrincipal.getChildren().add(creerStyleTexteAuteur(message)));
-			Platform.runLater(() -> textFlowPrincipal.getChildren().add(creerStyleTexteMessage(message)));
-			
-			Platform.runLater(() -> textFlowJoueurs.getChildren().add(creerStyleTexteAuteur(message)));
-			Platform.runLater(() -> textFlowJoueurs.getChildren().add(creerStyleTexteMessage(message)));
+			Platform.runLater(() -> {
+				textFlowPrincipal.getChildren().add(creerStyleTexteAuteur(message));
+				textFlowPrincipal.getChildren().add(creerStyleTexteMessage(message));
+				textFlowJoueurs.getChildren().add(creerStyleTexteAuteur(message));
+				textFlowJoueurs.getChildren().add(creerStyleTexteMessage(message));
+			});
 		}
-		
 		// Scroll du chat
 		setScrollValue(scrollPanePrincipal, scrollPanePrincipal.getHmax());
 		setScrollValue(scrollPaneJoueurs, scrollPaneJoueurs.getHmax());

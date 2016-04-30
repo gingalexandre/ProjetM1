@@ -396,10 +396,8 @@ public class MenuController implements Initializable {
 		serveur.getGestionnairePartie().finirTour(nomJoueurActuel);
 	}
 	
-	public void demanderRoute(boolean initPhase,VilleInterface villeIgnored){
+	public void demanderRoute(boolean initPhase, VilleInterface villeIgnored){
 		try{
-			setButtons(true);
-			Serveur serveur = ConnexionManager.getStaticServeur();
 			PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
 			// INITIALISATION
 			// Etape 1 : Création d'une map avec chaque point qui associe la ville de cet emplacement
@@ -676,7 +674,6 @@ public class MenuController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 
     /**
@@ -712,10 +709,7 @@ public class MenuController implements Initializable {
     public void jouerCarte() throws RemoteException {
         int index = listeCarte.getSelectionModel().getSelectedIndex();
 
-        System.out.println(listeCarte.getSelectionModel().getSelectedItem());
-        System.out.println("Index -->" + index);
         CarteInterface carte = proxy.getJoueur().getCartes(index);
-        System.out.println("Carte -->" + carte.getNom());
         if (carte != null) {
             serveur.getGestionnaireUI().diffuserMessage(new Message("Playing card : " + carte.getNom()));
             listeCarte.getItems().remove(index);

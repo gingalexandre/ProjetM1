@@ -37,21 +37,6 @@ public class PlateauController implements Initializable{
 
 	@FXML
 	public Pane mainPane;
-	
-	/**
-	 * Plateau de jeu
-	 */
-	private PlateauInterface plateau;
-	
-	/**
-	 * Serveur de jeu
-	 */
-	private Serveur serveur;
-	
-	/**
-	 * Proxy avec le serveur
-	 */
-	private Proxy proxy;
 
 	/**
 	 * Group rassemblant les hexagones dans le mainPane
@@ -73,16 +58,26 @@ public class PlateauController implements Initializable{
 	 */
 	private Group jetons;
 
-
+	/**
+	 * Plateau de jeu
+	 */
+	private PlateauInterface plateau;
+	
+	/**
+	 * Serveur de jeu
+	 */
+	private Serveur serveur;
+	
+	/**
+	 * Proxy avec le serveur
+	 */
+	private Proxy proxy;
+	
 	/**
 	 * Méthode d'initialisation
-	 * @param location
-	 * @param resources
      */
-	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
 		try {
 			recupererAttributs();
 			enregistrerController();
@@ -93,10 +88,7 @@ public class PlateauController implements Initializable{
 		}
 		Platform.runLater(() -> dessinerPlateau());
 	}
-	
 
-
-	
 	/**
 	 * Récupère les attributs de ConnexionManager
 	 */
@@ -122,6 +114,14 @@ public class PlateauController implements Initializable{
 		serveur.getGestionnaireUI().envoyerPlateau(proxy);
 	}
 
+	/**
+	 * Permet de set l'attribut plateau
+	 * @param plateau - Plateau envoy� par le proxy RMI 
+	 */
+	public void setPlateau(PlateauInterface plateau){
+		this.plateau = plateau;
+	}
+	
 	/**
 	 * Dessine le plateau
 	 * @throws RemoteException 
@@ -165,15 +165,6 @@ public class PlateauController implements Initializable{
 			e.printStackTrace();
 		}
 	}
-	
-	/**
-	 * Permet de set l'attribut plateau
-	 * @param plateau - Plateau envoy� par le proxy RMI 
-	 */
-	public void setPlateau(PlateauInterface plateau){
-		this.plateau = plateau;
-	}
-
 
 	/**
 	 * Update des hexagones concerné par le changement du voleur

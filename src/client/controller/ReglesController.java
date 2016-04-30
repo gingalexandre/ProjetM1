@@ -32,6 +32,10 @@ public class ReglesController implements Initializable{
 	private Button boutonSauvegarde;
 	
 	private Pane page = null;
+	
+	/**
+	 * Fenêtre de stat
+	 */
 	public static Stage statsFenetre;
 	
 	/**
@@ -39,16 +43,22 @@ public class ReglesController implements Initializable{
 	 */
 	private Proxy proxy;
 	
-	/**
-	 * Serveur de jeu
-	 */
-	private Serveur serveur;
-	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		//Initialisation du proxy
+		proxy = ConnexionManager.getStaticProxy();
+		try {
+			proxy.setReglesController(this);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
 	
 	public void afficherRegles(){
-				VuePrincipale v= new VuePrincipale();
-				String path = new java.io.File("" ).getAbsolutePath(); 
-				v.getHostServices().showDocument("file://"+ path + "/rules.pdf");
+		VuePrincipale v= new VuePrincipale();
+		String path = new java.io.File("" ).getAbsolutePath(); 
+		v.getHostServices().showDocument("file://"+ path + "/rules.pdf");
 	}
 	
 	@FXML
@@ -67,10 +77,17 @@ public class ReglesController implements Initializable{
 		}
 	}
 	
+	/**
+	 * Active/Desactive le bouton de sauvegarde
+	 * @param boo
+	 */
 	public void setButtonsSauvegarde(boolean boo) {
 		Platform.runLater(() -> boutonSauvegarde.setDisable(boo));
 	}
 	
+	/**
+	 * Se déclenche quand on appuie sur le bouton pour sauvegarder la partie
+	 */
 	@FXML
 	private void sauvegarderPartie(){
 		Serveur serveur = null;
@@ -78,25 +95,7 @@ public class ReglesController implements Initializable{
 		try {
 			serveur.enregistrerPartie();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		
-		//Initialisation du proxy
-		proxy = ConnexionManager.getStaticProxy();
-		try {
-			proxy.setReglesController(this);
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-				
-		serveur = ConnexionManager.getStaticServeur();
-		
-	}
-
 }

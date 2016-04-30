@@ -23,31 +23,37 @@ public class PropositionController implements Initializable {
 	@FXML
 	private Button accepter, refuser;
 	
+	/**
+	 * HashMap pour la proposition
+	 */
 	private HashMap<String, Integer> offreDemande;
 	
+	/**
+	 * Nom de l'expediteur
+	 */
 	private String expediteur;
-	
-	private Proxy proxy;
 	
 	/**
 	 * Serveur de jeu
 	 */
 	private Serveur serveur;
 	
+	/**
+	 * Proxy de jeu
+	 */
+	private Proxy proxy;
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
 		//Initialisation du proxy
+		serveur = ConnexionManager.getStaticServeur();
 		proxy = ConnexionManager.getStaticProxy();
+		
 		try {
 			proxy.setPropositionController(this);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		serveur = ConnexionManager.getStaticServeur();
 	}
 
 	/**

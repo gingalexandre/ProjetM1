@@ -31,17 +31,24 @@ public class VolController implements Initializable {
 	@FXML
 	private Button boutonVol;
 	
+	/**
+	 * Nombre max de ressources
+	 */
 	private int maxRessource;
-	
-	private Proxy proxy;
 	
 	/**
 	 * Serveur de jeu
 	 */
 	private Serveur serveur;
 	
+	/**
+	 * Proxy de jeu
+	 */
+	private Proxy proxy;
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		serveur = ConnexionManager.getStaticServeur();
 		
 		//Initialisation du proxy
 		proxy = ConnexionManager.getStaticProxy();
@@ -51,9 +58,6 @@ public class VolController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		serveur = ConnexionManager.getStaticServeur();
-		
 		try {
 			setImages();
 		} catch (RemoteException e) {
@@ -62,6 +66,11 @@ public class VolController implements Initializable {
 		}
 	}
 	
+	/**
+	 * Set les valeurs des textField
+	 * @param maxRessources
+	 * @throws RemoteException
+	 */
 	public void setValeursText(int maxRessources) throws RemoteException{
 		this.maxRessource = maxRessources;
 		this.message.setText("Vous ne pouvez garder que "+maxRessources+" ressources...");
@@ -72,6 +81,10 @@ public class VolController implements Initializable {
 		this.resteMineraie.setText(""+proxy.getJoueur().getStockRessource().get(Ressource.MINERAIE));
 	}
 	
+	/**
+	 * Set les images
+	 * @throws RemoteException
+	 */
 	public void setImages() throws RemoteException {
 		imgLaine.setImage(new Image("file:Ressources/ressources/ressource_laine.png"));
 		imgBois.setImage(new Image("file:Ressources/ressources/ressource_Bois.png"));
@@ -80,6 +93,10 @@ public class VolController implements Initializable {
 		imgBle.setImage(new Image("file:Ressources/ressources/ressource_Ble.png"));
 	}
 	
+	/**
+	 * Permet d'effectue le vol
+	 * @throws RemoteException
+	 */
 	public void effectuerVol() throws RemoteException{
 		if(volValide()){
 			HashMap<Integer, Integer> nouveauStock = new HashMap<Integer, Integer>();
@@ -104,6 +121,11 @@ public class VolController implements Initializable {
 		}
 	}
 	
+	/**
+	 * Indique si le vol est valide
+	 * @return true si le vol est valide, false sinon
+	 * @throws RemoteException
+	 */
 	public boolean volValide() throws RemoteException{
 		boolean isValide = true;
 		
@@ -132,5 +154,4 @@ public class VolController implements Initializable {
 		}
 		return isValide;
 	}
-
 }

@@ -20,10 +20,14 @@ public class StatistiquesController implements Initializable {
 	private Button ok;
 	
 	/**
+	 * Serveur de jeu
+	 */
+	Serveur serveur;
+	
+	/**
 	 * Méthode d'initialisation et qui récupère et affiche les stats du Joueur
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
-		Serveur serveur = null;
 		serveur = ConnexionManager.getStaticServeur();
 		Integer[] stats = new Integer[2];
 		try {
@@ -42,7 +46,6 @@ public class StatistiquesController implements Initializable {
 		else{
 			pourcentage.setText("0 %");
 		}
-		
 	}
 	
 	/**
@@ -52,6 +55,4 @@ public class StatistiquesController implements Initializable {
 	private void fermerFenetre(){
 		ReglesController.statsFenetre.close();
 	}
-	
-	
 }

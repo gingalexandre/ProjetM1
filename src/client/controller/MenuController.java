@@ -414,6 +414,7 @@ public class MenuController implements Initializable {
 			    Scene scene = new Scene(pagePopup,430,500);
 			    fenetreVol.setScene(scene);
 			    fenetreVol.showAndWait();
+			    
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

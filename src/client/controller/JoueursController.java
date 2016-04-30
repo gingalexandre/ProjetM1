@@ -59,7 +59,10 @@ public class JoueursController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// Récupération du serveur via le singleton pour facilement le manipuler// dans la classe
+		autresJoueurs = new ArrayList<JoueurInterface>();
+
+		// Récupération du serveur via le singleton pour facilement le manipuler
+		// dans la classe
 		serveur = ConnexionManager.getStaticServeur();
 		// Récupération du proxy via le singleton ConnexionManager
 		proxy = ConnexionManager.getStaticProxy();
@@ -73,7 +76,9 @@ public class JoueursController implements Initializable {
 			((GestionnairePartieInterface) serveur.getGestionnairePartie()).envoyerAutresJoueurs();
 			// Récupération du joueur pour pouvoir obtenir ses informations
 			joueur = proxy.getJoueur();
+			
 			nomJoueur.setText(joueur.getNomUtilisateur());
+			
 			// Appel de la méthode permettant de transformer la couleur de
 			// français à anglais pour pouvoir changer le style
 			String couleurAnglais = Fonction.couleurEnRGB(joueur.getCouleur());
@@ -81,7 +86,7 @@ public class JoueursController implements Initializable {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		autresJoueurs = new ArrayList<JoueurInterface>();
+
 		nbBle.setText("0");
 		nbArgile.setText("0");
 		nbCaillou.setText("0");
@@ -113,7 +118,7 @@ public class JoueursController implements Initializable {
 	public void majNbCarte() throws RemoteException{
 		String nomJoueur = "";
 		for(int i = 0; i<serveur.getGestionnairePartie().getPartie().getNombreJoueurs()-1; i++){
-				switch (i){
+			switch (i){
 				case 0:
 					nomJoueur = this.autreUnName.getText();
 					break;
@@ -125,15 +130,15 @@ public class JoueursController implements Initializable {
 					break;
 				default :
 					break;
-				}
-				int nbCarte = 0;
-				nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.ARGILE);
-				nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.BLE);
-				nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.BOIS);
-				nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.MINERAIE);
-				nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.LAINE);
-				int n = nbCarte;
-				switch (i){
+			}
+			int nbCarte = 0;
+			nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.ARGILE);
+			nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.BLE);
+			nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.BOIS);
+			nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.MINERAIE);
+			nbCarte += serveur.getGestionnairePartie().getPartie().getJoueurByName(nomJoueur).getStockRessource().get(Ressource.LAINE);
+			int n = nbCarte;
+			switch (i){
 				case 0:
 					Platform.runLater(() -> this.nbCarteJoueur1.setText("" + n));
 					break;

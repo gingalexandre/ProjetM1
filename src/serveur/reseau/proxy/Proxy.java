@@ -5,13 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import client.controller.ChatController;
-import client.controller.EchangeController;
-import client.controller.JoueursController;
-import client.controller.MenuController;
-import client.controller.PlateauController;
-import client.controller.PropositionController;
-import client.controller.ReglesController;
+import client.controller.*;
 import serveur.modele.Message;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
@@ -56,6 +50,11 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	 * Controller des propositions
 	 */
 	private PropositionController propostionController;
+
+	/**
+	 * Controller des propositions
+	 */
+	private CarteController carteController;
 	
 	/**
 	 * Joueur associe au proxy
@@ -111,6 +110,13 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	
 	public void setReglesController(ReglesController reglesController)throws RemoteException  {
 		this.reglesController = reglesController;
+	}
+
+	/**
+	 * @param carteController
+	 */
+	public void setCarteController(CarteController carteController) throws RemoteException {
+		this.carteController = carteController;
 	}
 
 	/**

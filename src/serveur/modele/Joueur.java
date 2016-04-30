@@ -68,6 +68,11 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	private int nbRoute = 15;
 
 	/**
+	 * Nombre de routes du joueur
+	 */
+	private int guerrier = 0;
+
+	/**
 	 * Stock de ressources du joueur
 	 */
 	private HashMap<Integer, Integer> stockRessource = new HashMap<>();
@@ -106,14 +111,6 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		this.nbRoute = nbRoute;
 		this.stockRessource = stockRessource;
 		this.cartes = cartes;
-	}
-
-	public void aUneRoutePlusLongue(Joueur j){
-		//TODO
-	}
-	
-	public void aUneArmeePlusGrande(Joueur j){
-		//TODO
 	}
 
 	public boolean isRouteLaPlusLongue() {
@@ -271,80 +268,84 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		this.nomUtilisateur = nomUtilisateur;
 	}
 
-	public Date getDateDeNaissance()  throws RemoteException{
+	public Date getDateDeNaissance() throws RemoteException{
 		return dateDeNaissance;
 	}
 
-	public void setDateDeNaissance(Date dateDeNaissance)  throws RemoteException{
+	public void setDateDeNaissance(Date dateDeNaissance) throws RemoteException{
 		this.dateDeNaissance = dateDeNaissance;
 	}
 	
-	public String getCouleur()  throws RemoteException{
+	public String getCouleur() throws RemoteException{
 		return this.couleur;
 	}
 
-	public void setCouleur(String couleur)  throws RemoteException{
+	public void setCouleur(String couleur) throws RemoteException{
 		this.couleur = couleur;
 	}
 
-	public int getNbColonie()  throws RemoteException{
+	public int getNbColonie() throws RemoteException{
 		return nbColonie;
 	}
 
-	public void setNbColonie(int nbColonie)  throws RemoteException{
+	public void setNbColonie(int nbColonie) throws RemoteException{
 		this.nbColonie = nbColonie;
 	}
 
-	public int getNbVille()  throws RemoteException{
+	public int getNbVille() throws RemoteException{
 		return nbVille;
 	}
 
-	public void setNbVille(int nbVille)  throws RemoteException{
+	public void setNbVille(int nbVille) throws RemoteException{
 		this.nbVille = nbVille;
 	}
 
-	public boolean encoreAssezVille()  throws RemoteException{
+	public boolean encoreAssezVille() throws RemoteException{
 		return (this.nbVille > 0);
 	}
 
-	public boolean encoreAssezColonie()  throws RemoteException{
+	public boolean encoreAssezColonie() throws RemoteException{
 		return (this.nbVille > 0);
 	}
 
-	public boolean encoreAssezRoute()  throws RemoteException{
+	public boolean encoreAssezRoute() throws RemoteException{
 		return (this.nbRoute > 0);
 	}
 
-	public int getPointVictoire()  throws RemoteException{
+	public int getPointVictoire() throws RemoteException{
 		return pointVictoire;
 	}
 
-	public void setPointVictoire(int pointVictoire)  throws RemoteException{
+	public void setPointVictoire(int pointVictoire) throws RemoteException{
 		this.pointVictoire = pointVictoire;
 	}
 
-	public ArrayList<CarteInterface> getCartes()  throws RemoteException{
+	public ArrayList<CarteInterface> getCarte() throws RemoteException{
 		return cartes;
 	}
 
-	public void addCartes(CarteInterface carte)  throws RemoteException{
+	public void addCarte(CarteInterface carte) throws RemoteException{
 		this.cartes.add(carte);
 	}
 
-	public CarteInterface getCartes(int index)  throws RemoteException{
+	public CarteInterface getCarte(int index) throws RemoteException{
 		return this.cartes.get(index);
 	}
 
-	public void removeCartes(int index)  throws RemoteException{
+	public void removeCarte(int index) throws RemoteException{
 		this.cartes.remove(index);
 	}
 
-	public int getNbRoute()  throws RemoteException{
+	public int getNbRoute() throws RemoteException{
 		return nbRoute;
 	}
 
-	public void setNbRoute(int nbRoute)  throws RemoteException{
+	public void setNbRoute(int nbRoute) throws RemoteException{
 		this.nbRoute = nbRoute;
+	}
+
+	public void incrementeGuerrier() throws RemoteException{
+		this.guerrier++;
 	}
 
 	@Override

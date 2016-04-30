@@ -37,7 +37,6 @@ public class LongueRoute extends UnicastRemoteObject implements CarteInterface {
     /**
      * Action provoquer lorsqu'un joueur reçoit la carte de longue route.
      */
-    @Override
     public void doAction() throws RemoteException {
         /*
 

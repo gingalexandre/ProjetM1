@@ -195,6 +195,11 @@ public class PlateauController implements Initializable{
 	 */
 	public void doActionVoleur(){
 
+		try {
+			serveur.getGestionnaireUI().diffuserMessage(new Message ("Sélectionner l'hexagone d'arrivé du voleur."));
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 		mainPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
 		{
 			@Override

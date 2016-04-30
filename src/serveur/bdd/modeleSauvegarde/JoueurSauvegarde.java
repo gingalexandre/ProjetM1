@@ -96,7 +96,7 @@ public class JoueurSauvegarde implements Serializable {
 		this.nbVille = joueur.getNbVille();
 		this.nbRoute = joueur.getNbRoute();
 		this.stockRessource = joueur.getStockRessource();
-		this.cartes = joueur.getCartes();
+		this.cartes = joueur.getCarte();
 	}
 
 	/**

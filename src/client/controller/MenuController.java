@@ -1,7 +1,6 @@
 package client.controller;
 
 import java.io.IOException;
-import java.net.SocketException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.rmi.UnmarshalException;
@@ -24,8 +23,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -36,7 +33,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.util.StringConverter;
 import serveur.modele.Des;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
@@ -339,7 +335,7 @@ public class MenuController implements Initializable {
 	 * Actualisation de la liste de cartes
 	 */
 	public void majListeCarte() throws RemoteException{
-		for(CarteInterface carte : proxy.getJoueur().getCartes()){
+		for(CarteInterface carte : proxy.getJoueur().getCarte()){
 			this.listeCarte.getItems().add(carte.getNom());
 		}
 	}
@@ -711,7 +707,7 @@ public class MenuController implements Initializable {
 			Platform.runLater(() -> {
                 try {
                     listeCarte.getItems().add(card.getNom());
-                    proxy.getJoueur().addCartes(carte);
+                    proxy.getJoueur().addCarte(carte);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
@@ -728,12 +724,11 @@ public class MenuController implements Initializable {
      */
     public void jouerCarte() throws RemoteException {
         int index = listeCarte.getSelectionModel().getSelectedIndex();
-        System.out.println(listeCarte.getSelectionModel().getSelectedItem());
-        CarteInterface carte = proxy.getJoueur().getCartes(index);
+        CarteInterface carte = proxy.getJoueur().getCarte(index);
         if (carte != null) {
             serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" joue la carte : " + carte.getNom()+"."));
             listeCarte.getItems().remove(index);
-            proxy.getJoueur().removeCartes(index);
+            proxy.getJoueur().removeCarte(index);
 			carteController.doActionCarte(carte);
         }
     }

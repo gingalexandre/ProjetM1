@@ -1,6 +1,9 @@
 package serveur.bdd.modeleSauvegarde;
 
-import serveur.modele.carte.Carte;
+
+import serveur.modele.service.CarteInterface;
+
+import java.rmi.RemoteException;
 
 public class CarteSauvegarde {
 
@@ -8,7 +11,7 @@ public class CarteSauvegarde {
 	
 	String chemin;
 
-	public CarteSauvegarde(Carte carte) {
+	public CarteSauvegarde(CarteInterface carte) throws RemoteException {
 		super();
 		this.nom = carte.getNom();
 		this.chemin = carte.getCheminImage();

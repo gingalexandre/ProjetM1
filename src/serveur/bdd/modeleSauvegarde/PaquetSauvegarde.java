@@ -1,12 +1,13 @@
 package serveur.bdd.modeleSauvegarde;
 
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 
 import serveur.modele.carte.ArmeePuissante;
-import serveur.modele.carte.Carte;
 import serveur.modele.carte.LongueRoute;
 import serveur.modele.carte.Paquet;
+import serveur.modele.service.CarteInterface;
 
 public class PaquetSauvegarde {
 
@@ -23,16 +24,16 @@ public class PaquetSauvegarde {
     /**
      * Attribut deck pour l'ensemble des cartes restantes.
      */
-    private List<Carte> deck = new LinkedList<>();
+    private List<CarteInterface> deck = new LinkedList<>();
 
-	public PaquetSauvegarde(Paquet paquet) {
+	public PaquetSauvegarde(Paquet paquet) throws RemoteException {
 		super();
 		this.ap = paquet.getAp();
 		this.lr = paquet.getLr();
 		this.deck = paquet.getDeck();
 	}
 
-	public PaquetSauvegarde(){}
+	public PaquetSauvegarde() throws RemoteException {}
 
 
 	public ArmeePuissante getAp() {
@@ -51,11 +52,11 @@ public class PaquetSauvegarde {
 		this.lr = lr;
 	}
 
-	public List<Carte> getDeck() {
+	public List<CarteInterface> getDeck() {
 		return deck;
 	}
 
-	public void setDeck(List<Carte> deck) {
+	public void setDeck(List<CarteInterface> deck) {
 		this.deck = deck;
 	}
 	

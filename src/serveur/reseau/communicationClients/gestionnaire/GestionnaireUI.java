@@ -174,4 +174,15 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	public void envoyerVol(int ressourcesMax, JoueurServeur j) throws RemoteException {
 		j.envoyerVol(ressourcesMax);
 	}
+
+	/**
+	 * Permet la mise a jour des points d'un joueur.
+	 * @param joueur
+	 * @throws RemoteException
+     */
+	public void updatePointVictoire(JoueurInterface joueur) throws  RemoteException {
+		for (JoueurServeur joueurServeur : joueurServeurs) {
+			joueurServeur.updatePointVictoire(joueur);
+		}
+	}
 }

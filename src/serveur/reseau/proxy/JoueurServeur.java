@@ -90,4 +90,11 @@ public interface JoueurServeur extends Remote {
 		void activerQuitterPartie() throws RemoteException;
 
 		void envoyerVol(int ressourcesMax) throws RemoteException;
+
+	/**
+	 * Permet la mise a jour des points d'un joueur.
+	 * @param joueur
+	 * @throws RemoteException
+	 */
+	public void updatePointVictoire(JoueurInterface joueur) throws  RemoteException;
 }

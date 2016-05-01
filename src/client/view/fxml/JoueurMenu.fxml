@@ -139,7 +139,7 @@
                                         </AnchorPane>
                                         <AnchorPane GridPane.rowIndex="0" GridPane.columnIndex="1">
                                             <children>
-                                                <Label fx:id="nbVictoire" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                                                <Label fx:id="nbVictoireJoueur1" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane fx:id="imageCarte"  GridPane.rowIndex="0" GridPane.columnIndex="2">
@@ -188,7 +188,7 @@
                                         </AnchorPane>
                                         <AnchorPane GridPane.rowIndex="0" GridPane.columnIndex="1">
                                             <children>
-                                                <Label fx:id="nbVictoire" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                                                <Label fx:id="nbVictoireJoueur2" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane fx:id="imageCarte"  GridPane.rowIndex="0" GridPane.columnIndex="2">
@@ -237,7 +237,7 @@
                                         </AnchorPane>
                                         <AnchorPane GridPane.rowIndex="0" GridPane.columnIndex="1">
                                             <children>
-                                                <Label fx:id="nbVictoire" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                                                <Label fx:id="nbVictoireJoueur3" alignment="CENTER" text="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane fx:id="imageCarte"  GridPane.rowIndex="0" GridPane.columnIndex="2">

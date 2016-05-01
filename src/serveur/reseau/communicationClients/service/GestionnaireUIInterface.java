@@ -78,4 +78,12 @@ public interface GestionnaireUIInterface extends Remote{
 	 * @throws RemoteException
 	 */
 	public void updatePointVictoire(JoueurInterface joueur) throws  RemoteException ;
+
+
+	/**
+	 * Permet de monopoliser une ressource
+	 * @param ressource_visee
+	 * @throws RemoteException
+	 */
+	public int monopole(int ressource_visee) throws  RemoteException ;
 }

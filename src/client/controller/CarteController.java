@@ -70,9 +70,7 @@ public class CarteController {
             int ressource_cible = popChoixRessource("Carte Invention","Les cartes de développement de type Invention permettent de gagner +2 dans une ressource.");
             if(ressource_cible != -1){
                 action = true;
-                HashMap<Integer, Integer> stock = player.getStockRessource();
-                stock.put(ressource_cible, stock.get(ressource_cible)+2);
-                player.setStockRessource(stock);
+                player.ajoutRessource(ressource_cible,2);
                 proxy.getJoueursController().majRessource();
                 serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne 2 de "+nameRessource(ressource_cible)+" suite à l'usage de sa carte développement."));
             }
@@ -81,11 +79,10 @@ public class CarteController {
             int ressource_cible = popChoixRessource("Carte Monopole","Les cartes de développement de type Monopole permettent d'obtenir le monopole d'une ressource en volant les réserves de celle-ci aux autres joueurs.");
             if(ressource_cible != -1){
                 action = true;
-                HashMap<Integer, Integer> stock = player.getStockRessource();
-                stock.put(ressource_cible, stock.get(ressource_cible)+2);
-                player.setStockRessource(stock);
-                proxy.getJoueursController().majRessource();
-                serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne 2 de "+nameRessource(ressource_cible)+" suite à l'usage de sa carte développement."));
+                int total = serveur.getGestionnaireUI().monopole(ressource_cible);
+                player.ajoutRessource(ressource_cible,total);
+                serveur.getGestionnaireUI().diffuserGainRessource();
+                serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne "+total+" de "+nameRessource(ressource_cible)+" suite à l'usage de sa carte développement."));
             }
         }
         if(ci.getNom().equals((new Route()).getNom())){

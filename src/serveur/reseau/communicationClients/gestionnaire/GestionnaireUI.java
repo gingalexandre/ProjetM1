@@ -185,4 +185,17 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 			joueurServeur.updatePointVictoire(joueur);
 		}
 	}
+
+	/**
+	 * Permet de récupérer toutes les ressources d'un type pour monopoliser
+	 * @param ressource_visee
+	 * @throws RemoteException
+	 */
+	public int monopole(int ressource_visee) throws  RemoteException {
+		int value = 0;
+		for (JoueurServeur joueurServeur : joueurServeurs) {
+			value += joueurServeur.monopole(ressource_visee);
+		}
+		return value;
+	}
 }

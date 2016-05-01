@@ -97,4 +97,12 @@ public interface JoueurServeur extends Remote {
 	 * @throws RemoteException
 	 */
 	public void updatePointVictoire(JoueurInterface joueur) throws  RemoteException;
+
+	/**
+	 * Permet de récupérer toutes les ressources d'un type pour monopoliser
+	 * @param ressource_visee
+	 * @throws RemoteException
+	 */
+	public int monopole(int ressource_visee) throws  RemoteException ;
+
 }

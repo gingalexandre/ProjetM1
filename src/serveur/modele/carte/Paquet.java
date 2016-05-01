@@ -70,33 +70,53 @@ public class Paquet implements serveur.modele.service.PaquetInterface {
         int i = 0;
         int random_value = 0;
         while(i<NBCARTE){
-            random_value = (int) Math.round(Math.random()*5);
+            random_value = (int) Math.round(Math.random()* 25);
             switch(random_value){
+                case 0:
                 case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                case 10:
+                case 11:
+                case 12:
+                case 13:
                     if(NBCHEVALIER>0){
                         deck.add(i, new Chevalier());
                         NBCHEVALIER--;
                     }
                     break;
-                case 2:
+                case 14:
+                case 15:
                     if(NBINVENTION>0){
                         deck.add(i, new Invention());
                         NBINVENTION--;
                     }
                     break;
-                case 3:
+                case 16:
+                case 17:
                     if(NBMONOPOLE>0){
                         deck.add(i, new Monopole());
                         NBMONOPOLE--;
                     }
                     break;
-                case 4:
+                case 18:
+                case 19:
+                case 20:
+                case 21:
+                case 22:
                     if(NBVICTOIRE>0){
                         deck.add(i, new Victoire());
                         NBVICTOIRE--;
                     }
                     break;
-                case 5:
+                case 23:
+                case 24:
                     if(NBROUTE>0){
                         deck.add(i, new Route());
                         NBROUTE--;

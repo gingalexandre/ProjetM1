@@ -7,11 +7,8 @@ import serveur.modele.Point;
 import serveur.modele.service.VilleInterface;
 
 /**
- * Classe servant a convertir une VilleInterface en VilleSauvegarde pour la
- * sauvegarde de l'objet
- * 
+ * Classe servant a convertir une villeInterface en villeSauvegarde pour la sauvegarde de l'objet
  * @author Alexandre
- *
  */
 public class VilleSauvegarde implements Serializable {
 
@@ -19,38 +16,47 @@ public class VilleSauvegarde implements Serializable {
 	 * Variable pour la sérialisation
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	/**
-	 * Point : emplacement de la Ville
+	 * Emplacement de la ville
 	 */
 	private Point emplacement;
+	
 	/**
-	 * Position dans la liste des villes de la 1ère Ville adjacente à la Ville
+	 * Position dans la liste des villes de la 1ère ville adjacente à la ville
 	 */
 	private int ville_adj1;
+	
 	/**
-	 * Position dans la liste des villes de la 2nd Ville adjacente à la Ville
+	 * Position dans la liste des villes de la 2nd ville adjacente à la ville
 	 */
 	private int ville_adj2;
+	
 	/**
-	 * Position dans la liste des villes de la 3ème Ville adjacente à la Ville
+	 * Position dans la liste des villes de la 3ème ville adjacente à la ville
 	 */
 	private int ville_adj3;
+	
 	/**
-	 * 1ère Route adjacente à la Ville
+	 * 1ère route adjacente à la ville
 	 */
 	private RouteSauvegarde route_adj1;
+	
 	/**
-	 * 2nd Route adjacente à la Ville
+	 * 2nd route adjacente à la ville
 	 */
 	private RouteSauvegarde route_adj2;
+	
 	/**
-	 * 3ème Route adjacente à la Ville
+	 * 3ème route adjacente à la ville
 	 */
 	private RouteSauvegarde route_adj3;
+	
 	/**
-	 * Propriétaire de la Ville
+	 * Propriétaire de la ville
 	 */
 	private JoueurSauvegarde ville;
+	
 	/**
 	 * Unité du gain que la ville confère au joueur
 	 */
@@ -58,9 +64,7 @@ public class VilleSauvegarde implements Serializable {
 
 	/**
 	 * Constructeur
-	 * 
-	 * @param ville
-	 *            VilleInterface à convertir
+	 * @param ville - VilleInterface à convertir
 	 * @throws RemoteException
 	 */
 	public VilleSauvegarde(VilleInterface ville) throws RemoteException {
@@ -93,174 +97,144 @@ public class VilleSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Getter de l'emplacement de la Ville
-	 * 
-	 * @return Point
+	 * Getter de l'emplacement de la ville
+	 * @return l'emplacement de la ville
 	 */
 	public Point getEmplacement() {
 		return emplacement;
 	}
 
 	/**
-	 * Setter de l'emplacement de la Ville
-	 * 
-	 * @param Point
-	 *            emplacement
+	 * Setter de l'emplacement de la ville
+	 * @param nouvel emplacement
 	 */
 	public void setEmplacement(Point emplacement) {
 		this.emplacement = emplacement;
 	}
 
 	/**
-	 * Getter pour la position dans la liste des villes de la 1ère Ville
-	 * Adjacente
-	 * 
-	 * @return int
+	 * Getter pour la position dans la liste des villes de la 1ère ville adjacente
+	 * @return la position de la première ville adjacente
 	 */
 	public int getVille_adj1() {
 		return ville_adj1;
 	}
 
 	/**
-	 * Setter pour la position dans la liste des villes de la 1ère Ville
-	 * Adjacente
-	 * 
-	 * @param Integer
-	 *            ville_adj1
+	 * Setter pour la position dans la liste des villes de la 1ère ville adjacente
+	 * @param ville_adj1 - nouvelle position
 	 */
 	public void setVille_adj1(int ville_adj1) {
 		this.ville_adj1 = ville_adj1;
 	}
 
 	/**
-	 * Getter pour la position dans la liste des villes de la 2nd Ville
-	 * Adjacente
-	 * 
-	 * @return int
+	 * Getter pour la position dans la liste des villes de la 2nd ville adjacente
+	 * @return la position de la deuxième ville adjacente
 	 */
 	public int getVille_adj2() {
 		return ville_adj2;
 	}
 
 	/**
-	 * Setter pour la position dans la liste des villes de la 2nd Ville
-	 * Adjacente
-	 * 
-	 * @param Integer
-	 *            ville_adj2
+	 * Setter pour la position dans la liste des villes de la 2nd ville adjacente
+	 * @param ville_adj2 - nouvelle position
 	 */
 	public void setVille_adj2(int ville_adj2) {
 		this.ville_adj2 = ville_adj2;
 	}
 
 	/**
-	 * Getter pour la position dans la liste des villes de la 3ème Ville
-	 * Adjacente
-	 * 
-	 * @return int
+	 * Getter pour la position dans la liste des villes de la 3ème ville adjacente
+	 * @return la position de la troisième ville adjacente
 	 */
 	public int getVille_adj3() {
 		return ville_adj3;
 	}
 
 	/**
-	 * Setter pour la position dans la liste des villes de la 3ème Ville
-	 * Adjacente
-	 * 
-	 * @param Integer
-	 *            ville_adj3
+	 * Setter pour la position dans la liste des villes de la 3ème ville adjacente
+	 * @param ville_adj3 - nouvelle position
 	 */
 	public void setVille_adj3(int ville_adj3) {
 		this.ville_adj3 = ville_adj3;
 	}
 
 	/**
-	 * Getter pour la 1ère route adjacente
-	 * 
-	 * @return Route
+	 * Getter pour la première route adjacente
+	 * @return la première route adjacente
 	 */
 	public RouteSauvegarde getRoute_adj1() {
 		return route_adj1;
 	}
 
 	/**
-	 * Setter pour la 1ère route adjacente
-	 * 
-	 * @param route_adj2
+	 * Setter pour la première route adjacente
+	 * @param route_adj1 - nouvelle route adjacente
 	 */
 	public void setRoute_adj1(RouteSauvegarde route_adj1) {
 		this.route_adj1 = route_adj1;
 	}
 
 	/**
-	 * Getter pour la 2nd route adjacente
-	 * 
-	 * @return Route
+	 * Getter pour la deuxième route adjacente
+	 * @return la deuxième route adjacente
 	 */
 	public RouteSauvegarde getRoute_adj2() {
 		return route_adj2;
 	}
 
 	/**
-	 * Setter pour la 2nd route adjacente
-	 * 
-	 * @param route_adj2
+	 * Setter pour la deuxième route adjacente
+	 * @param route_adj2 - nouvelle route adjacente
 	 */
 	public void setRoute_adj2(RouteSauvegarde route_adj2) {
 		this.route_adj2 = route_adj2;
 	}
 
 	/**
-	 * Getter pour la 3ème route adjacente
-	 * 
-	 * @return Route
+	 * Getter pour la troisième route adjacente
+	 * @return la troisième route adjacente
 	 */
 	public RouteSauvegarde getRoute_adj3() {
 		return route_adj3;
 	}
 
 	/**
-	 * Setter pour la 3ème route adjacente
-	 * 
-	 * @param route_adj2
+	 * Setter pour la troisième route adjacente
+	 * @param route_adj3 - nouvelle route adjacente
 	 */
 	public void setRoute_adj3(RouteSauvegarde route_adj3) {
 		this.route_adj3 = route_adj3;
 	}
 
 	/**
-	 * Getter du Propriétaire de la Ville
-	 * 
-	 * @return JoueurSauvegarde
+	 * Getter du propriétaire de la ville
+	 * @return le propriétaire de la ville
 	 */
 	public JoueurSauvegarde getville() {
 		return ville;
 	}
 
 	/**
-	 * Setter du Propriétaire de la Ville
-	 * 
-	 * @param JoueurSauvegarde
-	 *            ville
+	 * Setter du propriétaire de la ville
+	 * @param ville - nouveau propriétaire
 	 */
 	public void setville(JoueurSauvegarde ville) {
 		this.ville = ville;
 	}
 
 	/**
-	 * Getter du Gain que procure la Ville
-	 * 
-	 * @return Integer
+	 * Getter du gain que procure la ville
+	 * @return le gain que procure la ville
 	 */
 	public int getGain() {
 		return gain;
 	}
 
 	/**
-	 * Setter du Gain que procure la Ville
-	 * 
-	 * @param Integer
-	 *            gain
+	 * Setter du gain que procure la ville
+	 * @param gain - nouveau gain
 	 */
 	public void setGain(int gain) {
 		this.gain = gain;
@@ -275,5 +249,4 @@ public class VilleSauvegarde implements Serializable {
 				&& ((VilleSauvegarde) o).ville_adj2 == this.ville_adj2
 				&& ((VilleSauvegarde) o).ville_adj3 == this.ville_adj3;
 	}
-
 }

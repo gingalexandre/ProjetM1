@@ -9,43 +9,44 @@ import serveur.modele.Plateau;
 import serveur.modele.Point;
 
 /**
- * Classe servant a convertir un Plateau en PlateauSauvegarde pour la sauvegarde
- * de l'objet
- * 
+ * Classe servant a convertir un plateau en PlateauSauvegarde pour la sauvegarde de l'objet
  * @author Alexandre
- *
  */
 public class PlateauSauvegarde implements Serializable {
+	
 	/**
 	 * Variable pour la sérialisation
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	/**
-	 * ArrayList des Hexagones à sauvegarder
+	 * ArrayList des hexagones à sauvegarder
 	 */
 	private ArrayList<HexagoneSauvegarde> hexagones;
+	
 	/**
-	 * ArrayList des Points du Plateau
+	 * ArrayList des points du Plateau
 	 */
 	private ArrayList<Point> points;
+	
 	/**
-	 * ArrayList des Villes du Plateau
+	 * ArrayList des villes du Plateau
 	 */
 	private ArrayList<VilleSauvegarde> villes;
+	
 	/**
-	 * ArrayList des Routes du Plateau
+	 * ArrayList des routes du Plateau
 	 */
 	private ArrayList<RouteSauvegarde> routes;
+	
 	/**
-	 * ArrayList des Jetons du Plateau
+	 * ArrayList des jetons du Plateau
 	 */
 	private ArrayList<JetonSauvegarde> jetons = new ArrayList<JetonSauvegarde>();
 
 	/**
 	 * Constructeur
-	 * 
-	 * @param plateau
-	 *            Plateau à convertir
+	 * @param plateau - plateau à convertir
 	 * @throws RemoteException
 	 */
 	public PlateauSauvegarde(Plateau plateau) throws RemoteException {
@@ -62,47 +63,47 @@ public class PlateauSauvegarde implements Serializable {
 
 	/**
 	 * Getter de l'ArrayList des hexagones à sauvegarder
-	 * @return ArrayList<HexagoneSauvegarde>
+	 * @return la liste des hexagones
 	 */
 
 	public ArrayList<HexagoneSauvegarde> getHexagones() {
 		return hexagones;
 	}
 	/**
-	 * Setter de la liste des Hexagones à sauvegarder
-	 * @param ArrayList<HexagoneSauvegarde> hexagones
+	 * Setter de la liste des hexagones à sauvegarder
+	 * @param hexagones - nouvel hexagone
 	 */
 	public void setHexagones(ArrayList<HexagoneSauvegarde> hexagones) {
 		this.hexagones = hexagones;
 	}
 
 	/**
-	 * Getter de l'ArrayList des Points à sauvegarder
-	 * @return ArrayList<PointSauvegarde>
+	 * Getter de l'ArrayList des points à sauvegarder
+	 * @return la liste des points
 	 */
 	public ArrayList<Point> getPoints() {
 		return points;
 	}
 
 	/**
-	 * Setter de la liste des Points à sauvegarder
-	 * @param ArrayList<PointSauvegarde> points
+	 * Setter de la liste des points à sauvegarder
+	 * @param points - nouveaux points
 	 */
 	public void setPoints(ArrayList<Point> points) {
 		this.points = points;
 	}
 
 	/**
-	 * Getter de l'ArrayList des Villes à sauvegarder
-	 * @return ArrayList<VilleSauvegarde>
+	 * Getter de l'ArrayList des villes à sauvegarder
+	 * @return la liste des villes
 	 */
 	public ArrayList<VilleSauvegarde> getVilles() {
 		return villes;
 	}
 	
 	/**
-	 * Setter de la liste des Villes à sauvegarder
-	 * @param ArrayList<VillesSauvegarde> villes
+	 * Setter de la liste des villes à sauvegarder
+	 * @param villes - nouvelles villes
 	 */
 
 	public void setVilles(ArrayList<VilleSauvegarde> villes) {
@@ -110,31 +111,31 @@ public class PlateauSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Getter de l'ArrayList des Routes à sauvegarder
-	 * @return ArrayList<RouteSauvegarde>
+	 * Getter de l'ArrayList des routes à sauvegarder
+	 * @return la liste des routes
 	 */
 	public ArrayList<RouteSauvegarde> getRoutes() {
 		return routes;
 	}
 	/**
-	 * Setter de la liste des Routes à sauvegarder
-	 * @param ArrayList<RouteSauvegarde> routes
+	 * Setter de la liste des routes à sauvegarder
+	 * @param routes - nouvelles routes
 	 */
 
 	public void setRoutes(ArrayList<RouteSauvegarde> routes) {
 		this.routes = routes;
 	}
 	/**
-	 * Getter de l'ArrayList des Jetons à sauvegarder
-	 * @return ArrayList<JetonSauvegarde>
+	 * Getter de l'ArrayList des jetons à sauvegarder
+	 * @return la liste des jetons
 	 */
 	public ArrayList<JetonSauvegarde> getJetons() {
 		return jetons;
 	}
 
 	/**
-	 * Setter de la liste des Jetons à sauvegarder
-	 * @param ArrayList<JetonSauvegarde> jetons
+	 * Setter de la liste des jetons à sauvegarder
+	 * @param jetons - nouveaux jetons
 	 */
 	public void setJetons(ArrayList<JetonSauvegarde> jetons) {
 		this.jetons = jetons;
@@ -147,5 +148,4 @@ public class PlateauSauvegarde implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
 }

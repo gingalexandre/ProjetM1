@@ -18,13 +18,11 @@ import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
 
 /**
- * Classe servant a convertir une PartieInterface en PartieSauvegarde pour la
- * sauvegarde de l'objet
- * 
+ * Classe servant a convertir une partieInterface en partieSauvegarde pour la sauvegarde de l'objet
  * @author Alexandre
- *
  */
 public class PartieSauvegarde implements Serializable {
+	
 	/**
 	 * Variable pour la sérialisation
 	 */
@@ -38,18 +36,22 @@ public class PartieSauvegarde implements Serializable {
 	 * PlateauSauvegarde stockant le plateau
 	 */
 	private PlateauSauvegarde plateauCourant;
+	
 	/**
-	 * Id de la Partie
+	 * Id de la partie
 	 */
 	private int idPartie;
+	
 	/**
-	 * Liste des JoueurSauvegarde correspondant aux Joueurs de la Partie
+	 * Liste des JoueurSauvegarde correspondant aux Joueurs de la partie
 	 */
 	private ArrayList<JoueurSauvegarde> joueurs = new ArrayList<JoueurSauvegarde>();
+	
 	/**
 	 * Joueur a qui c'est le tour
 	 */
 	private JoueurSauvegarde joueurActuel;
+	
 	/**
 	 * Booléen pour savoir si la partie a commencé
 	 */
@@ -59,6 +61,7 @@ public class PartieSauvegarde implements Serializable {
 	 * Tour
 	 */
 	private int tour;
+	
 	/**
 	 * Tour total
 	 */
@@ -101,61 +104,84 @@ public class PartieSauvegarde implements Serializable {
 	/**
 	 * Constructeur vide pour la désérialisation
 	 */
-	public PartieSauvegarde() throws RemoteException {
-	}
-
+	public PartieSauvegarde() throws RemoteException {}
+	
 	/**
-	 * Méthode permettant de récupérer le plateau de la Partie
-	 * 
+	 * Méthode permettant de récupérer le plateau de la partie
 	 * @return Plateau
 	 * @throws RemoteException
 	 */
 	private Plateau recupererPlateau() throws RemoteException {
 		return Plateau.getInstance();
 	}
-
+	
 	/**
-	 * Getter de Serialversionuid
-	 * 
-	 * @return long
+	 * Getter de tour
+	 * @return int
 	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public int getTour() {
+		return tour;
 	}
 
 	/**
-	 * Setter du PlateauSauvegarde de la Partie
-	 * 
-	 * @param PlateauSauvegarde
-	 *            plateauCourant
+	 * Setter de tour
+	 * @param int
+	 */
+	public void setTour(int tour) {
+		this.tour = tour;
+	}
+
+	/**
+	 * Getter de tourGlobale
+	 * @return int
+	 */
+	public int getTourGlobal() {
+		return tourGlobal;
+	}
+
+	/**
+	 * Setter de tourGlobale
+	 * @param int
+	 */
+	public void setTourGlobal(int tourGlobal) {
+		this.tourGlobal = tourGlobal;
+	}
+	
+	/**
+	 * Setter du PlateauSauvegarde de la partie
+	 * @param PlateauSauvegarde - plateauCourant
 	 */
 	public void setPlateauCourant(PlateauSauvegarde plateauCourant) {
 		this.plateauCourant = plateauCourant;
 	}
 
 	/**
-	 * Setter de l'ArrayList de JoueurSauvegarde de la Partie
-	 * 
-	 * @param ArrayList<JoueurSauvegarde>
-	 *            joueurs
+	 * Setter de l'ArrayList de JoueurSauvegarde de la partie
+	 * @param joueurs
 	 */
 	public void setJoueurs(ArrayList<JoueurSauvegarde> joueurs) {
 		this.joueurs = joueurs;
 	}
 
 	/**
-	 * Setter du Joueur Actuel (celui à qui c'est le tour)
-	 * 
-	 * @param JoueurSauvegarde
-	 *            joueurActuel
+	 * Setter du joueur actuel (celui à qui c'est le tour)
+	 * @param JoueurSauvegarde - joueurActuel
 	 */
 	public void setJoueurActuel(JoueurSauvegarde joueurActuel) {
 		this.joueurActuel = joueurActuel;
 	}
 
 	/**
-	 * Getter du PlateauSauvegarde correspondant à la Partie
-	 * 
+	 * Getter de Serialversionuid
+	 * @return long
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	
+	/**
+	 * Getter du PlateauSauvegarde correspondant à la partie
 	 * @return PlateauSauvegarde
 	 */
 	public PlateauSauvegarde getPlateauCourant() {
@@ -164,16 +190,14 @@ public class PartieSauvegarde implements Serializable {
 
 	/**
 	 * Getter de l'ArrayList de JoueurSauvegarde
-	 * 
-	 * @return ArrayList<JoueurSauvegarde>
+	 * @return la liste des joueurs
 	 */
 	public ArrayList<JoueurSauvegarde> getJoueurs() {
 		return joueurs;
 	}
 
 	/**
-	 * Getter du JoueurSauvegarde correspondant au Joueur Actuel
-	 * 
+	 * Getter du JoueurSauvegarde correspondant au joueur actuel
 	 * @return JoueurSauvegarde
 	 */
 	public JoueurSauvegarde getJoueurActuel() {
@@ -181,8 +205,7 @@ public class PartieSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Getter de l'Id de la Partie
-	 * 
+	 * Getter de l'id de la partie
 	 * @return Integer
 	 */
 	public int getIdPartie() {
@@ -190,10 +213,8 @@ public class PartieSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Setter de l'Id de la Partie
-	 * 
-	 * @param Integer
-	 *            idPartie
+	 * Setter de l'Id de la partie
+	 * @param Integer - idPartie
 	 */
 	public void setIdPartie(int idPartie) {
 		this.idPartie = idPartie;
@@ -201,7 +222,6 @@ public class PartieSauvegarde implements Serializable {
 
 	/**
 	 * Getter du boolean pour savoir si la partie à commencé
-	 * 
 	 * @return booléen
 	 */
 	public boolean getIsPartieCommence() {
@@ -210,9 +230,7 @@ public class PartieSauvegarde implements Serializable {
 
 	/**
 	 * Setter du boolean pour savoir si la partie à commencé
-	 * 
-	 * @param partieCommence
-	 *            booléen
+	 * @param partieCommence - booléen
 	 */
 	public void setPartieCommence(boolean partieCommence) {
 		this.isPartieCommence = partieCommence;
@@ -220,10 +238,8 @@ public class PartieSauvegarde implements Serializable {
 
 	/**
 	 * Méthode pour déserialiser
-	 * 
-	 * @param json
-	 *            : String json en entrée
-	 * @return l'Objet Partie Sauvegarde
+	 * @param json - json en entrée
+	 * @return l'objet Partie Sauvegarde
 	 */
 	public static PartieSauvegarde deserialiser(String json) {
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -238,42 +254,4 @@ public class PartieSauvegarde implements Serializable {
 		}
 		return null;
 	}
-
-
-	/**
-	 * Getter de Tour
-	 * 
-	 * @return int
-	 */
-	public int getTour() {
-		return tour;
-	}
-
-	/**
-	 * Setter de Tour
-	 * 
-	 * @param int
-	 */
-	public void setTour(int tour) {
-		this.tour = tour;
-	}
-
-	/**
-	 * Getter de TourGlobale
-	 * 
-	 * @return int
-	 */
-	public int getTourGlobal() {
-		return tourGlobal;
-	}
-
-	/**
-	 * Setter de TourGlobale
-	 * 
-	 * @param int
-	 */
-	public void setTourGlobal(int tourGlobal) {
-		this.tourGlobal = tourGlobal;
-	}
-
 }

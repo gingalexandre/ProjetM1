@@ -801,11 +801,12 @@ public class MenuController implements Initializable {
         int index = listeCarte.getSelectionModel().getSelectedIndex();
         CarteInterface carte = proxy.getJoueur().getCarte(index);
         if (carte != null) {
-			boolean action = carteController.doActionCarte(carte);
+			serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" joue la carte de développement: " + carte.getNom()+"."));
+			boolean action = carteController.doActionCarte(carte);;
 			if(action = true){
-				serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" joue la carte : " + carte.getNom()+"."));
 				listeCarte.getItems().remove(index);
 				proxy.getJoueur().removeCarte(index);
+			}else{
 			}
         }
     }

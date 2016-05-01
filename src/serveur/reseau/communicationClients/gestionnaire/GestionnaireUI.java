@@ -174,4 +174,28 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	public void envoyerVol(int ressourcesMax, JoueurServeur j) throws RemoteException {
 		j.envoyerVol(ressourcesMax);
 	}
+
+	/**
+	 * Permet la mise a jour des points d'un joueur.
+	 * @param joueur
+	 * @throws RemoteException
+     */
+	public void updatePointVictoire(JoueurInterface joueur) throws  RemoteException {
+		for (JoueurServeur joueurServeur : joueurServeurs) {
+			joueurServeur.updatePointVictoire(joueur);
+		}
+	}
+
+	/**
+	 * Permet de récupérer toutes les ressources d'un type pour monopoliser
+	 * @param ressource_visee
+	 * @throws RemoteException
+	 */
+	public int monopole(int ressource_visee) throws  RemoteException {
+		int value = 0;
+		for (JoueurServeur joueurServeur : joueurServeurs) {
+			value += joueurServeur.monopole(ressource_visee);
+		}
+		return value;
+	}
 }

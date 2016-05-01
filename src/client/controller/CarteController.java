@@ -4,13 +4,17 @@ package client.controller;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import serveur.modele.Joueur;
+import serveur.modele.Message;
 import serveur.modele.Ressource;
 import serveur.modele.carte.*;
 import serveur.modele.service.CarteInterface;
+import serveur.modele.service.JoueurInterface;
 import serveur.reseau.proxy.Proxy;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
 import java.rmi.RemoteException;
+import java.util.HashMap;
 import java.util.Optional;
 
 /**
@@ -50,26 +54,35 @@ public class CarteController {
 
     public boolean doActionCarte(CarteInterface ci) throws RemoteException {
         boolean action = false;
+        JoueurInterface player = proxy.getJoueur();
         if(ci.getNom().equals((new Chevalier()).getNom())){
             plateauController.doActionVoleur();
-            proxy.getJoueur().incrementeGuerrier();
+            player.incrementeGuerrier();
             action = true;
         }
         if(ci.getNom().equals((new Victoire()).getNom())){
-
+            action = true;
+            player.setPointVictoire(player.getPointVictoire()+2);
+            serveur.getGestionnaireUI().updatePointVictoire(player);
+            serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne 2 points de victoire suite à l'usage de sa carte développement."));
         }
         if(ci.getNom().equals((new Invention()).getNom())){
             int ressource_cible = popChoixRessource("Carte Invention","Les cartes de développement de type Invention permettent de gagner +2 dans une ressource.");
-            System.out.println(" Invention : "+ressource_cible);
             if(ressource_cible != -1){
                 action = true;
+                player.ajoutRessource(ressource_cible,2);
+                proxy.getJoueursController().majRessource();
+                serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne 2 de "+nameRessource(ressource_cible)+" suite à l'usage de sa carte développement."));
             }
         }
         if(ci.getNom().equals((new Monopole()).getNom())){
             int ressource_cible = popChoixRessource("Carte Monopole","Les cartes de développement de type Monopole permettent d'obtenir le monopole d'une ressource en volant les réserves de celle-ci aux autres joueurs.");
-            System.out.println(" Monopole : "+ressource_cible);
             if(ressource_cible != -1){
                 action = true;
+                int total = serveur.getGestionnaireUI().monopole(ressource_cible);
+                player.ajoutRessource(ressource_cible,total);
+                serveur.getGestionnaireUI().diffuserGainRessource();
+                serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne "+total+" de "+nameRessource(ressource_cible)+" suite à l'usage de sa carte développement."));
             }
         }
         if(ci.getNom().equals((new Route()).getNom())){
@@ -79,7 +92,6 @@ public class CarteController {
     }
 
     public int popChoixRessource(String messagehead,String messagetext){
-
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(messagehead);
@@ -109,6 +121,23 @@ public class CarteController {
         }
 
         return -1;
+    }
+
+    public String nameRessource(int i){
+        switch (i){
+            case 1 :
+                return "bois";
+            case 2 :
+                return "blé";
+            case 3 :
+                return "laine";
+            case 4 :
+                return "argile";
+            case 5 :
+                return "mineraie";
+            default :
+                return "inconnue";
+        }
     }
 
 

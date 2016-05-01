@@ -250,4 +250,24 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 		this.volController = volController;
 		
 	}
+
+	/**
+	 * Permet la mise a jour des points d'un joueur.
+	 * @param joueur
+	 * @throws RemoteException
+	 */
+	public void updatePointVictoire(JoueurInterface joueur) throws  RemoteException {
+		this.joueursController.majPointVictoire(joueur);
+	}
+/**
+	 * Permet de récupérer toutes les ressources d'un type pour monopoliser
+	 * @param ressource_visee
+	 * @throws RemoteException
+	 */
+	public int monopole(int ressource_visee) throws  RemoteException {
+		int value = joueur.getStockRessource().get(ressource_visee);
+		joueur.supprimerRessource(ressource_visee,value);
+		this.joueursController.majRessource();
+		return value;
+	}
 }

@@ -71,4 +71,19 @@ public interface GestionnaireUIInterface extends Remote{
 	void supprimerJoueur(JoueurServeur joueur) throws RemoteException;
 
 	void envoyerVol(int ressourcesMax, JoueurServeur j) throws RemoteException;
+
+	/**
+	 * Permet la mise a jour des points d'un joueur.
+	 * @param joueur
+	 * @throws RemoteException
+	 */
+	public void updatePointVictoire(JoueurInterface joueur) throws  RemoteException ;
+
+
+	/**
+	 * Permet de monopoliser une ressource
+	 * @param ressource_visee
+	 * @throws RemoteException
+	 */
+	public int monopole(int ressource_visee) throws  RemoteException ;
 }

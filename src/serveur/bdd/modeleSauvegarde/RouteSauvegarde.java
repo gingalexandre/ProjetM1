@@ -7,35 +7,34 @@ import serveur.modele.Point;
 import serveur.modele.service.RouteInterface;
 
 /**
- * Classe servant a convertir un RouteInterface en RouteSauvegarde pour la
- * sauvegarde de l'objet
- * 
+ * Classe servant a convertir un RouteInterface en RouteSauvegarde pour la sauvegarde de l'objet
  * @author Alexandre
- *
  */
 public class RouteSauvegarde implements Serializable {
+	
 	/**
 	 * Variable pour la sérialisation
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * Point départ de la route
 	 */
 	private Point depart;
+	
 	/**
 	 * Point arrivée de la route
 	 */
 	private Point arrive;
+	
 	/**
-	 * Joueur : à qui appartient la route (null si personne)
+	 * Joueur à qui appartient la route (null si personne)
 	 */
 	private JoueurSauvegarde oqp;
 
 	/**
 	 * Constructeur
-	 * 
-	 * @param route
-	 *            : RouteInterface à convertir
+	 * @param route - RouteInterface à convertir
 	 * @throws RemoteException
 	 */
 	public RouteSauvegarde(RouteInterface route) throws RemoteException {
@@ -53,61 +52,51 @@ public class RouteSauvegarde implements Serializable {
 	/**
 	 * Constructeur vide pour la désérialisation
 	 */
-	public RouteSauvegarde() throws RemoteException {
-	}
+	public RouteSauvegarde() throws RemoteException {}
 
 	/**
-	 * Getter du Point de départ
-	 * 
-	 * @return Point
+	 * Getter du point de départ
+	 * @return le point de départ
 	 */
 	public Point getDepart() {
 		return depart;
 	}
 
 	/**
-	 * Setter pour le Point de départ
-	 * 
-	 * @param Point
-	 *            depart
+	 * Setter pour le point de départ
+	 * @param depart - nouveau point de départ
 	 */
 	public void setDepart(Point depart) {
 		this.depart = depart;
 	}
 
 	/**
-	 * Getter du Point d'arrivé
-	 * 
-	 * @return Point
+	 * Getter du point d'arrivée
+	 * @return le point d'arrivée
 	 */
 	public Point getArrive() {
 		return arrive;
 	}
 
 	/**
-	 * Setter pour le Point d'arrivé
-	 * 
-	 * @param Point
-	 *            arrive
+	 * Setter pour le point d'arrivé
+	 * @param arrive - nouveau point d'arrivée
 	 */
 	public void setArrive(Point arrive) {
 		this.arrive = arrive;
 	}
 
 	/**
-	 * Getter pour le Joueur propriétaire de la Route
-	 * 
-	 * @return Joueur
+	 * Getter pour le joueur propriétaire de la route
+	 * @return joueur qui occupe la route
 	 */
 	public JoueurSauvegarde getOqp() {
 		return oqp;
 	}
 
 	/**
-	 * Setter pour le Joueur propriétaire de la Route
-	 * 
-	 * @param Joueur
-	 *            oqp
+	 * Setter pour le joueur propriétaire de la route
+	 * @param oqp - nouveau propriétaire
 	 */
 	public void setOqp(JoueurSauvegarde oqp) {
 		this.oqp = oqp;
@@ -120,5 +109,4 @@ public class RouteSauvegarde implements Serializable {
 		return o instanceof RouteSauvegarde && ((RouteSauvegarde) o).depart.equals(this.depart)
 				&& ((RouteSauvegarde) o).arrive.equals(this.arrive);
 	}
-
 }

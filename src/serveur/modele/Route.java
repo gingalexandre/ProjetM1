@@ -149,7 +149,7 @@ public class Route extends UnicastRemoteObject implements RouteInterface, Serial
 		JoueurInterface proprio = getOqp();
 		VilleInterface vdep = villes.get(this.getDepart());
 		VilleInterface varr = villes.get(this.getArrive());
-		boolean laVilleDArriveeEstAQqnDAutre,laVilleDeDepartEstAQqnDAutre,RouteAdj1DepartPasAMoi,RouteAdj2DepartPasAMoi,RouteAdj3DepartPasAMoi,RouteAdj1ArriveePasAMoi,RouteAdj2ArriveePasAMoi,RouteAdj3ArriveePasAMoi;
+		/*boolean laVilleDArriveeEstAQqnDAutre,laVilleDeDepartEstAQqnDAutre,RouteAdj1DepartPasAMoi,RouteAdj2DepartPasAMoi,RouteAdj3DepartPasAMoi,RouteAdj1ArriveePasAMoi,RouteAdj2ArriveePasAMoi,RouteAdj3ArriveePasAMoi;
 		laVilleDArriveeEstAQqnDAutre = (villes.get(this.getArrive()).getOqp()!=null && !villes.get(this.getArrive()).getOqp().equals(proprio));
 		laVilleDeDepartEstAQqnDAutre = (villes.get(this.getDepart()).getOqp()!=null && !villes.get(this.getDepart()).getOqp().equals(proprio));
 		RouteAdj1DepartPasAMoi = (!vdep.getRoute_adj1().equals(this) && vdep.getRoute_adj1().getOqp()!= null && !vdep.getRoute_adj1().getOqp().equals(proprio));
@@ -167,22 +167,46 @@ public class Route extends UnicastRemoteObject implements RouteInterface, Serial
 		System.out.println("2 : "+RouteAdj2ArriveePasAMoi);
 		System.out.println("3 : "+RouteAdj3ArriveePasAMoi);
 		if (!laVilleDeDepartEstAQqnDAutre || (RouteAdj1DepartPasAMoi && RouteAdj2DepartPasAMoi && RouteAdj3DepartPasAMoi)) return 1;
-		if (!laVilleDArriveeEstAQqnDAutre || (RouteAdj1ArriveePasAMoi && RouteAdj2ArriveePasAMoi && RouteAdj3ArriveePasAMoi)) return -1;
+		if (!laVilleDArriveeEstAQqnDAutre || (RouteAdj1ArriveePasAMoi && RouteAdj2ArriveePasAMoi && RouteAdj3ArriveePasAMoi)) return -1;*/
+		if (vdep.getOqp()!=null && vdep.getOqp().equals(proprio)) return 1;
+		if (varr.getOqp()!=null && varr.getOqp().equals(proprio)) return -1;
+		RouteInterface r1,r2,r3;
+		r1 = vdep.getRoute_adj1();
+		r2 = vdep.getRoute_adj2();
+		r3 = vdep.getRoute_adj3();
+		boolean r1PasAMoi = ((r1.getOqp()==null) || (r1.getOqp()!=null && !r1.getOqp().equals(proprio)));
+		boolean r2PasAMoi = r2.getOqp()!=null && !r2.getOqp().equals(proprio);
+		boolean r3PasAMoi = ((r3!=null && r3.getOqp()!=null && !r3.getOqp().equals(proprio)) || (r3==null));
+		if (equals(r1) && r2PasAMoi && r3PasAMoi) return 1;
+		if (equals(r2) && r1PasAMoi && r3PasAMoi) return 1;
+		if (r3!=null && equals(r3) && r2PasAMoi && r1PasAMoi) return 1;
+		r1 = varr.getRoute_adj1();
+		r2 = varr.getRoute_adj2();
+		r3 = varr.getRoute_adj3();
+		r1PasAMoi = ((r1.getOqp()==null) || (r1.getOqp()!=null && !r1.getOqp().equals(proprio)));
+		r2PasAMoi = (((r2.getOqp()==null)) || (r2.getOqp()!=null && !r2.getOqp().equals(proprio)));
+		r3PasAMoi = ((r3!=null && r3.getOqp()!=null && !r3.getOqp().equals(proprio)) || (r3==null) || (r3!=null && r3.getOqp()==null));
+		if (equals(r1) && r2PasAMoi && r3PasAMoi) return -1;
+		if (equals(r2) && r1PasAMoi && r3PasAMoi) return -1;
+		if (r3!=null && equals(r3) && r2PasAMoi && r1PasAMoi) return -1;
 		return 0;
 	}
 
-	@Override
-	public ArrayList<RouteInterface> getSuccesseurs(int isExtremite, JoueurInterface j, HashMap<Point,VilleInterface> villes,Set<RouteInterface> visite) throws RemoteException {
+	public ArrayList<RouteInterface> getSuccesseurs(Point propagation, JoueurInterface j, HashMap<Point,VilleInterface> villes,Set<RouteInterface> visite) throws RemoteException {
 		ArrayList<RouteInterface> res = new ArrayList<RouteInterface>();
-		VilleInterface v;
-		if (isExtremite>0){
-			v = villes.get(this.getDepart());			
-		} else {
-			v = villes.get(this.getArrive());
-		}
-		if (v.getRoute_adj1().getOqp()!=null && v.getRoute_adj1().getOqp().equals(j) && !visite.contains(v.getRoute_adj1())) res.add(v.getRoute_adj1());
-		if (v.getRoute_adj2().getOqp()!=null && v.getRoute_adj2().getOqp().equals(j) && !visite.contains(v.getRoute_adj2())) res.add(v.getRoute_adj2());
-		if (v.getRoute_adj3()!= null && v.getRoute_adj3().getOqp()!=null && v.getRoute_adj3().getOqp().equals(j) && !visite.contains(v.getRoute_adj3())) res.add(v.getRoute_adj3());
+		VilleInterface v = villes.get(propagation);
+		RouteInterface r1 = v.getRoute_adj1();
+		RouteInterface r2 = v.getRoute_adj2();
+		RouteInterface r3 = v.getRoute_adj3();
+		if (!equals(r1) && r1.getOqp()!=null && r1.getOqp().equals(j) && !visite.contains(r1)) res.add(r1);
+		if (!equals(r2) && r2.getOqp()!=null && r2.getOqp().equals(j) && !visite.contains(r2)) res.add(r2);
+		if (r3!=null && !equals(r3) && r3.getOqp()!=null && r3.getOqp().equals(j) && !visite.contains(r3)) res.add(r3);
+		//if (v.getRoute_adj1().getOqp()!=null && v.getRoute_adj1().getOqp().equals(j) && !visite.contains(v.getRoute_adj1())) res.add(v.getRoute_adj1());
+		//if (v.getRoute_adj2().getOqp()!=null && v.getRoute_adj2().getOqp().equals(j) && !visite.contains(v.getRoute_adj2())) res.add(v.getRoute_adj2());
+		//if (v.getRoute_adj3()!= null && v.getRoute_adj3().getOqp()!=null && v.getRoute_adj3().getOqp().equals(j) && !visite.contains(v.getRoute_adj3())) res.add(v.getRoute_adj3());
+		
+		
+		
 		return res;
 	}
 }

@@ -306,19 +306,18 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 		ArrayList<RouteInterface> extremites = new ArrayList<RouteInterface>();
 		for (RouteInterface r : routes){
 			if (r.getOqp()!= null && r.getOqp().equals(j)){
-				System.out.println("toto");
 				if (r.isExtremite(ville) != 0){
 					extremites.add(r);
 				}
 			}
 		}
 		ArrayList<Integer> resultats = new ArrayList<Integer>();
-		System.out.println(extremites.size());
 		for(RouteInterface r : extremites){
-			Point extremite = (r.isExtremite(ville)>0) ? r.getDepart() : r.getArrive();  
+			Point extremite = (r.isExtremite(ville)>0) ? r.getArrive() : r.getDepart(); 
 			chercherToutesLesRoutes(ville, extremite,r,new HashSet<RouteInterface>(), 0,resultats,j);
 		}	
 		Collections.sort(resultats);
+		System.out.println(resultats);
 		return resultats.get(resultats.size()-1);
 	} 
 	
@@ -327,20 +326,34 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 		visites.add(current);
 		int isExtremite = current.isExtremite(villes);
 		if (isExtremite!=0){
-			res.add(size);
-			size--;
+			if (size==1){
+				Point prochaineExtremite = (extremite.equals(current.getDepart()))? current.getDepart():current.getArrive();
+				ArrayList<RouteInterface> successeur =current.getSuccesseurs(prochaineExtremite, j, villes, visites);
+				if (successeur.size()!=0){
+					for (RouteInterface r : successeur){
+						chercherToutesLesRoutes(villes, prochaineExtremite, r, visites, size, res, j);
+						//size--;
+					}
+				}else {
+					res.add(size);
+					//size--;
+				}
+			}else{
+				res.add(size);
+				//size--;
+			}
 		}
 		else {
-			isExtremite = (current.getDepart().equals(extremite)) ? 1 : -1 ;
-			ArrayList<RouteInterface> successeur = current.getSuccesseurs(isExtremite,j,villes,visites);
+			Point prochaineExtremite = (extremite.equals(current.getDepart()))?current.getArrive():current.getDepart();
+			ArrayList<RouteInterface> successeur = current.getSuccesseurs(prochaineExtremite,j,villes,visites);
 			if (successeur.size()!=0){
 				for (RouteInterface r : successeur){
-					chercherToutesLesRoutes(villes, extremite, current, visites, size, res, j);
-					size--;
+					chercherToutesLesRoutes(villes, prochaineExtremite, r, visites, size, res, j);
+					//size--;
 				}
 			}else {
 				res.add(size);
-				size--;
+				//size--;
 			}
 		}
 	}

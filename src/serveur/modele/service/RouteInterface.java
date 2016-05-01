@@ -50,6 +50,6 @@ public interface RouteInterface extends Remote{
 
 	int isExtremite(HashMap<Point,VilleInterface> villes) throws RemoteException;
 
-	ArrayList<RouteInterface> getSuccesseurs(int isExtremite, JoueurInterface j, HashMap<Point, VilleInterface> villes,Set<RouteInterface> visite) throws RemoteException;
+	ArrayList<RouteInterface> getSuccesseurs(Point propagation, JoueurInterface j, HashMap<Point, VilleInterface> villes,Set<RouteInterface> visite) throws RemoteException;
 
 }

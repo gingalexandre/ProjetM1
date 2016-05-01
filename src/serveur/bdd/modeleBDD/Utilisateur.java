@@ -19,18 +19,22 @@ import serveur.bdd.Base;
  *
  */
 public class Utilisateur {
+	
 	/**
 	 * nom de l'Utilisateur
 	 */
 	private String nomUtilisateur;
+	
 	/**
 	 * Mot de passe de l'Utilsateur
 	 */
 	private String mdp;
+	
 	/**
 	 * Id de l'utilisateurs
 	 */
 	private int id;
+	
 	/**
 	 * Date de Naissance de l'Utilisateur
 	 */
@@ -38,11 +42,8 @@ public class Utilisateur {
 
 	/**
 	 * Constructeur
-	 * 
-	 * @param nomUtilisateur
-	 *            : String : pseudo de l'utilisateur
-	 * @param mdp
-	 *            : String : mot de passe de l'utilisateur
+	 * @param nomUtilisateur - pseudo de l'utilisateur
+	 * @param mdp - mot de passe de l'utilisateur
 	 */
 	public Utilisateur(String nomUtilisateur, String mdp, LocalDate dateNaissance) {
 		super();
@@ -53,15 +54,10 @@ public class Utilisateur {
 
 	/**
 	 * Constructeur
-	 * 
-	 * @param id
-	 *            : Id de l'utilisateur
-	 * @param nomUtilisateur
-	 *            : nom de l'utilisateur
-	 * @param mdp
-	 *            : mot de passe de l'utilisateur
-	 * @param dateNaissance
-	 *            : date de naissance de l'utilisateur
+	 * @param id - id de l'utilisateur
+	 * @param nomUtilisateur - nom de l'utilisateur
+	 * @param mdp - mot de passe de l'utilisateur
+	 * @param dateNaissance - date de naissance de l'utilisateur
 	 */
 	public Utilisateur(int id, String nomUtilisateur, String mdp, LocalDate dateNaissance) {
 		super();
@@ -73,8 +69,7 @@ public class Utilisateur {
 
 	/**
 	 * Méthode permettant la vérification de la connexion
-	 * 
-	 * @return boolean : Vrai si la connexion est effective, faux sinon
+	 * @return vrai si la connexion est effective, faux sinon
 	 * @throws InterruptedException
 	 */
 	public boolean verificationConnexion() throws InterruptedException {
@@ -97,18 +92,15 @@ public class Utilisateur {
 				connection.close();
 				return false;
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return false;
 	}
 	
 
 	/**
 	 * Méthode permettant l'inscription d'un utilisateur
-	 * 
 	 * @return String : message à afficher (erreur ou non)
 	 * @throws InterruptedException
 	 */
@@ -127,7 +119,6 @@ public class Utilisateur {
 				prestmt.executeUpdate();
 				connection.commit();
 				connection.close();
-
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -136,12 +127,9 @@ public class Utilisateur {
 	}
 
 	/**
-	 * Méthode permettant de récupérer la date de Naissance d'un Joueur à partir
-	 * de son pseudo
-	 * 
-	 * @param nom
-	 *            : String : nom du joueur dont on cherche la date de naissance
-	 * @return Date : date de naissance du joueur cherché, null si n'existe pas
+	 * Méthode permettant de récupérer la date de Naissance d'un Joueur à partir de son pseudo
+	 * @param nom - nom du joueur dont on cherche la date de naissance
+	 * @return la date de naissance du joueur cherché, null si n'existe pas
 	 * @throws InterruptedException
 	 */
 	public static Date getDateNaissance(String nom) throws InterruptedException {
@@ -155,13 +143,18 @@ public class Utilisateur {
 			Date dateNaissance = rs.getDate("dateNaissance");
 			connection.close();
 			return dateNaissance;
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
+	/**
+	 * Permet de récupérer un utilisateur grâce à son nom
+	 * @param nom - nom de l'utilisateur
+	 * @return l'utilisateur qui a le nom, null si il y a pas d'utilisateur avec ce nom
+	 * @throws InterruptedException
+	 */
 	public static Utilisateur getJoueurByName(String nom) throws InterruptedException {
 		Connection connection = Base.connexion();
 		PreparedStatement prestmt = null;
@@ -179,13 +172,11 @@ public class Utilisateur {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return null;
 	}
 
 	/**
 	 * Getter du nom de l'utilisateur
-	 * 
 	 * @return String
 	 */
 	public String getNomUtilisateur() {
@@ -194,17 +185,14 @@ public class Utilisateur {
 
 	/**
 	 * Setter du nom de l'utilisateur
-	 * 
-	 * @param String
-	 *            nomUtilisateur
+	 * @param nomUtilisateur - nouveau nom
 	 */
 	public void setNomUtilisateur(String nomUtilisateur) {
 		this.nomUtilisateur = nomUtilisateur;
 	}
 
 	/**
-	 * Getter du Mot de Passe de l'utilisateur
-	 * 
+	 * Getter du mot de Passe de l'utilisateur
 	 * @return String
 	 */
 	public String getMdp() {
@@ -212,8 +200,7 @@ public class Utilisateur {
 	}
 
 	/**
-	 * Setter du Mot de Passe de l'utilisateur
-	 * 
+	 * Setter du mot de passe de l'utilisateur
 	 * @param mdp
 	 */
 	public void setMdp(String mdp) {
@@ -221,8 +208,7 @@ public class Utilisateur {
 	}
 
 	/**
-	 * Getter de la date de Naissance de l'Utilisateur
-	 * 
+	 * Getter de la date de naissance de l'utilisateur
 	 * @return LocalDate
 	 */
 	public LocalDate getDateNaissance() {
@@ -231,21 +217,17 @@ public class Utilisateur {
 
 	/**
 	 * Setter de la date de Naissance de l'utilisateur
-	 * 
-	 * @param LocalDate
-	 *            dateNaissance
+	 * @param dateNaissance - nouvelle date de naissance
 	 */
 	public void setDateNaissance(LocalDate dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
 
 	/**
-	 * Getter de l'Id de l'utilisateur
-	 * 
+	 * Getter de l'id de l'utilisateur
 	 * @return Integer
 	 */
 	public int getId() {
 		return id;
 	}
-
 }

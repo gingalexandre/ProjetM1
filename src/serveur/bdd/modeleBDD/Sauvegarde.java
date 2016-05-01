@@ -24,19 +24,20 @@ import serveur.reseau.serveur.Serveur;
 
 /**
  * Classe permettant la sauvegarde de la partie
- * 
  * @author Alexandre
- *
  */
 public class Sauvegarde {
+	
 	/**
 	 * Joueur courant
 	 */
 	private static Joueur currentJoueur = null;
+	
 	/**
 	 * Objet permettant la sérialisation
 	 */
 	private static ObjectMapper objectMapper = new ObjectMapper().setVisibility(JsonMethod.FIELD, Visibility.ANY);;
+	
 	/**
 	 * Objet représentatant le fichier de sortie
 	 */
@@ -44,7 +45,6 @@ public class Sauvegarde {
 
 	/**
 	 * Constructeur de la partie
-	 * 
 	 * @throws RemoteException
 	 */
 	public Sauvegarde() throws RemoteException {
@@ -94,14 +94,10 @@ public class Sauvegarde {
 
 	/**
 	 * Méthode permettant d'écrire la Partie dans un fichier au format JSON
-	 * 
-	 * @param partieASauvegarder
-	 *            Partie que l'on souhaite sauvegarder
-	 * @param path
-	 *            chemin où le fichier va se trouver
+	 * @param partieASauvegarder - partie que l'on souhaite sauvegarder
+	 * @param path - chemin où le fichier va se trouver
 	 */
 	public void sauvegarderPartie(PartieSauvegarde partieASauvegarder, String path) {
-
 		try {
 			jsonOutputFile = new File(path);
 			objectMapper.enable(SerializationConfig.Feature.INDENT_OUTPUT);
@@ -114,7 +110,6 @@ public class Sauvegarde {
 
 	/**
 	 * Getter du Joueur Courant
-	 * 
 	 * @return Joueur
 	 */
 	public static Joueur getCurrentJoueur() {
@@ -123,9 +118,7 @@ public class Sauvegarde {
 
 	/**
 	 * Setter du Joueur Courant
-	 * 
-	 * @param Joueur
-	 *            currentJoueur
+	 * @param currentJoueur - joueur courrant
 	 */
 	public static void setCurrentJoueur(Joueur currentJoueur) {
 		Sauvegarde.currentJoueur = currentJoueur;
@@ -133,7 +126,6 @@ public class Sauvegarde {
 
 	/**
 	 * Getter de l'objet permettant la sérialisation
-	 * 
 	 * @return ObjectMapper
 	 */
 	public ObjectMapper getObjectMapper() {
@@ -142,9 +134,7 @@ public class Sauvegarde {
 
 	/**
 	 * Setter de l'objet permettant la sérialisation
-	 * 
-	 * @param ObjectMapper
-	 *            objectMapper
+	 * @param ObjectMapper - objectMapper
 	 */
 	public void setObjectMapper(ObjectMapper objectMapper) {
 		Sauvegarde.objectMapper = objectMapper;
@@ -152,7 +142,6 @@ public class Sauvegarde {
 
 	/**
 	 * Getter de l'objet représentant le fichier de sortie
-	 * 
 	 * @return File
 	 */
 	public File getJsonOutputFile() {
@@ -161,9 +150,7 @@ public class Sauvegarde {
 
 	/**
 	 * Setter de l'objet représentant le fichier de sortie
-	 * 
-	 * @param File
-	 *            jsonOutputFile
+	 * @param File - jsonOutputFile
 	 */
 	public void setJsonOutputFile(File jsonOutputFile) {
 		Sauvegarde.jsonOutputFile = jsonOutputFile;
@@ -195,10 +182,8 @@ public class Sauvegarde {
 			else{
 				//TODO faire une popup ?
 			}
-
-			}
-		
-			catch (Exception e){
+		}
+		catch (Exception e){
 			e.printStackTrace();
 		}
 	}

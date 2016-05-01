@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import serveur.modele.Ressource;
 import serveur.modele.service.JoueurInterface;
@@ -24,6 +25,9 @@ public class JoueursController implements Initializable {
 
 	@FXML
 	private Label nbBle, nbArgile, nbCaillou, nbLaine, nbBois, nomJoueur, nbVictoire;
+
+	@FXML
+	private AnchorPane routelongue, armeeforte;
 
 	@FXML
 	private GridPane couleurJoueur;
@@ -39,6 +43,12 @@ public class JoueursController implements Initializable {
 
 	@FXML
 	private Label nbVictoireJoueur1, nbVictoireJoueur2, nbVictoireJoueur3;
+
+	@FXML
+	private AnchorPane routelongueJoueur1, routelongueJoueur2, routelongueJoueur3;
+
+	@FXML
+	private AnchorPane armeeforteJoueur1, armeeforteJoueur2, armeeforteJoueur3;
 
 	/**
 	 * Serveur de jeu
@@ -90,14 +100,11 @@ public class JoueursController implements Initializable {
 			e.printStackTrace();
 		}
 
-		nbBle.setText("0");
-		nbArgile.setText("0");
-		nbCaillou.setText("0");
-		nbLaine.setText("0");
-		nbBois.setText("0");
-
 		try {
 			nomJoueur.setText(joueur.getNomUtilisateur());
+			this.majRessource();
+			if(joueur.isArmeeLaPlusPuissante()) armeeforte.setStyle(null);
+			if(joueur.isRouteLaPlusLongue()) routelongue.setStyle(null);
 			nbVictoire.setText(Integer.toString(joueur.getPointVictoire()));
 			// Appel de la méthode permettant de transformer la couleur de
 			// français à anglais pour pouvoir changer le style
@@ -221,6 +228,8 @@ public class JoueursController implements Initializable {
 							autreUn.setVisible(true);
 							String couleurAnglais = Fonction.couleurEnRGB(p.getCouleur());
 							autreUn.setStyle("-fx-background-color: " + couleurAnglais + ";");
+							if(p.isArmeeLaPlusPuissante()) armeeforteJoueur1.setStyle(null);
+							if(p.isRouteLaPlusLongue()) routelongueJoueur1.setStyle(null);
 						}
 						if (i == 1) {
 							JoueurInterface p = autresJoueurs.get(1);
@@ -228,6 +237,8 @@ public class JoueursController implements Initializable {
 							autreDeux.setVisible(true);
 							String couleurAnglais = Fonction.couleurEnRGB(p.getCouleur());
 							autreDeux.setStyle("-fx-background-color: " + couleurAnglais + ";");
+							if(p.isArmeeLaPlusPuissante()) armeeforteJoueur2.setStyle(null);
+							if(p.isRouteLaPlusLongue()) routelongueJoueur2.setStyle(null);
 						}
 						if (i == 2) {
 							JoueurInterface p = autresJoueurs.get(2);
@@ -235,6 +246,8 @@ public class JoueursController implements Initializable {
 							autreTrois.setVisible(true);
 							String couleurAnglais = Fonction.couleurEnRGB(p.getCouleur());
 							autreTrois.setStyle("-fx-background-color: " + couleurAnglais + ";");
+							if(p.isArmeeLaPlusPuissante()) armeeforteJoueur3.setStyle(null);
+							if(p.isRouteLaPlusLongue()) routelongueJoueur3.setStyle(null);
 						}
 					}
 				} catch (RemoteException e) {

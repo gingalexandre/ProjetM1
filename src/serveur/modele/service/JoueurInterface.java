@@ -284,5 +284,32 @@ public interface JoueurInterface extends Remote {
 	 * @throws RemoteException
      */
 	public void incrementeGuerrier() throws RemoteException;
+
+	/**
+	 * Permet de savoir si le joueur a l'armée la plus puissante
+	 * @return
+	 * @throws RemoteException
+     */
+	public boolean isArmeeLaPlusPuissante() throws RemoteException ;
+
+	/**
+	 * Permet de mettre à jour le paramètre qui indique que le joueur possède la carte de la plus puissante armée
+	 * @param armeeLaPlusPuissante
+     */
+	public void setArmeeLaPlusPuissante(boolean armeeLaPlusPuissante) throws RemoteException ;
+
+	/**
+	 * Permet de savoir si le joueur a la plus longue route
+	 * @return
+	 * @throws RemoteException
+     */
+	public boolean isRouteLaPlusLongue() throws RemoteException;
+
+	/**
+	 * Permet de mettre à jour le paramètre qui indique que le joueur possède la carte de la plus longue route
+	 * @param routeLaPlusLongue
+	 * @throws RemoteException
+     */
+	public void setRouteLaPlusLongue(boolean routeLaPlusLongue) throws RemoteException;
 	
 }

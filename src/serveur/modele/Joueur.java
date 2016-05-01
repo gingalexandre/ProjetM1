@@ -137,22 +137,22 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		return nbCarte;
 	}
 
-	public boolean isRouteLaPlusLongue() {
+	public boolean isRouteLaPlusLongue() throws RemoteException{
 		return routeLaPlusLongue;
 	}
 
 
-	public void setRouteLaPlusLongue(boolean routeLaPlusLongue) {
+	public void setRouteLaPlusLongue(boolean routeLaPlusLongue) throws RemoteException {
 		this.routeLaPlusLongue = routeLaPlusLongue;
 	}
 
 
-	public boolean isArmeeLaPlusPuissante() {
+	public boolean isArmeeLaPlusPuissante() throws RemoteException {
 		return armeeLaPlusPuissante;
 	}
 
 
-	public void setArmeeLaPlusPuissante(boolean armeeLaPlusPuissante) {
+	public void setArmeeLaPlusPuissante(boolean armeeLaPlusPuissante) throws RemoteException {
 		this.armeeLaPlusPuissante = armeeLaPlusPuissante;
 	}
 

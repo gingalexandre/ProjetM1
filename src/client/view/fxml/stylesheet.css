@@ -35,28 +35,28 @@
     -fx-background-position: center center;
 }
 
-#imageVictoire{
+.imageVictoire{
     -fx-background-image: url(../../../../Ressources/autres/points_victoire.png);
     -fx-background-repeat: stretch;
     -fx-background-size: 100% 100%;
     -fx-background-position: center center;
 }
 
-#imageRoute{
+.imageRoute{
     -fx-background-image: url(../../../../Ressources/autres/routes.png);
     -fx-background-repeat: stretch;
     -fx-background-size: 100% 100%;
     -fx-background-position: center center;
 }
 
-#imageSoldat{
+.imageSoldat{
     -fx-background-image: url(../../../../Ressources/autres/soldats.png);
     -fx-background-repeat: stretch;
     -fx-background-size: 100% 100%;
     -fx-background-position: center center;
 }
 
-#imageCarte{
+.imageCarte{
      -fx-background-image: url(../../../../Ressources/autres/carte_icon.png);
      -fx-background-repeat: stretch;
      -fx-background-size: 100% 100%;

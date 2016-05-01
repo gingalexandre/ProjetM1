@@ -58,6 +58,7 @@ public class CarteController {
         if(ci.getNom().equals((new Chevalier()).getNom())){
             plateauController.doActionVoleur();
             player.incrementeGuerrier();
+
             action = true;
         }
         if(ci.getNom().equals((new Victoire()).getNom())){

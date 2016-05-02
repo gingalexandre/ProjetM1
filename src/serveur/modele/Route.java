@@ -175,7 +175,7 @@ public class Route extends UnicastRemoteObject implements RouteInterface, Serial
 		r2 = vdep.getRoute_adj2();
 		r3 = vdep.getRoute_adj3();
 		boolean r1PasAMoi = ((r1.getOqp()==null) || (r1.getOqp()!=null && !r1.getOqp().equals(proprio)));
-		boolean r2PasAMoi = r2.getOqp()!=null && !r2.getOqp().equals(proprio);
+		boolean r2PasAMoi = ((r2.getOqp()==null)||(r2.getOqp()!=null && !r2.getOqp().equals(proprio)));
 		boolean r3PasAMoi = ((r3!=null && r3.getOqp()!=null && !r3.getOqp().equals(proprio)) || (r3==null));
 		if (equals(r1) && r2PasAMoi && r3PasAMoi) return 1;
 		if (equals(r2) && r1PasAMoi && r3PasAMoi) return 1;
@@ -184,7 +184,7 @@ public class Route extends UnicastRemoteObject implements RouteInterface, Serial
 		r2 = varr.getRoute_adj2();
 		r3 = varr.getRoute_adj3();
 		r1PasAMoi = ((r1.getOqp()==null) || (r1.getOqp()!=null && !r1.getOqp().equals(proprio)));
-		r2PasAMoi = (((r2.getOqp()==null)) || (r2.getOqp()!=null && !r2.getOqp().equals(proprio)));
+		r2PasAMoi = ((r2.getOqp()==null) || (r2.getOqp()!=null && !r2.getOqp().equals(proprio)));
 		r3PasAMoi = ((r3!=null && r3.getOqp()!=null && !r3.getOqp().equals(proprio)) || (r3==null) || (r3!=null && r3.getOqp()==null));
 		if (equals(r1) && r2PasAMoi && r3PasAMoi) return -1;
 		if (equals(r2) && r1PasAMoi && r3PasAMoi) return -1;

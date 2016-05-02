@@ -303,21 +303,29 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 		for (VilleInterface v : villes){
 			ville.put(v.getEmplacement(),v);
 		}
+		ArrayList<RouteInterface> routesDuJoueur = new ArrayList<RouteInterface>();
 		ArrayList<RouteInterface> extremites = new ArrayList<RouteInterface>();
 		for (RouteInterface r : routes){
 			if (r.getOqp()!= null && r.getOqp().equals(j)){
+				routesDuJoueur.add(r);
 				if (r.isExtremite(ville) != 0){
 					extremites.add(r);
 				}
 			}
 		}
+		// Cas ou on a une boucle on prend une route au hasard pour debuter
 		ArrayList<Integer> resultats = new ArrayList<Integer>();
-		for(RouteInterface r : extremites){
-			Point extremite = (r.isExtremite(ville)>0) ? r.getArrive() : r.getDepart(); 
-			chercherToutesLesRoutes(ville, extremite,r,new HashSet<RouteInterface>(), 0,resultats,j);
-		}	
+		if (extremites.size()>0){
+			for(RouteInterface r : extremites){
+				Point extremite = (r.isExtremite(ville)>0) ? r.getArrive() : r.getDepart(); 
+				chercherToutesLesRoutes(ville, extremite,r,new HashSet<RouteInterface>(), 0,resultats,j);
+			}
+		}
+		else {
+			Point extremite = (routesDuJoueur.get(0).isExtremite(ville)>0) ? routesDuJoueur.get(0).getArrive() : routesDuJoueur.get(0).getDepart(); 
+			chercherToutesLesRoutes(ville, extremite,routesDuJoueur.get(0),new HashSet<RouteInterface>(), 0,resultats,j);
+		}
 		Collections.sort(resultats);
-		System.out.println(resultats);
 		return resultats.get(resultats.size()-1);
 	} 
 	

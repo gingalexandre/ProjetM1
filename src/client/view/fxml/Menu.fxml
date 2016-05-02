@@ -54,12 +54,12 @@
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="4">
                     <children>
-                        <Button fx:id="boutonConstruireRoute" mnemonicParsing="false" disable="true" text="Route" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                        <Button fx:id="boutonConstruireRoute" onAction="#construireRoute" mnemonicParsing="false" disable="false" text="Route" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="5">
                     <children>
-                        <Button fx:id="boutonConstruireColonie" mnemonicParsing="false" disable="true" text="Colonie" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+                        <Button fx:id="boutonConstruireColonie" onAction="#construireColonie" mnemonicParsing="false" disable="false" text="Colonie" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="6">

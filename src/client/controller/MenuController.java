@@ -854,4 +854,13 @@ public class MenuController implements Initializable {
         disableBoutonConstruction(false);
     }
 
+    @FXML
+    public void construireRoute() throws RemoteException{
+    	demanderRoute(false, null);
+    }
+    
+    @FXML
+    public void construireColonie() throws RemoteException{
+    	demanderColonie(false);
+    }
 }

@@ -166,6 +166,23 @@ public class MenuController implements Initializable {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
+		
+		PlateauInterface p;
+		try {
+			p = serveur.getGestionnairePartie().getPartie().getPlateau();
+			for(RouteInterface r : p.getRoutes()){
+			  	if(r.getOqp() != null){
+			  		serveur.getGestionnaireUI().diffuserPriseDeRoute(r, r.getOqp());
+				}
+			}
+			for(VilleInterface v : p.getVilles()){
+				if(v.getOqp() != null){
+					serveur.getGestionnaireUI().diffuserPriseDeVille(v, v.getOqp());
+				}
+			}
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**

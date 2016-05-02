@@ -5,6 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import exception.TooMuchPlayerException;
+import serveur.bdd.modeleBDD.Sauvegarde;
 import serveur.bdd.modeleBDD.Statistiques;
 import serveur.modele.Message;
 import serveur.modele.Partie;
@@ -276,6 +277,15 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	@Override
 	public void supprimerJoueur(JoueurServeur joueur) {
 		this.joueursServeur.remove(joueur);
+	}
+
+	/**
+	 * Permet de récupérer la partie d'une partie chargée
+	 */
+	@Override
+	public PartieInterface recupererPartieChargee() throws RemoteException{
+		this.partie = Sauvegarde.getPartieChargee();
+		return this.partie;
 	}
 	
 }

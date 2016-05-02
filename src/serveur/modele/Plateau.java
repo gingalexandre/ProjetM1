@@ -47,12 +47,11 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 		ajouterVillesAuxHexagones();
 	}
 	
-	
-	public Plateau(PlateauSauvegarde plateau) throws RemoteException{
-		this.hexagones = Fonctions.transformArrayHexagone(plateau.getHexagones());
-		this.villes = Fonctions.transformArrayVille(plateau.getVilles());
-		this.routes = Fonctions.transformArrayRoute(plateau.getRoutes());
-		this.jetons = Fonctions.transformArrayJeton(plateau.getJetons());
+	public void creerNouveauPlateau(PlateauSauvegarde plateauCourant) throws RemoteException {
+		this.hexagones = Fonctions.transformArrayHexagone(plateauCourant.getHexagones());
+		this.villes = Fonctions.transformArrayVille(plateauCourant.getVilles());
+		this.routes = Fonctions.transformArrayRoute(plateauCourant.getRoutes());
+		this.jetons = Fonctions.transformArrayJeton(plateauCourant.getJetons());
 	}
 
 	public static long getSerialversionuid() {
@@ -326,5 +325,4 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 		return "Plateau [hexagones=" + hexagones + ", points=" + points + ", villes=" + villes + ", routes=" + routes
 				+ "]";
 	}
-
 }

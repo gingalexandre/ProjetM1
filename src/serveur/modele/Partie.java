@@ -1,5 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -49,6 +49,11 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	 * Indique si la partie a commencé ou non
 	 */
 	private boolean partieCommence;
+	
+	/**
+	 * Indique si la partie a été chargée ou non
+	 */
+	private boolean chargee;
 
 	/**
 	 * Ordre de jeu de la partie
@@ -95,10 +100,18 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	 * @throws RemoteException
 	 */
 	public Partie(PartieSauvegarde p) throws RemoteException{
+		this.joueur1 = new Joueur(p.getJoueurs().get(0));
+		this.joueur2 = new Joueur(p.getJoueurs().get(1));
+		this.joueur3 = new Joueur(p.getJoueurs().get(2));
+		if(p.getJoueurs().size() > 3){
+			this.joueur4 = new Joueur(p.getJoueurs().get(3));
+		}
+		
 		this.ordreJeu = Fonctions.transformArrayJoueur(p.getJoueurs());
 		this.tour = p.getTour();
 		this.compteurTourGlobal = p.getTourGlobal();
-		this.plateau = new Plateau(p.getPlateauCourant());
+		Plateau.getInstance().creerNouveauPlateau(p.getPlateauCourant());
+		this.plateau = Plateau.getInstance();
 		this.partieCommence = true;
 	}
 	
@@ -181,7 +194,23 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	}
 
 	/**
-	 * Getter du boolean pour savoir si la partie à commencé
+	 * Permet de savoir si la partie a été chargée ou non
+	 * @return true si la partie a été chargée, false sinon
+	 */
+	public boolean isChargee() throws RemoteException{
+		return chargee;
+	}
+
+	/**
+	 * Permet d'indiquer si la partie a été chargée ou non
+	 * @param chargee 
+	 */
+	public void setChargee(boolean chargee) throws RemoteException{
+		this.chargee = chargee;
+	}
+	
+	/**
+	 * Getter du boolean pour savoir si la partie a commencé
 	 * @return booléen
 	 */
 	public boolean isPartieCommence() throws RemoteException{
@@ -189,7 +218,7 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	}
 
 	/**
-	 * Setter du boolean pour savoir si la partie à commencé
+	 * Setter du boolean pour savoir si la partie as commencé
 	 * @param partieCommence - nouveau partieCommence
 	 */
 	public void setPartieCommence(boolean partieCommence) throws RemoteException{

@@ -105,7 +105,7 @@ public class ConnexionController implements Initializable {
 	 */
 	@FXML
 	public void connexion() throws RemoteException, InterruptedException, TooMuchPlayerException {
-		if(!serveur.getGestionnairePartie().getPartie().isPartieCommence()){ // La partie a pas commencé, le joueur peut se connecter tranquille
+	//	if(!serveur.getGestionnairePartie().getPartie().isPartieCommence() || serveur.getGestionnairePartie().getPartie().isChargee()){ // La partie a pas commencé, le joueur peut se connecter tranquille
 			ArrayList<JoueurServeur> listeJoueurs = new ArrayList<JoueurServeur>();
 			boolean connexionOk = false;
 			try {
@@ -129,9 +129,9 @@ public class ConnexionController implements Initializable {
 					utilisateurErreur.setText("Erreur, utilisateur inconnu, inscrivez-vous.");
 				}
 			}
-		}else{
-			utilisateurErreur.setText("Désolé ! La partie a déjà commencé.");
-		}
+		//}else{
+		//	utilisateurErreur.setText("Désolé ! La partie a déjà commencé.");
+		//}
 	}
 
 	/**

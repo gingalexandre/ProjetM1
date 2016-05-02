@@ -44,17 +44,34 @@ public interface GestionnaireUIInterface extends Remote{
 
 	/**
 	 * Permet de diffuser les mouvements du voleur
-	 * @param depart case de départ
-	 * @param arrive case d'arrivée
+	 * @param depart - case de départ
+	 * @param arrive - case d'arrivée
 	 * @throws RemoteException
      */
 	void diffuserVoleur(int depart, int arrive) throws RemoteException;
 	
+	/**
+	 * Diffuse la prise d'une route 
+	 * @param r - route en question
+	 * @param j - joueur en question
+	 * @throws RemoteException
+	 */
 	void diffuserPriseDeRoute(RouteInterface r, JoueurInterface j) throws RemoteException;
 
+	/**
+	 * Diffuse la prise d'une ville 
+	 * @param v - ville en question
+	 * @param joueurCourrant - joueur en question
+	 * @throws RemoteException
+	 */
 	void diffuserPriseDeVille(VilleInterface v, JoueurInterface joueurCourrant) throws RemoteException;
 
+	/**
+	 * Permet de diffuser le gain d'une ressource
+	 * @throws RemoteException
+	 */
 	void diffuserGainRessource() throws RemoteException;
+	
 	/**
 	 * Permet de diffuser le fait qu'un joueur est parti
 	 * @param joueurASupprimer JoueurInterface : joueur ayant quitté le jeu
@@ -62,14 +79,34 @@ public interface GestionnaireUIInterface extends Remote{
 	 */
 	void diffuserDepartJoueur(JoueurInterface joueurASupprimer) throws RemoteException;
 
-
-
+	/**
+	 * Diffuse une proposition
+	 * @param j - joueur à qui on diffuse
+	 * @param offreDemande - HashMap contenant les ressources
+	 * @param nomExpediteur - nom de l'expediteur
+	 * @throws RemoteException
+	 */
 	void diffuserProposition(JoueurServeur j, HashMap<String, Integer> offreDemande, String nomExpediteur)throws RemoteException;
 
+	/**
+	 * Permet de diffuser le gain d'une carte ressource
+	 * @throws RemoteException
+	 */
 	void diffuserGainCarteRessource() throws RemoteException;
 
+	/**
+	 * Permet de supprimer un joueur
+	 * @param joueur - joueur à supprimer
+	 * @throws RemoteException
+	 */
 	void supprimerJoueur(JoueurServeur joueur) throws RemoteException;
 
+	/**
+	 * Permet d'envoyer un vol
+	 * @param ressourcesMax
+	 * @param j
+	 * @throws RemoteException
+	 */
 	void envoyerVol(int ressourcesMax, JoueurServeur j) throws RemoteException;
 
 	/**
@@ -78,7 +115,6 @@ public interface GestionnaireUIInterface extends Remote{
 	 * @throws RemoteException
 	 */
 	public void updatePointVictoire(JoueurInterface joueur) throws  RemoteException ;
-
 
 	/**
 	 * Permet de monopoliser une ressource

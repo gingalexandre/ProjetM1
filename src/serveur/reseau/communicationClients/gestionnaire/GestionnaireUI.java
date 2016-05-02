@@ -52,17 +52,14 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 
 	/**
 	 * Enregistre un nouveau joueur dans la liste des joueurs
-	 * 
-	 * @param nouveauJoueurServeur
-	 *            - joueur a enregistrer
+	 * @param nouveauJoueurServeur - joueur a enregistrer
 	 */
 	public void enregistrerJoueur(JoueurServeur nouveauJoueurServeur) throws RemoteException {
 		joueurServeurs.add(nouveauJoueurServeur);
 	}
 
 	/**
-	 * Envoie le plateau de jeu au joueur pass� en parametre
-	 * 
+	 * Envoie le plateau de jeu au joueur passé en parametre
 	 * @param proxy
 	 * @throws RemoteException
 	 */
@@ -72,11 +69,8 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 
 	/**
 	 * Diffuse les modifications du voleur aux joueurs
-	 * 
-	 * @param depart
-	 *            case de départ
-	 * @param arrive
-	 *            case d'arrivée
+	 * @param depart - case de départ
+	 * @param arrive - case d'arrivée
 	 * @throws RemoteException
 	 */
 	public void diffuserVoleur(int depart, int arrive) throws RemoteException {
@@ -90,8 +84,7 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	}
 
 	/**
-	 * Diffuse les messages du chat aux joueurs
-	 * 
+	 * Diffuse les messages du chat aux joueurs pour la prise d'un message
 	 * @param message
 	 * @throws RemoteException
 	 */
@@ -101,20 +94,32 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 		}
 	}
 
+	/**
+	 * Diffuse les messages du chat aux joueurs pour la prise d'une route
+	 * @param message
+	 * @throws RemoteException
+	 */
 	public void diffuserPriseDeRoute(RouteInterface r, JoueurInterface j) throws RemoteException {
 		for (JoueurServeur joueurServeur : joueurServeurs) {
 			joueurServeur.recevoirPriseDeRoute(r, j);
 		}
 	}
 
-	@Override
+	/**
+	 * Diffuse les messages du chat aux joueurs pour la prise d'une route
+	 * @param message
+	 * @throws RemoteException
+	 */
 	public void diffuserPriseDeVille(VilleInterface v, JoueurInterface joueurCourrant) throws RemoteException {
 		for (JoueurServeur joueurServeur : joueurServeurs) {
 			joueurServeur.recevoirPriseDeVille(v, joueurCourrant);
 		}
 	}
 
-	@Override
+	/** 
+	 * Diffuse le gain d'une ressource
+	 * @throws RemoteException
+	 */
 	public void diffuserGainRessource() throws RemoteException {
 		for (JoueurServeur joueurServeur : joueurServeurs) {
 			joueurServeur.recevoirGainRessource();
@@ -123,6 +128,7 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 
 	/**
 	 * Permet de diffuser le fait que le joueur x est parti
+	 * @throws RemoteException
 	 */
 	public void diffuserDepartJoueur(JoueurInterface joueurSupprime) throws RemoteException {
 		Serveur serveur = ConnexionManager.getInstance().getServeur();
@@ -153,24 +159,42 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 		serveur.getGestionnairePartie().getPartie().supprimerJoueur(joueurSupprime);
 	}
 
-	@Override
+	/**
+	 * Diffuse une proposition
+	 * @param j - joueur à qui on diffuse
+	 * @param offreDemande - HashMap contenant les ressources
+	 * @param nomExpediteur - nom de l'expediteur
+	 * @throws RemoteException
+	 */
 	public void diffuserProposition(JoueurServeur j, HashMap<String, Integer> offreDemande, String nomExpediteur) throws RemoteException {
 		j.envoyerProposition(offreDemande, nomExpediteur);
 	}
 
-	@Override
+	/**
+	 * Permet de diffuser le gain d'une carte ressource
+	 * @throws RemoteException
+	 */
 	public void diffuserGainCarteRessource() throws RemoteException {
 		for (JoueurServeur js : joueurServeurs) {
 			js.envoyerNbCarte();
 		}		
 	}
 
-	@Override
+	/**
+	 * Permet de supprimer un joueur
+	 * @param joueur - joueur à supprimer
+	 * @throws RemoteException
+	 */
 	public void supprimerJoueur(JoueurServeur joueur) throws RemoteException{
 		this.joueurServeurs.remove(joueur);
 	}
 
-	@Override
+	/**
+	 * Permet d'envoyer un vol
+	 * @param ressourcesMax
+	 * @param j
+	 * @throws RemoteException
+	 */
 	public void envoyerVol(int ressourcesMax, JoueurServeur j) throws RemoteException {
 		j.envoyerVol(ressourcesMax);
 	}

@@ -42,6 +42,13 @@ public interface RouteInterface extends Remote{
 	 */
 	int compareTo(RouteInterface r2) throws RemoteException;
 
+	/**
+	 * Méthode permettant de savoir si le joueur donnée en paramètre peut construire sur la route
+	 * @param villes Table qui a chaque Point associe la Ville ou Colonie 
+	 * @param joueurCourrant Joueur qui souhaite construire une route
+	 * @param mesExtremitesDeRoute Ensemble des points de depart et d'arrivée des routes du joueur en parametre
+	 * @return Booléen indiquant si oui ou non le joueur peut construire
+	 */
 	boolean estConstructible(HashMap<Point, VilleInterface> villes, JoueurInterface joueurCourrant, HashSet<Point> pointsDeRoutes, VilleInterface villeIgnored) throws RemoteException;
 
 }

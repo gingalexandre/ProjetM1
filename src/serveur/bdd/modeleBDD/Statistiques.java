@@ -50,10 +50,10 @@ public class Statistiques {
 			PreparedStatement prestmt = null;
 			String query = "UPDATE Joueur SET nombrePartieJouee=?, nombrePartieGagnee=?  WHERE pseudo=?;";
 			prestmt = connection.prepareStatement(query);
-			prestmt.setInt(0, res[0]);
-			prestmt.setInt(1, res[1]);
-			prestmt.setString(2, nomUtilisateur);
-			prestmt.executeUpdate(query);
+			prestmt.setInt(1, res[0]);
+			prestmt.setInt(2, res[1]);
+			prestmt.setString(3, nomUtilisateur);
+			prestmt.executeUpdate();
 			connection.commit();
 			connection.close();
 		} catch (Exception e) {

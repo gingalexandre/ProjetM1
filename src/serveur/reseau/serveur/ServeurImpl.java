@@ -63,14 +63,6 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	}
 	
 	/**
-	 * @return la liste des joueurs connectés sur le serveur
-	 */
-	@Override
-	public ArrayList<JoueurServeur> getListeJoueurs() throws RemoteException{
-		return this.joueurServeurs;
-	}
-	
-	/**
 	 * Enregistre un joueur sur le serveur
 	 * @param nouveauJoueurServeur - joueur a ajouter
 	 * @throws RemoteException
@@ -104,27 +96,29 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 			throw new TooMuchPlayerException("Connexion impossible. Il y a deja "+nombre_max_joueurs+" joueurs connectes sur le serveur.");
 		}
 	}
-
+	
 	/**
-	 * Permet d'ajouter un joueur a la liste de joueurs des gestionnaires
-	 * @param nouveauJoueurServeur - joueur a envoyer
-	 * @throws RemoteException 
+	 * Permet d'obtenir la liste des proxys
+	 * @return la liste des proxy connectés sur le serveur
 	 */
-	private void envoyerJoueurAuGestionnaire(JoueurServeur nouveauJoueurServeur) throws RemoteException{
-		gestionnairePartie.enregistrerJoueur(nouveauJoueurServeur);
-		gestionnairePartie.ajouterJoueurPartie(nouveauJoueurServeur.getJoueur());
-		gestionnaireUI.enregistrerJoueur(nouveauJoueurServeur);
+	@Override
+	public ArrayList<JoueurServeur> getListeJoueurs() throws RemoteException{
+		return this.joueurServeurs;
 	}
 	
 	/**
-	 * Appel le GestionnaireUI pour envoyer un message indiquant le nombre de joueurs connectés aux joueurs 
-	 * @throws RemoteException 
+	 * Permet d'obtenir un proxy grâce au nom du joueur
+	 * @return le proxy grâce à son nom
+	 * @throws RemoteException
 	 */
 	@Override
-	public void envoyerNombreJoueursConnectes() throws RemoteException {
-		String contenu = "Nombre de joueurs connectés : "+this.joueurServeurs.size()+"/"+this.nombre_max_joueurs;
-		Message message = new Message(contenu);
-		gestionnaireUI.diffuserMessage(message);
+	public JoueurServeur getJoueur(String nomJoueur) throws RemoteException {
+		for (JoueurServeur j : joueurServeurs){
+			if(j.getJoueur().getNomUtilisateur().equals(nomJoueur)){
+				return j;
+			}
+		}
+		return null;
 	}
 	
 	/**
@@ -158,6 +152,28 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	}
 
 	/**
+	 * Permet d'ajouter un joueur a la liste de joueurs des gestionnaires
+	 * @param nouveauJoueurServeur - joueur a envoyer
+	 * @throws RemoteException 
+	 */
+	private void envoyerJoueurAuGestionnaire(JoueurServeur nouveauJoueurServeur) throws RemoteException{
+		gestionnairePartie.enregistrerJoueur(nouveauJoueurServeur);
+		gestionnairePartie.ajouterJoueurPartie(nouveauJoueurServeur.getJoueur());
+		gestionnaireUI.enregistrerJoueur(nouveauJoueurServeur);
+	}
+	
+	/**
+	 * Appel le GestionnaireUI pour envoyer un message indiquant le nombre de joueurs connectés aux joueurs 
+	 * @throws RemoteException 
+	 */
+	@Override
+	public void envoyerNombreJoueursConnectes() throws RemoteException {
+		String contenu = "Nombre de joueurs connectés : "+this.joueurServeurs.size()+"/"+this.nombre_max_joueurs;
+		Message message = new Message(contenu);
+		gestionnaireUI.diffuserMessage(message);
+	}
+
+	/**
 	 * Permet de sauvegarder la partie
 	 */
 	@Override
@@ -174,16 +190,11 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 		}
 	}
 
-	@Override
-	public JoueurServeur getJoueur(String nomJoueur) throws RemoteException {
-		for (JoueurServeur j : joueurServeurs){
-			if(j.getJoueur().getNomUtilisateur().equals(nomJoueur)){
-				return j;
-			}
-		}
-		return null;
-	}
-
+	 /**
+     * Permet à un joueur de quitter la partie
+     * @param nomJoueur
+     * @throws RemoteException
+     */
 	@Override
 	public synchronized void quitterPartie(JoueurInterface joueur) throws RemoteException{
 		JoueurServeur aSupprimer = null;
@@ -201,6 +212,11 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 		}
 	}
 	
+	/**
+	 * Supprime un joueur qui a quitté la partie
+	 * @param joueur
+	 * @throws RemoteException
+	 */
 	private void supprimerJoueurQuitterPartie(JoueurServeur joueur) throws RemoteException{
 		this.joueurServeurs.remove(joueur);
 		this.getGestionnairePartie().supprimerJoueur(joueur);

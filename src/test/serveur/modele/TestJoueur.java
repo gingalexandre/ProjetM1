@@ -219,16 +219,16 @@ public class TestJoueur {
 	 * @throws RemoteException 
 	    */
 	   public void testAddCarte() throws RemoteException{
-		   this.joueur1.addCartes(new Chevalier());
+		   this.joueur1.addCarte(new Chevalier());
 		   assertEquals(this.joueur1.getCartes().size(), 1);
 			
-		   this.joueur2.addCartes(new Chevalier());
-		   this.joueur2.addCartes(new Chevalier());
+		   this.joueur2.addCarte(new Chevalier());
+		   this.joueur2.addCarte(new Chevalier());
 		   assertEquals(this.joueur2.getCartes().size(), 2);
 		   
-		   this.joueur3.addCartes(new Chevalier());
-		   this.joueur2.addCartes(new Chevalier());
-		   this.joueur2.addCartes(new Chevalier());
+		   this.joueur3.addCarte(new Chevalier());
+		   this.joueur2.addCarte(new Chevalier());
+		   this.joueur2.addCarte(new Chevalier());
 		   assertEquals(this.joueur3.getCartes().size(), 3);
 	   }
 }

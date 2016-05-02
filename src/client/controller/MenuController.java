@@ -118,9 +118,12 @@ public class MenuController implements Initializable {
 	 */
 	public static Stage fenetreEchange, fenetreProposition, fenetreVol;
 	
+
 	/**
-	 * Pour les cartes
+	 * CarteController qui gère els actions des cartes
 	 */
+	private CarteController carteController;
+
 	@FXML
 	private ChoiceBox<String> listeCarte;
 	
@@ -761,6 +764,14 @@ public class MenuController implements Initializable {
     }
 
 	/**
+	 * Initialise le controller.
+	 * @param cc PlateauContoller.
+	 */
+	public void setCarteController(CarteController cc){
+		this.carteController = cc;
+	}
+
+	/**
 	 * Pioche de la carte.
      */
 	public void piocheCarte() throws RemoteException {
@@ -771,7 +782,7 @@ public class MenuController implements Initializable {
 			Platform.runLater(() -> {
                 try {
                     listeCarte.getItems().add(card.getNom());
-                    proxy.getJoueur().addCartes(carte);
+                    proxy.getJoueur().addCarte(carte);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
@@ -782,18 +793,21 @@ public class MenuController implements Initializable {
         }
 	}
 
-    /**
-     * Permet de jouer une carte
-     * @throws RemoteException
+	/**
+	 * Méthode qui permet de jouer une carte.
+	 * @throws RemoteException
      */
     public void jouerCarte() throws RemoteException {
         int index = listeCarte.getSelectionModel().getSelectedIndex();
-
-        CarteInterface carte = proxy.getJoueur().getCartes(index);
+        CarteInterface carte = proxy.getJoueur().getCarte(index);
         if (carte != null) {
-            serveur.getGestionnaireUI().diffuserMessage(new Message("Playing card : " + carte.getNom()));
-            listeCarte.getItems().remove(index);
-            proxy.getJoueur().removeCartes(index);
+			serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" joue la carte de développement: " + carte.getNom()+"."));
+			boolean action = carteController.doActionCarte(carte);;
+			if(action = true){
+				listeCarte.getItems().remove(index);
+				proxy.getJoueur().removeCarte(index);
+			}else{
+			}
         }
     }
 

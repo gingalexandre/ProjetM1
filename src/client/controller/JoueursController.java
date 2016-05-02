@@ -37,6 +37,9 @@ public class JoueursController implements Initializable {
 	@FXML
 	private Label nbCarteJoueur1, nbCarteJoueur2, nbCarteJoueur3;
 
+	@FXML
+	private Label nbVictoireJoueur1, nbVictoireJoueur2, nbVictoireJoueur3;
+
 	/**
 	 * Serveur de jeu
 	 */
@@ -92,7 +95,20 @@ public class JoueursController implements Initializable {
 		nbCaillou.setText("0");
 		nbLaine.setText("0");
 		nbBois.setText("0");
-		nbVictoire.setText("2");
+
+		try {
+			nomJoueur.setText(joueur.getNomUtilisateur());
+			nbVictoire.setText(Integer.toString(joueur.getPointVictoire()));
+			// Appel de la méthode permettant de transformer la couleur de
+			// français à anglais pour pouvoir changer le style
+			String couleurAnglais = Fonction.couleurEnRGB(joueur.getCouleur());
+			couleurJoueur.setStyle("-fx-background-color: " + couleurAnglais + ";");
+			proxy = ConnexionManager.getStaticProxy();
+			proxy.setJoueursController(this);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -277,4 +293,24 @@ public class JoueursController implements Initializable {
 			this.supprimerGridPane(autreTrois);
 		}
 	}
+
+	/**
+	 * Mise a jour des points de victoire.
+	 */
+	public void majPointVictoire(JoueurInterface j) throws RemoteException {
+		String nomUtilisateur = j.getNomUtilisateur();
+		String pt_victoire = Integer.toString(j.getPointVictoire());
+		if (nomUtilisateur.equals(nomJoueur.getText())) {
+			Platform.runLater(() -> nbVictoire.setText(pt_victoire));
+		}
+		if (nomUtilisateur.equals(autreUnName.getText())) {
+			Platform.runLater(() -> nbVictoireJoueur1.setText(pt_victoire));
+		} else if (nomUtilisateur.equals(autreDeuxName.getText())) {
+			Platform.runLater(() -> nbVictoireJoueur2.setText(pt_victoire));
+		} else {
+			Platform.runLater(() -> nbVictoireJoueur3.setText(pt_victoire));
+		}
+	}
+
+
 }

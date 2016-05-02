@@ -36,7 +36,6 @@ public class Route extends UnicastRemoteObject implements CarteInterface {
 	/**
      * Action provoquer lorsqu'un joueur utilise la carte de type de progrès construction.
      */
-    @Override
     public void doAction() throws RemoteException{
         /*
         currentPlayer.setNbRoute(currentPlayer.getNbRoute()+2);

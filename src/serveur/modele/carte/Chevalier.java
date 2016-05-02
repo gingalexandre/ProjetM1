@@ -38,7 +38,7 @@ public class Chevalier extends UnicastRemoteObject implements CarteInterface{
 	/**
      * Action provoquer lorsqu'un joueur utilise la carte de type de chevalier.
      */
-    @Override
+
     public void doAction() throws RemoteException {
 
     }

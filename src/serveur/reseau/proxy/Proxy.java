@@ -5,14 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import client.controller.ChatController;
-import client.controller.EchangeController;
-import client.controller.JoueursController;
-import client.controller.MenuController;
-import client.controller.PlateauController;
-import client.controller.PropositionController;
-import client.controller.ReglesController;
-import client.controller.VolController;
+import client.controller.*;
 import serveur.modele.Message;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
@@ -57,6 +50,11 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	 * Controller des propositions
 	 */
 	private PropositionController propostionController;
+
+	/**
+	 * Controller des propositions
+	 */
+	private CarteController carteController;
 	
 	/**
 	 * Controller des vols
@@ -117,6 +115,13 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	
 	public void setReglesController(ReglesController reglesController)throws RemoteException  {
 		this.reglesController = reglesController;
+	}
+
+	/**
+	 * @param carteController
+	 */
+	public void setCarteController(CarteController carteController) throws RemoteException {
+		this.carteController = carteController;
 	}
 
 	/**
@@ -244,5 +249,25 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	public void setVolController(VolController volController) throws RemoteException{
 		this.volController = volController;
 		
+	}
+
+	/**
+	 * Permet la mise a jour des points d'un joueur.
+	 * @param joueur
+	 * @throws RemoteException
+	 */
+	public void updatePointVictoire(JoueurInterface joueur) throws  RemoteException {
+		this.joueursController.majPointVictoire(joueur);
+	}
+/**
+	 * Permet de récupérer toutes les ressources d'un type pour monopoliser
+	 * @param ressource_visee
+	 * @throws RemoteException
+	 */
+	public int monopole(int ressource_visee) throws  RemoteException {
+		int value = joueur.getStockRessource().get(ressource_visee);
+		joueur.supprimerRessource(ressource_visee,value);
+		this.joueursController.majRessource();
+		return value;
 	}
 }

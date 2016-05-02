@@ -38,7 +38,6 @@ public class Monopole extends UnicastRemoteObject implements CarteInterface{
 	/**
      * Action provoquer lorsqu'un joueur utilise la carte de type de Monopole.
      */
-    @Override
     public void doAction() throws RemoteException {
         /*
          currentPlayer.getStockRessource().put(ressourceChoisie, currentPlayer.getStockRessource().get(ressourceChoisie)+quantite);

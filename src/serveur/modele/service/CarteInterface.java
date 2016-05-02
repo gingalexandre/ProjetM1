@@ -9,11 +9,6 @@ import java.rmi.RemoteException;
  * @author Yohann HUGO
  */
 public interface CarteInterface extends Remote {
-    /**
-     * Engendre l'action de la carte
-     * @throws RemoteException
-     */
-    public void doAction() throws RemoteException;
 
     /**
      * Retourne le chemin de l'image de la carte.

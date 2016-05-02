@@ -154,7 +154,7 @@ public interface JoueurInterface extends Remote {
 	 * @param carte - carte à ajouter
 	 * @throws RemoteException
 	 */
-	void addCartes(CarteInterface carte) throws RemoteException;
+	void addCarte(CarteInterface carte) throws RemoteException;
 
 	/**
 	 * Permet de récupérer une carte.
@@ -162,14 +162,14 @@ public interface JoueurInterface extends Remote {
 	 * @return Une carte
 	 * @throws RemoteException
      */
-	public CarteInterface getCartes(int index)  throws RemoteException;
+	public CarteInterface getCarte(int index)  throws RemoteException;
 
 	/**
 	 * Permet de supprimer une carte.
 	 * @param index index de la carte a supprimer
 	 * @throws RemoteException
 	 */
-	public void removeCartes(int index)  throws RemoteException;
+	public void removeCarte(int index)  throws RemoteException;
 	
 	/**
 	 * Permet d'obtenir le nombre de routes du joueur
@@ -279,6 +279,10 @@ public interface JoueurInterface extends Remote {
 	 */
 	int compareTo(JoueurInterface j) throws RemoteException;
 
-	
+	/**
+	 * Permet d'incrémenter le nombre de chevalier jouer par un joueur.
+	 * @throws RemoteException
+     */
+	public void incrementeGuerrier() throws RemoteException;
 	
 }

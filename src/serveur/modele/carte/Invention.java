@@ -39,7 +39,6 @@ public class Invention extends UnicastRemoteObject implements CarteInterface {
 	/**
      * Action provoquer lorsqu'un joueur utilise la carte de type de progrès ressource.
      */
-    @Override
     public void doAction() throws RemoteException {
         /*
          currentPlayer.getStockRessource().put(ressourceChoisie, currentPlayer.getStockRessource().get(ressourceChoisie)+2);

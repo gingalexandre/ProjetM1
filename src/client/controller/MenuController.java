@@ -218,7 +218,7 @@ public class MenuController implements Initializable {
 		serveur.getGestionnairePartie().joueurPret(joueur);
 	}
 	
-	boolean isInitTurn() throws RemoteException{
+	public boolean isInitTurn() throws RemoteException{
 		return serveur.getGestionnairePartie().isPremierePhasePartie();
 	}
 	
@@ -614,6 +614,8 @@ public class MenuController implements Initializable {
 								routesConstructibles.get(rectangle).setOQP(joueurCourrant);
 								VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
 								serveur.getGestionnaireUI().diffuserPriseDeRoute(r, joueurCourrant);
+								int maRouteLaPlusLongue = p.calculerRouteLaPlusLongue(joueurCourrant);
+								serveur.getGestionnaireUI().diffuserMessage(new Message("La route la plus longue de "+joueurCourrant.getNomUtilisateur()+" est de "+maRouteLaPlusLongue));
 								if(isInitTurn()){
 									setButtons(true,true,false);
 								}else{
@@ -878,4 +880,13 @@ public class MenuController implements Initializable {
 
     }
 
+    @FXML
+    public void construireRoute() throws RemoteException{
+    	demanderRoute(false, null);
+    }
+    
+    @FXML
+    public void construireColonie() throws RemoteException{
+    	demanderColonie(false);
+    }
 }

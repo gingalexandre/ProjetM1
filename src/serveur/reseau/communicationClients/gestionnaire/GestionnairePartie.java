@@ -242,13 +242,11 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 		if(this.partie.getCompteurTourGlobal() == this.partie.getNombreJoueurs()*2){
 			this.premierePhasePartie = false;
 		}
-		else{
-			for(JoueurServeur joueurServeur : joueursServeur) {
-				if(joueurServeur.getJoueur().getNomUtilisateur().equals(joueurTour.getNomUtilisateur())){
-					joueurServeur.lancerTour();
-				}
+		for(JoueurServeur joueurServeur : joueursServeur) {
+			if(joueurServeur.getJoueur().getNomUtilisateur().equals(joueurTour.getNomUtilisateur())){
+				joueurServeur.lancerTour();
 			}
-		}
+		}	
 	}
 
 	/** 

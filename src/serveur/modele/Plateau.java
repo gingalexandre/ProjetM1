@@ -47,9 +47,8 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 		setJetons();
 		ajouterVillesAuxHexagones();
 	}
-	
-	
-	public Plateau(PlateauSauvegarde plateau) throws RemoteException{
+
+	public Plateau(PlateauSauvegarde plateau) throws RemoteException {
 		this.hexagones = Fonctions.transformArrayHexagone(plateau.getHexagones());
 		this.villes = Fonctions.transformArrayVille(plateau.getVilles());
 		this.routes = Fonctions.transformArrayRoute(plateau.getRoutes());
@@ -161,8 +160,8 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 		villes.get(50).setVillesAdj(46, -1, 53);
 
 	}
-	
-	public void setPorts() throws RemoteException{
+
+	public void setPorts() throws RemoteException {
 		villes.get(0).setPort();
 		villes.get(1).setPort(Ressource.LAINE);
 		villes.get(3).setPort();
@@ -181,7 +180,7 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 		villes.get(49).setPort(Ressource.BOIS);
 		villes.get(51).setPort();
 		villes.get(52).setPort(Ressource.BOIS);
-		
+
 	}
 
 	public void setRoutes() throws RemoteException {
@@ -300,95 +299,84 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 
 	@Override
 	public int getRessourceCase(int caseConcernee) throws RemoteException {
-		for(HexagoneInterface h : hexagones){
-			if(h.getNumero()==caseConcernee){
+		for (HexagoneInterface h : hexagones) {
+			if (h.getNumero() == caseConcernee) {
 				return h.getRessource();
 			}
 		}
 		return 0;
 	}
-	
+
 	@Override
 	public ArrayList<VilleInterface> getVilleAdjacenteByCase(Integer caseConsernee) throws RemoteException {
 		ArrayList<VilleInterface> listeVilles = new ArrayList<VilleInterface>();
-		for(HexagoneInterface h : hexagones){
-			if(h.getNumero()==caseConsernee){
-				for(VilleInterface v : h.getVilleAdj()){
+		for (HexagoneInterface h : hexagones) {
+			if (h.getNumero() == caseConsernee) {
+				for (VilleInterface v : h.getVilleAdj()) {
 					listeVilles.add(v);
 				}
 			}
 		}
 		return listeVilles;
 	}
-	
-	public int calculerRouteLaPlusLongue(JoueurInterface j) throws RemoteException{
-		HashMap<Point,VilleInterface> ville = new HashMap<Point,VilleInterface>();
-		for (VilleInterface v : villes){
-			ville.put(v.getEmplacement(),v);
+
+	public int calculerRouteLaPlusLongue(JoueurInterface j) throws RemoteException {
+		HashMap<Point, VilleInterface> ville = new HashMap<Point, VilleInterface>();
+		for (VilleInterface v : villes) {
+			ville.put(v.getEmplacement(), v);
 		}
 		ArrayList<RouteInterface> routesDuJoueur = new ArrayList<RouteInterface>();
 		ArrayList<RouteInterface> extremites = new ArrayList<RouteInterface>();
-		for (RouteInterface r : routes){
-			if (r.getOqp()!= null && r.getOqp().equals(j)){
+		for (RouteInterface r : routes) {
+			if (r.getOqp() != null && r.getOqp().equals(j)) {
 				routesDuJoueur.add(r);
-				if (r.isExtremite(ville) != 0){
+				if (r.isExtremite(ville) != 0) {
 					extremites.add(r);
 				}
 			}
 		}
-		// Cas ou on a une boucle on prend une route au hasard pour debuter
 		ArrayList<Integer> resultats = new ArrayList<Integer>();
-		if (extremites.size()>0){
-			for(RouteInterface r : extremites){
-				Point extremite = (r.isExtremite(ville)>0) ? r.getArrive() : r.getDepart(); 
-				chercherToutesLesRoutes(ville, extremite,r,new HashSet<RouteInterface>(), 0,resultats,j);
-			}
-		}
-		else {
-			Point extremite = (routesDuJoueur.get(0).isExtremite(ville)>0) ? routesDuJoueur.get(0).getArrive() : routesDuJoueur.get(0).getDepart(); 
-			chercherToutesLesRoutes(ville, extremite,routesDuJoueur.get(0),new HashSet<RouteInterface>(), 0,resultats,j);
+		for (RouteInterface r : routesDuJoueur) {
+			Point extremite = (r.isExtremite(ville) > 0) ? r.getArrive(): r.getDepart();
+			chercherToutesLesRoutes(ville, extremite, r, new HashSet<RouteInterface>(), 0,resultats, j);
 		}
 		Collections.sort(resultats);
-		return resultats.get(resultats.size()-1);
-	} 
-	
-	private void chercherToutesLesRoutes(HashMap<Point,VilleInterface> villes, Point extremite,RouteInterface current,Set<RouteInterface> visites, int size, ArrayList<Integer> res,JoueurInterface j) throws RemoteException {
+		return resultats.get(resultats.size() - 1);
+	}
+
+	private void chercherToutesLesRoutes(HashMap<Point, VilleInterface> villes, Point extremite, RouteInterface current,
+			Set<RouteInterface> visites, int size, ArrayList<Integer> res, JoueurInterface j) throws RemoteException {
 		size++;
 		visites.add(current);
 		int isExtremite = current.isExtremite(villes);
-		if (isExtremite!=0){
-			if (size==1){
-				Point prochaineExtremite = (extremite.equals(current.getDepart()))? current.getDepart():current.getArrive();
-				ArrayList<RouteInterface> successeur =current.getSuccesseurs(prochaineExtremite, j, villes, visites);
-				if (successeur.size()!=0){
-					for (RouteInterface r : successeur){
+		if (isExtremite != 0) {
+			if (size == 1) {
+				Point prochaineExtremite = (extremite.equals(current.getDepart())) ? current.getDepart()
+						: current.getArrive();
+				ArrayList<RouteInterface> successeur = current.getSuccesseurs(prochaineExtremite, j, villes, visites);
+				if (successeur.size() != 0) {
+					for (RouteInterface r : successeur) {
 						chercherToutesLesRoutes(villes, prochaineExtremite, r, visites, size, res, j);
-						//size--;
 					}
-				}else {
+				} else {
 					res.add(size);
-					//size--;
 				}
-			}else{
+			} else {
 				res.add(size);
-				//size--;
 			}
-		}
-		else {
-			Point prochaineExtremite = (extremite.equals(current.getDepart()))?current.getArrive():current.getDepart();
-			ArrayList<RouteInterface> successeur = current.getSuccesseurs(prochaineExtremite,j,villes,visites);
-			if (successeur.size()!=0){
-				for (RouteInterface r : successeur){
+		} else {
+			Point prochaineExtremite = (extremite.equals(current.getDepart())) ? current.getArrive()
+					: current.getDepart();
+			ArrayList<RouteInterface> successeur = current.getSuccesseurs(prochaineExtremite, j, villes, visites);
+			if (successeur.size() != 0) {
+				for (RouteInterface r : successeur) {
 					chercherToutesLesRoutes(villes, prochaineExtremite, r, visites, size, res, j);
-					//size--;
 				}
-			}else {
+			} else {
 				res.add(size);
-				//size--;
 			}
 		}
 	}
-
 
 	@Override
 	public String toString() {

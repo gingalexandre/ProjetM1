@@ -168,8 +168,8 @@ public class Route extends UnicastRemoteObject implements RouteInterface, Serial
 		System.out.println("3 : "+RouteAdj3ArriveePasAMoi);
 		if (!laVilleDeDepartEstAQqnDAutre || (RouteAdj1DepartPasAMoi && RouteAdj2DepartPasAMoi && RouteAdj3DepartPasAMoi)) return 1;
 		if (!laVilleDArriveeEstAQqnDAutre || (RouteAdj1ArriveePasAMoi && RouteAdj2ArriveePasAMoi && RouteAdj3ArriveePasAMoi)) return -1;*/
-		if (vdep.getOqp()!=null && vdep.getOqp().equals(proprio)) return 1;
-		if (varr.getOqp()!=null && varr.getOqp().equals(proprio)) return -1;
+		if (vdep.getOqp()!=null && !vdep.getOqp().equals(proprio)) return 1;
+		if (varr.getOqp()!=null && !varr.getOqp().equals(proprio)) return -1;
 		RouteInterface r1,r2,r3;
 		r1 = vdep.getRoute_adj1();
 		r2 = vdep.getRoute_adj2();

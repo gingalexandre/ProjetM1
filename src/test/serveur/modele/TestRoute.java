@@ -270,6 +270,48 @@ public class TestRoute {
 		r4.setOQP(j);
 		size = calculerRouteLaPlusLongue(j, listville, routes);
 		assertTrue(size==8);
+		
+		reinit();
+		/* TEST SUR UNE ROUTE QUI FINI PAR UNE BOUCLE */
+		System.out.println("=========   TEST SUR UNE ROUTE QUI BOUCLE  =========");
+		r1.setOQP(j);
+		r2.setOQP(j);
+		r6.setOQP(j);
+		r10.setOQP(j);
+		r7.setOQP(j);
+		r3.setOQP(j);
+		size = calculerRouteLaPlusLongue(j, listville, routes);
+		assertTrue(size == 6);
+		
+		reinit();
+		/* TEST SUR DEUX ROUTES DE TAILLE 2 ET 3 */
+		System.out.println("=========   TEST SUR 2 ROUTES DE TAILLE 2 ET 3  =========");
+		r1.setOQP(j);
+		r2.setOQP(j);
+		r8.setOQP(j);
+		r9.setOQP(j);
+		r10.setOQP(j);
+		size = calculerRouteLaPlusLongue(j, listville, routes);
+		assertTrue(size==3);
+		
+		reinit();
+		/* TEST SUR UNE ROUTE DE TAILLE 5 AVEC UNE DE MES COLONIE AU MILLIEU */
+		r1.setOQP(j);
+		r5.setOQP(j);
+		r9.setOQP(j);
+		r6.setOQP(j);
+		r3.setOQP(j);
+		size = calculerRouteLaPlusLongue(j, listville, routes);
+		assertTrue(size==5);
+		v6.setOQP(j);
+		size = calculerRouteLaPlusLongue(j, listville, routes);
+		assertTrue(size==5);
+		
+		/* TEST AVEC TEST SUR UNE ROUTE DE TAILLE 5 AVEC UNE COLONIE ADVERSE AU MILIEU */
+		v6.setOQP(new Joueur("Bob"));
+		size = calculerRouteLaPlusLongue(j, listville, routes);
+		assertTrue(size == 3);
+		
 	}
 	
 	/* On recopie du code de Plateau pour tester la route la plus longue */

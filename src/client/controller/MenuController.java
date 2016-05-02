@@ -818,22 +818,35 @@ public class MenuController implements Initializable {
 	 * Pioche de la carte.
      */
 	public void piocheCarte() throws RemoteException {
-		//TODO tester si ressources sont suffisantes et les décrémentés.
-		CarteInterface carte = serveur.getGestionnairePartie().getPartie().piocheDeck();
-		if (carte != null) {
-			CarteInterface card = carte;
-			Platform.runLater(() -> {
-                try {
-                    listeCarte.getItems().add(card.getNom());
-                    proxy.getJoueur().addCarte(carte);
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-            });
-			serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur() + " a acheté une carte développement."));
+		JoueurInterface joueur = proxy.getJoueur();
+
+		HashMap<Integer, Integer> stock_suffisant = joueur.getStockRessource();
+		if(stock_suffisant.get(Ressource.BLE)>=1 && stock_suffisant.get(Ressource.LAINE)>=1 && stock_suffisant.get(Ressource.MINERAIE)>=1){
+			CarteInterface carte = serveur.getGestionnairePartie().getPartie().piocheDeck();
+			joueur.supprimerRessource(Ressource.BLE,1);
+			joueur.supprimerRessource(Ressource.LAINE,1);
+			joueur.supprimerRessource(Ressource.MINERAIE,1);
+			if (carte != null) {
+				CarteInterface card = carte;
+				Platform.runLater(() -> {
+					try {
+						listeCarte.getItems().add(card.getNom());
+						proxy.getJoueur().addCarte(carte);
+					} catch (RemoteException e) {
+						e.printStackTrace();
+					}
+				});
+				serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur() + " a acheté une carte développement."));
+			}else{
+				serveur.getGestionnaireUI().diffuserMessage(new Message("Le deck de carte développement est vide."));
+			}
 		}else{
-            serveur.getGestionnaireUI().diffuserMessage(new Message("Le deck de carte développement est vide."));
-        }
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Erreur détectée");
+			alert.setHeaderText("Attention vous avez essayé une action impossible.");
+			alert.setContentText("Vous n'avez pas assez de ressource pour acheter une carte développement.");
+			alert.showAndWait();
+		}
 	}
 
 	/**
@@ -842,21 +855,22 @@ public class MenuController implements Initializable {
      */
     public void jouerCarte() throws RemoteException {
         int index = listeCarte.getSelectionModel().getSelectedIndex();
+		JoueurInterface joueur = proxy.getJoueur();
 		if(index != -1){
-			CarteInterface carte = proxy.getJoueur().getCarte(index);
+			CarteInterface carte = joueur.getCarte(index);
 			if (carte != null) {
-				serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" joue la carte de développement: " + carte.getNom()+"."));
+				serveur.getGestionnaireUI().diffuserMessage(new Message(joueur.getNomUtilisateur()+" joue la carte de développement: " + carte.getNom()+"."));
 				boolean action = carteController.doActionCarte(carte);;
 				if(action == true){
 					listeCarte.getItems().remove(index);
-					proxy.getJoueur().removeCarte(index);
+					joueur.removeCarte(index);
 				}else{
 				}
 			}
 		}else{
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setTitle("Erreur détectée");
-			alert.setHeaderText("Attention vous avez essayée une action impossible.");
+			alert.setHeaderText("Attention vous avez essayé une action impossible.");
 			alert.setContentText("Veuillez séléctionner une carte dans le menu déroulant avant d'essayer de la jouer.");
 			alert.showAndWait();
 		}

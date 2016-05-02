@@ -290,6 +290,9 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 					if(ji.isArmeeLaPlusPuissante()){
 						ji.setPointVictoire(ji.getPointVictoire()-2);
 						ji.setArmeeLaPlusPuissante(false);
+                        for (JoueurServeur js2 :joueursServeur) {
+                            js.recevoirMessage(new Message(js2.getJoueur().getNomUtilisateur()+" a perdu la carte de la meilleure armée. Il perd donc 2 points."));
+                        }
 					}
 				}else{
 					hasgreatnumber = false;
@@ -299,7 +302,11 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 		if(!joueur.isArmeeLaPlusPuissante() && hasgreatnumber){
 			joueur.setArmeeLaPlusPuissante(true);
 			joueur.setPointVictoire(joueur.getPointVictoire()+2);
-		}
+            for (JoueurServeur js :joueursServeur) {
+                js.recevoirMessage(new Message(joueur.getNomUtilisateur()+" a obtenu la carte de la meilleure armée avec "+joueur.nbGuerrier()+" cartes chevalier. Il gagne 2 points de victoire."));
+            }
+        }
+
 	}
 	
 }

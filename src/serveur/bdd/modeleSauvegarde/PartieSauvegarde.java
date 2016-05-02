@@ -11,6 +11,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import serveur.commun.Fonctions;
 import serveur.modele.Plateau;
+import serveur.modele.Ressource;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PartieInterface;
 import serveur.reseau.proxy.JoueurServeur;
@@ -18,11 +19,13 @@ import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
 
 /**
- * Classe servant a convertir une partieInterface en partieSauvegarde pour la sauvegarde de l'objet
+ * Classe servant a convertir une partieInterface en partieSauvegarde pour la
+ * sauvegarde de l'objet
+ * 
  * @author Alexandre
  */
 public class PartieSauvegarde implements Serializable {
-	
+
 	/**
 	 * Variable pour la sérialisation
 	 */
@@ -36,22 +39,22 @@ public class PartieSauvegarde implements Serializable {
 	 * PlateauSauvegarde stockant le plateau
 	 */
 	private PlateauSauvegarde plateauCourant;
-	
+
 	/**
 	 * Id de la partie
 	 */
 	private int idPartie;
-	
+
 	/**
 	 * Liste des JoueurSauvegarde correspondant aux Joueurs de la partie
 	 */
 	private ArrayList<JoueurSauvegarde> joueurs = new ArrayList<JoueurSauvegarde>();
-	
+
 	/**
 	 * Joueur a qui c'est le tour
 	 */
 	private JoueurSauvegarde joueurActuel;
-	
+
 	/**
 	 * Booléen pour savoir si la partie a commencé
 	 */
@@ -61,11 +64,16 @@ public class PartieSauvegarde implements Serializable {
 	 * Tour
 	 */
 	private int tour;
-	
+
 	/**
 	 * Tour total
 	 */
 	private int tourGlobal;
+
+	/**
+	 * Ressource
+	 */
+	private Ressource ressource;
 
 	/**
 	 * Constructeur
@@ -75,6 +83,7 @@ public class PartieSauvegarde implements Serializable {
 	public PartieSauvegarde(boolean t) throws RemoteException {
 		this.plateauCourant = new PlateauSauvegarde(recupererPlateau());
 		Serveur serveur = ConnexionManager.getStaticServeur();
+		this.ressource = serveur.getGestionnairePartie().getPartie().getRessources();
 		this.isPartieCommence = serveur.getGestionnairePartie().getPartie().isPartieCommence();
 		this.tour = serveur.getGestionnairePartie().getPartie().getTour();
 		this.tourGlobal = serveur.getGestionnairePartie().getPartie().getCompteurTourGlobal();
@@ -85,7 +94,7 @@ public class PartieSauvegarde implements Serializable {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		this.joueurs = Fonctions.transformArrayJoueurSauvegarde(joueursServeur);
 		JoueurInterface joueurInterfaceActuel;
 		PartieInterface partie = null;
@@ -104,19 +113,22 @@ public class PartieSauvegarde implements Serializable {
 	/**
 	 * Constructeur vide pour la désérialisation
 	 */
-	public PartieSauvegarde() throws RemoteException {}
-	
+	public PartieSauvegarde() throws RemoteException {
+	}
+
 	/**
 	 * Méthode permettant de récupérer le plateau de la partie
+	 * 
 	 * @return Plateau
 	 * @throws RemoteException
 	 */
 	private Plateau recupererPlateau() throws RemoteException {
 		return Plateau.getInstance();
 	}
-	
+
 	/**
 	 * Getter de tour
+	 * 
 	 * @return int
 	 */
 	public int getTour() {
@@ -125,6 +137,7 @@ public class PartieSauvegarde implements Serializable {
 
 	/**
 	 * Setter de tour
+	 * 
 	 * @param int
 	 */
 	public void setTour(int tour) {
@@ -133,6 +146,7 @@ public class PartieSauvegarde implements Serializable {
 
 	/**
 	 * Getter de tourGlobale
+	 * 
 	 * @return int
 	 */
 	public int getTourGlobal() {
@@ -141,15 +155,18 @@ public class PartieSauvegarde implements Serializable {
 
 	/**
 	 * Setter de tourGlobale
+	 * 
 	 * @param int
 	 */
 	public void setTourGlobal(int tourGlobal) {
 		this.tourGlobal = tourGlobal;
 	}
-	
+
 	/**
 	 * Setter du PlateauSauvegarde de la partie
-	 * @param PlateauSauvegarde - plateauCourant
+	 * 
+	 * @param PlateauSauvegarde
+	 *            - plateauCourant
 	 */
 	public void setPlateauCourant(PlateauSauvegarde plateauCourant) {
 		this.plateauCourant = plateauCourant;
@@ -157,6 +174,7 @@ public class PartieSauvegarde implements Serializable {
 
 	/**
 	 * Setter de l'ArrayList de JoueurSauvegarde de la partie
+	 * 
 	 * @param joueurs
 	 */
 	public void setJoueurs(ArrayList<JoueurSauvegarde> joueurs) {
@@ -165,7 +183,9 @@ public class PartieSauvegarde implements Serializable {
 
 	/**
 	 * Setter du joueur actuel (celui à qui c'est le tour)
-	 * @param JoueurSauvegarde - joueurActuel
+	 * 
+	 * @param JoueurSauvegarde
+	 *            - joueurActuel
 	 */
 	public void setJoueurActuel(JoueurSauvegarde joueurActuel) {
 		this.joueurActuel = joueurActuel;
@@ -173,15 +193,16 @@ public class PartieSauvegarde implements Serializable {
 
 	/**
 	 * Getter de Serialversionuid
+	 * 
 	 * @return long
 	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	
 	/**
 	 * Getter du PlateauSauvegarde correspondant à la partie
+	 * 
 	 * @return PlateauSauvegarde
 	 */
 	public PlateauSauvegarde getPlateauCourant() {
@@ -190,6 +211,7 @@ public class PartieSauvegarde implements Serializable {
 
 	/**
 	 * Getter de l'ArrayList de JoueurSauvegarde
+	 * 
 	 * @return la liste des joueurs
 	 */
 	public ArrayList<JoueurSauvegarde> getJoueurs() {
@@ -198,6 +220,7 @@ public class PartieSauvegarde implements Serializable {
 
 	/**
 	 * Getter du JoueurSauvegarde correspondant au joueur actuel
+	 * 
 	 * @return JoueurSauvegarde
 	 */
 	public JoueurSauvegarde getJoueurActuel() {
@@ -206,6 +229,7 @@ public class PartieSauvegarde implements Serializable {
 
 	/**
 	 * Getter de l'id de la partie
+	 * 
 	 * @return Integer
 	 */
 	public int getIdPartie() {
@@ -214,7 +238,9 @@ public class PartieSauvegarde implements Serializable {
 
 	/**
 	 * Setter de l'Id de la partie
-	 * @param Integer - idPartie
+	 * 
+	 * @param Integer
+	 *            - idPartie
 	 */
 	public void setIdPartie(int idPartie) {
 		this.idPartie = idPartie;
@@ -222,6 +248,7 @@ public class PartieSauvegarde implements Serializable {
 
 	/**
 	 * Getter du boolean pour savoir si la partie à commencé
+	 * 
 	 * @return booléen
 	 */
 	public boolean getIsPartieCommence() {
@@ -230,7 +257,9 @@ public class PartieSauvegarde implements Serializable {
 
 	/**
 	 * Setter du boolean pour savoir si la partie à commencé
-	 * @param partieCommence - booléen
+	 * 
+	 * @param partieCommence
+	 *            - booléen
 	 */
 	public void setPartieCommence(boolean partieCommence) {
 		this.isPartieCommence = partieCommence;
@@ -238,7 +267,9 @@ public class PartieSauvegarde implements Serializable {
 
 	/**
 	 * Méthode pour déserialiser
-	 * @param json - json en entrée
+	 * 
+	 * @param json
+	 *            - json en entrée
 	 * @return l'objet Partie Sauvegarde
 	 */
 	public static PartieSauvegarde deserialiser(String json) {
@@ -254,4 +285,24 @@ public class PartieSauvegarde implements Serializable {
 		}
 		return null;
 	}
+
+	/**
+	 * Getter de Ressource
+	 * 
+	 * @return Ressource
+	 */
+	public Ressource getRessource() {
+		return ressource;
+	}
+
+	/**
+	 * Setter de Ressource
+	 * 
+	 * @param ressource
+	 *            Ressource
+	 */
+	public void setRessource(Ressource ressource) {
+		this.ressource = ressource;
+	}
+
 }

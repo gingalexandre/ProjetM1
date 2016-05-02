@@ -100,6 +100,7 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 		this.compteurTourGlobal = p.getTourGlobal();
 		this.plateau = new Plateau(p.getPlateauCourant());
 		this.partieCommence = true;
+		this.ressources = p.getRessource();
 	}
 	
 	public Partie() throws RemoteException{};

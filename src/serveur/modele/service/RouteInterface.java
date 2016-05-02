@@ -2,10 +2,13 @@ package serveur.modele.service;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 
 import serveur.modele.Point;
+import serveur.modele.Route;
 
 public interface RouteInterface extends Remote{
 
@@ -50,5 +53,9 @@ public interface RouteInterface extends Remote{
 	 * @return Booléen indiquant si oui ou non le joueur peut construire
 	 */
 	boolean estConstructible(HashMap<Point, VilleInterface> villes, JoueurInterface joueurCourrant, HashSet<Point> pointsDeRoutes, VilleInterface villeIgnored) throws RemoteException;
+
+	int isExtremite(HashMap<Point,VilleInterface> villes) throws RemoteException;
+
+	ArrayList<RouteInterface> getSuccesseurs(Point propagation, JoueurInterface j, HashMap<Point, VilleInterface> villes,Set<RouteInterface> visite) throws RemoteException;
 
 }

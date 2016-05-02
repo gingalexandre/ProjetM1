@@ -86,4 +86,13 @@ public interface PlateauInterface extends Remote{
 	 * @return la liste des villes adjacente à la case consernée
 	 */
 	ArrayList<VilleInterface> getVilleAdjacenteByCase(Integer caseConsernee) throws RemoteException;
+	
+	/**
+	 * Methode pour calculer la route la plus longue du joueur donné en parametre
+	 * @param j Joueur dont on veux la route la plus longue
+	 * @return La taille de la route la plus longue
+	 * @throws RemoteException
+	 */
+	int calculerRouteLaPlusLongue(JoueurInterface j) throws RemoteException;
+
 }

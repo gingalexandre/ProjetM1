@@ -27,7 +27,7 @@ public class TestUtilisateurBDD {
 	@Before
 	public void creerUtilisateur() throws InterruptedException {
 		Utilisateur test = new Utilisateur("testtest", "azerty", LocalDate.now());
-		assertEquals(test.inscription(), "Inscription r�ussie");
+		assertEquals(test.inscription(), "Inscription réussie");
 	}
 
 	@Test
@@ -38,7 +38,7 @@ public class TestUtilisateurBDD {
 	 */
 	public void inscriptionIdentiqueTest() throws InterruptedException {
 		Utilisateur test = new Utilisateur("testtest", "azerty", null);
-		assertEquals(test.inscription(), "Nom d'utilisateur d�j� existant, veuillez recommencer.");
+		assertEquals(test.inscription(), "Nom d'utilisateur déjà existant, veuillez recommencer.");
 	}
 
 	/**
@@ -53,34 +53,30 @@ public class TestUtilisateurBDD {
 
 	}
 
-	/**
-	 * Méthode permettant de voir on récupère bien les statistiques
-	 */
-	@Test
-	public void getStatistiquesTest() {
-		Integer[] res = Statistiques.getStatistiques("testtest");
-		assertTrue(res[0] == 0);
-		assertTrue(res[1] == 0);
-	}
+
 
 	/**
 	 * Méthode permettant de voir si l'insertion des statistiques à la fin de
 	 * partie fonctionne
 	 */
-	
+	@Test
 	public void addStatistiquesTest(){
 		// Lors de l'ajout d'une victoire
-		Statistiques.addStatistique(1, "testest");
+		Statistiques.addStatistique(1, "testtest");
 		Integer[] res = Statistiques.getStatistiques("testtest");
 		assertTrue(res[0] == 1);
 		assertTrue(res[1] == 1);
 		
 		// Lors de l'ajout d'une défaite
-		Statistiques.addStatistique(1, "testest");
+		Statistiques.addStatistique(0, "testtest");
 		res = Statistiques.getStatistiques("testtest");
 		assertTrue(res[0] == 2);
 		assertTrue(res[1] == 1);
 	}
+	
+	
+
+
 
 	/**
 	 * M�thode permettant de supprimer un utilisateur
@@ -99,5 +95,7 @@ public class TestUtilisateurBDD {
 		connection.close();
 
 	}
+	
+	
 
 }

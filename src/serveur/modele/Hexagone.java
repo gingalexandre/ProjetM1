@@ -14,14 +14,29 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Ibdex de l'hexagone
+	 */
 	private int indexHexagone;
 
+	/**
+	 * Ressource de l'hexagone
+	 */
 	private int ressource;
 
+	/**
+	 * Numéro de l'hexagone
+	 */
 	private int numero;
 
+	/**
+	 * Villes adjacentes à l'hexagone
+	 */
 	private ArrayList<VilleInterface> villeAdj = new ArrayList<VilleInterface>();
 
+	/**
+	 * Constantes correspondant à l'environnement de l'hexagone
+	 */
 	public final static int FORET = 1;
 
 	public final static int CHAMPS = 2;
@@ -33,27 +48,39 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 	public final static int PRAIRIE = 5;
 
 	public final static int DESERT = 6;
-
+	
+	/**
+	 * Boolean indiquant si le voleur se trouve sur l'hexagone
+	 */
 	public boolean VOLEUR = false;
 
-	private Point a;
+	/**
+	 * Points de l'hexagone
+	 */
+	private Point a, b, c, d, e, f, centre;
 
-	private Point b;
-
-	private Point c;
-
-	private Point d;
-
-	private Point e;
-
-	private Point f;
-
-	private Point centre;
-
+	/**
+	 * Type de l'hexagone
+	 */
 	private int type;
 
+	/**
+	 * Jeton correspondant 
+	 */
 	private Jeton numeroJeton;
 
+	/**
+	 * Constructeur de la classe Hexagone
+	 * @param indexHexagone
+	 * @param a
+	 * @param b
+	 * @param c
+	 * @param d
+	 * @param e
+	 * @param f
+	 * @param type
+	 * @throws RemoteException
+	 */
 	public Hexagone(int indexHexagone, Point a, Point b, Point c, Point d, Point e, Point f, int type) throws RemoteException {
 		super();
 		this.indexHexagone = indexHexagone;
@@ -66,6 +93,11 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 		this.type = type;
 	}
 
+	/**
+	 * Constructeur pour la sauvegarde
+	 * @param hex
+	 * @throws RemoteException
+	 */
 	public Hexagone(HexagoneSauvegarde hex) throws RemoteException {
 		this.indexHexagone = hex.getIndexHexagone();
 		this.a = hex.getA();
@@ -86,6 +118,14 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 		}
 	}
 	
+	/**
+	 * Constructeur de la classe Hexagone
+	 * @param xCentre - coordonnées en abscisse du centre
+	 * @param yCentre - coordonnées en ordonnée du centre
+	 * @param size - taille de l'hexagone
+	 * @param indexHexagone - index de l'hexagone
+	 * @throws RemoteException
+	 */
 	public Hexagone(double xCentre, double yCentre, double size, int indexHexagone) throws RemoteException {
 		double x1 = xCentre;
 		double y1 = yCentre + size;
@@ -128,30 +168,57 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 	
 	public Hexagone() throws RemoteException{}
 
+	/**
+	 * @return le point A
+	 * @throws RemoteException
+	 */
+	public Point getA() {
+		return a;
+	}
+	
+	/**
+	 * @return le point B
+	 * @throws RemoteException
+	 */
 	public Point getB() {
 		return b;
 	}
 
+	/**
+	 * @return le point C
+	 * @throws RemoteException
+	 */
 	public Point getC() {
 		return c;
 	}
 
+	/**
+	 * @return le point D
+	 * @throws RemoteException
+	 */
+	public Point getD() {
+		return d;
+	}
+	
+	/**
+	 * @return le point E
+	 * @throws RemoteException
+	 */
 	public Point getE() {
 		return e;
 	}
 
+	/**
+	 * @return le point F
+	 * @throws RemoteException
+	 */
 	public Point getF() {
 		return f;
 	}
 
-	public Point getA() {
-		return a;
-	}
-
-	public Point getD() {
-		return d;
-	}
-
+	/**
+	 * Permet de mettre le type d'une ressource
+	 */
 	public void setRessourceByType() {
 		switch (this.type) {
 		case 1:
@@ -175,56 +242,93 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 		}
 	}
 
+	/**
+	 * @return tous les points
+	 * @throws RemoteException
+	 */
 	public Double[] getPoints() {
 		Double[] res = { a.getX(), a.getY(), b.getX(), b.getY(), c.getX(), c.getY(), d.getX(), d.getY(), e.getX(),
 				e.getY(), f.getX(), f.getY() };
 		return res;
 	}
 
+	/**
+	 * @return l'index de l'hexagone
+	 * @throws RemoteException
+	 */
 	public int getIndexHexagone() {
 		return indexHexagone;
 	}
 
+	/**
+	 * @return le type de l'hexagone
+	 * @throws RemoteException
+	 */
 	public int getType() {
 		return type;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
+	/**
+	 * @return la ressource associe à l'hexagone
+	 * @throws RemoteException
+	 */
 	public int getRessource() {
 		return ressource;
 	}
 
+	/**
+	 * @return le numero de l'hexagone
+	 * @throws RemoteException
+	 */
 	public int getNumero() {
 		return numero;
 	}
 
+	/**
+	 * @return les villes adjacentres de l'hexagone sous forme de tableau
+	 * @throws RemoteException
+	 */
 	public ArrayList<VilleInterface> getVilleAdj() {
 		return villeAdj;
 	}
 
-	public String toString() {
-		return "Hexagone [indexHexagone=" + indexHexagone + ", ressource=" + ressource + ", numero=" + numero
-				+ ", villeAdj=" + villeAdj + ", a=" + a + ", b=" + b + ", c=" + c + ", d=" + d + ", e=" + e + ", f=" + f
-				+ ", type=" + type + "]";
-	}
-
+	/**
+	 * @return le centre de l'hexagone
+	 * @throws RemoteException
+	 */
 	public Point getCentre() {
 		return centre;
 	}
 
+	/**
+	 * @return le jeton de l'hexagone
+	 * @throws RemoteException
+	 */
 	public Jeton getJeton() {
 		return this.numeroJeton;
 	}
 
+	/**
+	 * @return true si le voleur est sur l'hexagone, false sinon
+	 * @throws RemoteException
+	 */
 	public boolean getVOLEUR() {
 		return VOLEUR;
 	}
 
+	/**
+	 * @param VOLEUR - true si le voleur est sur l'hexagone, false sinon 
+	 * @throws RemoteException
+	 */
 	public void setVOLEUR(boolean VOLEUR) {
 		this.VOLEUR = VOLEUR;
+	}
+	
+	/**
+	 * @return le numéro du jeton
+	 */
+	public Jeton getNumeroJeton() {
+		return numeroJeton;
 	}
 
 	@Override
@@ -314,9 +418,14 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 		result = prime * result + ((villeAdj == null) ? 0 : villeAdj.hashCode());
 		return result;
 	}
-
-	public Jeton getNumeroJeton() {
-		return numeroJeton;
+	
+	public String toString() {
+		return "Hexagone [indexHexagone=" + indexHexagone + ", ressource=" + ressource + ", numero=" + numero
+				+ ", villeAdj=" + villeAdj + ", a=" + a + ", b=" + b + ", c=" + c + ", d=" + d + ", e=" + e + ", f=" + f
+				+ ", type=" + type + "]";
 	}
-
+	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 }

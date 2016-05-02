@@ -30,6 +30,9 @@ public class Ressource implements Serializable{
     private static HashMap <Integer, Integer> stockArgile = new HashMap <>();
     private static HashMap <Integer, Integer> stockMineraie = new HashMap <>();
     
+    /**
+     * Constructeur de la classe Ressource
+     */
     public Ressource(){
         //Initialement 19 éléments par ressources
         stockBois.put(BOIS, 19);

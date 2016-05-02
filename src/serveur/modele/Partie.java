@@ -35,11 +35,24 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	 */
 	private JoueurInterface joueur1, joueur2, joueur3, joueur4;
 
+	/**
+	 * Id de la partie
+	 */
 	private int id;
+	
+	/**
+	 * Ressources de la carte
+	 */
 	private Ressource ressources;
 
+	/**
+	 * Indique si la partie a commencé ou non
+	 */
 	private boolean partieCommence;
 
+	/**
+	 * Ordre de jeu de la partie
+	 */
 	private ArrayList<JoueurInterface> ordreJeu;
 
 	/**
@@ -63,8 +76,8 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	private PaquetInterface deck;
 
 	/**
-	 * @param p
-	 *            - plateau de la partie
+	 * Constructeur de la classe Partie
+	 * @param p - plateau de la partie
 	 */
 	public Partie(PlateauInterface p) throws RemoteException {
 		this.ordreJeu = new ArrayList<>();
@@ -76,6 +89,11 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 		this.deck = new Paquet();
 	}
 	
+	/**
+	 * Constructeur de la sauvegarde
+	 * @param p
+	 * @throws RemoteException
+	 */
 	public Partie(PartieSauvegarde p) throws RemoteException{
 		this.ordreJeu = Fonctions.transformArrayJoueur(p.getJoueurs());
 		this.tour = p.getTour();
@@ -83,18 +101,176 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 		this.plateau = new Plateau(p.getPlateauCourant());
 		this.partieCommence = true;
 	}
-
+	
+	public Partie() throws RemoteException{};
+	
 	/**
-	 * Permet de récupérer le nombre de tour qu'il y a eu dans la partie
-	 * 
-	 * @return le nombre de tour qu'il y a eu dans la partie
+	 * Permet de récupérer un joueur participant à la partie
+	 * @return le joueur 1
+	 * @throws RemoteException
 	 */
-	public int getCompteurTourGlobal() throws RemoteException {
-		return this.compteurTourGlobal;
+	public JoueurInterface getJoueur1() throws RemoteException {
+		return joueur1;
 	}
 
 	/**
-	 * @return le nombre de joueurs de la partie
+	 * Défini d'un joueur
+	 * @param joueur1
+	 * @throws RemoteException
+	 */
+	public void setJoueur1(JoueurInterface joueur1) throws RemoteException {
+		this.joueur1 = joueur1;
+		this.ordreJeu.add(this.joueur1);
+	}
+
+	/**
+	 * Permet de récupérer un joueur participant à la partie
+	 * @return le joueur 2
+	 * @throws RemoteException
+	 */
+	public JoueurInterface getJoueur2() throws RemoteException {
+		return joueur2;
+	}
+
+	/**
+	 * Défini d'un joueur
+	 * @param joueur2
+	 * @throws RemoteException
+	 */
+	public void setJoueur2(JoueurInterface joueur2) throws RemoteException {
+		this.joueur2 = joueur2;
+		this.ordreJeu.add(this.joueur2);
+	}
+
+	/**
+	 * Permet de récupérer un joueur participant à la partie
+	 * @return le joueur 3
+	 * @throws RemoteException
+	 */
+	public JoueurInterface getJoueur3() throws RemoteException {
+		return joueur3;
+	}
+
+	/**
+	 * Défini d'un joueur
+	 * @param joueur3
+	 * @throws RemoteException
+	 */
+	public void setJoueur3(JoueurInterface joueur3) throws RemoteException {
+		this.joueur3 = joueur3;
+		this.ordreJeu.add(this.joueur3);
+	}
+
+	/**
+	 * Permet de récupérer un joueur participant à la partie
+	 * @return le joueur 4
+	 * @throws RemoteException
+	 */
+	public JoueurInterface getJoueur4() throws RemoteException {
+		return joueur4;
+	}
+
+	/**
+	 * Défini d'un joueur
+	 * @param joueur4
+	 * @throws RemoteException
+	 */
+	public void setJoueur4(JoueurInterface joueur4) throws RemoteException {
+		this.joueur4 = joueur4;
+		this.ordreJeu.add(this.joueur4);
+	}
+
+	/**
+	 * Getter du boolean pour savoir si la partie à commencé
+	 * @return booléen
+	 */
+	public boolean isPartieCommence() throws RemoteException{
+		return partieCommence;
+	}
+
+	/**
+	 * Setter du boolean pour savoir si la partie à commencé
+	 * @param partieCommence - nouveau partieCommence
+	 */
+	public void setPartieCommence(boolean partieCommence) throws RemoteException{
+		this.partieCommence = partieCommence;
+	}
+	
+	/**
+	 * Permet de récupérer les ressources de la partie
+	 * @return les ressources
+	 * @throws RemoteException
+	 */
+	public Ressource getRessources() throws RemoteException {
+		return ressources;
+	}
+
+	/**
+	 * Définition des ressources
+	 * @param ressources
+	 * @throws RemoteException
+	 */
+	public void setRessources(Ressource ressources) throws RemoteException {
+		this.ressources = ressources;
+	}
+	
+	/**
+	 * @return l'id du joueur
+	 * @throws RemoteException
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * Permet d'indiquer l'id du joueur
+	 * @param id - nouvel id
+	 * @throws RemoteException
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	/**
+	 * Permet d'obtenir le tour de la partie
+	 * @return
+	 * @throws RemoteException
+	 */
+	public int getTour() throws RemoteException {
+		return this.tour;
+	}
+	
+	/**
+	 * Permet d'indiquer l'attribut tour de la partie
+	 * @param tour - nouveau tour
+	 * @throws RemoteException
+	 */
+	public void setTour(int tour) {
+		this.tour = tour;
+	}
+	
+	/**
+	 * Récupération de la liste triée des joueurs
+	 * @return liste de clients
+	 * @throws RemoteException
+	 */
+	public ArrayList<JoueurInterface> getOrdreJeu() throws RemoteException {
+		return ordreJeu;
+	}
+
+	/**
+	 * Définition d'un nouvel ordre de jeu
+	 * @param ordreJeu
+	 * @throws RemoteException
+	 */
+	public void setOrdreJeu(ArrayList<JoueurInterface> ordreJeu) throws RemoteException {
+		this.ordreJeu = ordreJeu;
+	}
+	
+	/**
+	 * Permet de récupérer le nombre de joueurs de la partie
+	 * @return le nombre de joueurs
+	 * @throws RemoteException
 	 */
 	public int getNombreJoueurs() throws RemoteException {
 		int compteur = 0;
@@ -112,7 +288,12 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 		}
 		return compteur;
 	}
-
+	
+	/**
+	 * Permet de récupérer le nombre de joueurs de la partie
+	 * @return le nombre de joueurs
+	 * @throws RemoteException
+	 */
 	public JoueurInterface getJoueurTour() throws RemoteException {
 		if (tour != 0) {
 			return ordreJeu.get(tour - 1);
@@ -120,22 +301,13 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 			return ordreJeu.get(tour);
 		}
 	}
-
-	public ArrayList<JoueurInterface> getOrdreJeu() throws RemoteException {
-		return ordreJeu;
-	}
-
-	public void setOrdreJeu(ArrayList<JoueurInterface> ordreJeu) throws RemoteException {
-		this.ordreJeu = ordreJeu;
-	}
-
-	public void incrementeTour() throws RemoteException {
-		tour = (tour + 1) % (getNombreJoueurs() + 1);
-		if (tour == 0)
-			tour++;
-		compteurTourGlobal++;
-	}
-
+	
+	/**
+	 * Récupération d'un joueur en fonction de sa couleur
+	 * @param couleur
+	 * @return le joueur grâce à sa couleur
+	 * @throws RemoteException
+	 */
 	public JoueurInterface getJoueurByCouleur(String couleur) throws RemoteException {
 		if (this.joueur1.getCouleur() == couleur) {
 			return this.joueur1;
@@ -148,144 +320,13 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 		}
 		return null;
 	}
-
-	public JoueurInterface getJoueur1() throws RemoteException {
-		return joueur1;
-	}
-
-	public void setJoueur1(JoueurInterface joueur1) throws RemoteException {
-		this.joueur1 = joueur1;
-		this.ordreJeu.add(this.joueur1);
-	}
-
-	public JoueurInterface getJoueur2() throws RemoteException {
-		return joueur2;
-	}
-
-	public void setJoueur2(JoueurInterface joueur2) throws RemoteException {
-		this.joueur2 = joueur2;
-		this.ordreJeu.add(this.joueur2);
-	}
-
-	public JoueurInterface getJoueur3() throws RemoteException {
-		return joueur3;
-	}
-
-	public void setJoueur3(JoueurInterface joueur3) throws RemoteException {
-		this.joueur3 = joueur3;
-		this.ordreJeu.add(this.joueur3);
-	}
-
-	public JoueurInterface getJoueur4() throws RemoteException {
-		return joueur4;
-	}
-
-	public void setJoueur4(JoueurInterface joueur4) throws RemoteException {
-		this.joueur4 = joueur4;
-		this.ordreJeu.add(this.joueur4);
-	}
-
-	public Ressource getRessources() throws RemoteException {
-		return ressources;
-	}
-
-	public void setRessources(Ressource ressources) throws RemoteException {
-		this.ressources = ressources;
-	}
-
+	
 	/**
-	 * Arrange la liste ordreJeu par ordre d'âge des joueurs
-	 */
-	public void arrangerOrdreTour() throws RemoteException {
-		Comparator<JoueurInterface> c = new Comparator<JoueurInterface>() {
-			@Override
-			public int compare(JoueurInterface j1, JoueurInterface j2) {
-				try {
-					return j1.compareTo(j2);
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					return 0;
-				}
-			}
-		};
-		ordreJeu.sort(c);
-	}
-
-	/**
-	 * @return le JoueurInterface le plus vieux de la partie
-	 */
-	public JoueurInterface getJoueurLePlusVieux() throws RemoteException {
-		return ordreJeu.get(0);
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	@Override
-	public PlateauInterface getPlateau() {
-		// TODO Auto-generated method stub
-		return this.plateau;
-	}
-
-	/**
-	 * Méthode permettant de supprimer un Joueur
-	 * 
+	 * Récupération d'un joueur en fonction de son nom
+	 * @param nom
+	 * @return le joueur grâce à son nom
 	 * @throws RemoteException
 	 */
-	public void supprimerJoueur(JoueurInterface joueurSupprime) throws RemoteException {
-		for (JoueurInterface js : ordreJeu) {
-			if (js.getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())) {
-				ordreJeu.remove(js);
-				break;
-			}
-		}
-
-		this.affecterNullJoueur(joueurSupprime);
-
-	}
-
-	public void affecterNullJoueur(JoueurInterface joueurSupprime) throws RemoteException {
-		if (joueur1 != null && joueur1.getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())) {
-			joueur1 = null;
-		} else if (joueur2 != null && joueur2.getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())) {
-			joueur2 = null;
-		} else if (joueur3 != null && joueur3.getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())) {
-			joueur3 = null;
-		} else {
-			joueur4 = null;
-		}
-	}
-
-	/**
-	 * Setter de tour
-	 */
-	public void setTour(int tour) {
-		this.tour = tour;
-	}
-
-	/**
-	 * Getter de tour
-	 */
-	public int getTour() throws RemoteException {
-		return this.tour;
-	}
-
-	public boolean isPartieCommence() throws RemoteException{
-		return partieCommence;
-	}
-
-	public void setPartieCommence(boolean partieCommence) throws RemoteException{
-		this.partieCommence = partieCommence;
-	}
-	
-	
-	@Override
 	public JoueurInterface getJoueurByName(String nom) throws RemoteException {
 		if (this.joueur1.getNomUtilisateur().equals(nom)) {
 			return this.joueur1;
@@ -299,19 +340,35 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 		return null;
 	}
 	
-	
-	public Partie() throws RemoteException{}
-
 	/**
-	 * Renvoi la première carte du paquet.
-	 * @return
+	 * Récupération du joueur le plus âgé
+	 * @return le joueur le plus vieux
 	 * @throws RemoteException
-     */
-	public CarteInterface piocheDeck() throws RemoteException{
-		return this.deck.pioche();
+	 */
+	public JoueurInterface getJoueurLePlusVieux() throws RemoteException {
+		return ordreJeu.get(0);
+	}
+	
+	/**
+	 * @return le plateau de la partie
+	 * @throws RemoteException
+	 */
+	public PlateauInterface getPlateau() {
+		return this.plateau;
+	}
+	
+	/**
+	 * Permet de récupérer le nombre de tour qu'il y a eu dans la partie
+	 * @return le nombre de tour qu'il y a eu dans la partie
+	 */
+	public int getCompteurTourGlobal() throws RemoteException {
+		return this.compteurTourGlobal;
 	}
 
-	@Override
+	/**
+	 * Permet de voler la moitier des ressources d'un joueur qui a plus de 7 cartes
+	 * @throws RemoteException
+	 */
 	public HashMap<String, Integer> getNomJoueursVoles() throws RemoteException{
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		if (this.joueur1.getNbCarte()>7) {
@@ -330,5 +387,78 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 		}
 		return map;
 	}
+	
+	/**
+	 * Incrémente de 1 le nombre de tour ou le remet à 0 si un tour complet à été effectué
+	 * @throws RemoteException
+	 */
+	public void incrementeTour() throws RemoteException {
+		tour = (tour + 1) % (getNombreJoueurs() + 1);
+		if (tour == 0)
+			tour++;
+		compteurTourGlobal++;
+	}
 
+	/**
+	 * Définition de l'ordre de jeu en fonction de l'âge des participants
+	 * @throws RemoteException
+	 */
+	public void arrangerOrdreTour() throws RemoteException {
+		Comparator<JoueurInterface> c = new Comparator<JoueurInterface>() {
+			@Override
+			public int compare(JoueurInterface j1, JoueurInterface j2) {
+				try {
+					return j1.compareTo(j2);
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return 0;
+				}
+			}
+		};
+		ordreJeu.sort(c);
+	}
+
+	/**
+	 * Méthode permettant de supprimer un Joueur
+	 * @param joueurSupprime - joueur à supprimer
+	 * @throws RemoteException
+	 */
+	public void supprimerJoueur(JoueurInterface joueurSupprime) throws RemoteException {
+		for (JoueurInterface js : ordreJeu) {
+			if (js.getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())) {
+				ordreJeu.remove(js);
+				break;
+			}
+		}
+
+		this.affecterNullJoueur(joueurSupprime);
+
+	}
+
+	/**
+	 * Méthode permettant d'affecter null à un joueur
+	 * @param joueurSupprime - joueur à supprimer
+	 * @throws RemoteException
+	 */
+	public void affecterNullJoueur(JoueurInterface joueurSupprime) throws RemoteException {
+		if (joueur1 != null && joueur1.getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())) {
+			joueur1 = null;
+		} else if (joueur2 != null && joueur2.getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())) {
+			joueur2 = null;
+		} else if (joueur3 != null && joueur3.getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())) {
+			joueur3 = null;
+		} else {
+			joueur4 = null;
+		}
+	}
+
+	/**
+	 * Renvoi la première carte du deck de la partie concernée
+	 * @return la première carte du deck de la partie concernée
+	 * @throws RemoteException
+     */
+	public CarteInterface piocheDeck() throws RemoteException{
+		return this.deck.pioche();
+	}
 }

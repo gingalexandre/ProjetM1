@@ -24,12 +24,11 @@ public interface VilleInterface extends Remote{
 	boolean estLibre(JoueurInterface proprio, ArrayList<VilleInterface> villes) throws RemoteException;
 
 	/**
-	 * Transforme une colonie en ville
-	 * @param j
+	 * @return le joueur qui possede la ville
 	 * @throws RemoteException
 	 */
-	void colonieToVille(JoueurInterface j) throws RemoteException;
-
+	JoueurInterface getOqp() throws RemoteException;
+	
 	/**
 	 * @param j - joueur qui occupera la ville
 	 * @throws RemoteException
@@ -37,21 +36,22 @@ public interface VilleInterface extends Remote{
 	void setOQP(JoueurInterface j) throws RemoteException;
 
 	/**
-	 * @param v1 - ville adjacente numero 1
-	 * @param v2 - ville adjacente numero 2
-	 * @param v3 - ville adjacente numero 3
+	 * @return la première ville adjacente
 	 * @throws RemoteException
 	 */
-	void setVillesAdj(int v1, int v2, int v3) throws RemoteException;
-
-
 	RouteInterface getRoute_adj1() throws RemoteException;
 
+	/**
+	 * @return la deuxième ville adjacente
+	 * @throws RemoteException
+	 */
 	RouteInterface getRoute_adj2() throws RemoteException;
 
+	/**
+	 * @return la troisième ville adjacente
+	 * @throws RemoteException
+	 */
 	RouteInterface getRoute_adj3() throws RemoteException;
-	
-	void ajouterRoute(RouteInterface r) throws RemoteException;
 
 	/**
 	 * @return la ville adjacente 1
@@ -70,12 +70,14 @@ public interface VilleInterface extends Remote{
 	 * @throws RemoteException
 	 */
 	int getVille_adj3() throws RemoteException;
-
+	
 	/**
-	 * @return le joueur qui possede la ville
+	 * @param v1 - ville adjacente numero 1
+	 * @param v2 - ville adjacente numero 2
+	 * @param v3 - ville adjacente numero 3
 	 * @throws RemoteException
 	 */
-	JoueurInterface getOqp() throws RemoteException;
+	void setVillesAdj(int v1, int v2, int v3) throws RemoteException;
 
 	/**
 	 * @return le gain de la ville
@@ -88,5 +90,19 @@ public interface VilleInterface extends Remote{
 	 * @throws RemoteException
 	 */
 	boolean isVille() throws RemoteException;
+	
+	/**
+	 * Ajouter une route à une ville
+	 * @param r - route à ajouter
+	 * @throws RemoteException
+	 */
+	void ajouterRoute(RouteInterface r) throws RemoteException;
+	
+	/**
+	 * Transforme une colonie en ville
+	 * @param j
+	 * @throws RemoteException
+	 */
+	void colonieToVille(JoueurInterface j) throws RemoteException;
 
 }

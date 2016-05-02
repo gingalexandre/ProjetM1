@@ -23,6 +23,11 @@ public class Des extends UnicastRemoteObject implements DesInterface {
     
     public Des() throws RemoteException{};
     
+    /**
+	 * Lance les deux dès
+	 * @return le résultat sous forme de tableau
+	 * @throws RemoteException
+	 */
     public Integer[] lancerDes(){
         this.de1 = (int) (Math.random() * (7-1) + 1);
         this.de2 = (int) (Math.random() * (7-1) + 1);
@@ -32,6 +37,11 @@ public class Des extends UnicastRemoteObject implements DesInterface {
         return res;
     }
     
+    /**
+	 * Réalise une action en fonction du score des dès
+	 * @param scoreDe - somme des résultats des deux dès
+	 * @throws RemoteException
+	 */
     public void actionDes(int scoreDe){
         if(scoreDe == 7){
             //voleur

@@ -10,8 +10,16 @@ public class Port extends Ville {
 	
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Ressource échangeable du prt
+	 */
 	private Ressource ressourceEchangeable;
 
+	/**
+	 * Constructeur de la classe Port
+	 * @param emplacement
+	 * @throws RemoteException
+	 */
 	public Port(Point emplacement) throws RemoteException {
 		super(emplacement);
 	}

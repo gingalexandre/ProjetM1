@@ -18,21 +18,32 @@ import serveur.modele.service.VilleInterface;
 public interface JoueurServeur extends Remote {
 	
 	/**
-	 * Re�oit le message transmit par le serveur et l'envoie au joueur et l'envoie au controller du chat
+	 * @return le joueur associe au proxy
+	 */
+	JoueurInterface getJoueur() throws RemoteException;
+	
+	/**
+	 * Permet d'indiquer le joueur associé au proxy
+	 * @param joueur
+	 */
+	void setJoueur(JoueurInterface joueur) throws RemoteException;
+	
+	/**
+	 * Reçoit le message transmit par le serveur et l'envoie au joueur et l'envoie au controller du chat
 	 * @param message
 	 * @throws RemoteException
 	 */
 	void recevoirMessage(Message message) throws RemoteException;
 	
 	/**
-	 * Re�oit le plateau envoy� par le serveur et l'envoie au controller du plateau
+	 * Reçoit le plateau envoyé par le serveur et l'envoie au controller du plateau
 	 * @param plateau
 	 * @throws RemoteException
 	 */
 	void envoyerPlateau(PlateauInterface plateau) throws RemoteException;
 	
 	/**
-	 * Re�oit la proposition envoy� par le serveur et l'envoie au controller
+	 * Reçoit la proposition envoyé par le serveur et l'envoie au controller
 	 * @param offreDemande
 	 * @param nomExpediteur
 	 * @throws RemoteException
@@ -40,36 +51,66 @@ public interface JoueurServeur extends Remote {
 	void envoyerProposition(HashMap<String, Integer> offreDemande, String nomExpediteur) throws RemoteException;
 	
 	/**
-	 * Set les boutons d'un joueur
+	 * Permet d'envoyer la position du voleur
+	 * @param depart - position de départ
+	 * @param arrive - position d'arrivée
 	 * @throws RemoteException
 	 */
-	void setButtons(boolean boo) throws RemoteException;
+	void envoyerPositionVoleur(int depart, int arrive) throws RemoteException;
 	
 	/**
-	 * Re�oit la liste des autres joueurs envoy�s par le serveur et l'envoie au controller ad�quat
+	 * Permet d'envoyer un vol
+	 * @param ressourcesMax
+	 * @throws RemoteException
+	 */
+	void envoyerVol(int ressourcesMax) throws RemoteException;
+	
+	/**
+	 * Permet d'envoyer des cartes
+	 * @throws RemoteException
+	 */
+	void envoyerNbCarte() throws RemoteException;
+	
+	/**
+	 * Reçoit la liste des autres joueurs envoyés par le serveur et l'envoie au controller adéquat
 	 * @param autresJoueurs
 	 * @throws RemoteException
 	 */
 	void envoyerAutresJoueurs(ArrayList<JoueurInterface> autresJoueurs) throws RemoteException;
 	
 	/**
-	 * @return le joueur associe au proxy
+	 * Set les boutons d'un joueur
+	 * @throws RemoteException
 	 */
-	JoueurInterface getJoueur() throws RemoteException;
+	void setButtons(boolean boo) throws RemoteException;
+
 	
 	/**
-	 * Permet d'indiquer le joueur associe au proxy
-	 * @param joueur
+	 * Permet de lancer le tour du joueur
+	 * @throws RemoteException
 	 */
-	void setJoueur(JoueurInterface joueur) throws RemoteException;
-
-	void envoyerPositionVoleur(int depart, int arrive) throws RemoteException;
 	void lancerTour() throws RemoteException;
 
+	/**
+	 * Permet de recevoir la prise d'une route 
+	 * @param r - route en question
+	 * @param j - joueur en question
+	 * @throws RemoteException
+	 */
 	void recevoirPriseDeRoute(RouteInterface r, JoueurInterface j) throws RemoteException;
 
+	/**
+	 * Permet de recevoir la prise d'une ville 
+	 * @param v - ville en question
+	 * @param joueurCourrant - joueur en question
+	 * @throws RemoteException
+	 */
 	void recevoirPriseDeVille(VilleInterface v, JoueurInterface joueurCourrant)throws RemoteException;
 
+	/**
+	 * Permet de recevoir le gain d'une ressource
+	 * @throws RemoteException
+	 */
 	void recevoirGainRessource() throws RemoteException;
 	
 	/**
@@ -77,22 +118,23 @@ public interface JoueurServeur extends Remote {
 	 * @param nomJoueurASupprimer String : nom du joueur à supprimer
 	 * @throws RemoteException
 	 */
-		void suppressionJoueur(String nomJoueurASupprimer) throws RemoteException;
-		/**
-		 * Méthode permettant de supprimer un joueur avant le début de la partie
-		 * @param nomJoueurASupprimer String : nom du joueur à supprimer
-		 * @throws RemoteException
-		 */
-		void suppressionDepartJoueur(String nomUtilisateur) throws RemoteException;
-
-		void envoyerNbCarte() throws RemoteException;
-
-		void activerQuitterPartie() throws RemoteException;
-
-		void envoyerVol(int ressourcesMax) throws RemoteException;
+	void suppressionJoueur(String nomJoueurASupprimer) throws RemoteException;
+		
+	/**
+	 * Méthode permettant de supprimer un joueur avant le début de la partie
+	 * @param nomJoueurASupprimer String : nom du joueur à supprimer
+	 * @throws RemoteException
+	 */
+	void suppressionDepartJoueur(String nomUtilisateur) throws RemoteException;
 
 	/**
-	 * Permet la mise a jour des points d'un joueur.
+	 * Active le bouton pour quitter la partie
+	 * @throws RemoteException
+	 */
+	void activerQuitterPartie() throws RemoteException;
+
+	/**
+	 * Permet la mise a jour des points d'un joueur
 	 * @param joueur
 	 * @throws RemoteException
 	 */
@@ -104,5 +146,4 @@ public interface JoueurServeur extends Remote {
 	 * @throws RemoteException
 	 */
 	public int monopole(int ressource_visee) throws  RemoteException ;
-
 }

@@ -270,4 +270,8 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 		this.joueursController.majRessource();
 		return value;
 	}
+	
+	public void disableBoutonConstruction(boolean boo) throws RemoteException{
+		this.menuController.disableBoutonConstruction(boo);
+	}
 }

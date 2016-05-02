@@ -105,4 +105,10 @@ public interface JoueurServeur extends Remote {
 	 */
 	public int monopole(int ressource_visee) throws  RemoteException ;
 
+	/**
+	 * Permet de désactiver/activer les boutons de construction d'un joueur
+	 * @param b
+	 */
+	void disableBoutonConstruction(boolean b) throws RemoteException;
+
 }

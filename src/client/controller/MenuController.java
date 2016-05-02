@@ -23,6 +23,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
@@ -33,7 +35,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import serveur.modele.Des;
 import serveur.modele.Message;
@@ -478,10 +482,13 @@ public class MenuController implements Initializable {
 				
 				VolController controller = loader.getController();
 				controller.setValeursText(maxRessource);
-				fenetreVol = new Stage();
+				fenetreVol = new Stage();				
 				fenetreVol.setTitle("Les Colons de Catanes");
 			    Scene scene = new Scene(pagePopup,430,500);
 			    fenetreVol.setScene(scene);
+			    fenetreVol.initStyle(StageStyle.UNDECORATED);
+			    fenetreVol.initModality(Modality.WINDOW_MODAL);
+			    fenetreVol.initOwner(ConnexionController.gameFenetre.getScene().getWindow());
 			    fenetreVol.showAndWait();
 			    
 			} catch (IOException e) {

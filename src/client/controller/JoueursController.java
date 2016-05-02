@@ -325,5 +325,46 @@ public class JoueursController implements Initializable {
 		}
 	}
 
+	/**
+	 * Mise a jour des points de victoire.
+	 */
+	public void majPointVictoire() throws RemoteException {
+		Platform.runLater(() -> {
+			try {
+				nbVictoire.setText(Integer.toString(joueur.getPointVictoire()));
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
+		String nomUtilisateur = "";
+		for (JoueurInterface ji:autresJoueurs) {
+			nomUtilisateur = ji.getNomUtilisateur();
+			if (nomUtilisateur.equals(autreUnName.getText())) {
+				Platform.runLater(() -> {
+					try {
+						nbVictoireJoueur1.setText(Integer.toString(ji.getPointVictoire()));
+					} catch (RemoteException e) {
+						e.printStackTrace();
+					}
+				});
+			} else if (nomUtilisateur.equals(autreDeuxName.getText())) {
+				Platform.runLater(() -> {
+					try {
+						nbVictoireJoueur2.setText(Integer.toString(ji.getPointVictoire()));
+					} catch (RemoteException e) {
+						e.printStackTrace();
+					}
+				});
+			} else {
+				Platform.runLater(() -> {
+					try {
+						nbVictoireJoueur3.setText(Integer.toString(ji.getPointVictoire()));
+					} catch (RemoteException e) {
+						e.printStackTrace();
+					}
+				});
+			}
+		}
+	}
 
 }

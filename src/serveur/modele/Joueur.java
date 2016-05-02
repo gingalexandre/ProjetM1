@@ -376,6 +376,15 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		this.guerrier++;
 	}
 
+	/**
+	 * Retourne le nombre de guerrier jouer par un joueur.
+	 * @return
+	 * @throws RemoteException
+     */
+	public int nbGuerrier() throws RemoteException{
+		return this.guerrier;
+	}
+
 	@Override
 	public int compareTo(JoueurInterface j) throws RemoteException{
 		if (this.dateDeNaissance.after(j.getDateDeNaissance())){

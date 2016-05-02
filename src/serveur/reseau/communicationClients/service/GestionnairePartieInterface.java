@@ -116,4 +116,11 @@ public interface GestionnairePartieInterface extends Remote {
 	void supprimerJoueur(JoueurInterface joueurSupprime) throws RemoteException;
 
 	void supprimerJoueur(JoueurServeur joueur) throws RemoteException;
+
+	/**
+	 * permet de vérifier si le joueur a l'armée la plus puissante.
+	 * @param joueur
+	 * @throws RemoteException
+     */
+	public void verificationArmeeForte(JoueurInterface joueur) throws RemoteException ;
 }

@@ -2,9 +2,7 @@ package client.controller;
 
 
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-import serveur.modele.Joueur;
 import serveur.modele.Message;
 import serveur.modele.Ressource;
 import serveur.modele.carte.*;
@@ -14,7 +12,6 @@ import serveur.reseau.proxy.Proxy;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
 import java.rmi.RemoteException;
-import java.util.HashMap;
 import java.util.Optional;
 
 /**
@@ -58,7 +55,10 @@ public class CarteController {
         if(ci.getNom().equals((new Chevalier()).getNom())){
             plateauController.doActionVoleur();
             player.incrementeGuerrier();
-
+            int nbguerrier = player.nbGuerrier();
+            if(nbguerrier>=ArmeePuissante.NB_CHEVALIER_MINIMAL){
+                serveur.getGestionnairePartie().verificationArmeeForte(player);
+            }
             action = true;
         }
         if(ci.getNom().equals((new Victoire()).getNom())){
@@ -92,7 +92,7 @@ public class CarteController {
         return action;
     }
 
-    public int popChoixRessource(String messagehead,String messagetext){
+    private int popChoixRessource(String messagehead,String messagetext){
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(messagehead);
@@ -139,6 +139,11 @@ public class CarteController {
             default :
                 return "inconnue";
         }
+    }
+
+    public boolean carteArmeePuissante(){
+
+        return false;
     }
 
 

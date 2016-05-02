@@ -5,6 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import exception.TooMuchPlayerException;
+import serveur.modele.Joueur;
 import serveur.modele.Message;
 import serveur.modele.Partie;
 import serveur.modele.service.JoueurInterface;
@@ -35,8 +36,7 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	
 	/**
 	 * Constructeur de la classe GestionnairePartie
-	 * @param plateauInterface 
-	 * @param plateau - plateau de jeu
+	 * @param plateauInterface - plateau de jeu
 	 */
 	public GestionnairePartie(PlateauInterface plateauInterface) throws RemoteException{
 		this.partie = new Partie(plateauInterface);
@@ -90,7 +90,7 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	
 	/**
 	 * Ajoute le JoueurInterface passe en parametre a la partie
-	 * @param nouveauJoueurInterface - JoueurInterface a ajouter a la partie
+	 * @param nouveauJoueur - JoueurInterface a ajouter a la partie
 	 * @throws TooMuchPlayerException
 	 */
 	public void ajouterJoueurPartie(JoueurInterface nouveauJoueur) throws RemoteException{
@@ -269,6 +269,23 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	@Override
 	public void supprimerJoueur(JoueurServeur joueur) {
 		this.joueursServeur.remove(joueur);
+	}
+
+	public void verificationArmeeForte(JoueurInterface joueur) throws RemoteException {
+		int value=joueur.nbGuerrier();
+		for (JoueurServeur js :joueursServeur) {
+			JoueurInterface ji = js.getJoueur();
+			if(!ji.getNomUtilisateur().equals(joueur.getNomUtilisateur())){
+				if(ji.nbGuerrier() < value){
+					if(ji.isArmeeLaPlusPuissante()){
+						ji.setPointVictoire(ji.getPointVictoire()-2);
+						joueur.setPointVictoire(joueur.getPointVictoire()+2);
+					}
+					ji.setArmeeLaPlusPuissante(false);
+					joueur.setArmeeLaPlusPuissante(true);
+				}
+			}
+		}
 	}
 	
 }

@@ -311,5 +311,12 @@ public interface JoueurInterface extends Remote {
 	 * @throws RemoteException
      */
 	public void setRouteLaPlusLongue(boolean routeLaPlusLongue) throws RemoteException;
+
+	/**
+	 * Retourne le nombre de guerrier jouer par un joueur.
+	 * @return
+	 * @throws RemoteException
+	 */
+	public int nbGuerrier() throws RemoteException ;
 	
 }

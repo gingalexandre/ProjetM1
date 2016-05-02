@@ -23,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
@@ -799,16 +800,24 @@ public class MenuController implements Initializable {
      */
     public void jouerCarte() throws RemoteException {
         int index = listeCarte.getSelectionModel().getSelectedIndex();
-        CarteInterface carte = proxy.getJoueur().getCarte(index);
-        if (carte != null) {
-			serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" joue la carte de développement: " + carte.getNom()+"."));
-			boolean action = carteController.doActionCarte(carte);;
-			if(action = true){
-				listeCarte.getItems().remove(index);
-				proxy.getJoueur().removeCarte(index);
-			}else{
+		if(index != -1){
+			CarteInterface carte = proxy.getJoueur().getCarte(index);
+			if (carte != null) {
+				serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" joue la carte de développement: " + carte.getNom()+"."));
+				boolean action = carteController.doActionCarte(carte);;
+				if(action = true){
+					listeCarte.getItems().remove(index);
+					proxy.getJoueur().removeCarte(index);
+				}else{
+				}
 			}
-        }
+		}else{
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Erreur détéctée");
+			alert.setHeaderText("Attention vous avez essayée une action impossible.");
+			alert.setContentText("Veuillez séléctionner une carte dans le menu déroulant avant d'essayer de la jouer.");
+			alert.showAndWait();
+		}
     }
 
 }

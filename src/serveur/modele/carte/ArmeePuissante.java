@@ -19,7 +19,7 @@ public class ArmeePuissante extends UnicastRemoteObject implements CarteInterfac
 	/**
      * Attribut : condition minimal requise.
      */
-    private static int NB_CHEVALIER_MINIMAL = 3;
+    public static int NB_CHEVALIER_MINIMAL = 3;
 
     /**
      * Attribut chemin vers la ressources image.

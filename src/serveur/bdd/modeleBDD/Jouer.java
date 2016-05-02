@@ -41,6 +41,7 @@ public class Jouer {
 	 */
 	public void insererJouer() throws InterruptedException {
 		Connection connection = Base.connexion();
+		System.out.println(idJoueur);
 		String query = "INSERT INTO Jouer(idJoueur, idPartie) VALUES (?,?);";
 		PreparedStatement prestmt;
 		try {

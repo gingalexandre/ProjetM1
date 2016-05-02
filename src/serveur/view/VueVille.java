@@ -1,5 +1,6 @@
 package serveur.view;
 
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import serveur.modele.Point;
 
@@ -21,7 +22,10 @@ public class VueVille extends Circle{
 		return this.circle;
 	}
 	
-	
+	public Circle getCircle(String couleur) {
+		this.circle.setFill(Color.BLUE);
+		return this.circle;
+	}
 	
 	
 	

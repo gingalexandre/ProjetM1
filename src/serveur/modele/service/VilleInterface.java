@@ -89,4 +89,10 @@ public interface VilleInterface extends Remote{
 	 */
 	boolean isVille() throws RemoteException;
 
+	int isPort() throws RemoteException;
+	
+	void setPort() throws RemoteException;
+
+	void setPort(int ressource) throws RemoteException;
+
 }

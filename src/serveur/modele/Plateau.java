@@ -41,6 +41,7 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 		hexagones = new ArrayList<HexagoneInterface>(Arrays.asList(this.getAllHexagone()));
 		setPoints();
 		setVilles();
+		setPorts();
 		setRoutes();
 		setJetons();
 		ajouterVillesAuxHexagones();
@@ -158,6 +159,28 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 		villes.get(47).setVillesAdj(43, 51, -1);
 		villes.get(50).setVillesAdj(46, -1, 53);
 
+	}
+	
+	public void setPorts() throws RemoteException{
+		villes.get(0).setPort();
+		villes.get(1).setPort(Ressource.LAINE);
+		villes.get(3).setPort();
+		villes.get(5).setPort(Ressource.LAINE);
+		villes.get(10).setPort();
+		villes.get(11).setPort(Ressource.MINERAIE);
+		villes.get(15).setPort();
+		villes.get(16).setPort(Ressource.MINERAIE);
+		villes.get(26).setPort();
+		villes.get(32).setPort();
+		villes.get(33).setPort(Ressource.BLE);
+		villes.get(38).setPort(Ressource.BLE);
+		villes.get(42).setPort(Ressource.ARGILE);
+		villes.get(46).setPort(Ressource.ARGILE);
+		villes.get(47).setPort();
+		villes.get(49).setPort(Ressource.BOIS);
+		villes.get(51).setPort();
+		villes.get(52).setPort(Ressource.BOIS);
+		
 	}
 
 	public void setRoutes() throws RemoteException {

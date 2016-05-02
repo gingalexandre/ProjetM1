@@ -177,15 +177,23 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 
 	/**
 	 * Permet la mise a jour des points d'un joueur.
-	 * @param joueur
 	 * @throws RemoteException
-     */
-	public void updatePointVictoire(JoueurInterface joueur) throws  RemoteException {
+	 */
+	public void updatePointVictoire() throws  RemoteException {
 		for (JoueurServeur joueurServeur : joueurServeurs) {
-			joueurServeur.updatePointVictoire(joueur);
+			joueurServeur.updatePointVictoire();
 		}
 	}
 
+	/**
+	 * Permet la mise a jour de la carte armée puissate.
+	 * @throws RemoteException
+	 */
+	public void updateArmeePuissante() throws  RemoteException {
+		for (JoueurServeur joueurServeur : joueurServeurs) {
+			joueurServeur.updateArmeePuissante();
+		}
+	}
 	/**
 	 * Permet de récupérer toutes les ressources d'un type pour monopoliser
 	 * @param ressource_visee

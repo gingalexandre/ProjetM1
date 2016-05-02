@@ -367,4 +367,50 @@ public class JoueursController implements Initializable {
 		}
 	}
 
+	/**
+	 * Mise a jour des points de victoire.
+	 */
+	public void updateArmeePuissante() throws RemoteException {
+		Platform.runLater(() -> {
+			try {
+				if(joueur.isArmeeLaPlusPuissante()) armeeforte.setStyle(null);
+				if(!joueur.isArmeeLaPlusPuissante()) armeeforte.setStyle("-fx-opacity: 0.25");
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
+		String nomUtilisateur = "";
+		for (JoueurInterface ji:autresJoueurs) {
+			nomUtilisateur = ji.getNomUtilisateur();
+			if (nomUtilisateur.equals(autreUnName.getText())) {
+				Platform.runLater(() -> {
+					try {
+						if(ji.isArmeeLaPlusPuissante()) armeeforteJoueur1.setStyle(null);
+						if(!ji.isArmeeLaPlusPuissante()) armeeforteJoueur1.setStyle("-fx-opacity: 0.25");
+					} catch (RemoteException e) {
+						e.printStackTrace();
+					}
+				});
+			} else if (nomUtilisateur.equals(autreDeuxName.getText())) {
+				Platform.runLater(() -> {
+					try {
+						if(ji.isArmeeLaPlusPuissante()) armeeforteJoueur2.setStyle(null);
+						if(!ji.isArmeeLaPlusPuissante()) armeeforteJoueur2.setStyle("-fx-opacity: 0.25");
+					} catch (RemoteException e) {
+						e.printStackTrace();
+					}
+				});
+			} else {
+				Platform.runLater(() -> {
+					try {
+						if(ji.isArmeeLaPlusPuissante()) armeeforteJoueur3.setStyle(null);
+						if(!ji.isArmeeLaPlusPuissante()) armeeforteJoueur3.setStyle("-fx-opacity: 0.25");
+					} catch (RemoteException e) {
+						e.printStackTrace();
+					}
+				});
+			}
+		}
+	}
+
 }

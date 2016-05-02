@@ -813,7 +813,7 @@ public class MenuController implements Initializable {
 			}
 		}else{
 			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setTitle("Erreur détéctée");
+			alert.setTitle("Erreur détectée");
 			alert.setHeaderText("Attention vous avez essayée une action impossible.");
 			alert.setContentText("Veuillez séléctionner une carte dans le menu déroulant avant d'essayer de la jouer.");
 			alert.showAndWait();

@@ -273,18 +273,26 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 
 	public void verificationArmeeForte(JoueurInterface joueur) throws RemoteException {
 		int value=joueur.nbGuerrier();
+		boolean hasgreatnumber = false;
+        int maxvaluefound = 0;
 		for (JoueurServeur js :joueursServeur) {
 			JoueurInterface ji = js.getJoueur();
 			if(!ji.getNomUtilisateur().equals(joueur.getNomUtilisateur())){
-				if(ji.nbGuerrier() < value){
+                if(maxvaluefound<ji.nbGuerrier()) maxvaluefound = ji.nbGuerrier();
+				if(value > maxvaluefound){
+					hasgreatnumber = true;
 					if(ji.isArmeeLaPlusPuissante()){
 						ji.setPointVictoire(ji.getPointVictoire()-2);
-						joueur.setPointVictoire(joueur.getPointVictoire()+2);
+						ji.setArmeeLaPlusPuissante(false);
 					}
-					ji.setArmeeLaPlusPuissante(false);
-					joueur.setArmeeLaPlusPuissante(true);
+				}else{
+					hasgreatnumber = false;
 				}
 			}
+		}
+		if(!joueur.isArmeeLaPlusPuissante() && hasgreatnumber){
+			joueur.setArmeeLaPlusPuissante(true);
+			joueur.setPointVictoire(joueur.getPointVictoire()+2);
 		}
 	}
 	

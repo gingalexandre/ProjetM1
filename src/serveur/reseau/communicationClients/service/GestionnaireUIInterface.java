@@ -74,11 +74,16 @@ public interface GestionnaireUIInterface extends Remote{
 
 	/**
 	 * Permet la mise a jour des points d'un joueur.
-	 * @param joueur
+	 * @param
 	 * @throws RemoteException
 	 */
-	public void updatePointVictoire(JoueurInterface joueur) throws  RemoteException ;
+	public void updatePointVictoire() throws  RemoteException ;
 
+	/**
+	 * Permet la mise a jour de la carte armée puissate.
+	 * @throws RemoteException
+	 */
+	public void updateArmeePuissante() throws  RemoteException ;
 
 	/**
 	 * Permet de monopoliser une ressource

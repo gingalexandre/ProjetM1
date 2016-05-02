@@ -253,11 +253,10 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 
 	/**
 	 * Permet la mise a jour des points d'un joueur.
-	 * @param joueur
 	 * @throws RemoteException
 	 */
-	public void updatePointVictoire(JoueurInterface joueur) throws  RemoteException {
-		this.joueursController.majPointVictoire(joueur);
+	public void updatePointVictoire() throws  RemoteException {
+		this.joueursController.majPointVictoire();
 	}
 /**
 	 * Permet de récupérer toutes les ressources d'un type pour monopoliser
@@ -270,4 +269,12 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 		this.joueursController.majRessource();
 		return value;
 	}
+
+	/**
+	 * Permet la mise a jour de la carte armée puissate.
+	 * @throws RemoteException
+	 */
+	public void updateArmeePuissante() throws  RemoteException {
+		this.joueursController.updateArmeePuissante();
+	};
 }

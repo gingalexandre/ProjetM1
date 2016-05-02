@@ -93,10 +93,9 @@ public interface JoueurServeur extends Remote {
 
 	/**
 	 * Permet la mise a jour des points d'un joueur.
-	 * @param joueur
 	 * @throws RemoteException
 	 */
-	public void updatePointVictoire(JoueurInterface joueur) throws  RemoteException;
+	public void updatePointVictoire() throws  RemoteException;
 
 	/**
 	 * Permet de récupérer toutes les ressources d'un type pour monopoliser
@@ -104,5 +103,11 @@ public interface JoueurServeur extends Remote {
 	 * @throws RemoteException
 	 */
 	public int monopole(int ressource_visee) throws  RemoteException ;
+
+	/**
+	 * Permet la mise a jour de la carte armée puissate.
+	 * @throws RemoteException
+	 */
+	public void updateArmeePuissante() throws  RemoteException ;
 
 }

@@ -58,13 +58,15 @@ public class CarteController {
             int nbguerrier = player.nbGuerrier();
             if(nbguerrier>=ArmeePuissante.NB_CHEVALIER_MINIMAL){
                 serveur.getGestionnairePartie().verificationArmeeForte(player);
+                serveur.getGestionnaireUI().updatePointVictoire();
+                serveur.getGestionnaireUI().updateArmeePuissante();
             }
             action = true;
         }
         if(ci.getNom().equals((new Victoire()).getNom())){
             action = true;
             player.setPointVictoire(player.getPointVictoire()+2);
-            serveur.getGestionnaireUI().updatePointVictoire(player);
+            serveur.getGestionnaireUI().updatePointVictoire();
             serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne 2 points de victoire suite à l'usage de sa carte développement."));
         }
         if(ci.getNom().equals((new Invention()).getNom())){

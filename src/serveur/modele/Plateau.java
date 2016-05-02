@@ -14,6 +14,7 @@ import serveur.bdd.modeleSauvegarde.PlateauSauvegarde;
 import serveur.commun.Fonctions;
 import serveur.modele.service.HexagoneInterface;
 import serveur.modele.service.JetonInterface;
+import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
 import serveur.modele.service.RouteInterface;
 import serveur.modele.service.VilleInterface;
@@ -320,7 +321,75 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 		return listeVilles;
 	}
 	
+	public int calculerRouteLaPlusLongue(JoueurInterface j) throws RemoteException{
+		HashMap<Point,VilleInterface> ville = new HashMap<Point,VilleInterface>();
+		for (VilleInterface v : villes){
+			ville.put(v.getEmplacement(),v);
+		}
+		ArrayList<RouteInterface> routesDuJoueur = new ArrayList<RouteInterface>();
+		ArrayList<RouteInterface> extremites = new ArrayList<RouteInterface>();
+		for (RouteInterface r : routes){
+			if (r.getOqp()!= null && r.getOqp().equals(j)){
+				routesDuJoueur.add(r);
+				if (r.isExtremite(ville) != 0){
+					extremites.add(r);
+				}
+			}
+		}
+		// Cas ou on a une boucle on prend une route au hasard pour debuter
+		ArrayList<Integer> resultats = new ArrayList<Integer>();
+		if (extremites.size()>0){
+			for(RouteInterface r : extremites){
+				Point extremite = (r.isExtremite(ville)>0) ? r.getArrive() : r.getDepart(); 
+				chercherToutesLesRoutes(ville, extremite,r,new HashSet<RouteInterface>(), 0,resultats,j);
+			}
+		}
+		else {
+			Point extremite = (routesDuJoueur.get(0).isExtremite(ville)>0) ? routesDuJoueur.get(0).getArrive() : routesDuJoueur.get(0).getDepart(); 
+			chercherToutesLesRoutes(ville, extremite,routesDuJoueur.get(0),new HashSet<RouteInterface>(), 0,resultats,j);
+		}
+		Collections.sort(resultats);
+		return resultats.get(resultats.size()-1);
+	} 
 	
+	private void chercherToutesLesRoutes(HashMap<Point,VilleInterface> villes, Point extremite,RouteInterface current,Set<RouteInterface> visites, int size, ArrayList<Integer> res,JoueurInterface j) throws RemoteException {
+		size++;
+		visites.add(current);
+		int isExtremite = current.isExtremite(villes);
+		if (isExtremite!=0){
+			if (size==1){
+				Point prochaineExtremite = (extremite.equals(current.getDepart()))? current.getDepart():current.getArrive();
+				ArrayList<RouteInterface> successeur =current.getSuccesseurs(prochaineExtremite, j, villes, visites);
+				if (successeur.size()!=0){
+					for (RouteInterface r : successeur){
+						chercherToutesLesRoutes(villes, prochaineExtremite, r, visites, size, res, j);
+						//size--;
+					}
+				}else {
+					res.add(size);
+					//size--;
+				}
+			}else{
+				res.add(size);
+				//size--;
+			}
+		}
+		else {
+			Point prochaineExtremite = (extremite.equals(current.getDepart()))?current.getArrive():current.getDepart();
+			ArrayList<RouteInterface> successeur = current.getSuccesseurs(prochaineExtremite,j,villes,visites);
+			if (successeur.size()!=0){
+				for (RouteInterface r : successeur){
+					chercherToutesLesRoutes(villes, prochaineExtremite, r, visites, size, res, j);
+					//size--;
+				}
+			}else {
+				res.add(size);
+				//size--;
+			}
+		}
+	}
+
+
 	@Override
 	public String toString() {
 		return "Plateau [hexagones=" + hexagones + ", points=" + points + ", villes=" + villes + ", routes=" + routes

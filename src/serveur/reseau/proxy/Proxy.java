@@ -289,7 +289,12 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	 */
 	@Override
 	public void lancerTour() throws RemoteException{
-		this.menuController.demanderColonie(true);
+		if (menuController.isInitTurn()){
+			this.menuController.demanderColonie(true);
+		}
+		else {
+			this.menuController.demanderRoute(false, null);
+		}
 	}
 
 	/**
@@ -346,5 +351,9 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	 */
 	public void suppressionDepartJoueur(String nomUtilisateur) throws RemoteException {
 		this.joueursController.suppressionDepartJoueur(nomUtilisateur);
+	}
+	
+	public void init() throws RemoteException {
+		if (this.menuController.isInitTurn()) this.menuController.demanderColonie(true);
 	}
 }

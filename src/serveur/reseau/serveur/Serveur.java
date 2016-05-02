@@ -19,15 +19,17 @@ import serveur.reseau.proxy.JoueurServeur;
 public interface Serveur extends Remote{
 	
 	/**
-	 * @return la liste des joueurs connectés sur le serveur
+	 * Permet d'obtenir la liste des proxys
+	 * @return la liste des proxy connectés sur le serveur
 	 */
 	ArrayList<JoueurServeur> getListeJoueurs() throws RemoteException;
 	
 	/**
-	 * @return le joueur serveur
+	 * Permet d'obtenir un proxy grâce au nom du joueur
+	 * @return le proxy grâce à son nom
+	 * @throws RemoteException
 	 */
 	JoueurServeur getJoueur(String nomJoueur) throws RemoteException;
-	
 	
 	/**
 	 * Enregistre un joueur au serveur
@@ -78,5 +80,10 @@ public interface Serveur extends Remote{
 	 */
 	void supprimerJoueur(JoueurInterface joueurASupprimer)  throws RemoteException;
 
+    /**
+     * Permet à un joueur de quitter la partie
+     * @param nomJoueur
+     * @throws RemoteException
+     */
     void quitterPartie(JoueurInterface nomJoueur) throws RemoteException;
 }

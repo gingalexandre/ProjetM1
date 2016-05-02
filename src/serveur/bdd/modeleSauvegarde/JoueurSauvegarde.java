@@ -10,16 +10,21 @@ import serveur.commun.Fonctions;
 import serveur.modele.service.JoueurInterface;
 
 /**
- * Classe servant a convertir un JoueurInterface en JoueurSauvegarde pour la
- * sauvegarde de l'objet
- * 
+ * Classe servant a convertir un JoueurInterface en JoueurSauvegarde pour la sauvegarde de l'objet
  * @author Alexandre
- *
  */
 public class JoueurSauvegarde implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Id du joueur
+	 */
 	private int id;
+	
+	/**
+	 * Compteur du joueur
+	 */
 	private static int compteurDeJoueur = 0;
 
 	/**
@@ -74,9 +79,7 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Constructeur
-	 * 
-	 * @param joueur
-	 *            : JoueurInterface : joueur à convertir
+	 * @param joueur - joueur à convertir
 	 * @throws RemoteException
 	 */
 
@@ -102,17 +105,11 @@ public class JoueurSauvegarde implements Serializable {
 	/**
 	 * Constructeur vide pour la désérialisation
 	 */
-	public JoueurSauvegarde() {
-
-	}
+	public JoueurSauvegarde() {}
 
 	/**
 	 * Getter de l'Id
-	 * 
 	 * @return Integer
-	 */
-	/**
-	 * @return
 	 */
 	public int getId() {
 		return id;
@@ -120,20 +117,14 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Setter de l'Id
-	 * 
-	 * @param id
-	 *            : Integer
-	 */
-	/**
-	 * @param id
+	 * @param id - nouvel id
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
 	/**
-	 * Getter du Compteur de Joueur présent sur le serveur
-	 * 
+	 * Getter du compteur de joueur présent sur le serveur
 	 * @return Integer
 	 */
 	public static int getCompteurDeJoueur() {
@@ -141,8 +132,7 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Setter du Compteur de Joueur présent sur le serveur
-	 * 
+	 * Setter du compteur de joueur présent sur le serveur
 	 * @param compteurDeJoueur
 	 */
 	public static void setCompteurDeJoueur(int compteurDeJoueur) {
@@ -150,8 +140,7 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Getter du Nom de l'Utilisateur
-	 * 
+	 * Getter du nom de l'utilisateur
 	 * @return String
 	 */
 	public String getNomUtilisateur() {
@@ -159,8 +148,7 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Setter du Nom de l'Utilisateur
-	 * 
+	 * Setter du nom de l'utilisateur
 	 * @param nomUtilisateur
 	 */
 	public void setNomUtilisateur(String nomUtilisateur) {
@@ -168,8 +156,7 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Getter de la Date de Naissance du Joueur
-	 * 
+	 * Getter de la Date de Naissance du joueur
 	 * @return Date
 	 */
 	public Date getDateDeNaissance() {
@@ -177,17 +164,15 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Setter de la Date de Naissance du Joueur
-	 * 
-	 * @param dateDeNaissance
+	 * Setter de la Date de Naissance du joueur
+	 * @param dateDeNaissance - nouvelle date de naissance
 	 */
 	public void setDateDeNaissance(Date dateDeNaissance) {
 		this.dateDeNaissance = dateDeNaissance;
 	}
 
 	/**
-	 * Getter de la couleur du Joueur
-	 * 
+	 * Getter de la couleur du joueur
 	 * @return String
 	 */
 	public String getCouleur() {
@@ -195,8 +180,7 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Setter de la couleur du Joueur
-	 * 
+	 * Setter de la couleur du joueur
 	 * @param couleur
 	 */
 	public void setCouleur(String couleur) {
@@ -204,8 +188,7 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Getter du booléen pour voir si le Joueur est prêt pour la partie
-	 * 
+	 * Getter du booléen pour voir si le joueur est prêt pour la partie
 	 * @return Booléen
 	 */
 	public boolean isPret() {
@@ -213,8 +196,7 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Setter du booléen pour voir si le Joueur est prêt pour la partie
-	 * 
+	 * Setter du booléen pour voir si le joueur est prêt pour la partie
 	 * @param pret
 	 */
 	public void setPret(boolean pret) {
@@ -222,8 +204,7 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Getter du nombre de points de victoire du Joueur
-	 * 
+	 * Getter du nombre de points de victoire du joueur
 	 * @return Integer
 	 */
 	public int getPointVictoire() {
@@ -231,8 +212,7 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Setter du nombre de points de victoire du Joueur
-	 * 
+	 * Setter du nombre de points de victoire du joueur
 	 * @param pointVictoire
 	 */
 	public void setPointVictoire(int pointVictoire) {
@@ -240,8 +220,7 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Getter du nombre de Colonie du Joueur
-	 * 
+	 * Getter du nombre de Colonie du joueur
 	 * @return Integer
 	 */
 	public int getNbColonie() {
@@ -249,8 +228,7 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Setter du nombre de Colonie du Joueur
-	 * 
+	 * Setter du nombre de Colonie du joueur
 	 * @param nbColonie
 	 */
 	public void setNbColonie(int nbColonie) {
@@ -258,8 +236,7 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Getter du nombre de Ville du Joueur
-	 * 
+	 * Getter du nombre de ville du joueur
 	 * @return Integer
 	 */
 	public int getNbVille() {
@@ -267,8 +244,7 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Setter du nombre de Ville du Joueur
-	 * 
+	 * Setter du nombre de ville du joueur
 	 * @param nbVille
 	 */
 	public void setNbVille(int nbVille) {
@@ -276,8 +252,7 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Getter du nombre de Route du Joueur
-	 * 
+	 * Getter du nombre de route du joueur
 	 * @return Integer
 	 */
 	public int getNbRoute() {
@@ -285,8 +260,7 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Setter du nombre de Route du Joueur
-	 * 
+	 * Setter du nombre de route du joueur
 	 * @param nbRoute
 	 */
 	public void setNbRoute(int nbRoute) {
@@ -295,7 +269,6 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Getter du Serialversionuid
-	 * 
 	 * @return Long
 	 */
 	public static long getSerialversionuid() {
@@ -303,9 +276,7 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Getter de la Map des Ressources du Joueur Schéma de la Map : <Identifiant
-	 * Ressource, Nombre>
-	 * 
+	 * Getter de la map des ressources du joueur schéma de la map : <IdentifiantRessource, Nombre>
 	 * @return HashMap<Integer, Integer>
 	 */
 	public HashMap<Integer, Integer> getStockRessource() {
@@ -313,9 +284,7 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Setter de la Map des Ressources du Joueur Schéma de la Map : <Identifiant
-	 * Ressource, Nombre>
-	 * 
+	 * Setter de la map des ressources du joueur schéma de la map : <IdentifiantRessource, Nombre>
 	 * @param stockRessource
 	 */
 	public void setStockRessource(HashMap<Integer, Integer> stockRessource) {
@@ -323,8 +292,7 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Getter de la liste de carte du Joueur
-	 * 
+	 * Getter de la liste de carte du joueur
 	 * @return ArrayList<CarteInterface>
 	 */
 	public ArrayList<CarteSauvegarde> getCartes() {
@@ -332,8 +300,7 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Setter de la liste de carte du Joueur
-	 * 
+	 * Setter de la liste de carte du joueur
 	 * @param cartes
 	 */
 	public void setCartes(ArrayList<CarteSauvegarde> cartes) {

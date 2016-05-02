@@ -77,6 +77,7 @@ public class PropositionController implements Initializable {
 		else{
 			serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" ne peut pas procéder à l'échange"));
 		}
+		serveur.getJoueur(expediteur).disableBoutonConstruction(false);
 		MenuController.fenetreProposition.close();
 	}
 	

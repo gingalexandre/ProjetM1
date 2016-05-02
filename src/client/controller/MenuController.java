@@ -40,6 +40,7 @@ import serveur.modele.Des;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
 import serveur.modele.Point;
+import serveur.modele.Ressource;
 import serveur.modele.service.CarteInterface;
 import serveur.modele.service.HexagoneInterface;
 import serveur.modele.service.JoueurInterface;
@@ -230,9 +231,12 @@ public class MenuController implements Initializable {
 				boutonDes.setDisable(boo[0]);
 				boutonEchange.setDisable(boo[0]);
 				boutonFinTour.setDisable(boo[0]);
-				boutonConstruireRoute.setDisable(boo[0]);
-				boutonConstruireColonie.setDisable(boo[0]);
-				boutonConstruireVille.setDisable(boo[0]);
+				try {
+					disableBoutonConstruction(boo[0]);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				listeCarte.setDisable(boo[0]);
                 boutonPioche.setDisable(boo[0]);
                 boutonCarte.setDisable(boo[0]);
@@ -243,9 +247,12 @@ public class MenuController implements Initializable {
 				boutonDes.setDisable(boo[0]);
 				boutonEchange.setDisable(boo[1]);
 				boutonFinTour.setDisable(boo[2]);
-				boutonConstruireRoute.setDisable(boo[0]);
-				boutonConstruireColonie.setDisable(boo[0]);
-				boutonConstruireVille.setDisable(boo[0]);
+				try {
+					disableBoutonConstruction(boo[0]);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				listeCarte.setDisable(boo[0]);
                 boutonPioche.setDisable(boo[0]);
                 boutonCarte.setDisable(boo[0]);
@@ -258,6 +265,40 @@ public class MenuController implements Initializable {
 		else{
 			proxy.setButtonsSauvegarde(false);
 		}
+	}
+	
+	public void disableBoutonConstruction(boolean boo) throws RemoteException{
+		//vérification possibilité construction
+		if(peutConstruireRoute()){
+			boutonConstruireRoute.setDisable(boo);
+		}
+		if(peutConstruireColonie()){
+			boutonConstruireColonie.setDisable(boo);
+		}
+		if(peutConstruireVille()){
+			boutonConstruireVille.setDisable(boo);
+		}			
+	}
+	
+	public boolean peutConstruireRoute() throws RemoteException {
+		if((proxy.getJoueur().getStockRessource().get(Ressource.ARGILE)>=1)&&(proxy.getJoueur().getStockRessource().get(Ressource.BOIS)>=1)){
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean peutConstruireColonie() throws RemoteException {
+		if((proxy.getJoueur().getStockRessource().get(Ressource.ARGILE)>=1)&&(proxy.getJoueur().getStockRessource().get(Ressource.BOIS)>=1)&&(proxy.getJoueur().getStockRessource().get(Ressource.BLE)>=1)&&(proxy.getJoueur().getStockRessource().get(Ressource.LAINE)>=1)){
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean peutConstruireVille() throws RemoteException {
+		if((proxy.getJoueur().getStockRessource().get(Ressource.BLE)>=2)&&(proxy.getJoueur().getStockRessource().get(Ressource.MINERAIE)>=3)){
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -308,6 +349,7 @@ public class MenuController implements Initializable {
 			   serveur.getGestionnaireUI().envoyerVol(moitierRessource, serveur.getJoueur(nom));
 			}
 		}
+		disableBoutonConstruction(false);
 	}
 	
 	/**
@@ -805,7 +847,7 @@ public class MenuController implements Initializable {
 			if (carte != null) {
 				serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+" joue la carte de développement: " + carte.getNom()+"."));
 				boolean action = carteController.doActionCarte(carte);;
-				if(action = true){
+				if(action == true){
 					listeCarte.getItems().remove(index);
 					proxy.getJoueur().removeCarte(index);
 				}else{
@@ -818,6 +860,8 @@ public class MenuController implements Initializable {
 			alert.setContentText("Veuillez séléctionner une carte dans le menu déroulant avant d'essayer de la jouer.");
 			alert.showAndWait();
 		}
+        disableBoutonConstruction(false);
+
     }
 
 }

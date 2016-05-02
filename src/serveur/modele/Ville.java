@@ -32,6 +32,13 @@ public class Ville extends UnicastRemoteObject implements VilleInterface {
 	private JoueurInterface oqp;
 
 	private int gain;
+	
+	/**
+	 * Est à -1 si ce n'est pas un port
+	 * Est à 0 si c'est un port sans ressource particulière
+	 * sinon prend la valeur de la ressource
+	 */
+	private int port = -1;
 
 	// Colonie : True & Ville : False
 	private boolean colonieVille;
@@ -69,7 +76,13 @@ public class Ville extends UnicastRemoteObject implements VilleInterface {
 	public static Circle[] transformVilleVueVille(ArrayList<VilleInterface> villes) throws RemoteException {
 		Circle[] vueVille = new Circle[villes.size()];
 		for (int i = 0; i < villes.size(); i++) {
-			vueVille[i] = new VueVille(villes.get(i).getEmplacement()).getCircle();
+			if(villes.get(i).isPort()==-1){
+				vueVille[i] = new VueVille(villes.get(i).getEmplacement()).getCircle();
+			}
+			//si c'est un port
+			else{
+				vueVille[i] = new VueVille(villes.get(i).getEmplacement()).getCircle("Bleu");
+			}
 		}
 		return vueVille;
 	}
@@ -92,6 +105,10 @@ public class Ville extends UnicastRemoteObject implements VilleInterface {
 
 	public void setOQP(JoueurInterface j) throws RemoteException{
 		this.oqp = j;
+	}
+	
+	public int isPort(){
+		return this.port;
 	}
 
 	public void setVillesAdj(int v1, int v2, int v3) throws RemoteException{
@@ -167,5 +184,15 @@ public class Ville extends UnicastRemoteObject implements VilleInterface {
 	}
 	
 	public Ville() throws RemoteException{}
+
+	@Override
+	public void setPort() throws RemoteException {
+		this.port = 0;		
+	}
+
+	@Override
+	public void setPort(int ressource) throws RemoteException {
+		this.port = ressource;
+	}
 
 }

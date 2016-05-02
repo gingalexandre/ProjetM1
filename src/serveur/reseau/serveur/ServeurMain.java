@@ -28,17 +28,17 @@ import java.text.ParsePosition;public class ServeurMain {
 					return true;
 				}
 				else{
-					System.out.println("L'argument doit etre un chiffre egal a 3 ou 4.\nRed�marrez le serveur et r�essayer.");
+					System.out.println("L'argument doit être un chiffre egal a 3 ou 4.\nRedémarrez le serveur et réessayez.");
 					return false;
 				}
 			}
 			else{
-				System.out.println("L'argument doit �tre un chiffre egal à 3 ou 4.\nRed�marrez le serveur et r�essayer.");
+				System.out.println("L'argument doit être un chiffre egal à 3 ou 4.\nRedémarrez le serveur et réessayez.");
 				return false;
 			}
 		}
 		else{
-			System.out.println("Veuillez rentrer un SEUL argument (un chiffre correspondant au nombre maximum de joueurs) lors du lancement du serveur.\nRed�marrez le serveur et r�essayer.");
+			System.out.println("Veuillez rentrer un SEUL argument (un chiffre correspondant au nombre maximum de joueurs) lors du lancement du serveur.\nRedémarrez le serveur et réessayez.");
 			return false;
 		}
 	}

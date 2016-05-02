@@ -14,24 +14,25 @@ import serveur.modele.service.JetonInterface;
  *
  */
 public class JetonSauvegarde implements Serializable {
+	
 	/**
 	 * Variable pour la sérialisation
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	/**
-	 * Point : emplacement du Jeton
+	 * Point : emplacement du jeton
 	 */
 	private Point emplacement;
+	
 	/**
-	 * Integer : numéro du Jeton
+	 * Integer : numéro du jeton
 	 */
 	private int numeroJeton;
 
 	/**
 	 * Constructeur
-	 * 
-	 * @param jeton
-	 *            : JetonInterface à convertir
+	 * @param jeton - JetonInterface à convertir
 	 * @throws RemoteException
 	 */
 	public JetonSauvegarde(JetonInterface jeton) throws RemoteException {
@@ -45,12 +46,10 @@ public class JetonSauvegarde implements Serializable {
 	/**
 	 * Constructeur vide pour la désérialisation
 	 */
-	public JetonSauvegarde() throws RemoteException {
-	}
+	public JetonSauvegarde() throws RemoteException {}
 
 	/**
-	 * Getter de l'Emplacement
-	 * 
+	 * Getter de l'emplacement
 	 * @return Point
 	 */
 	public Point getEmplacement() {
@@ -58,18 +57,15 @@ public class JetonSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Setter de l'Emplacement
-	 * 
-	 * @param emplacement
-	 *            Point
+	 * Setter de l'emplacement
+	 * @param emplacement - nouvel emplacement
 	 */
 	public void setEmplacement(Point emplacement) {
 		this.emplacement = emplacement;
 	}
 
 	/**
-	 * Getter du numéro du Jeton
-	 * 
+	 * Getter du numéro du jeton
 	 * @return Integer
 	 */
 	public int getNumeroJeton() {
@@ -77,10 +73,8 @@ public class JetonSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Setter du numéro du Jeton
-	 * 
-	 * @param numeroJeton
-	 *            : Integer
+	 * Setter du numéro du jeton
+	 * @param numeroJeton - nouveau numéro de jeton
 	 */
 	public void setNumeroJeton(int numeroJeton) {
 		this.numeroJeton = numeroJeton;

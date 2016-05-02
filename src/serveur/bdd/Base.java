@@ -8,8 +8,7 @@ import java.sql.SQLException;
 public class Base {
 	/**
 	 * Fonction permettant la connexion à la base de données
-	 * 
-	 * @return Connection : Objet de Connexion à la Base
+	 * @return l'objet de connexion à la base
 	 * @throws InterruptedException 
 	 */
 	public static Connection connexion() throws InterruptedException {

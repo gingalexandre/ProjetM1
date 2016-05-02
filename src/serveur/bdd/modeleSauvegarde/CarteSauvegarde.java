@@ -14,14 +14,30 @@ import serveur.modele.service.CarteInterface;
 
 public class CarteSauvegarde implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Nom de la carte
+	 */
 	private String nom;
 
+	/**
+	 * Chemin de la carte
+	 */
 	private String chemin;
 
+	/**
+	 * Type de la carte
+	 */
 	private String type;
 
-	private static final long serialVersionUID = 1L;
-
+	public CarteSauvegarde() {}
+	
+	/**
+	 * Constructeur de la classe CarteSauvegarde
+	 * @param carte
+	 * @throws RemoteException
+	 */
 	public CarteSauvegarde(CarteInterface carte) throws RemoteException {
 		super();
 		this.nom = carte.getNom();
@@ -45,29 +61,50 @@ public class CarteSauvegarde implements Serializable {
 
 	}
 
-	public CarteSauvegarde() {
-	}
-
+	/**
+	 * Getter du nom de la carte
+	 * @return le nom de la carte
+	 */
 	public String getNom() {
 		return nom;
 	}
 
+	/**
+	 * Setter du nom de la carte
+	 * @param nom - nouveau nom
+	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
 
+	/**
+	 * Getter du chemin de la carte
+	 * @return le chemin de la carte
+	 */
 	public String getChemin() {
 		return chemin;
 	}
 
+	/**
+	 * Setter du chemin de la carte
+	 * @param chemin - nouveau chemin
+	 */
 	public void setChemin(String chemin) {
 		this.chemin = chemin;
 	}
 
+	/**
+	 * Getter du type de la carte
+	 * @return le type de la carte
+	 */
 	public String getType() {
 		return type;
 	}
 
+	/**
+	 * Setter du type de la carte
+	 * @param type - nouveau type
+	 */
 	public void setType(String type) {
 		this.type = type;
 	}
@@ -76,5 +113,4 @@ public class CarteSauvegarde implements Serializable {
 		return o instanceof CarteSauvegarde && ((CarteSauvegarde) o).nom.equals(this.nom)
 				&& ((CarteSauvegarde) o).chemin.equals(this.chemin);
 	}
-
 }

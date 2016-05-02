@@ -8,6 +8,10 @@ import java.util.HashMap;
 
 import serveur.modele.Joueur;
 
+/**
+ * 
+ * @author jerome
+ */
 public interface JoueurInterface extends Remote {
 
 	/**
@@ -23,12 +27,6 @@ public interface JoueurInterface extends Remote {
 	 * @throws RemoteException
 	 */
 	void setStockRessource(HashMap<Integer, Integer> stockRessource) throws RemoteException;
-
-	/**
-	 * Permet de spécifier l'id du joueur
-	 * @param i - id du joueur
-	 */
-	void setId(int i) throws RemoteException;
 	
 	/**
 	 * Permet d'obtenir l'id du joueur
@@ -36,6 +34,12 @@ public interface JoueurInterface extends Remote {
 	 * @throws RemoteException
 	 */
 	int getId() throws RemoteException;
+	
+	/**
+	 * Permet de spécifier l'id du joueur
+	 * @param i - id du joueur
+	 */
+	void setId(int i) throws RemoteException;
 
 	/**
 	 * Permet d'obtenir le nombre de colonies du joueur
@@ -251,6 +255,12 @@ public interface JoueurInterface extends Remote {
 	void ajouterPointVictoire() throws RemoteException;
 	
 	/**
+	 * Permet de suppri;er un point de victoire qu joueur
+	 * @throws RemoteException
+	 */
+	void supprimerPointVictoire() throws RemoteException;
+	
+	/**
 	 * Permet de savoir si le joueur a encore assez de villes
 	 * @return true si le joueur a encore assez de villes, false sinon
 	 * @throws RemoteException
@@ -318,5 +328,5 @@ public interface JoueurInterface extends Remote {
 	 * @throws RemoteException
 	 */
 	public int nbGuerrier() throws RemoteException ;
-	
+
 }

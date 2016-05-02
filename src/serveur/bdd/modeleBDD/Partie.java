@@ -32,13 +32,9 @@ public class Partie {
 
 	/**
 	 * Constructeur
-	 * 
-	 * @param idPartie
-	 *            : int : Id de la Partie
-	 * @param path
-	 *            : String : chemin où se trouve le fichier de Sauvegarde
-	 * @param contenu
-	 *            : String : contenu du fichier pour faire le checksum
+	 * @param idPartie - id de la Partie
+	 * @param path - chemin où se trouve le fichier de Sauvegarde
+	 * @param contenu - contenu du fichier pour faire le checksum
 	 */
 	public Partie(int idPartie, String path, String contenu) {
 		this.idPartie = idPartie;
@@ -46,14 +42,11 @@ public class Partie {
 		// Création du checksum
 		this.checksum = Fonctions.crypte(contenu);
 	}
-
-
+	
 	/**
 	 * Méthode permettant de retrouver une Partie par son id
-	 * 
-	 * @param id
-	 *            : id de la partie à rechercher
-	 * @return : Partie
+	 * @param id - id de la partie à rechercher
+	 * @return la partie qui a l'id en paramètre
 	 * @throws InterruptedException
 	 */
 	public static Partie getById(int id) throws InterruptedException {
@@ -75,16 +68,13 @@ public class Partie {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return null;
 	}
 
 	/**
 	 * Méthode permettant de retrouver une Partie par son Path
-	 * 
-	 * @param path
-	 *            : String : chemin de la partie recherchée
-	 * @return Partie
+	 * @param path - chemin de la partie recherchée
+	 * @return la partie qui a le chemin en paramètre
 	 * @throws InterruptedException
 	 */
 	public static Partie getPartieByPath(String path) throws InterruptedException {
@@ -101,16 +91,12 @@ public class Partie {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return null;
 	}
 
 	/**
 	 * Méthode permettant l'insertion d'une Partie
-	 * 
-	 * @param joueurs
-	 *            : Joueur jouant la partie (pour la liaison avec la table
-	 *            Jouer)
+	 * @param joueurs - joueurs jouant la partie (pour la liaison avec la table Jouer)
 	 * @throws InterruptedException
 	 */
 	public void insererPartie(ArrayList<JoueurSauvegarde> joueurs) throws InterruptedException {
@@ -142,8 +128,7 @@ public class Partie {
 	}
 
 	/**
-	 * Getter de l'Id de la Partie
-	 * 
+	 * Getter de l'id de la Partie
 	 * @return Integer
 	 */
 	public int getIdPartie() {
@@ -152,7 +137,6 @@ public class Partie {
 
 	/**
 	 * Getter de l'Id de la Partie
-	 * 
 	 * @return String
 	 */
 	public String getPath() {
@@ -161,11 +145,9 @@ public class Partie {
 
 	/**
 	 * Getter du Checksum de la Partie
-	 * 
 	 * @return String
 	 */
 	public String getChecksum() {
 		return checksum;
 	}
-
 }

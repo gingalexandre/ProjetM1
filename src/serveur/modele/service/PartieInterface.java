@@ -11,7 +11,6 @@ public interface PartieInterface extends Remote {
 
 	/**
 	 * Permet de récupérer un joueur participant à la partie
-	 * 
 	 * @return le joueur 1
 	 * @throws RemoteException
 	 */
@@ -19,7 +18,6 @@ public interface PartieInterface extends Remote {
 
 	/**
 	 * Défini d'un joueur
-	 * 
 	 * @param joueur1
 	 * @throws RemoteException
 	 */
@@ -27,7 +25,6 @@ public interface PartieInterface extends Remote {
 
 	/**
 	 * Permet de récupérer un joueur participant à la partie
-	 * 
 	 * @return le joueur 2
 	 * @throws RemoteException
 	 */
@@ -35,7 +32,6 @@ public interface PartieInterface extends Remote {
 
 	/**
 	 * Défini d'un joueur
-	 * 
 	 * @param joueur2
 	 * @throws RemoteException
 	 */
@@ -43,7 +39,6 @@ public interface PartieInterface extends Remote {
 
 	/**
 	 * Permet de récupérer un joueur participant à la partie
-	 * 
 	 * @return le joueur 3
 	 * @throws RemoteException
 	 */
@@ -51,7 +46,6 @@ public interface PartieInterface extends Remote {
 
 	/**
 	 * Défini d'un joueur
-	 * 
 	 * @param joueur3
 	 * @throws RemoteException
 	 */
@@ -59,7 +53,6 @@ public interface PartieInterface extends Remote {
 
 	/**
 	 * Permet de récupérer un joueur participant à la partie
-	 * 
 	 * @return le joueur 4
 	 * @throws RemoteException
 	 */
@@ -67,15 +60,25 @@ public interface PartieInterface extends Remote {
 
 	/**
 	 * Défini d'un joueur
-	 * 
 	 * @param joueur4
 	 * @throws RemoteException
 	 */
 	void setJoueur4(JoueurInterface joueur4) throws RemoteException;
 
 	/**
+	 * Getter du boolean pour savoir si la partie à commencé
+	 * @return booléen
+	 */
+	public boolean isPartieCommence() throws RemoteException;
+
+	/**
+	 * Setter du boolean pour savoir si la partie à commencé
+	 * @param partieCommence - nouveau partieCommence
+	 */
+	public void setPartieCommence(boolean partieCommence) throws RemoteException;
+	
+	/**
 	 * Permet de récupérer les ressources de la partie
-	 * 
 	 * @return les ressources
 	 * @throws RemoteException
 	 */
@@ -83,31 +86,40 @@ public interface PartieInterface extends Remote {
 
 	/**
 	 * Définition des ressources
-	 * 
 	 * @param ressources
 	 * @throws RemoteException
 	 */
 	void setRessources(Ressource ressources) throws RemoteException;
-
+	
 	/**
-	 * Permet de récupérer le nombre de joueurs de la partie
-	 * 
-	 * @return le nombre de joueurs
+	 * @return l'id du joueur
 	 * @throws RemoteException
 	 */
-	int getNombreJoueurs() throws RemoteException;
+	int getId() throws RemoteException;
 
 	/**
-	 * Récupération du client dont c'est le tour
-	 * 
-	 * @return JoueurInterface
+	 * Permet d'indiquer l'id du joueur
+	 * @param id - nouvel id
 	 * @throws RemoteException
 	 */
-	JoueurInterface getJoueurTour() throws RemoteException;
-
+	void setId(int id) throws RemoteException;
+	
+	/**
+	 * Permet d'obtenir le tour de la partie
+	 * @return
+	 * @throws RemoteException
+	 */
+	int getTour() throws RemoteException;
+	
+	/**
+	 * Permet d'indiquer l'attribut tour de la partie
+	 * @param tour - nouveau tour
+	 * @throws RemoteException
+	 */
+	void setTour(int tour) throws RemoteException;
+	
 	/**
 	 * Récupération de la liste triée des joueurs
-	 * 
 	 * @return liste de clients
 	 * @throws RemoteException
 	 */
@@ -115,25 +127,29 @@ public interface PartieInterface extends Remote {
 
 	/**
 	 * Définition d'un nouvel ordre de jeu
-	 * 
 	 * @param ordreJeu
 	 * @throws RemoteException
 	 */
 	void setOrdreJeu(ArrayList<JoueurInterface> ordreJeu) throws RemoteException;
 
 	/**
-	 * incrémente de 1 le nombre de tour ou le remet à 0 si un tour complet à
-	 * été effectué
-	 * 
+	 * Permet de récupérer le nombre de joueurs de la partie
+	 * @return le nombre de joueurs
 	 * @throws RemoteException
 	 */
-	void incrementeTour() throws RemoteException;
+	int getNombreJoueurs() throws RemoteException;
+
+	/**
+	 * Récupération du client dont c'est le tour
+	 * @return JoueurInterface
+	 * @throws RemoteException
+	 */
+	JoueurInterface getJoueurTour() throws RemoteException;
 
 	/**
 	 * Récupération d'un joueur en fonction de sa couleur
-	 * 
 	 * @param couleur
-	 * @return
+	 * @return le joueur grâce à sa couleur
 	 * @throws RemoteException
 	 */
 	JoueurInterface getJoueurByCouleur(String couleur) throws RemoteException;
@@ -141,82 +157,29 @@ public interface PartieInterface extends Remote {
 	/**
 	 * Récupération d'un joueur en fonction de son nom
 	 * @param nom
-	 * @return
+	 * @return le joueur grâce à son nom
 	 * @throws RemoteException
 	 */
 	JoueurInterface getJoueurByName(String nom) throws RemoteException;
 	
 	/**
-	 * Définition de l'ordre de jeu en fonction de l'âge des participants
-	 * 
-	 * @throws RemoteException
-	 */
-	void arrangerOrdreTour() throws RemoteException;
-
-	/**
 	 * Récupération du joueur le plus âgé
-	 * 
-	 * @return
+	 * @return le joueur le plus vieux
 	 * @throws RemoteException
 	 */
 	JoueurInterface getJoueurLePlusVieux() throws RemoteException;
 
-	int getId() throws RemoteException;
-
-	void setId(int id) throws RemoteException;
-
+	/**
+	 * @return le plateau de la partie
+	 * @throws RemoteException
+	 */
 	PlateauInterface getPlateau() throws RemoteException;
 
 	/**
 	 * Permet de récupérer le nombre de tour qu'il y a eu dans la partie
-	 * 
 	 * @return le nombre de tour qu'il y a eu dans la partie
 	 */
 	int getCompteurTourGlobal() throws RemoteException;
-
-	/**
-	 * Méthode permettant de supprimer un Joueur
-	 * 
-	 * @param joueurSupprime
-	 *            JoueurInterface : joueur à supprimer
-	 * @throws RemoteException
-	 */
-	void supprimerJoueur(JoueurInterface joueurSupprime) throws RemoteException;
-
-	void setTour(int tour) throws RemoteException;
-
-	int getTour() throws RemoteException;
-
-	/**
-	 * Méthode permettant d'affecter null à un joueur
-	 * 
-	 * @param joueurSupprime
-	 *            JoueurInterface : joueur à supprimer
-	 * @throws RemoteException
-	 */
-	public void affecterNullJoueur(JoueurInterface joueurSupprime) throws RemoteException;
-
-	/**
-	 * Getter du boolean pour savoir si la partie à commencé
-	 * 
-	 * @return booléen
-	 */
-	public boolean isPartieCommence() throws RemoteException;
-
-	/**
-	 * Setter du boolean pour savoir si la partie à commencé
-	 * 
-	 * @param partieCommence
-	 *            booléen
-	 */
-	public void setPartieCommence(boolean partieCommence) throws RemoteException;
-
-	/**
-	 * Renvoi la première carte du deck de la partie concernée.
-	 * @return Carte
-	 * @throws RemoteException
-     */
-	public CarteInterface piocheDeck() throws RemoteException;
 	
 	/**
 	 * Permet de voler la moitier des ressources d'un joueur qui a plus de 7 cartes
@@ -224,4 +187,36 @@ public interface PartieInterface extends Remote {
 	 */
 	HashMap<String, Integer> getNomJoueursVoles() throws RemoteException;
 
+	/**
+	 * Incrémente de 1 le nombre de tour ou le remet à 0 si un tour complet à été effectué
+	 * @throws RemoteException
+	 */
+	void incrementeTour() throws RemoteException;
+	
+	/**
+	 * Définition de l'ordre de jeu en fonction de l'âge des participants
+	 * @throws RemoteException
+	 */
+	void arrangerOrdreTour() throws RemoteException;
+
+	/**
+	 * Méthode permettant de supprimer un Joueur
+	 * @param joueurSupprime - joueur à supprimer
+	 * @throws RemoteException
+	 */
+	void supprimerJoueur(JoueurInterface joueurSupprime) throws RemoteException;
+
+	/**
+	 * Méthode permettant d'affecter null à un joueur
+	 * @param joueurSupprime - joueur à supprimer
+	 * @throws RemoteException
+	 */
+	public void affecterNullJoueur(JoueurInterface joueurSupprime) throws RemoteException;
+
+	/**
+	 * Renvoi la première carte du deck de la partie concernée.
+	 * @return Carte
+	 * @throws RemoteException
+     */
+	public CarteInterface piocheDeck() throws RemoteException;
 }

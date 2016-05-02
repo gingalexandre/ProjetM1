@@ -10,7 +10,7 @@ public class Statistiques {
 	
 	/**
 	 * Méthode permettant de récupérer les Statistiques d'un Joueur à partir de son pseudo
-	 * @param nomUtilisateur : String pseudo du Joueur
+	 * @param nomUtilisateur - pseudo du Joueur
 	 * @return un tableau de int [nombrePartieJouee, nombrePartieGagnee]
 	 */
 	public static Integer[] getStatistiques(String nomUtilisateur){
@@ -27,7 +27,6 @@ public class Statistiques {
 			res[1] = rs.getInt(2);
 			connection.close();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return res;
@@ -44,7 +43,6 @@ public class Statistiques {
 		try {
 			// Récupération des données existantes
 			res = Statistiques.getStatistiques(nomUtilisateur);
-			
 			// Mise à jour des données
 			res[0] += 1;
 			res[1] += victoire;
@@ -52,16 +50,14 @@ public class Statistiques {
 			PreparedStatement prestmt = null;
 			String query = "UPDATE Joueur SET nombrePartieJouee=?, nombrePartieGagnee=?  WHERE pseudo=?;";
 			prestmt = connection.prepareStatement(query);
-			prestmt.setInt(0, res[0]);
-			prestmt.setInt(1, res[1]);
-			prestmt.setString(2, nomUtilisateur);
-			prestmt.executeUpdate(query);
+			prestmt.setInt(1, res[0]);
+			prestmt.setInt(2, res[1]);
+			prestmt.setString(3, nomUtilisateur);
+			prestmt.executeUpdate();
 			connection.commit();
 			connection.close();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
 }

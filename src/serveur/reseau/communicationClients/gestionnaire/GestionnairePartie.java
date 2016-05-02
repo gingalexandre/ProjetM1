@@ -5,7 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import exception.TooMuchPlayerException;
-import serveur.modele.Joueur;
+import serveur.bdd.modeleBDD.Statistiques;
 import serveur.modele.Message;
 import serveur.modele.Partie;
 import serveur.modele.service.JoueurInterface;
@@ -207,6 +207,12 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 		}
 		else{ // La partie est terminée
 			for(JoueurServeur joueurServeur : joueursServeur) {
+				if(!joueurServeur.getJoueur().getNomUtilisateur().equals(nomJoueurActuel)){
+					Statistiques.addStatistique(0, joueurServeur.getJoueur().getNomUtilisateur());
+				}
+				else{
+					Statistiques.addStatistique(1, joueurServeur.getJoueur().getNomUtilisateur());
+				}
 				joueurServeur.recevoirMessage(new Message(nomJoueurActuel+" a gagné la partie. Il a 10 ou plus points de victoire. Félicitations !"));
 				joueurServeur.activerQuitterPartie();
 			}

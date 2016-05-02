@@ -25,6 +25,9 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Id du joueur
+	 */
 	private int id;
 	private static int compteurDeJoueur = 0;
 	
@@ -102,6 +105,21 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	}
 	
 	
+	/**
+	 * Constructeur de la classe Joueur
+	 * @param id
+	 * @param nomUtilisateur
+	 * @param dateDeNaissance
+	 * @param couleur
+	 * @param pret
+	 * @param pointVictoire
+	 * @param nbColonie
+	 * @param nbVille
+	 * @param nbRoute
+	 * @param stockRessource
+	 * @param cartes
+	 * @throws RemoteException
+	 */
 	public Joueur(int id, String nomUtilisateur, Date dateDeNaissance, String couleur, boolean pret, int pointVictoire,
 			int nbColonie, int nbVille, int nbRoute, HashMap<Integer, Integer> stockRessource, ArrayList<CarteInterface> cartes)
 			throws RemoteException {
@@ -119,52 +137,6 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		this.cartes = cartes;
 	}
 
-	public void aUneRoutePlusLongue(Joueur j){
-		//TODO
-	}
-	
-	public void aUneArmeePlusGrande(Joueur j){
-		//TODO
-	}
-	
-	public int getNbCarte() {
-		int nbCarte = 0;
-		nbCarte += this.stockRessource.get(Ressource.ARGILE);
-		nbCarte += this.stockRessource.get(Ressource.BOIS);
-		nbCarte += this.stockRessource.get(Ressource.BLE);
-		nbCarte += this.stockRessource.get(Ressource.MINERAIE);
-		nbCarte += this.stockRessource.get(Ressource.LAINE);
-		return nbCarte;
-	}
-
-	public boolean isRouteLaPlusLongue() throws RemoteException{
-		return routeLaPlusLongue;
-	}
-
-
-	public void setRouteLaPlusLongue(boolean routeLaPlusLongue) throws RemoteException {
-		this.routeLaPlusLongue = routeLaPlusLongue;
-	}
-
-
-	public boolean isArmeeLaPlusPuissante() throws RemoteException {
-		return armeeLaPlusPuissante;
-	}
-
-
-	public void setArmeeLaPlusPuissante(boolean armeeLaPlusPuissante) throws RemoteException {
-		this.armeeLaPlusPuissante = armeeLaPlusPuissante;
-	}
-
-
-	/**
-	 * Constructeur de joueur
-	 * @param nom - nom du joueur
-	 */
-	public Joueur(String nom) throws RemoteException{
-		this.setNomUtilisateur(nom);
-		initialisationAttributs();
-	}
 	
 	/**
 	 * Constructeur de joueur
@@ -177,6 +149,11 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		initialisationAttributs();
 	}
 
+	/**
+	 * Constructeur pour la sauvegarde
+	 * @param joueur
+	 * @throws RemoteException
+	 */
 	public Joueur(JoueurSauvegarde joueur) throws RemoteException{
 		this.id = joueur.getId();
 		this.nomUtilisateur = joueur.getNomUtilisateur();
@@ -190,8 +167,6 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		this.stockRessource = joueur.getStockRessource();
 		this.cartes = Fonctions.transformArrayCarte(joueur.getCartes());
 	}
-
-
 
 	/**
 	 * Permet d'initialiser des divers attributs d'un joueur
@@ -208,6 +183,58 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		this.stockRessource.put(Ressource.LAINE, 0);
 	}
 	
+	/** 
+	 * @see serveur.modele.service.JoueurInterface#getNbCarte()
+	 */
+	public int getNbCarte() {
+		int nbCarte = 0;
+		nbCarte += this.stockRessource.get(Ressource.ARGILE);
+		nbCarte += this.stockRessource.get(Ressource.BOIS);
+		nbCarte += this.stockRessource.get(Ressource.BLE);
+		nbCarte += this.stockRessource.get(Ressource.MINERAIE);
+		nbCarte += this.stockRessource.get(Ressource.LAINE);
+		return nbCarte;
+	}
+
+	/**
+	 * @return true si le joueur à la route la plus longue, false sinon
+	 */
+	public boolean isRouteLaPlusLongue() {
+		return routeLaPlusLongue;
+	}
+
+	/**
+	 * Place la valeur de l'attribut routeLaPlusLongue
+	 * @param routeLaPlusLongue
+	 */
+	public void setRouteLaPlusLongue(boolean routeLaPlusLongue) {
+		this.routeLaPlusLongue = routeLaPlusLongue;
+	}
+
+	/**
+	 * @return true si le joueur à la route la plus longue, false sinon
+	 */
+	public boolean isArmeeLaPlusPuissante() {
+		return armeeLaPlusPuissante;
+	}
+
+	/**
+	 * Place la valeur de l'attribut armeeLaPlusPuissante
+	 * @param armeeLaPlusPuissante
+	 */
+	public void setArmeeLaPlusPuissante(boolean armeeLaPlusPuissante) {
+		this.armeeLaPlusPuissante = armeeLaPlusPuissante;
+	}
+
+	/**
+	 * Constructeur de joueur
+	 * @param nom - nom du joueur
+	 */
+	public Joueur(String nom) throws RemoteException{
+		this.setNomUtilisateur(nom);
+		initialisationAttributs();
+	}
+	
 	/**
 	 * Permet d'obtenir le stock de ressources du joueur
 	 * @return le stock de ressources du joueur
@@ -216,18 +243,32 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		return this.stockRessource;
 	}
 
+	/**
+	 * Permet de spécifier le stock de ressources du joueur
+	 * @param stockRessource - stock de ressources du joueur
+	 * @throws RemoteException
+	 */
 	public void setStockRessource(HashMap<Integer, Integer> stockRessource) throws RemoteException{
 		this.stockRessource = stockRessource;
 	}
-
-	public void setId(int id) throws RemoteException{
-		this.id = id;
-	}
 	
+	/**
+	 * Permet d'obtenir l'id du joueur
+	 * @return l'id du joueur
+	 * @throws RemoteException
+	 */
 	public int getId() throws RemoteException{
 		return this.id;
 	}
 
+	/**
+	 * Permet de spécifier l'id du joueur
+	 * @param id - id du joueur
+	 */
+	public void setId(int id) throws RemoteException{
+		this.id = id;
+	}
+	
 	/**
 	 * @return si le joueur est pret a jouer ou non
 	 */
@@ -242,130 +283,263 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	public void setPret(boolean pret)  throws RemoteException{
 		this.pret = pret;
 	}
+
+	/**
+	 * Permet d'obtenir le nom d'utilisateur du joueur
+	 * @return le nom d'utilisateur du joueur
+	 * @throws RemoteException
+	 */
+	public String getNomUtilisateur()  throws RemoteException{
+		return nomUtilisateur;
+	}
+
+	/**
+	 * Permet de spécifier le nom d'utilisateur du joueur
+	 * @param nomUtilisateur - nom d'utilisateur
+	 * @throws RemoteException
+	 */
+	public void setNomUtilisateur(String nomUtilisateur)  throws RemoteException{
+		this.nomUtilisateur = nomUtilisateur;
+	}
+
+	/**
+	 * Permet d'obtenir la date de naissance du joueur
+	 * @return la date de naissance du joueur
+	 * @throws RemoteException
+	 */
+	public Date getDateDeNaissance() throws RemoteException{
+		return dateDeNaissance;
+	}
+
+	/**
+	 * Permet de spécifier la date de naissance du joueur
+	 * @param dateDeNaissance - date de naissance 
+	 * @throws RemoteException
+	 */
+	public void setDateDeNaissance(Date dateDeNaissance) throws RemoteException{
+		this.dateDeNaissance = dateDeNaissance;
+	}
 	
-	public void construireRoute()  throws RemoteException{
-
+	/**
+	 * Permet d'obtenir la couleur du joueur
+	 * @return la couleur du joueur
+	 * @throws RemoteException
+	 */
+	public String getCouleur() throws RemoteException{
+		return this.couleur;
 	}
 
-	public void construireColonie()  throws RemoteException{
-
+	/**
+	 * Permet de spécifier la couleur du joueur
+	 * @param couleur - couleur du joueur
+	 * @throws RemoteException
+	 */
+	public void setCouleur(String couleur) throws RemoteException{
+		this.couleur = couleur;
 	}
 
-	public void construireVille()  throws RemoteException{
-
+	/**
+	 * Permet d'obtenir le nombre de colonies du joueur
+	 * @return le nombre de colonies du joueur
+	 * @throws RemoteException
+	 */
+	public int getNbColonie() throws RemoteException{
+		return nbColonie;
 	}
 
+	/**
+	 * Permet de spécifier le nombre de colonies du joueur
+	 * @param nbColonie -  nombre de colonies du joueur
+	 * @throws RemoteException
+	 */
+	public void setNbColonie(int nbColonie) throws RemoteException{
+		this.nbColonie = nbColonie;
+	}
+
+	/**
+	 * Permet d'obtenir le nombre de villes du joueur
+	 * @return le nombre de colonies du joueur
+	 * @throws RemoteException
+	 */
+	public int getNbVille() throws RemoteException{
+		return nbVille;
+	}
+
+	/**
+	 * Permet de spécifier le nombre de villes du joueur
+	 * @param nbVille - nombre de villes du joueur
+	 * @throws RemoteException
+	 */
+	public void setNbVille(int nbVille) throws RemoteException{
+		this.nbVille = nbVille;
+	}
+	
+	/**
+	 * Permet d'obtenir le nombre de points de victoire du joueur
+	 * @return le nombre de points de victoire du joueur
+	 * @throws RemoteException
+	 */
+	public int getPointVictoire() throws RemoteException{
+		return pointVictoire;
+	}
+
+	/**
+	 * Permet de spécifier le nombre de point de victoire du joueur
+	 * @param pointVictoire - point de victoire du joueur
+	 * @throws RemoteException
+	 */
+	public void setPointVictoire(int pointVictoire) throws RemoteException{
+		this.pointVictoire = pointVictoire;
+	}
+	
+	/**
+	 * Permet d'obtenir le nombre de routes du joueur
+	 * @return le nombre de routes du joueur
+	 * @throws RemoteException
+	 */
+	public int getNbRoute() throws RemoteException{
+		return nbRoute;
+	}
+
+	/**
+	 * Permet de spécifier le nombre de routes du joueur
+	 * @param nbRoute - nombre de routes du joueur
+	 * @throws RemoteException
+	 */
+	public void setNbRoute(int nbRoute) throws RemoteException{
+		this.nbRoute = nbRoute;
+	}
+	
+	/**
+	 * Permet au joueur d'ajouter une ressources
+	 * @param typeRessource - type de la ressource
+	 * @param value - quantite de la ressource à ajouter
+	 * @throws RemoteException
+	 */
 	public void ajoutRessource(int typeRessource, int value)  throws RemoteException{
 		this.stockRessource.put(typeRessource, this.stockRessource.get(typeRessource) + value);
 	}
 
+	/**
+	 * Permet au joueur de supprimer une ressources
+	 * @param typeRessource - type de la ressource
+	 * @param value - quantite de la ressource à supprimer
+	 * @throws RemoteException
+	 */
 	public void supprimerRessource(int typeRessource, int value)  throws RemoteException{
 		this.stockRessource.put(typeRessource, this.stockRessource.get(typeRessource) - value);
 	}
-
+	
+	/**
+	 * Permet au joueur d'échanger une ressource
+	 * @param typeRessourceDonnee - type de la ressource donnée
+	 * @param quantiteDonnee - quantité donnée 
+	 * @param partenaireEchange - joueur avec qui échanger
+	 * @param typeRessourceRecup - type de la ressource récupérée
+	 * @param quantiteRecup - quantité de la ressource récupérée
+	 * @throws RemoteException
+	 */
 	public void echangerRessource(int typeRessourceDonnee, int quantiteDonnee, Joueur partenaireEchange,
 			int typeRessourceRecup, int quantiteRecup)  throws RemoteException{
 
 	}
 
-	public void jouerCarteDevelopement(CarteInterface carte)  throws RemoteException{
-
-	}
-
-	public void joueurCarteSpeciale(CarteInterface carte)  throws RemoteException{
-
-	}
-
+	/**
+	 * Permet au joueur d'ajouter des points de victoire
+	 * @throws RemoteException
+	 */
 	public void ajouterPointVictoire()  throws RemoteException{
 		this.pointVictoire++;
 	}
 	
+	/**
+	 * Permet de supprimer un point de victoire qu joueur
+	 * @throws RemoteException
+	 */
 	public void supprimerPointVictoire()  throws RemoteException{
 		this.pointVictoire--;
 	}
 	
-	public String getNomUtilisateur()  throws RemoteException{
-		return nomUtilisateur;
+	/**
+	 * Permet au joueur de jouer une carte développement 
+	 * @param carte - carte à jouer
+	 * @throws RemoteException
+	 */
+	public void jouerCarteDevelopement(CarteInterface carte)  throws RemoteException{
+
 	}
 
-	public void setNomUtilisateur(String nomUtilisateur)  throws RemoteException{
-		this.nomUtilisateur = nomUtilisateur;
+	/**
+	 * Permet au joueur de jouer une carte spéciale 
+	 * @param carte - carte à jouer
+	 * @throws RemoteException
+	 */
+	public void joueurCarteSpeciale(CarteInterface carte)  throws RemoteException{
+
 	}
 
-	public Date getDateDeNaissance() throws RemoteException{
-		return dateDeNaissance;
-	}
-
-	public void setDateDeNaissance(Date dateDeNaissance) throws RemoteException{
-		this.dateDeNaissance = dateDeNaissance;
-	}
-	
-	public String getCouleur() throws RemoteException{
-		return this.couleur;
-	}
-
-	public void setCouleur(String couleur) throws RemoteException{
-		this.couleur = couleur;
-	}
-
-	public int getNbColonie() throws RemoteException{
-		return nbColonie;
-	}
-
-	public void setNbColonie(int nbColonie) throws RemoteException{
-		this.nbColonie = nbColonie;
-	}
-
-	public int getNbVille() throws RemoteException{
-		return nbVille;
-	}
-
-	public void setNbVille(int nbVille) throws RemoteException{
-		this.nbVille = nbVille;
-	}
-
+	/**
+	 * Permet de savoir si le joueur a encore assez de villes
+	 * @return true si le joueur a encore assez de villes, false sinon
+	 * @throws RemoteException
+	 */
 	public boolean encoreAssezVille() throws RemoteException{
 		return (this.nbVille > 0);
 	}
 
+	/**
+	 * Permet de savoir si le joueur a encore assez de colonies
+	 * @return true si le joueur a encore assez de colonies, false sinon
+	 * @throws RemoteException
+	 */
 	public boolean encoreAssezColonie() throws RemoteException{
 		return (this.nbVille > 0);
 	}
 
+	/**
+	 * Permet de savoir si le joueur a encore assez de routes
+	 * @return true si le joueur a encore assez de routes, false sinon
+	 * @throws RemoteException
+	 */
 	public boolean encoreAssezRoute() throws RemoteException{
 		return (this.nbRoute > 0);
 	}
 
-	public int getPointVictoire() throws RemoteException{
-		return pointVictoire;
-	}
-
-	public void setPointVictoire(int pointVictoire) throws RemoteException{
-		this.pointVictoire = pointVictoire;
-	}
-
+	/**
+	 * Permet d'obtenir la liste des cartes du joueur
+	 * @return la liste des cartes du joueur
+	 * @throws RemoteException
+	 */
 	public ArrayList<CarteInterface> getCartes() throws RemoteException{
 		return cartes;
 	}
 
+	/**
+	 * Permet d'ajouter une carte à la liste des cartes du joueur
+	 * @param carte - carte à ajouter
+	 * @throws RemoteException
+	 */
 	public void addCarte(CarteInterface carte) throws RemoteException{
 		this.cartes.add(carte);
 	}
 
+	/**
+	 * Permet de récupérer une carte.
+	 * @param index index de la carte a prendre
+	 * @return Une carte
+	 * @throws RemoteException
+     */
 	public CarteInterface getCarte(int index) throws RemoteException{
 		return this.cartes.get(index);
 	}
 
+	/**
+	 * Permet de supprimer une carte.
+	 * @param index index de la carte a supprimer
+	 * @throws RemoteException
+	 */
 	public void removeCarte(int index) throws RemoteException{
 		this.cartes.remove(index);
-	}
-
-	public int getNbRoute() throws RemoteException{
-		return nbRoute;
-	}
-
-	public void setNbRoute(int nbRoute) throws RemoteException{
-		this.nbRoute = nbRoute;
 	}
 
 	/**
@@ -404,5 +578,27 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		return o instanceof Joueur && ((Joueur)o).id==this.id;
 	}
 	
-	
+	/**
+	 * Permet au joueur de construire une route
+	 * @throws RemoteException
+	 */
+	public void construireRoute()  throws RemoteException{
+
+	}
+
+	/**
+	 * Permet au joueur de construire une colonie
+	 * @throws RemoteException
+	 */
+	public void construireColonie()  throws RemoteException{
+
+	}
+
+	/**
+	 * Permet au joueur de construire une ville
+	 * @throws RemoteException
+	 */
+	public void construireVille()  throws RemoteException{
+
+	}
 }

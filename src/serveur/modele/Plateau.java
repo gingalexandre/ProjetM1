@@ -29,7 +29,7 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 
 	private ArrayList<Point> points;
 
-	private ArrayList<VilleInterface> villes;
+	private static ArrayList<VilleInterface> villes;
 
 	private ArrayList<RouteInterface> routes;
 
@@ -382,6 +382,18 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 	public String toString() {
 		return "Plateau [hexagones=" + hexagones + ", points=" + points + ", villes=" + villes + ", routes=" + routes
 				+ "]";
+	}
+
+	public static ArrayList<Integer> getPortsJoueur(String nomUtilisateur) throws RemoteException {
+		ArrayList<Integer> listePortsJoueur = new ArrayList<Integer>();
+		for(VilleInterface v : villes){
+			if(v.getOqp()!=null){
+				if((v.isPort()!=-1) && (v.getOqp().getNomUtilisateur().equals(nomUtilisateur))){
+					listePortsJoueur.add(v.isPort());
+				}
+			}
+		}
+		return listePortsJoueur;
 	}
 
 }

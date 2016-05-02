@@ -294,4 +294,11 @@ public interface JoueurInterface extends Remote {
 	 * @throws RemoteException
      */
 	void incrementeGuerrier() throws RemoteException;
+
+	/**
+	 * Permet de récupérer une liste de ports sous forme d'entiers représentant leur type d'échange
+	 * @return liste de ports
+	 * @throws RemoteException
+	 */
+	ArrayList<Integer> getPorts() throws RemoteException;
 }

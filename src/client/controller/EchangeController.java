@@ -118,6 +118,28 @@ public class EchangeController implements Initializable {
 				choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur());
 			}
 		}
+		for(int ressource : proxy.getJoueur().getPorts()){
+			switch (ressource) {
+			case 0 :
+				choixJoueur.getItems().add("Port (3 ressources contre 1 ressource)");
+				break;
+			case Ressource.ARGILE :
+				choixJoueur.getItems().add("Port (2 argiles contre 1 ressource)");
+				break;
+			case Ressource.BOIS :
+				choixJoueur.getItems().add("Port (2 bois contre 1 ressource)");
+				break;
+			case Ressource.MINERAIE :
+				choixJoueur.getItems().add("Port (2 minerais contre 1 ressource)");
+				break;
+			case Ressource.BLE :
+				choixJoueur.getItems().add("Port (2 blés contre 1 ressource)");
+				break;
+			case Ressource.LAINE :
+				choixJoueur.getItems().add("Port (2 laines contre 1 ressource)");
+				break;
+			}
+		}
 		choixJoueur.getItems().add("Banque");
 	}
 	

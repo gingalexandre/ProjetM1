@@ -591,4 +591,15 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	public void construireVille()  throws RemoteException{
 
 	}
+
+	
+	/**
+	 * Permet de récupérer une liste de ports sous forme d'entiers représentant leur type d'échange
+	 * @return liste de ports
+	 * @throws RemoteException
+	 */
+	@Override
+	public ArrayList<Integer> getPorts() throws RemoteException {
+		return Plateau.getPortsJoueur(this.nomUtilisateur);
+	}
 }

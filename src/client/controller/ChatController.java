@@ -131,9 +131,9 @@ public class ChatController implements Initializable{
 			});
 		}
 		// Scroll du chat
-		setScrollValue(scrollPanePrincipal, scrollPanePrincipal.getHmax());
-		setScrollValue(scrollPaneJoueurs, scrollPaneJoueurs.getHmax());
-		setScrollValue(scrollPaneSysteme, scrollPaneSysteme.getHmax());
+		setScrollValue(scrollPanePrincipal, 1.0d);
+		setScrollValue(scrollPaneJoueurs, 1.0d);
+		setScrollValue(scrollPaneSysteme, 1.0d);
 	}
 	
 	/**
@@ -184,6 +184,9 @@ public class ChatController implements Initializable{
 	 * @param value
 	 */
 	public void setScrollValue(ScrollPane scrollPane, double value){
-		Platform.runLater(() -> scrollPane.setVvalue(value));
+		Platform.runLater(() -> {
+					scrollPane.getParent().layout();
+					scrollPane.setVvalue(value);
+		});
 	}
 }

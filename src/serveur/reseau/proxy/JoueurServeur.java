@@ -157,4 +157,5 @@ public interface JoueurServeur extends Remote {
 	 * @param b
 	 */
 	void disableBoutonConstruction(boolean b) throws RemoteException;
+
 }

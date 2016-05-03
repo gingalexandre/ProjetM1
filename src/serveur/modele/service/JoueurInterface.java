@@ -329,4 +329,9 @@ public interface JoueurInterface extends Remote {
 	 */
 	public int nbGuerrier() throws RemoteException ;
 
+	/**
+	 * Permet d'utiliserles cartes a partir de ce tour.
+	 */
+	void updateCarteJouable() throws RemoteException;
+
 }

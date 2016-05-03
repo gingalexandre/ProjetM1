@@ -7,10 +7,7 @@ import java.util.HashMap;
 
 import client.controller.*;
 import serveur.modele.Message;
-import serveur.modele.service.JoueurInterface;
-import serveur.modele.service.PlateauInterface;
-import serveur.modele.service.RouteInterface;
-import serveur.modele.service.VilleInterface;
+import serveur.modele.service.*;
 
 public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 
@@ -363,4 +360,5 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	public void init() throws RemoteException {
 		if (this.menuController.isInitTurn()) this.menuController.demanderColonie(true);
 	}
+
 }

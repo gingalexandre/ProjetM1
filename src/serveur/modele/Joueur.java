@@ -601,4 +601,14 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	public void construireVille()  throws RemoteException{
 
 	}
+
+	/**
+	 * Permet d'utiliserles cartes a partir de ce tour.
+	 */
+	public void updateCarteJouable() throws RemoteException{
+		for (CarteInterface ci : this.getCartes()) {
+			ci.setUtilisable(true);
+			System.out.println(ci.getNom()+ "devient utilisable = "+ci.getUtilisable());
+		}
+	}
 }

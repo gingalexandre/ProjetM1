@@ -57,7 +57,7 @@ import serveur.reseau.serveur.Serveur;
  *
  */
 public class MenuController implements Initializable {
-	
+
 	/**
 	 * Attributs concernants les dés
 	 */
@@ -67,59 +67,59 @@ public class MenuController implements Initializable {
 	private static final String numeroQuatre = "file:Ressources/des/dice4.png";
 	private static final String numeroCinq = "file:Ressources/des/dice5.png";
 	private static final String numeroSix = "file:Ressources/des/dice6.png";
-	
+
 	@FXML
 	private GridPane menuGridPane;
-	
+
 	@FXML
 	private GridPane pretGridPane;
-	
+
 	@FXML
 	private ImageView de1, de2;
-	
+
 	@FXML
 	private Button boutonDes;
-	
+
 	/**
 	 * Pour finir le tour
 	 */
 	@FXML
 	private Button boutonFinTour;
-	
+
 	/**
 	 * Pour les échanges
 	 */
 	@FXML
 	private Button boutonEchange;
 
-    /**
-     * Bouton pour lancer l'action de piocher
-     */
+	/**
+	 * Bouton pour lancer l'action de piocher
+	 */
 	@FXML
 	private Button boutonPioche;
 
-    /**
-     * Bonton pour lancer l'action de la carte séléctionner en choice box.
-     */
-    @FXML
-    private Button boutonCarte;
-    
-    /**
+	/**
+	 * Bonton pour lancer l'action de la carte séléctionner en choice box.
+	 */
+	@FXML
+	private Button boutonCarte;
+
+	/**
 	 * Pour la construction
 	 */
 	@FXML
 	private Button boutonConstruireRoute, boutonConstruireColonie, boutonConstruireVille, boutonQuitter;
-	
+
 	/**
 	 * Pane popup
 	 */
 	private Pane pagePopup = null;
-	
+
 	/**
 	 * Diverses fenêtres
 	 */
 	public static Stage fenetreEchange, fenetreProposition, fenetreVol;
-	
+
 
 	/**
 	 * CarteController qui gère els actions des cartes
@@ -128,17 +128,17 @@ public class MenuController implements Initializable {
 
 	@FXML
 	private ChoiceBox<String> listeCarte;
-	
-	   /**
-     * PlateauController qui reporte les actions affectant le platea.
-     */
+
+	/**
+	 * PlateauController qui reporte les actions affectant le platea.
+	 */
 	private PlateauController pc;
-	
+
 	/**
 	 * Serveur de jeu
 	 */
 	private Serveur serveur;
-	
+
 	/**
 	 * Proxy client
 	 */
@@ -147,18 +147,18 @@ public class MenuController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		serveur = ConnexionManager.getStaticServeur();
-		
+
 		//Initialisation des dés
 		de1.setImage(new Image(numeroSix));
 		de2.setImage(new Image(numeroSix));
-		
+
 		//Initialisation de la liste de cartes
 		listeCarte.valueProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 
-            }
-        });
+			}
+		});
 
 		//Initialisation du proxy
 		proxy = ConnexionManager.getStaticProxy();
@@ -168,7 +168,7 @@ public class MenuController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Méthode pour permettre le lancement de la popup d'échange et laisser EchangeController prendre le relais pour les méthodes 
 	 */
@@ -179,49 +179,49 @@ public class MenuController implements Initializable {
 			pagePopup = (Pane) loader.load();
 			fenetreEchange = new Stage();
 			fenetreEchange.setTitle("Les Colons de Catanes");
-		    Scene scene = new Scene(pagePopup,430,500);
-		    fenetreEchange.setScene(scene);
-		    fenetreEchange.showAndWait();
+			Scene scene = new Scene(pagePopup,430,500);
+			fenetreEchange.setScene(scene);
+			fenetreEchange.showAndWait();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Permet de quitter la partie. Se délenche quand la partie est terminée et que l'utilisateur appuie sur le bouton pour quitter la partie.
 	 * @throws RemoteException
 	 */
 	@FXML
-    public void quitterPartie() throws RemoteException{
-    	try{
-    		serveur.quitterPartie(proxy.getJoueur());
-    		System.exit(0);
-    	}
-    	catch(UnmarshalException e){ // Le serveur n'existe plus
-    		System.exit(0);
-    	}
-    }
-	
+	public void quitterPartie() throws RemoteException{
+		try{
+			serveur.quitterPartie(proxy.getJoueur());
+			System.exit(0);
+		}
+		catch(UnmarshalException e){ // Le serveur n'existe plus
+			System.exit(0);
+		}
+	}
+
 	/**
 	 * Méthode de lancement de la partie
-	 * @throws RemoteException 
+	 * @throws RemoteException
 	 */
 	public void joueurPret() throws RemoteException{
 		pretGridPane.setVisible(false);
 		menuGridPane.setVisible(true);
-		
+
 		String nomJoueur = proxy.getJoueur().getNomUtilisateur();
 		serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" est prêt !"));
-			
+
 		JoueurInterface joueur = proxy.getJoueur();
 		serveur.getGestionnairePartie().joueurPret(joueur);
 	}
-	
+
 	public boolean isInitTurn() throws RemoteException{
 		return serveur.getGestionnairePartie().isPremierePhasePartie();
 	}
-	
+
 	/**
 	 * Méthode de désactivation/réactivation des boutons
 	 */
@@ -238,8 +238,8 @@ public class MenuController implements Initializable {
 					e.printStackTrace();
 				}
 				listeCarte.setDisable(boo[0]);
-                boutonPioche.setDisable(boo[0]);
-                boutonCarte.setDisable(boo[0]);
+				boutonPioche.setDisable(boo[0]);
+				boutonCarte.setDisable(boo[0]);
 			});
 		}
 		else {
@@ -254,11 +254,11 @@ public class MenuController implements Initializable {
 					e.printStackTrace();
 				}
 				listeCarte.setDisable(boo[0]);
-                boutonPioche.setDisable(boo[0]);
-                boutonCarte.setDisable(boo[0]);
+				boutonPioche.setDisable(boo[0]);
+				boutonCarte.setDisable(boo[0]);
 			});
 		}
-		
+
 		if(isInitTurn()){
 			proxy.setButtonsSauvegarde(true);
 		}
@@ -266,7 +266,7 @@ public class MenuController implements Initializable {
 			proxy.setButtonsSauvegarde(false);
 		}
 	}
-	
+
 	public void disableBoutonConstruction(boolean boo) throws RemoteException{
 		//vérification possibilité construction
 		if(peutConstruireRoute()){
@@ -277,30 +277,30 @@ public class MenuController implements Initializable {
 		}
 		if(peutConstruireVille()){
 			boutonConstruireVille.setDisable(boo);
-		}			
+		}
 	}
-	
+
 	public boolean peutConstruireRoute() throws RemoteException {
 		if((proxy.getJoueur().getStockRessource().get(Ressource.ARGILE)>=1)&&(proxy.getJoueur().getStockRessource().get(Ressource.BOIS)>=1)){
 			return true;
 		}
 		return false;
 	}
-	
+
 	public boolean peutConstruireColonie() throws RemoteException {
 		if((proxy.getJoueur().getStockRessource().get(Ressource.ARGILE)>=1)&&(proxy.getJoueur().getStockRessource().get(Ressource.BOIS)>=1)&&(proxy.getJoueur().getStockRessource().get(Ressource.BLE)>=1)&&(proxy.getJoueur().getStockRessource().get(Ressource.LAINE)>=1)){
 			return true;
 		}
 		return false;
 	}
-	
+
 	public boolean peutConstruireVille() throws RemoteException {
 		if((proxy.getJoueur().getStockRessource().get(Ressource.BLE)>=2)&&(proxy.getJoueur().getStockRessource().get(Ressource.MINERAIE)>=3)){
 			return true;
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Fait apparaitre le bouton pour quitter la partie
 	 */
@@ -323,15 +323,15 @@ public class MenuController implements Initializable {
 		boutonDes.setDisable(true);
 		Des des = new Des();
 		Integer[] resultats = des.lancerDes();
-		
+
 		animateDes();
 		// Modification des images
 		de1.setImage(new Image(distribuerDes(resultats[0])));
 		de2.setImage(new Image(distribuerDes(resultats[1])));
 
-        notifierLancerDes(resultats);
+		notifierLancerDes(resultats);
 
-        int des_val = 0;
+		int des_val = 0;
 		for(int i = 0; i<resultats.length;i++){
 			des_val += resultats[i];
 		}
@@ -340,28 +340,28 @@ public class MenuController implements Initializable {
 		}else{
 			pc.doActionVoleur();
 			HashMap<String, Integer> listeJoueursVoles = serveur.getGestionnairePartie().getPartie().getNomJoueursVoles();
-			
+
 			Set<String> cles = listeJoueursVoles.keySet();
 			Iterator<String> it = cles.iterator();
 			while (it.hasNext()){
-			   String nom = (String) it.next();
-			   Integer moitierRessource = listeJoueursVoles.get(nom);
-			   serveur.getGestionnaireUI().envoyerVol(moitierRessource, serveur.getJoueur(nom));
+				String nom = (String) it.next();
+				Integer moitierRessource = listeJoueursVoles.get(nom);
+				serveur.getGestionnaireUI().envoyerVol(moitierRessource, serveur.getJoueur(nom));
 			}
 		}
 		disableBoutonConstruction(false);
 	}
-	
+
 	/**
 	 * Permet d'animer les dès
 	 */
 	public void animateDes() {
 		RotateTransition rt1 = new RotateTransition(Duration.millis(1000), de1);
-	    RotateTransition rt2 = new RotateTransition(Duration.millis(1000), de2);
-	    rt1.setByAngle(180*6);
-	    rt2.setByAngle(180*6);
-	    rt1.play();
-	    rt2.play();
+		RotateTransition rt2 = new RotateTransition(Duration.millis(1000), de2);
+		rt1.setByAngle(180*6);
+		rt2.setByAngle(180*6);
+		rt1.play();
+		rt2.play();
 	}
 
 	/**
@@ -371,41 +371,41 @@ public class MenuController implements Initializable {
 	 */
 	private String distribuerDes(Integer de) {
 		switch (de) {
-		case 1:
-			return numeroUn;
-		case 2:
-			return numeroDeux;
-		case 3:
-			return numeroTrois;
-		case 4:
-			return numeroQuatre;
-		case 5:
-			return numeroCinq;
-		case 6:
-			return numeroSix;
-		default:
-			return null;
+			case 1:
+				return numeroUn;
+			case 2:
+				return numeroDeux;
+			case 3:
+				return numeroTrois;
+			case 4:
+				return numeroQuatre;
+			case 5:
+				return numeroCinq;
+			case 6:
+				return numeroSix;
+			default:
+				return null;
 		}
 	}
-	
+
 	/**
 	 * Affiche le resultat des dés dans le chat sous forme de message Système
 	 * @param resultats (résultats des dés)
-	 * @throws RemoteException 
+	 * @throws RemoteException
 	 */
 	private void notifierLancerDes(Integer[] resultats) throws RemoteException{
 		String nomJoueur = proxy.getJoueur().getNomUtilisateur();
 		serveur.getGestionnaireUI().diffuserMessage(new Message(nomJoueur+" a lancé les dés : "+resultats[0]+" | "+resultats[1]));
 	}
-	
+
 	/**
 	 * Distribue à chaque joueurs les ressources associées à la case du numéro tombé
 	 * @param resultats (résultats des dés)
-	 * @throws RemoteException 
+	 * @throws RemoteException
 	 */
 	private void extractionRessources(Integer[] resultats) throws RemoteException{
 		Integer caseConsernee = resultats[0]+resultats[1];
-		
+
 		PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
 		for (HexagoneInterface h : p.getHexagones()){
 			// Recuperation des Hexagones concernés
@@ -426,13 +426,13 @@ public class MenuController implements Initializable {
 				}
 			}
 		}
-		
+
 		//Actualisation de l'affichage
 		this.proxy.getJoueursController().majRessource();
 		serveur.getGestionnaireUI().diffuserGainRessource();
 		serveur.getGestionnaireUI().diffuserGainCarteRessource();
 	}
-	
+
 	/**
 	 * Actualisation de la liste de cartes
 	 */
@@ -441,69 +441,69 @@ public class MenuController implements Initializable {
 			this.listeCarte.getItems().add(carte.getNom());
 		}
 	}
-	
+
 	/**
 	 * Méthode pour permettre le lancement de la popup d'échange et laisser EchangeController prendre le relais pour les méthodes 
-	 * 
+	 *
 	 */
 	public void ouvrirProposition(String nomExpediteur, HashMap<String,Integer> valeurs){
 		Platform.runLater(() -> {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Proposition.fxml"));
 			try {
 				pagePopup = (Pane) loader.load();
-				
+
 				PropositionController controller = loader.getController();
 				controller.setPropositionText(nomExpediteur);
 				controller.setValeursText(valeurs);
 				fenetreProposition = new Stage();
 				fenetreProposition.setTitle("Les Colons de Catanes");
-			    Scene scene = new Scene(pagePopup,430,500);
-			    fenetreProposition.setScene(scene);
-			    fenetreProposition.showAndWait();
+				Scene scene = new Scene(pagePopup,430,500);
+				fenetreProposition.setScene(scene);
+				fenetreProposition.showAndWait();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});
 	}
-	
+
 	/**
 	 * Méthode pour permettre le lancement de la popup de vol et laisser VolController prendre le relais pour les méthodes 
-	 * 
+	 *
 	 */
 	public void ouvrirVol(int maxRessource) {
 		Platform.runLater(() -> {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Vol.fxml"));
 			try {
 				pagePopup = (Pane) loader.load();
-				
+
 				VolController controller = loader.getController();
 				controller.setValeursText(maxRessource);
 				fenetreVol = new Stage();
 				fenetreVol.setTitle("Les Colons de Catanes");
-			    Scene scene = new Scene(pagePopup,430,500);
-			    fenetreVol.setScene(scene);
-			    fenetreVol.showAndWait();
-			    
+				Scene scene = new Scene(pagePopup,430,500);
+				fenetreVol.setScene(scene);
+				fenetreVol.showAndWait();
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});
 	}
-	
+
 	/**
 	 * Méthode de fin de tour
-	 * @throws RemoteException 
+	 * @throws RemoteException
 	 */
 	public void finirLeTour() throws RemoteException{
 		String nomJoueurActuel = proxy.getJoueur().getNomUtilisateur();
 		this.setButtons(true);
-		
+
 		//Lancement du tour du joueur suivant
 		serveur.getGestionnairePartie().finirTour(nomJoueurActuel);
 	}
-	
+
 	/**
 	 * Demande une route
 	 * @param initPhase
@@ -558,14 +558,14 @@ public class MenuController implements Initializable {
 							double temp = y1;
 							y1 = y2;
 							y2 = temp;
-							
+
 							temp = x1;
 							x1 = x2;
 							x2 = temp;
 						}
 						p1 = new Point2D(x1+(Math.sqrt(3)/2)*minitaille,y1+minitaille/2);
 						p2 = new Point2D(x1-(Math.sqrt(3)/2)*minitaille,y1-minitaille/2);
-						p3 = new Point2D(x2-(Math.sqrt(3)/2)*minitaille,y2-minitaille/2); 
+						p3 = new Point2D(x2-(Math.sqrt(3)/2)*minitaille,y2-minitaille/2);
 						p4 = new Point2D(x2+(Math.sqrt(3)/2)*minitaille,y2+minitaille/2);
 					}
 					// Cas 2 : de bas gauche vers haut droit 
@@ -574,7 +574,7 @@ public class MenuController implements Initializable {
 							double temp = y1;
 							y1 = y2;
 							y2 = temp;
-							
+
 							temp = x1;
 							x1 = x2;
 							x2 = temp;
@@ -590,7 +590,7 @@ public class MenuController implements Initializable {
 							double temp = y1;
 							y1 = y2;
 							y2 = temp;
-							
+
 							temp = x1;
 							x1 = x2;
 							x2 = temp;
@@ -599,7 +599,7 @@ public class MenuController implements Initializable {
 						p2 = new Point2D(x1-minitaille,y1);
 						p3 = new Point2D(x2-minitaille,y2);
 						p4 = new Point2D(x2+minitaille,y2);
-					}	
+					}
 					Double[] points = {p1.getX(),p1.getY(),p2.getX(),p2.getY(),p3.getX(),p3.getY(),p4.getX(),p4.getY()};
 					Polygon rectangle = new Polygon();
 					rectangle.getPoints().addAll(points);
@@ -624,7 +624,7 @@ public class MenuController implements Initializable {
 							} catch (RemoteException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
-							} 
+							}
 						}
 					});
 				}
@@ -663,14 +663,14 @@ public class MenuController implements Initializable {
 				double temp = y1;
 				y1 = y2;
 				y2 = temp;
-				
+
 				temp = x1;
 				x1 = x2;
 				x2 = temp;
 			}
 			p1 = new Point2D(x1+(Math.sqrt(3)/2)*minitaille,y1+minitaille/2);
 			p2 = new Point2D(x1-(Math.sqrt(3)/2)*minitaille,y1-minitaille/2);
-			p3 = new Point2D(x2-(Math.sqrt(3)/2)*minitaille,y2-minitaille/2); 
+			p3 = new Point2D(x2-(Math.sqrt(3)/2)*minitaille,y2-minitaille/2);
 			p4 = new Point2D(x2+(Math.sqrt(3)/2)*minitaille,y2+minitaille/2);
 		}
 		// Cas 2 : de bas gauche vers haut droit 
@@ -679,7 +679,7 @@ public class MenuController implements Initializable {
 				double temp = y1;
 				y1 = y2;
 				y2 = temp;
-				
+
 				temp = x1;
 				x1 = x2;
 				x2 = temp;
@@ -695,7 +695,7 @@ public class MenuController implements Initializable {
 				double temp = y1;
 				y1 = y2;
 				y2 = temp;
-				
+
 				temp = x1;
 				x1 = x2;
 				x2 = temp;
@@ -704,19 +704,19 @@ public class MenuController implements Initializable {
 			p2 = new Point2D(x1-minitaille,y1);
 			p3 = new Point2D(x2-minitaille,y2);
 			p4 = new Point2D(x2+minitaille,y2);
-		}	
+		}
 		Double[] points = {p1.getX(),p1.getY(),p2.getX(),p2.getY(),p3.getX(),p3.getY(),p4.getX(),p4.getY()};
 		Polygon rectangle = new Polygon();
 		rectangle.getPoints().addAll(points);
 		rectangle.setFill(Fonction.getCouleurFromString(j.getCouleur()));
 		Platform.runLater(() -> ((Group)VuePrincipale.paneUsed.getChildren().get(2)).getChildren().add(rectangle));
 	}
-	
+
 	/**
 	 * Méthodes permettant à l'utilisateur de choisir où placer sa colonie
 	 * @param depart booleen indiquant si c'est le depart auquel cas on pose où on ne tiens pas compte des route
 	 */
-	public void demanderColonie(boolean depart){	
+	public void demanderColonie(boolean depart){
 		try {
 			setButtons(true);
 			Serveur serveur = ConnexionManager.getStaticServeur();
@@ -767,9 +767,9 @@ public class MenuController implements Initializable {
 								} catch (RemoteException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
-								} 
+								}
 							}
-							
+
 						});
 						Platform.runLater( () -> g.getChildren().add(c));
 					}
@@ -800,13 +800,13 @@ public class MenuController implements Initializable {
 		}
 	}
 
-    /**
-     * Initialise le controller.
-     * @param pc PlateauContoller.
-     */
-    public void setPlateauController(PlateauController pc){
-        this.pc = pc;
-    }
+	/**
+	 * Initialise le controller.
+	 * @param pc PlateauContoller.
+	 */
+	public void setPlateauController(PlateauController pc){
+		this.pc = pc;
+	}
 
 	/**
 	 * Initialise le controller.
@@ -818,75 +818,83 @@ public class MenuController implements Initializable {
 
 	/**
 	 * Pioche de la carte.
-     */
+	 */
 	public void piocheCarte() throws RemoteException {
 		JoueurInterface joueur = proxy.getJoueur();
 
 		HashMap<Integer, Integer> stock_suffisant = joueur.getStockRessource();
-	//	if(stock_suffisant.get(Ressource.BLE)>=1 && stock_suffisant.get(Ressource.LAINE)>=1 && stock_suffisant.get(Ressource.MINERAIE)>=1){
-			CarteInterface carte = serveur.getGestionnairePartie().getPartie().piocheDeck();
-	//		joueur.supprimerRessource(Ressource.BLE,1);
-	//		joueur.supprimerRessource(Ressource.LAINE,1);
-	//		joueur.supprimerRessource(Ressource.MINERAIE,1);
-			if (carte != null) {
-				CarteInterface card = carte;
-				Platform.runLater(() -> {
-					try {
-						listeCarte.getItems().add(card.getNom());
-						proxy.getJoueur().addCarte(carte);
-					} catch (RemoteException e) {
-						e.printStackTrace();
-					}
-				});
-				serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur() + " a acheté une carte développement."));
-			}else{
-				serveur.getGestionnaireUI().diffuserMessage(new Message("Le deck de carte développement est vide."));
-			}
-	//	}else{
-	//		Alert alert = new Alert(Alert.AlertType.ERROR);
-	//		alert.setTitle("Erreur détectée");
-	//		alert.setHeaderText("Attention vous avez essayé une action impossible.");
-	//		alert.setContentText("Vous n'avez pas assez de ressource pour acheter une carte développement.");
-	//		alert.showAndWait();
-	//	}
+		//	if(stock_suffisant.get(Ressource.BLE)>=1 && stock_suffisant.get(Ressource.LAINE)>=1 && stock_suffisant.get(Ressource.MINERAIE)>=1){
+		CarteInterface carte = serveur.getGestionnairePartie().getPartie().piocheDeck();
+		//		joueur.supprimerRessource(Ressource.BLE,1);
+		//		joueur.supprimerRessource(Ressource.LAINE,1);
+		//		joueur.supprimerRessource(Ressource.MINERAIE,1);
+		if (carte != null) {
+			CarteInterface card = carte;
+			Platform.runLater(() -> {
+				try {
+					listeCarte.getItems().add(card.getNom());
+					proxy.getJoueur().addCarte(carte);
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			});
+			serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur() + " a acheté une carte développement."));
+		}else{
+			serveur.getGestionnaireUI().diffuserMessage(new Message("Le deck de carte développement est vide."));
+		}
+		//	}else{
+
+		//		popErreur("Vous n'avez pas assez de ressource pour acheter une carte développement.");
+		//	}
 	}
 
 	/**
 	 * Méthode qui permet de jouer une carte.
 	 * @throws RemoteException
-     */
-    public void jouerCarte() throws RemoteException {
-        int index = listeCarte.getSelectionModel().getSelectedIndex();
+	 */
+	public void jouerCarte() throws RemoteException {
+		int index = listeCarte.getSelectionModel().getSelectedIndex();
 		JoueurInterface joueur = proxy.getJoueur();
 		if(index != -1){
 			CarteInterface carte = joueur.getCarte(index);
 			if (carte != null) {
-				serveur.getGestionnaireUI().diffuserMessage(new Message(joueur.getNomUtilisateur()+" joue la carte de développement: " + carte.getNom()+"."));
-				boolean action = carteController.doActionCarte(carte);;
-				if(action == true){
-					listeCarte.getItems().remove(index);
-					joueur.removeCarte(index);
+				if(carte.getUtilisable()){
+					serveur.getGestionnaireUI().diffuserMessage(new Message(joueur.getNomUtilisateur()+" joue la carte de développement: " + carte.getNom()+"."));
+					boolean action = carteController.doActionCarte(carte);;
+					if(action == true){
+						listeCarte.getItems().remove(index);
+						joueur.removeCarte(index);
+					}else{
+						popErreur("Action annulée ou non valide.");
+					}
 				}else{
+					popErreur("Cette carte vient d'être piochée et ne peut être jouée avant le tour suivant.");
 				}
+			}else{
+				popErreur("Veuillez séléctionner une carte dans le menu déroulant avant d'essayer de la jouer.");
 			}
 		}else{
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setTitle("Erreur détectée");
-			alert.setHeaderText("Attention vous avez essayé une action impossible.");
-			alert.setContentText("Veuillez séléctionner une carte dans le menu déroulant avant d'essayer de la jouer.");
-			alert.showAndWait();
+			popErreur("Aucune carte séléctionnée.");
 		}
-        disableBoutonConstruction(false);
+		disableBoutonConstruction(false);
 
-    }
+	}
 
-    @FXML
-    public void construireRoute() throws RemoteException{
-    	demanderRoute(false, null);
-    }
-    
-    @FXML
-    public void construireColonie() throws RemoteException{
-    	demanderColonie(false);
-    }
+	public void popErreur(String m){
+		Alert alert = new Alert(Alert.AlertType.ERROR);
+		alert.setTitle("Erreur détectée");
+		alert.setHeaderText("Attention vous avez essayé une action impossible.");
+		alert.setContentText(m);
+		alert.showAndWait();
+	}
+
+	@FXML
+	public void construireRoute() throws RemoteException{
+		demanderRoute(false, null);
+	}
+
+	@FXML
+	public void construireColonie() throws RemoteException{
+		demanderColonie(false);
+	}
 }

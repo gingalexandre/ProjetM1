@@ -192,6 +192,8 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 		if(!partieTerminee(this.partie.getJoueurTour())){ // La partie n'est pas terminée, on passe au tour suivant
 			// Passage au tour suivant
 			partie.incrementeTour();
+
+            this.getPartie().getJoueurByName(nomJoueurActuel).updateCarteJouable();
 			
 			// On récupère le joueur suivant et on active ses boutons
 			JoueurInterface joueurTour = this.partie.getJoueurTour();

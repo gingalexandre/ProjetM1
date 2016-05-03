@@ -597,9 +597,9 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	 * @throws RemoteException
 	 */
 	public void construireRoute()  throws RemoteException{
-		boolean initPhase = this.nbRoute>13 && (this.nbColonie+this.nbVille)>7;
+		boolean isInitPhase = this.nbRoute>13 ;
 		this.nbRoute--;
-		if (!initPhase && nbRouteGratuite==0){
+		if (!isInitPhase && nbRouteGratuite==0){
 			faireAchat("Route");
 		} else {
 			if (nbRouteGratuite>0) nbRouteGratuite--;
@@ -611,9 +611,9 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	 * @throws RemoteException
 	 */
 	public void construireColonie()  throws RemoteException{
-		boolean initPhase = this.nbRoute>13 && (this.nbColonie+this.nbVille)>7;
+		boolean isInitPhase = this.nbRoute>13;
 		this.nbColonie--;
-		if (!initPhase) faireAchat("Colonie");
+		if (!isInitPhase) faireAchat("Colonie");
 	}
 
 	/**

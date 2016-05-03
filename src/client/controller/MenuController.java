@@ -788,7 +788,7 @@ public class MenuController implements Initializable {
 									c.setFill(Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
 									VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
 									serveur.getGestionnaireUI().diffuserPriseDeVille(v, joueurCourrant);
-									joueurCourrant.faireAchat("Colonie");
+									joueurCourrant.construireColonie();
 									proxy.getJoueursController().majRessource();
 						    		serveur.getGestionnaireUI().diffuserGainRessource(); // A voir si on peut supprimer
 						    		serveur.getGestionnaireUI().diffuserGainCarteRessource();

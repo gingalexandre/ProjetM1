@@ -145,6 +145,7 @@ public class ConnexionController implements Initializable {
 			gameFenetre.setTitle("Les Colons de Catanes");
 			Scene scene = new Scene(page, 0, 0);
 			gameFenetre.setScene(scene);
+			gameFenetre.setMaximized(true);
 			VuePrincipale.stagePrincipal.close();
 			gameFenetre.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent we) {

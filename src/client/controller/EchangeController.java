@@ -191,7 +191,7 @@ public class EchangeController implements Initializable {
 		String nomJ4 = "";
 		int nbJoueur = serveur.getGestionnairePartie().getPartie().getNombreJoueurs();
 		if(nbJoueur>3){
-			nomJ4 = serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur();
+			nomJ4 = serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur();
 		}
 		
 		if(offreValide(offreDemande)){

@@ -61,115 +61,115 @@ import serveur.reseau.serveur.Serveur;
  */
 public class MenuController implements Initializable {
 
-	/**
-	 * Attributs concernants les dés
-	 */
-	private static final String numeroUn = "file:Ressources/des/dice1.png";
-	private static final String numeroDeux = "file:Ressources/des/dice2.png";
-	private static final String numeroTrois = "file:Ressources/des/dice3.png";
-	private static final String numeroQuatre = "file:Ressources/des/dice4.png";
-	private static final String numeroCinq = "file:Ressources/des/dice5.png";
-	private static final String numeroSix = "file:Ressources/des/dice6.png";
+    /**
+     * Attributs concernants les dés
+     */
+    private static final String numeroUn = "file:Ressources/des/dice1.png";
+    private static final String numeroDeux = "file:Ressources/des/dice2.png";
+    private static final String numeroTrois = "file:Ressources/des/dice3.png";
+    private static final String numeroQuatre = "file:Ressources/des/dice4.png";
+    private static final String numeroCinq = "file:Ressources/des/dice5.png";
+    private static final String numeroSix = "file:Ressources/des/dice6.png";
 
-	@FXML
-	private GridPane menuGridPane;
+    @FXML
+    private GridPane menuGridPane;
 
-	@FXML
-	private GridPane pretGridPane;
+    @FXML
+    private GridPane pretGridPane;
 
-	@FXML
-	private ImageView de1, de2;
+    @FXML
+    private ImageView de1, de2;
 
-	@FXML
-	private Button boutonDes;
+    @FXML
+    private Button boutonDes;
 
-	/**
-	 * Pour finir le tour
-	 */
-	@FXML
-	public Button boutonFinTour;
+    /**
+     * Pour finir le tour
+     */
+    @FXML
+    public Button boutonFinTour;
 
-	/**
-	 * Pour les échanges
-	 */
-	@FXML
-	private Button boutonEchange;
+    /**
+     * Pour les échanges
+     */
+    @FXML
+    private Button boutonEchange;
 
-	/**
-	 * Bouton pour lancer l'action de piocher
-	 */
-	@FXML
-	private Button boutonPioche;
+    /**
+     * Bouton pour lancer l'action de piocher
+     */
+    @FXML
+    private Button boutonPioche;
 
-	/**
-	 * Bonton pour lancer l'action de la carte séléctionner en choice box.
-	 */
-	@FXML
-	private Button boutonCarte;
+    /**
+     * Bonton pour lancer l'action de la carte séléctionner en choice box.
+     */
+    @FXML
+    private Button boutonCarte;
 
-	/**
-	 * Pour la construction
-	 */
-	@FXML
-	private Button boutonConstruireRoute, boutonConstruireColonie, boutonConstruireVille, boutonQuitter;
+    /**
+     * Pour la construction
+     */
+    @FXML
+    private Button boutonConstruireRoute, boutonConstruireColonie, boutonConstruireVille, boutonQuitter;
 
-	/**
-	 * Pane popup
-	 */
-	private Pane pagePopup = null;
+    /**
+     * Pane popup
+     */
+    private Pane pagePopup = null;
 
-	/**
-	 * Diverses fenêtres
-	 */
-	public static Stage fenetreEchange, fenetreProposition, fenetreVol;
+    /**
+     * Diverses fenêtres
+     */
+    public static Stage fenetreEchange, fenetreProposition, fenetreVol;
 
 
-	/**
-	 * CarteController qui gère els actions des cartes
-	 */
-	private CarteController carteController;
+    /**
+     * CarteController qui gère els actions des cartes
+     */
+    private CarteController carteController;
 
-	@FXML
-	private ChoiceBox<String> listeCarte;
+    @FXML
+    private ChoiceBox<String> listeCarte;
 
-	/**
-	 * PlateauController qui reporte les actions affectant le platea.
-	 */
-	private PlateauController pc;
+    /**
+     * PlateauController qui reporte les actions affectant le platea.
+     */
+    private PlateauController pc;
 
-	/**
-	 * Serveur de jeu
-	 */
-	private Serveur serveur;
+    /**
+     * Serveur de jeu
+     */
+    private Serveur serveur;
 
-	/**
-	 * Proxy client
-	 */
-	private Proxy proxy;
+    /**
+     * Proxy client
+     */
+    private Proxy proxy;
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		serveur = ConnexionManager.getStaticServeur();
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        serveur = ConnexionManager.getStaticServeur();
 
-		//Initialisation des dés
-		de1.setImage(new Image(numeroSix));
-		de2.setImage(new Image(numeroSix));
+        //Initialisation des dés
+        de1.setImage(new Image(numeroSix));
+        de2.setImage(new Image(numeroSix));
 
-		//Initialisation de la liste de cartes
-		listeCarte.valueProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+        //Initialisation de la liste de cartes
+        listeCarte.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 
-			}
-		});
+            }
+        });
 
-		//Initialisation du proxy
-		proxy = ConnexionManager.getStaticProxy();
-		try {
-			proxy.setMenuController(this);
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
+        //Initialisation du proxy
+        proxy = ConnexionManager.getStaticProxy();
+        try {
+            proxy.setMenuController(this);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 		
 		/*
 		 * Dessin des routes / villes si la partie est chargée
@@ -656,7 +656,6 @@ public class MenuController implements Initializable {
                                     serveur.getGestionnaireUI().updatePointVictoire();
                                     serveur.getGestionnaireUI().updateRouteLongue();
                                 }
-
 								if(isInitTurn()){
 									setButtons(true,true,false);
 								}else{
@@ -894,10 +893,6 @@ public class MenuController implements Initializable {
 		}else{
 			serveur.getGestionnaireUI().diffuserMessage(new Message("Le deck de carte développement est vide."));
 		}
-		//	}else{
-
-		//		popErreur("Vous n'avez pas assez de ressource pour acheter une carte développement.");
-		//	}
 	}
 
 	/**
@@ -967,5 +962,5 @@ public class MenuController implements Initializable {
     		popErreur("Vous ne pouvez pas contruire de colonie. Soit vous avez atteint la limite, soit vous n'avez pas les ressoruces");
     	}
     }
-    
+
 }

@@ -7,28 +7,21 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-/**
- * 
- * @author jerome
- */
-public class VuePrincipale extends Application{
-	
+public class VuePageAccueil extends Application{
+
 	public static Scene scene;
 	public static Stage stagePrincipal;
 	public static Pane paneUsed;
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-		FXMLLoader preloader = new FXMLLoader(getClass().getResource("fxml/Accueil.fxml"));
-		
-		Parent root = preloader.load();
-		
-        scene = new Scene(root,0,0);
-    
+		FXMLLoader preloader = new FXMLLoader(getClass().getResource("fxml/PageAccueil.fxml"));		
+		Parent root = preloader.load();		
+        scene = new Scene(root,925,715);
         stage.setTitle("Les Colons de Catanes");
-        stage.setScene(scene);   
-        stage.setMaximized(true);
+        stage.setScene(scene);         
         stagePrincipal = stage;
+        stagePrincipal.setResizable(false);
         stage.show();
-	}	
+	}
 }

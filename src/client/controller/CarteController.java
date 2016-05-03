@@ -78,28 +78,9 @@ public class CarteController {
                 serveur.getGestionnaireUI().updatePointVictoire();
                 serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne 2 points de victoire suite à l'usage de sa carte développement."));
             }
-            if(ci.getNom().equals((new Invention()).getNom())){
-                int ressource_cible = popChoixRessource("Carte Invention","Les cartes de développement de type Invention permettent de gagner +2 dans une ressource.");
-                if(ressource_cible != -1){
-                    action = true;
-                    player.ajoutRessource(ressource_cible,2);
-                    proxy.getJoueursController().majRessource();
-                    serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne 2 de "+nameRessource(ressource_cible)+" suite à l'usage de sa carte développement."));
-                }
-            }
-            if(ci.getNom().equals((new Monopole()).getNom())){
-                int ressource_cible = popChoixRessource("Carte Monopole","Les cartes de développement de type Monopole permettent d'obtenir le monopole d'une ressource en volant les réserves de celle-ci aux autres joueurs.");
-                if(ressource_cible != -1){
-                    action = true;
-                    int total = serveur.getGestionnaireUI().monopole(ressource_cible);
-                    player.ajoutRessource(ressource_cible,total);
-                    serveur.getGestionnaireUI().diffuserGainRessource();
-                    serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne "+total+" de "+nameRessource(ressource_cible)+" suite à l'usage de sa carte développement."));
-                }
-            }
             if(ci.getNom().equals((new Route()).getNom())){
                 serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne 2 routes à construire suite à l'usage de sa carte développement de type Route."));
-
+                player.setNbRouteGratuite(2);
             }
             return action;
         }else{

@@ -293,6 +293,7 @@ public interface JoueurInterface extends Remote {
 	 * Permet d'incrémenter le nombre de chevalier jouer par un joueur.
 	 * @throws RemoteException
      */
+
 	public void incrementeGuerrier() throws RemoteException;
 
 	/**
@@ -334,4 +335,11 @@ public interface JoueurInterface extends Remote {
 	 */
 	void updateCarteJouable() throws RemoteException;
 
+
+	/**
+	 * Permet de récupérer une liste de ports sous forme d'entiers représentant leur type d'échange
+	 * @return liste de ports
+	 * @throws RemoteException
+	 */
+	ArrayList<Integer> getPorts() throws RemoteException;
 }

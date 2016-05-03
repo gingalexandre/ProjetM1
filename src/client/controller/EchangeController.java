@@ -102,64 +102,133 @@ public class EchangeController implements Initializable {
 	@FXML
 	private void initComboBox(int nbJoueur) throws RemoteException{
 		String nomUtilisateur = proxy.getJoueur().getNomUtilisateur();
-		if(!serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur().equals(nomUtilisateur)){
-			choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur());
-		}
-		
-		if(!serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur().equals(nomUtilisateur)){
-			choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur());
-		}
-		
-		if(!serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur().equals(nomUtilisateur)){
-			choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur());
-		}
+		String nomJ1 = serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur();
+		String nomJ2 = serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur();
+		String nomJ3 = serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur();
+		String nomJ4 = "";
 		if(nbJoueur>3){
-			if(!serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur().equals(nomUtilisateur)){
-				choixJoueur.getItems().add(serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur());
+			nomJ4 = serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur();
+		}
+		
+		//Ajout des lignes pour les joueurs
+		if(!nomJ1.equals(nomUtilisateur)){
+			choixJoueur.getItems().add(nomJ1);
+		}
+		if(!nomJ2.equals(nomUtilisateur)){
+			choixJoueur.getItems().add(nomJ2);
+		}
+		if(!nomJ3.equals(nomUtilisateur)){
+			choixJoueur.getItems().add(nomJ3);
+		}
+		if((!nomJ4.equals(nomUtilisateur))&&(nomJ4!="")){
+			choixJoueur.getItems().add(nomJ4);
+		}
+			
+		//Ajout des lignes pour les ports	
+		for(int ressource : proxy.getJoueur().getPorts()){
+			switch (ressource) {
+			case 0 :
+				choixJoueur.getItems().add("Port (3 ressources contre 1 ressource)");
+				break;
+			case Ressource.ARGILE :
+				choixJoueur.getItems().add("Port (2 argiles contre 1 ressource)");
+				break;
+			case Ressource.BOIS :
+				choixJoueur.getItems().add("Port (2 bois contre 1 ressource)");
+				break;
+			case Ressource.MINERAIE :
+				choixJoueur.getItems().add("Port (2 minerais contre 1 ressource)");
+				break;
+			case Ressource.BLE :
+				choixJoueur.getItems().add("Port (2 blés contre 1 ressource)");
+				break;
+			case Ressource.LAINE :
+				choixJoueur.getItems().add("Port (2 laines contre 1 ressource)");
+				break;
 			}
 		}
+		//Ajout de la ligne pour la banque
 		choixJoueur.getItems().add("Banque");
 	}
 	
 	/**
-	 * Méthode de création et d'envois d'une offre
+	 * Récupération des données de la matrice d'échange
+	 * @throws RemoteException
 	 */
-	@FXML
-	private void proposerOffre() throws RemoteException{
-		offreDemande = new HashMap<String, Integer>();
+	public void recuperationDonneesMatrice() throws RemoteException{
+		this.offreDemande = new HashMap<String, Integer>();
 		try{
-			offreDemande.put("dBois",Integer.parseInt(demandeBois.getText()));
-			offreDemande.put("dBle",Integer.parseInt(demandeBle.getText()));
-			offreDemande.put("dMineraie",Integer.parseInt(demandeMineraie.getText()));
-			offreDemande.put("dArgile",Integer.parseInt(demandeArgile.getText()));
-			offreDemande.put("dLaine",Integer.parseInt(demandeLaine.getText()));
+			this.offreDemande.put("dBois",Integer.parseInt(demandeBois.getText()));
+			this.offreDemande.put("dBle",Integer.parseInt(demandeBle.getText()));
+			this.offreDemande.put("dMineraie",Integer.parseInt(demandeMineraie.getText()));
+			this.offreDemande.put("dArgile",Integer.parseInt(demandeArgile.getText()));
+			this.offreDemande.put("dLaine",Integer.parseInt(demandeLaine.getText()));
 			
-			offreDemande.put("oBois",Integer.parseInt(offreBois.getText()));
-			offreDemande.put("oBle",Integer.parseInt(offreBle.getText()));
-			offreDemande.put("oMineraie",Integer.parseInt(offreMineraie.getText()));
-			offreDemande.put("oArgile",Integer.parseInt(offreArgile.getText()));
-			offreDemande.put("oLaine",Integer.parseInt(offreLaine.getText()));
+			this.offreDemande.put("oBois",Integer.parseInt(offreBois.getText()));
+			this.offreDemande.put("oBle",Integer.parseInt(offreBle.getText()));
+			this.offreDemande.put("oMineraie",Integer.parseInt(offreMineraie.getText()));
+			this.offreDemande.put("oArgile",Integer.parseInt(offreArgile.getText()));
+			this.offreDemande.put("oLaine",Integer.parseInt(offreLaine.getText()));
 		}
 		catch(Exception e){
 			e.printStackTrace();
 			message.setText("Invalide !");
 		}
+	}
+	
+	/**
+	 * Méthode de création et d'envois d'une offre
+	 * @throws RemoteException
+	 */
+	@FXML
+	private void proposerOffre() throws RemoteException{
+		
+		recuperationDonneesMatrice();
+		
+		String nomJ1 = serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur();
+		String nomJ2 = serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur();
+		String nomJ3 = serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur();
+		String nomJ4 = "";
+		int nbJoueur = serveur.getGestionnairePartie().getPartie().getNombreJoueurs();
+		if(nbJoueur>3){
+			nomJ4 = serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur();
+		}
 		
 		if(offreValide(offreDemande)){
-			if(choixJoueur.getValue().equals(serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur())){
-				envoyerPropositionJoueur(serveur.getJoueur(serveur.getGestionnairePartie().getPartie().getJoueur1().getNomUtilisateur()));
+			if(choixJoueur.getValue().equals(nomJ1)){
+				envoyerPropositionJoueur(serveur.getJoueur(nomJ1));
 			}
-			if(choixJoueur.getValue().equals(serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur())){
-				envoyerPropositionJoueur(serveur.getJoueur(serveur.getGestionnairePartie().getPartie().getJoueur2().getNomUtilisateur()));
+			if(choixJoueur.getValue().equals(nomJ2)){
+				envoyerPropositionJoueur(serveur.getJoueur(nomJ2));
 			}
-			if(choixJoueur.getValue().equals(serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur())){
-				envoyerPropositionJoueur(serveur.getJoueur(serveur.getGestionnairePartie().getPartie().getJoueur3().getNomUtilisateur()));
+			if(choixJoueur.getValue().equals(nomJ3)){
+				envoyerPropositionJoueur(serveur.getJoueur(nomJ3));
 			}
-			if(serveur.getGestionnairePartie().getPartie().getNombreJoueurs()>3){
-				if(choixJoueur.getValue().equals(serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur())){
-					envoyerPropositionJoueur(serveur.getJoueur(serveur.getGestionnairePartie().getPartie().getJoueur4().getNomUtilisateur()));
+			if(nbJoueur>3){
+				if(choixJoueur.getValue().equals(nomJ4)){
+					envoyerPropositionJoueur(serveur.getJoueur(nomJ4));
 				}
 			}
+			
+			if(choixJoueur.getValue().equals(("Port (3 ressources contre 1 ressource)"))){
+				echangeAvecPortUniversel();
+			}
+			if(choixJoueur.getValue().equals(("Port (2 argiles contre 1 ressource)"))){
+				echangeAvecPortSpecifique(Ressource.ARGILE);
+			}
+			if(choixJoueur.getValue().equals(("Port (2 minerais contre 1 ressource)"))){
+				echangeAvecPortSpecifique(Ressource.MINERAIE);
+			}
+			if(choixJoueur.getValue().equals(("Port (2 bois contre 1 ressource)"))){
+				echangeAvecPortSpecifique(Ressource.BOIS);
+			}
+			if(choixJoueur.getValue().equals(("Port (2 blés contre 1 ressource)"))){
+				echangeAvecPortSpecifique(Ressource.BLE);
+			}
+			if(choixJoueur.getValue().equals(("Port (2 laines contre 1 ressource)"))){
+				echangeAvecPortSpecifique(Ressource.LAINE);
+			}
+		
 			if(choixJoueur.getValue().equals("Banque")){
 				echangeAvecBanque();
 			}
@@ -203,62 +272,147 @@ public class EchangeController implements Initializable {
 	 */
 	private void echangeAvecBanque() throws RemoteException{
 		int nbRessourcesEchangeables = 0;
-		if(offreDemande.get("oBois")>=4){
-			nbRessourcesEchangeables += offreDemande.get("oBois")/4;
-		}
-		if(offreDemande.get("oBle")>=4){
-			nbRessourcesEchangeables += offreDemande.get("oBle")/4;
-		}
-		if(offreDemande.get("oMineraie")>=4){
-			nbRessourcesEchangeables += offreDemande.get("oMineraie")/4;
-		}
-		if(offreDemande.get("oArgile")>=4){
-			nbRessourcesEchangeables += offreDemande.get("oArgile")/4;
-		}
-		if(offreDemande.get("oLaine")>=4){
-			nbRessourcesEchangeables += offreDemande.get("oLaine")/4;
+		String [] listeOffres = {"oBois", "oBle", "oArgile", "oMineraie", "oLaine"};
+		
+		for(String typeOffre : listeOffres){
+			if(offreDemande.get(typeOffre)>=4){
+				int nbRessEchangeableCourrant = offreDemande.get(typeOffre)/4;
+				nbRessourcesEchangeables += nbRessEchangeableCourrant;
+				int ressource = getTypeRessource(typeOffre);
+				proxy.getJoueur().supprimerRessource(ressource, 4*nbRessEchangeableCourrant);
+			}
 		}
 		
-		String message = "";
-		if(nbRessourcesEchangeables>0){
-			message = " vient de faire un échange avec la banque";
-		}
-		else{
-			message = " a tenté d'arnarquer la banque";
-		}
+		String message = echangeOuArnaque(nbRessourcesEchangeables, "la banque");
 		
-		while(nbRessourcesEchangeables>0){
-			while(offreDemande.get("dBois")>0){
-				proxy.getJoueur().ajoutRessource(Ressource.BOIS, 1);
-				nbRessourcesEchangeables--;
-				offreDemande.put("dBois",offreDemande.get("dBois")-1);
-			}
-			while(offreDemande.get("dBle")>0){
-				proxy.getJoueur().ajoutRessource(Ressource.BLE, 1);
-				nbRessourcesEchangeables--;
-				offreDemande.put("dBle",offreDemande.get("dBle")-1);
-			}
-			while(offreDemande.get("dMineraie")>0){
-				proxy.getJoueur().ajoutRessource(Ressource.MINERAIE, 1);
-				nbRessourcesEchangeables--;
-				offreDemande.put("dMineraie",offreDemande.get("dMineraie")-1);
-			}
-			while(offreDemande.get("dArgile")>0){
-				proxy.getJoueur().ajoutRessource(Ressource.ARGILE, 1);
-				nbRessourcesEchangeables--;
-				offreDemande.put("dArgile",offreDemande.get("dArgile")-1);
-			}
-			while(offreDemande.get("dLaine")>0){
-				proxy.getJoueur().ajoutRessource(Ressource.LAINE, 1);
-				nbRessourcesEchangeables--;
-				offreDemande.put("dLaine",offreDemande.get("dLaine")-1);
-			}
-		}
+		recuperationGainEchange(nbRessourcesEchangeables);
 		
 		//Actualisation de l'affichage
 		this.proxy.getJoueursController().majRessource();
 		serveur.getGestionnaireUI().diffuserGainRessource();
 		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+message));
+	}
+	
+	private void echangeAvecPortUniversel() throws RemoteException{
+		int nbRessourcesEchangeables = 0;
+		String [] listeOffres = {"oBois", "oBle", "oArgile", "oMineraie", "oLaine"};
+		
+		for(String typeOffre : listeOffres){
+			if(offreDemande.get(typeOffre)>=3){
+				int nbRessEchangeableCourrant = offreDemande.get(typeOffre)/3;
+				nbRessourcesEchangeables += nbRessEchangeableCourrant;
+				int ressource = getTypeRessource(typeOffre);
+				proxy.getJoueur().supprimerRessource(ressource, 3*nbRessEchangeableCourrant);
+			}
+		}
+		
+		String message = echangeOuArnaque(nbRessourcesEchangeables, "un port");
+		
+		recuperationGainEchange(nbRessourcesEchangeables);
+		
+		//Actualisation de l'affichage
+		this.proxy.getJoueursController().majRessource();
+		serveur.getGestionnaireUI().diffuserGainRessource();
+		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+message));
+	}
+	
+	/**
+	 * Procede à l'échange avec un port spécifique
+	 * @throws RemoteException
+	 */
+	private void echangeAvecPortSpecifique(int typePort) throws RemoteException{
+		int nbRessourceNecessaires = 0;
+		if(typePort==0){
+			nbRessourceNecessaires = 3;
+		}
+		else{
+			nbRessourceNecessaires = 2;
+		}
+		
+		String typeOffre = "";
+		switch (typePort) {
+		case Ressource.ARGILE :
+			typeOffre = "oArgile";
+			break;
+		case Ressource.BOIS :
+			typeOffre = "oBois";
+			break;
+		case Ressource.MINERAIE :
+			typeOffre = "oMineraie";
+			break;
+		case Ressource.BLE :
+			typeOffre = "oBle";
+			break;
+		case Ressource.LAINE :
+			typeOffre = "oLaine";
+			break;
+		}
+		
+		int nbRessourcesEchangeables = 0;
+		if(offreDemande.get(typeOffre)>=nbRessourceNecessaires){
+			int nbRessEchangeable = offreDemande.get(typeOffre)/nbRessourceNecessaires;
+			nbRessourcesEchangeables = nbRessEchangeable;
+			int ressource = getTypeRessource(typeOffre);
+			proxy.getJoueur().supprimerRessource(ressource, nbRessourceNecessaires*nbRessEchangeable);
+		}
+		
+		String message = echangeOuArnaque(nbRessourcesEchangeables, "un port");
+		
+		recuperationGainEchange(nbRessourcesEchangeables);
+		
+		//Actualisation de l'affichage
+		this.proxy.getJoueursController().majRessource();
+		serveur.getGestionnaireUI().diffuserGainRessource();
+		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+message));
+	}
+	
+	private void recuperationGainEchange(int nbRessourcesEchangeables) throws RemoteException{
+		String [] listeDemandes = {"dBois", "dBle", "dArgile", "dMineraie", "dLaine"};
+		
+		while(nbRessourcesEchangeables>0){
+			for(String typeDemande : listeDemandes){
+				while(offreDemande.get(typeDemande)>0){
+					int ressource = getTypeRessource(typeDemande);
+					proxy.getJoueur().ajoutRessource(ressource, 1);
+					nbRessourcesEchangeables--;
+					offreDemande.put(typeDemande,offreDemande.get(typeDemande)-1);
+				}
+			}
+		}
+	}
+	
+	private String echangeOuArnaque(int nbRessourcesEchangeables, String avecQui) throws RemoteException{
+		if(nbRessourcesEchangeables>0){
+			return " vient de faire un échange avec "+avecQui;
+		}
+		else{
+			return " a tenté d'arnarquer "+avecQui;
+		}
+	}
+	
+	/**
+	 * Permet de savoir de quelle ressource il s'agit
+	 * @param offreOuDemande
+	 * @return la ressource
+	 * @throws RemoteException
+	 */
+	public int getTypeRessource(String offreOuDemande) throws RemoteException{
+		if((offreOuDemande.equals("oBois"))||(offreOuDemande.equals("dBois"))){
+			return Ressource.BOIS;
+		}
+		else if((offreOuDemande.equals("oBle"))||(offreOuDemande.equals("dBle"))){
+			return Ressource.BLE;
+		}
+		else if((offreOuDemande.equals("oMineraie"))||(offreOuDemande.equals("dMineraie"))){
+			return Ressource.MINERAIE;
+		}
+		else if((offreOuDemande.equals("oArgile"))||(offreOuDemande.equals("dArgile"))){
+			return Ressource.ARGILE;
+		}
+		else if((offreOuDemande.equals("oLaine"))||(offreOuDemande.equals("dLaine"))){
+			return Ressource.LAINE;
+		}
+		return 0;
 	}
 	
 	/**

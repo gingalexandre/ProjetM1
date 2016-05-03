@@ -605,9 +605,19 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	/**
 	 * Permet d'utiliserles cartes a partir de ce tour.
 	 */
-	public void updateCarteJouable() throws RemoteException{
+	public void updateCarteJouable() throws RemoteException {
 		for (CarteInterface ci : this.getCartes()) {
 			ci.setUtilisable(true);
 		}
+	}
+	
+	/**
+	 * Permet de récupérer une liste de ports sous forme d'entiers représentant leur type d'échange
+	 * @return liste de ports
+	 * @throws RemoteException
+	 */
+	@Override
+	public ArrayList<Integer> getPorts() throws RemoteException {
+		return Plateau.getPortsJoueur(this.nomUtilisateur);
 	}
 }

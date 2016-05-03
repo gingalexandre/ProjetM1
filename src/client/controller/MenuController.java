@@ -34,7 +34,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import serveur.modele.Des;
 import serveur.modele.Message;
@@ -167,6 +169,26 @@ public class MenuController implements Initializable {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
+		
+		/*
+		 * Dessin des routes / villes si la partie est chargée
+		 */
+		PlateauInterface p;
+		try {
+			p = serveur.getGestionnairePartie().getPartie().getPlateau();
+			for(RouteInterface r : p.getRoutes()){
+			  	if(r.getOqp() != null){
+			  		dessinerRoute(r, r.getOqp());
+				}
+			}
+			for(VilleInterface v : p.getVilles()){
+				if(v.getOqp() != null){
+					dessinerVille(v, v.getOqp());
+				}
+			}
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -179,11 +201,12 @@ public class MenuController implements Initializable {
 			pagePopup = (Pane) loader.load();
 			fenetreEchange = new Stage();
 			fenetreEchange.setTitle("Les Colons de Catanes");
-			Scene scene = new Scene(pagePopup,430,500);
-			fenetreEchange.setScene(scene);
-			fenetreEchange.showAndWait();
+		    Scene scene = new Scene(pagePopup,430,500);
+		    fenetreEchange.initModality(Modality.WINDOW_MODAL);
+		    fenetreEchange.initOwner(ConnexionController.gameFenetre.getScene().getWindow());
+		    fenetreEchange.setScene(scene);
+		    fenetreEchange.showAndWait();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -457,9 +480,13 @@ public class MenuController implements Initializable {
 				controller.setValeursText(valeurs);
 				fenetreProposition = new Stage();
 				fenetreProposition.setTitle("Les Colons de Catanes");
-				Scene scene = new Scene(pagePopup,430,500);
-				fenetreProposition.setScene(scene);
-				fenetreProposition.showAndWait();
+
+			    Scene scene = new Scene(pagePopup,430,500);
+			    fenetreProposition.initModality(Modality.WINDOW_MODAL);
+			    fenetreProposition.initOwner(ConnexionController.gameFenetre.getScene().getWindow());
+			    fenetreProposition.setScene(scene);
+			    fenetreProposition.showAndWait();
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -479,11 +506,14 @@ public class MenuController implements Initializable {
 
 				VolController controller = loader.getController();
 				controller.setValeursText(maxRessource);
-				fenetreVol = new Stage();
+				fenetreVol = new Stage();				
 				fenetreVol.setTitle("Les Colons de Catanes");
-				Scene scene = new Scene(pagePopup,430,500);
-				fenetreVol.setScene(scene);
-				fenetreVol.showAndWait();
+			    Scene scene = new Scene(pagePopup,430,500);
+			    fenetreVol.setScene(scene);
+			    fenetreVol.initStyle(StageStyle.UNDECORATED);
+			    fenetreVol.initModality(Modality.WINDOW_MODAL);
+			    fenetreVol.initOwner(ConnexionController.gameFenetre.getScene().getWindow());
+			    fenetreVol.showAndWait();
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

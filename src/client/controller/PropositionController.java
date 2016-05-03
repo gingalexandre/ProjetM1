@@ -194,7 +194,7 @@ public class PropositionController implements Initializable {
 			}
 			if(this.offreDemande.get("oBle")>0){
 				serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).supprimerRessource(Ressource.BLE,this.offreDemande.get("oBle"));
-				proxy.getJoueur().ajoutRessource(Ressource.BLE,this.offreDemande.get("dBle"));
+				proxy.getJoueur().ajoutRessource(Ressource.BLE,this.offreDemande.get("oBle"));
 			}
 			if(this.offreDemande.get("oArgile")>0){
 				serveur.getGestionnairePartie().getPartie().getJoueurByName(expediteur).supprimerRessource(Ressource.ARGILE,this.offreDemande.get("oArgile"));

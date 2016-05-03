@@ -17,6 +17,7 @@ import org.codehaus.jackson.map.SerializationConfig;
 import serveur.bdd.modeleSauvegarde.PartieSauvegarde;
 import serveur.commun.Fonctions;
 import serveur.modele.Joueur;
+import serveur.modele.Plateau;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
 
@@ -42,6 +43,8 @@ public class Sauvegarde {
 	 * Objet représentatant le fichier de sortie
 	 */
 	private static File jsonOutputFile;
+	
+	private static serveur.modele.Partie partieChargee;
 
 	/**
 	 * Constructeur de la partie
@@ -173,19 +176,16 @@ public class Sauvegarde {
 			}
 			buff.close(); 
 			String res = new String(json);
-			if(partieSauvegarde.getChecksum() == Fonctions.crypte(res)){
-				// Déserialisation
-				PartieSauvegarde partieACharger = PartieSauvegarde.deserialiser(res);
-				new serveur.modele.Partie(partieACharger);
-				// TODO ENVOYER ICI LES DONNEES AUX JOUEURS CO SUR LE SERVEUR
-			}
-			else{
-				//TODO faire une popup ?
-			}
+			// Déserialisation
+			PartieSauvegarde partieACharger = PartieSauvegarde.deserialiser(res);
+			partieChargee = new serveur.modele.Partie(partieACharger);
 		}
 		catch (Exception e){
 			e.printStackTrace();
 		}
 	}
-
+	
+	public static serveur.modele.Partie getPartieChargee(){
+		return partieChargee;
+	}
 }

@@ -17,9 +17,7 @@ import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
 
 /**
- * Classe qui s'occupe des echanges concernant l'interface entre les clients et
- * le serveur
- * 
+ * Classe qui s'occupe des echanges concernant l'interface entre les clients et le serveur
  * @author jerome
  */
 public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireUIInterface {
@@ -32,7 +30,7 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	private PlateauInterface plateau;
 
 	/**
-	 * Contient la liste des joueurs connect�s au serveur
+	 * Contient la liste des joueurs connectés au serveur
 	 */
 	private ArrayList<JoueurServeur> joueurServeurs = new ArrayList<JoueurServeur>();
 
@@ -51,6 +49,14 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	}
 
 	/**
+	 * Permet d'indiquer un nouveau plateau
+	 * @param plateau - nouveau plateau
+	 */
+	public void setPlateau(PlateauInterface plateau) throws RemoteException{
+		this.plateau = plateau;
+	}
+	
+	/**
 	 * Enregistre un nouveau joueur dans la liste des joueurs
 	 * @param nouveauJoueurServeur - joueur a enregistrer
 	 */
@@ -65,6 +71,16 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	 */
 	public void envoyerPlateau(JoueurServeur proxy) throws RemoteException {
 		proxy.envoyerPlateau(this.plateau);
+	}
+	
+	/**
+	 * Permet d'envoyer le plateau à tous les joueurs
+	 * @throws RemoteException
+	 */
+	public void envoyerPlateauATousLesJoueurs() throws RemoteException {
+		for(JoueurServeur j : joueurServeurs){
+			j.envoyerPlateau(this.plateau);
+		}
 	}
 
 	/**

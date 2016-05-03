@@ -293,7 +293,7 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 			this.menuController.demanderColonie(true);
 		}
 		else {
-			this.menuController.demanderRoute(false, null);
+			//La partie est en cours ;)
 		}
 	}
 

@@ -294,4 +294,8 @@ public interface JoueurInterface extends Remote {
 	 * @throws RemoteException
      */
 	void incrementeGuerrier() throws RemoteException;
+
+	boolean checkAchat(String string) throws RemoteException;
+
+	void faireAchat(String string) throws RemoteException;
 }

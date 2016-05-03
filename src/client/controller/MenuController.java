@@ -23,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
@@ -510,6 +511,7 @@ public class MenuController implements Initializable {
 	 */
 	public void demanderRoute(boolean initPhase, VilleInterface villeIgnored){
 		try{
+			setButtons(true);
 			PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
 			// INITIALISATION
 			// Etape 1 : Création d'une map avec chaque point qui associe la ville de cet emplacement
@@ -528,8 +530,6 @@ public class MenuController implements Initializable {
 					}
 				}
 			}
-			//System.out.println(b+" "+pointsDeRoutes.size());
-			//System.out.println("!");
 			// RECHERCHES DES ROUTES CONSTRUCTIBLES
 			HashMap<Polygon, RouteInterface> routesConstructibles = new HashMap<Polygon, RouteInterface>();
 			Group grp = new Group();
@@ -615,6 +615,7 @@ public class MenuController implements Initializable {
 								serveur.getGestionnaireUI().diffuserPriseDeRoute(r, joueurCourrant);
 								int maRouteLaPlusLongue = p.calculerRouteLaPlusLongue(joueurCourrant);
 								serveur.getGestionnaireUI().diffuserMessage(new Message("La route la plus longue de "+joueurCourrant.getNomUtilisateur()+" est de "+maRouteLaPlusLongue));
+								joueurCourrant.construireRoute();
 								if(isInitTurn()){
 									setButtons(true,true,false);
 								}else{
@@ -628,6 +629,7 @@ public class MenuController implements Initializable {
 					});
 				}
 			}
+			if (!initPhase && grp.getChildren().size()==0) setButtons(false);
 			Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(grp));
 		} catch(Exception e){
 			e.printStackTrace();
@@ -758,7 +760,6 @@ public class MenuController implements Initializable {
 												i++;
 											}
 										}
-										//System.out.println();
 										if (i == 0) maFirstColo=null;
 										demanderRoute(true,maFirstColo);
 										//if (maFirstColo != null) maFirstColo.setOQP(joueurCourrant);
@@ -820,7 +821,20 @@ public class MenuController implements Initializable {
      */
 	public void piocheCarte() throws RemoteException {
 		//TODO tester si ressources sont suffisantes et les décrémentés.
-		CarteInterface carte = serveur.getGestionnairePartie().getPartie().piocheDeck();
+		JoueurInterface j = proxy.getJoueur();
+		CarteInterface carte;
+		if (j.checkAchat("Developpement")){
+			carte = serveur.getGestionnairePartie().getPartie().piocheDeck();
+			j.faireAchat("Developpement");
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Erreur détectée");
+			alert.setHeaderText("Attention vous avez essayé une action impossible.");
+			alert.setContentText("Vous ne pouvez pas piocher de carte. Vous n'avez pas les ressources");
+			alert.showAndWait();
+			return;
+		}
+		
 		if (carte != null) {
 			CarteInterface card = carte;
 			Platform.runLater(() -> {
@@ -858,11 +872,40 @@ public class MenuController implements Initializable {
 
     @FXML
     public void construireRoute() throws RemoteException{
-    	demanderRoute(false, null);
+    	JoueurInterface j = proxy.getJoueur();
+    	// Verification préalable
+    	if (j.checkAchat("Route")){
+    		demanderRoute(false, null);
+    		this.proxy.getJoueursController().majRessource();
+    		serveur.getGestionnaireUI().diffuserGainRessource();
+    		serveur.getGestionnaireUI().diffuserGainCarteRessource();
+    	}else {
+	    	Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Erreur détectée");
+			alert.setHeaderText("Attention vous avez essayé une action impossible.");
+			alert.setContentText("Vous ne pouvez pas contruire de routes. Soit vous avez atteint la limite, soit vous n'avez pas les ressources");
+			alert.showAndWait();
+    	}
     }
     
     @FXML
     public void construireColonie() throws RemoteException{
-    	demanderColonie(false);
+    	JoueurInterface j = proxy.getJoueur();
+    	//Vérification prealable
+    	if (j.checkAchat("Colonie")){
+    		demanderColonie(false);
+    		this.proxy.getJoueursController().majRessource();
+    		serveur.getGestionnaireUI().diffuserGainRessource();
+    		serveur.getGestionnaireUI().diffuserGainCarteRessource();
+    
+    	}
+    	else {
+    		Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Erreur détectée");
+			alert.setHeaderText("Attention vous avez essayé une action impossible.");
+			alert.setContentText("Vous ne pouvez pas contruire de colonie. Soit vous avez atteint la limite, soit vous n'avez pas les ressoruces");
+			alert.showAndWait();
+    	}
     }
+    
 }

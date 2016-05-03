@@ -1,12 +1,14 @@
 package test.serveur.modele;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.rmi.RemoteException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -36,18 +38,27 @@ public class TestJoueur {
 		this.joueur1.setDateDeNaissance(Date.valueOf(localDateJoueur1));
 		this.joueur1.setCouleur("rouge");
 		this.joueur1.setPret(true);
+		this.joueur1.setNbColonie(5);
+		this.joueur1.setNbVille(4);
+		this.joueur1.setNbRoute(15);
 		
 		this.joueur2 = new Joueur("Arthur");
 		this.joueur2.setId(2);
 		this.joueur2.setDateDeNaissance(Date.valueOf(localDateJoueur2));
 		this.joueur2.setCouleur("bleu");
 		this.joueur2.setPret(true);
+		this.joueur2.setNbColonie(5);
+		this.joueur2.setNbVille(4);
+		this.joueur2.setNbRoute(15);
 		
 		this.joueur3 = new Joueur("Mathieu");
 		this.joueur3.setId(3);
 		this.joueur3.setDateDeNaissance(Date.valueOf(localDateJoueur3));
 		this.joueur3.setCouleur("vert");
 		this.joueur3.setPret(false);
+		this.joueur3.setNbColonie(5);
+		this.joueur3.setNbVille(4);
+		this.joueur3.setNbRoute(15);
 	}
     
     /**
@@ -230,5 +241,36 @@ public class TestJoueur {
 		   this.joueur2.addCarte(new Chevalier());
 		   this.joueur2.addCarte(new Chevalier());
 		   assertEquals(this.joueur3.getCartes().size(), 3);
+	   }
+	   
+	   @Test
+	   public void testCheckRessources() throws RemoteException{
+		   int nbroute = joueur1.getNbRoute();
+		   joueur1.ajoutRessource(Ressource.BOIS, 1);
+		   assertFalse(joueur1.checkAchat("Route"));
+		   joueur1.ajoutRessource(Ressource.ARGILE, 1);
+		   assertTrue(joueur1.checkAchat("Route"));
+		   joueur1.construireRoute();
+		   assertTrue(nbroute==joueur1.getNbRoute()+1);
+	   }
+	   
+	   @Test
+	   public void testConstruction() throws RemoteException{
+		   HashMap<Integer,Integer> stock = joueur1.getStockRessource();
+		   joueur1.construireColonie();
+		   joueur1.construireRoute();
+		   joueur1.construireColonie();
+		   joueur1.construireRoute(); 
+		   assertEquals(stock, joueur1.getStockRessource());
+		   joueur1.getStockRessource().put(Ressource.BOIS,1);
+		   joueur1.getStockRessource().put(Ressource.ARGILE,1);
+		   if (joueur1.checkAchat("Route")) {
+			   joueur1.faireAchat("Route");
+		   }
+		   else{
+			   assertTrue(false);
+		   }
+		   assertTrue(stock.equals(joueur1.getStockRessource()));
+		   assertFalse(!stock.equals(joueur1.getStockRessource()));
 	   }
 }

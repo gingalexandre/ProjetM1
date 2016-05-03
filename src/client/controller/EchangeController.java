@@ -209,6 +209,26 @@ public class EchangeController implements Initializable {
 					envoyerPropositionJoueur(serveur.getJoueur(nomJ4));
 				}
 			}
+			
+			if(choixJoueur.getValue().equals(("Port (3 ressources contre 1 ressource)"))){
+				//echangeAvecPortSpecifique(0);
+			}
+			if(choixJoueur.getValue().equals(("Port (2 argiles contre 1 ressource)"))){
+				echangeAvecPortSpecifique(Ressource.ARGILE);
+			}
+			if(choixJoueur.getValue().equals(("Port (2 minerais contre 1 ressource)"))){
+				echangeAvecPortSpecifique(Ressource.MINERAIE);
+			}
+			if(choixJoueur.getValue().equals(("Port (2 bois contre 1 ressource)"))){
+				echangeAvecPortSpecifique(Ressource.BOIS);
+			}
+			if(choixJoueur.getValue().equals(("Port (2 blés contre 1 ressource)"))){
+				echangeAvecPortSpecifique(Ressource.BLE);
+			}
+			if(choixJoueur.getValue().equals(("Port (2 laines contre 1 ressource)"))){
+				echangeAvecPortSpecifique(Ressource.LAINE);
+			}
+		
 			if(choixJoueur.getValue().equals("Banque")){
 				echangeAvecBanque();
 			}
@@ -263,14 +283,67 @@ public class EchangeController implements Initializable {
 			}
 		}
 		
-		String message = "";
-		if(nbRessourcesEchangeables>0){
-			message = " vient de faire un échange avec la banque";
+		String message = echangeOuArnaque(nbRessourcesEchangeables, "la banque");
+		
+		recuperationGainEchange(nbRessourcesEchangeables);
+		
+		//Actualisation de l'affichage
+		this.proxy.getJoueursController().majRessource();
+		serveur.getGestionnaireUI().diffuserGainRessource();
+		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+message));
+	}
+	
+	/**
+	 * Procede à l'échange avec un port spécifique
+	 * @throws RemoteException
+	 */
+	private void echangeAvecPortSpecifique(int typePort) throws RemoteException{
+		int nbRessourceNecessaires = 0;
+		if(typePort==0){
+			nbRessourceNecessaires = 3;
 		}
 		else{
-			message = " a tenté d'arnarquer la banque";
+			nbRessourceNecessaires = 2;
 		}
 		
+		String typeOffre = "";
+		switch (typePort) {
+		case Ressource.ARGILE :
+			typeOffre = "oArgile";
+			break;
+		case Ressource.BOIS :
+			typeOffre = "oBois";
+			break;
+		case Ressource.MINERAIE :
+			typeOffre = "oMineraie";
+			break;
+		case Ressource.BLE :
+			typeOffre = "oBle";
+			break;
+		case Ressource.LAINE :
+			typeOffre = "oLaine";
+			break;
+		}
+		
+		int nbRessourcesEchangeables = 0;
+		if(offreDemande.get(typeOffre)>=nbRessourceNecessaires){
+			int nbRessEchangeable = offreDemande.get(typeOffre)/nbRessourceNecessaires;
+			nbRessourcesEchangeables = nbRessEchangeable;
+			int ressource = getTypeRessource(typeOffre);
+			proxy.getJoueur().supprimerRessource(ressource, nbRessourceNecessaires*nbRessEchangeable);
+		}
+		
+		String message = echangeOuArnaque(nbRessourcesEchangeables, "un port");
+		
+		recuperationGainEchange(nbRessourcesEchangeables);
+		
+		//Actualisation de l'affichage
+		this.proxy.getJoueursController().majRessource();
+		serveur.getGestionnaireUI().diffuserGainRessource();
+		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+message));
+	}
+	
+	private void recuperationGainEchange(int nbRessourcesEchangeables) throws RemoteException{
 		String [] listeDemandes = {"dBois", "dBle", "dArgile", "dMineraie", "dLaine"};
 		
 		while(nbRessourcesEchangeables>0){
@@ -283,10 +356,15 @@ public class EchangeController implements Initializable {
 				}
 			}
 		}
-		//Actualisation de l'affichage
-		this.proxy.getJoueursController().majRessource();
-		serveur.getGestionnaireUI().diffuserGainRessource();
-		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+message));
+	}
+	
+	private String echangeOuArnaque(int nbRessourcesEchangeables, String avecQui) throws RemoteException{
+		if(nbRessourcesEchangeables>0){
+			return " vient de faire un échange avec "+avecQui;
+		}
+		else{
+			return " a tenté d'arnarquer "+avecQui;
+		}
 	}
 	
 	/**

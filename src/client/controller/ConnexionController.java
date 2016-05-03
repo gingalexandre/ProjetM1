@@ -151,8 +151,8 @@ public class ConnexionController implements Initializable {
 					try {
 						serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur() + " s'est déconnecté de la partie"));
 						serveur.getGestionnaireUI().diffuserDepartJoueur(proxy.getJoueur());
-					} catch (RemoteException e) {
-						e.printStackTrace();
+					} catch (Exception e) {
+						System.exit(0);
 					}
 				}
 			});

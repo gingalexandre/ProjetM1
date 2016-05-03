@@ -183,6 +183,8 @@ public class MenuController implements Initializable {
 			fenetreEchange = new Stage();
 			fenetreEchange.setTitle("Les Colons de Catanes");
 		    Scene scene = new Scene(pagePopup,430,500);
+		    fenetreEchange.initModality(Modality.WINDOW_MODAL);
+		    fenetreEchange.initOwner(ConnexionController.gameFenetre.getScene().getWindow());
 		    fenetreEchange.setScene(scene);
 		    fenetreEchange.showAndWait();
 		} catch (IOException e) {
@@ -461,6 +463,8 @@ public class MenuController implements Initializable {
 				fenetreProposition = new Stage();
 				fenetreProposition.setTitle("Les Colons de Catanes");
 			    Scene scene = new Scene(pagePopup,430,500);
+			    fenetreProposition.initModality(Modality.WINDOW_MODAL);
+			    fenetreProposition.initOwner(ConnexionController.gameFenetre.getScene().getWindow());
 			    fenetreProposition.setScene(scene);
 			    fenetreProposition.showAndWait();
 			} catch (IOException e) {

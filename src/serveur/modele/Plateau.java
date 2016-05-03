@@ -47,12 +47,12 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 		setJetons();
 		ajouterVillesAuxHexagones();
 	}
-
-	public Plateau(PlateauSauvegarde plateau) throws RemoteException {
-		this.hexagones = Fonctions.transformArrayHexagone(plateau.getHexagones());
-		this.villes = Fonctions.transformArrayVille(plateau.getVilles());
-		this.routes = Fonctions.transformArrayRoute(plateau.getRoutes());
-		this.jetons = Fonctions.transformArrayJeton(plateau.getJetons());
+	
+	public void creerNouveauPlateau(PlateauSauvegarde plateauCourant) throws RemoteException {
+		this.hexagones = Fonctions.transformArrayHexagone(plateauCourant.getHexagones());
+		Plateau.villes = Fonctions.transformArrayVille(plateauCourant.getVilles());
+		this.routes = Fonctions.transformArrayRoute(plateauCourant.getRoutes());
+		this.jetons = Fonctions.transformArrayJeton(plateauCourant.getJetons());
 	}
 
 	public static long getSerialversionuid() {
@@ -185,7 +185,7 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 
 	public void setRoutes() throws RemoteException {
 		routes = new ArrayList<RouteInterface>();
-		HashMap<Point, VilleInterface> toutesLesVilles = new HashMap();
+		HashMap<Point, VilleInterface> toutesLesVilles = new HashMap<Point, VilleInterface>();
 		for (VilleInterface v : villes) {
 			toutesLesVilles.put(v.getEmplacement(), v);
 			if (v.getVille_adj1() != -1) {
@@ -383,7 +383,7 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 		return "Plateau [hexagones=" + hexagones + ", points=" + points + ", villes=" + villes + ", routes=" + routes
 				+ "]";
 	}
-
+	
 	public static ArrayList<Integer> getPortsJoueur(String nomUtilisateur) throws RemoteException {
 		ArrayList<Integer> listePortsJoueur = new ArrayList<Integer>();
 		for(VilleInterface v : villes){
@@ -395,5 +395,4 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 		}
 		return listePortsJoueur;
 	}
-
 }

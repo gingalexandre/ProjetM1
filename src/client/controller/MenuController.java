@@ -170,6 +170,26 @@ public class MenuController implements Initializable {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
+		
+		/*
+		 * Dessin des routes / villes si la partie est chargée
+		 */
+		PlateauInterface p;
+		try {
+			p = serveur.getGestionnairePartie().getPartie().getPlateau();
+			for(RouteInterface r : p.getRoutes()){
+			  	if(r.getOqp() != null){
+			  		dessinerRoute(r, r.getOqp());
+				}
+			}
+			for(VilleInterface v : p.getVilles()){
+				if(v.getOqp() != null){
+					dessinerVille(v, v.getOqp());
+				}
+			}
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -188,7 +208,6 @@ public class MenuController implements Initializable {
 		    fenetreEchange.setScene(scene);
 		    fenetreEchange.showAndWait();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

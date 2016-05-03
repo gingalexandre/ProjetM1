@@ -275,7 +275,9 @@ public class PartieSauvegarde implements Serializable {
 	public static PartieSauvegarde deserialiser(String json) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			return objectMapper.readValue(json, PartieSauvegarde.class);
+			PartieSauvegarde test = objectMapper.readValue(json, PartieSauvegarde.class);
+			
+			return test;
 		} catch (JsonParseException e) {
 			e.printStackTrace();
 		} catch (JsonMappingException e) {

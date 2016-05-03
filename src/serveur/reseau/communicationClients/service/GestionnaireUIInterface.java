@@ -23,6 +23,12 @@ public interface GestionnaireUIInterface extends Remote{
 	PlateauInterface getPlateau() throws RemoteException;
 	
 	/**
+	 * Permet d'indiquer un nouveau plateau
+	 * @param plateau - nouveau plateau
+	 */
+	void setPlateau(PlateauInterface plateau) throws RemoteException;
+	
+	/**
 	 * Enregistre un nouveau joueur dans la liste des joueurs
 	 * @param nouveauJoueurServeur - joueur a enregistrer
 	 */
@@ -34,6 +40,12 @@ public interface GestionnaireUIInterface extends Remote{
 	 * @throws RemoteException 
 	 */
 	void envoyerPlateau(JoueurServeur proxy) throws RemoteException;
+	
+	/**
+	 * Permet d'envoyer le plateau à tous les joueurs
+	 * @throws RemoteException
+	 */
+	void envoyerPlateauATousLesJoueurs() throws RemoteException;
 	
 	/**
 	 * Diffuse un message envoyé par un joueur a tous les autre joueurServeurs

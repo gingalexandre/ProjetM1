@@ -121,7 +121,7 @@ public class Partie {
 			Utilisateur user;
 			user = Utilisateur.getJoueurByName(joueur.getNomUtilisateur());
 			Partie partie = Partie.getPartieByPath(path);
-			Jouer jouer = new Jouer(user.getId(),partie.getIdPartie());
+			Jouer jouer = new Jouer(user.getId(), partie.getIdPartie());
 			jouer.insererJouer();
 
 		}

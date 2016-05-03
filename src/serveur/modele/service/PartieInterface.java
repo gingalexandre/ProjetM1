@@ -10,6 +10,11 @@ import serveur.modele.Ressource;
 public interface PartieInterface extends Remote {
 
 	/**
+	 * @return la liste de tous les joueur
+	 */
+	ArrayList<JoueurInterface> getTousLesJoueurs() throws RemoteException;
+	
+	/**
 	 * Permet de récupérer un joueur participant à la partie
 	 * @return le joueur 1
 	 * @throws RemoteException
@@ -65,6 +70,18 @@ public interface PartieInterface extends Remote {
 	 */
 	void setJoueur4(JoueurInterface joueur4) throws RemoteException;
 
+	/**
+	 * Permet de savoir si la partie a été chargée ou non
+	 * @return true si la partie a été chargée, false sinon
+	 */
+	boolean isChargee() throws RemoteException;
+	
+	/**
+	 * Permet d'indiquer si la partie a été chargée ou non
+	 * @param chargee 
+	 */
+	void setChargee(boolean charge) throws RemoteException;
+	
 	/**
 	 * Getter du boolean pour savoir si la partie à commencé
 	 * @return booléen

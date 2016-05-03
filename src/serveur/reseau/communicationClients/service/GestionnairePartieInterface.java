@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import exception.TooMuchPlayerException;
+import serveur.modele.Partie;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PartieInterface;
 import serveur.reseau.proxy.JoueurServeur;
@@ -108,12 +109,21 @@ public interface GestionnairePartieInterface extends Remote {
 
 	/**
 	 * Permet de supprimer un Joueur dans la partie
-	 * 
-	 * @param joueurSupprime
-	 *            JoueurInterface : joueur à supprimer
+	 * @param joueurSupprime - joueur à supprimer
 	 * @throws RemoteException
 	 */
 	void supprimerJoueur(JoueurInterface joueurSupprime) throws RemoteException;
 
+	/**
+	 * Permet de supprimer un joueur de la liste des joueurs
+	 * @param joueur
+	 * @throws RemoteException
+	 */
 	void supprimerJoueur(JoueurServeur joueur) throws RemoteException;
+
+	/**
+	 * Permet de récupérer la partie d'une partie chargée
+	 * @return 
+	 */
+	PartieInterface recupererPartieChargee() throws RemoteException;
 }

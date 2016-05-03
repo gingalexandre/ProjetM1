@@ -36,7 +36,6 @@ public class ChargementController implements Initializable{
 			e.printStackTrace();
 		}
 		listePartie.getItems().addAll(listeIdPartieSauvegarde);
-		
 	}
 	
 	/**
@@ -46,7 +45,6 @@ public class ChargementController implements Initializable{
 	 */
 	public void chargerPartie() throws RemoteException, InterruptedException {
 		Integer idPartie = listePartie.getValue();
-		serveur.getGestionnaireBDD().chargerPartie(idPartie);
+		serveur.chargerPartie(idPartie);
 	}
-
 }

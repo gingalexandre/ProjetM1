@@ -5,6 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import exception.TooMuchPlayerException;
+import serveur.bdd.modeleBDD.Sauvegarde;
 import serveur.bdd.modeleBDD.Statistiques;
 import serveur.modele.Message;
 import serveur.modele.Partie;
@@ -95,21 +96,23 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	 * @throws TooMuchPlayerException
 	 */
 	public void ajouterJoueurPartie(JoueurInterface nouveauJoueur) throws RemoteException{
-		switch(this.joueursServeur.size()){
-			case 1:
-				partie.setJoueur1(nouveauJoueur);
-				break;
-			case 2:
-				partie.setJoueur2(nouveauJoueur);
-				break;
-			case 3:
-				partie.setJoueur3(nouveauJoueur);
-				break;
-			case 4:
-				partie.setJoueur4(nouveauJoueur);
-				break;
-			default: 
-				break;
+		if(!this.partie.isChargee()){
+			switch(this.joueursServeur.size()){
+				case 1:
+					partie.setJoueur1(nouveauJoueur);
+					break;
+				case 2:
+					partie.setJoueur2(nouveauJoueur);
+					break;
+				case 3:
+					partie.setJoueur3(nouveauJoueur);
+					break;
+				case 4:
+					partie.setJoueur4(nouveauJoueur);
+					break;
+				default: 
+					break;
+			}
 		}
 	}
 
@@ -147,6 +150,11 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 				tousJoueursPrets = false;
 			}
 		}
+		for(JoueurInterface joueur : this.partie.getTousLesJoueurs()){
+			if(!joueur.getPret()){
+				tousJoueursPrets = false;
+			}
+		}
 		// Tous les joueurs sont prets, la partie peut debuter
 		if(tousJoueursPrets && partie.getNombreJoueurs() >= 3){
 			commencerPartie();
@@ -159,23 +167,31 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	 */
 	private void commencerPartie() throws RemoteException {
 		getPartie().arrangerOrdreTour();
-		JoueurInterface joueurPlusVieux = partie.getJoueurLePlusVieux();
-		for(JoueurServeur joueurServeur : joueursServeur){
-			joueurServeur.recevoirMessage(new Message("La partie a commence !\nComme c'est le plus âgé, c'est à "+joueurPlusVieux.getNomUtilisateur()+" de jouer."));
+		JoueurInterface joueur;
+		Message message;
+		if(this.partie.isChargee()){
+			joueur = this.partie.getJoueurTour();
+			message = new Message("La partie reprend son cours !\nC'est à "+joueur.getNomUtilisateur()+" de jouer");
 		}
-		
-		lancerTourPremierJoueur(joueurPlusVieux);
+		else{
+			joueur = this.partie.getJoueurLePlusVieux();
+			message = new Message("La partie a commence !\nComme c'est le plus âgé, c'est à "+joueur.getNomUtilisateur()+" de jouer.");
+		}
+		for(JoueurServeur joueurServeur : joueursServeur){
+			joueurServeur.recevoirMessage(message);
+		}
+		lancerTourPremierJoueur(joueur);
 	}
 
 	/**
-	 * Lance le tour du premier joueur, le plus vieux
+	 * Lance le tour du joueur correspondant
 	 * @throws RemoteException 
 	 */
-	private void lancerTourPremierJoueur(JoueurInterface joueurPlusVieux) throws RemoteException {
+	private void lancerTourPremierJoueur(JoueurInterface joueurAjouer) throws RemoteException {
 		partie.setPartieCommence(true);
 		for(JoueurServeur joueurServeur : joueursServeur){
 			// On compare sur le nom d'utilisateur qui est unique
-			if(joueurPlusVieux.getNomUtilisateur().equals(joueurServeur.getJoueur().getNomUtilisateur())){
+			if(joueurAjouer.getNomUtilisateur().equals(joueurServeur.getJoueur().getNomUtilisateur())){
 				joueurServeur.setButtons(false);
 				joueurServeur.lancerTour();
 			}
@@ -274,6 +290,31 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	@Override
 	public void supprimerJoueur(JoueurServeur joueur) {
 		this.joueursServeur.remove(joueur);
+	}
+
+	/**
+	 * Permet de récupérer la partie d'une partie chargée
+	 */
+	@Override
+	public PartieInterface recupererPartieChargee() throws RemoteException{
+		this.partie = Sauvegarde.getPartieChargee();
+		this.partie.setChargee(true);
+		this.partie.setPartieCommence(false);
+		enleverJoueursPrets();
+		return this.partie;
+	}
+
+	/**
+	 * Mets l'attributs pret des joueurs de la partie à false
+	 * @throws RemoteException 
+	 */
+	private void enleverJoueursPrets() throws RemoteException {
+		this.partie.getJoueur1().setPret(false);
+		this.partie.getJoueur2().setPret(false);
+		this.partie.getJoueur3().setPret(false);
+		if(this.partie.getJoueur4() != null){
+			this.partie.getJoueur4().setPret(false);
+		}
 	}
 	
 }

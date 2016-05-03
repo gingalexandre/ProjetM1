@@ -631,34 +631,29 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	 * @param str Objet acheter etant dans l'ensemble suivant {"Route" | "Ville" | "Colonie" | "Developpement"}
 	 */
 	public void faireAchat(String str) throws RemoteException{
-		int nbble = stockRessource.get(Ressource.BLE);
-		int nbcaillou = stockRessource.get(Ressource.MINERAIE);
-		int nblaine = stockRessource.get(Ressource.LAINE);
-		int nbbois = stockRessource.get(Ressource.BOIS);
-		int nbargile = stockRessource.get(Ressource.ARGILE);
 		switch (str){
 		case "Route":
 			// Bois + argile
-			stockRessource.put(Ressource.ARGILE,nbargile-1);
-			stockRessource.put(Ressource.BOIS,nbbois-1);
+			this.supprimerRessource(Ressource.ARGILE, 1);
+			this.supprimerRessource(Ressource.BOIS, 1);
 			break;
 		case "Ville":
 			//2 blé 3 pierre
-			stockRessource.put(Ressource.BLE,nbble-2);
-			stockRessource.put(Ressource.MINERAIE,nbcaillou-3);
+			this.supprimerRessource(Ressource.BLE, 2);
+			this.supprimerRessource(Ressource.MINERAIE, 3);
 			break;
 		case "Colonie":
 			//bois argile blé laine
-			stockRessource.put(Ressource.ARGILE,nbargile-1);
-			stockRessource.put(Ressource.BOIS,nbbois-1);
-			stockRessource.put(Ressource.BLE,nbble-1);
-			stockRessource.put(Ressource.LAINE,nblaine-1);
+			this.supprimerRessource(Ressource.BLE, 1);
+			this.supprimerRessource(Ressource.ARGILE, 1);
+			this.supprimerRessource(Ressource.BOIS, 1);
+			this.supprimerRessource(Ressource.LAINE, 1);
 			break;
 		case "Developpement":
 			//blé caillou laine
-			stockRessource.put(Ressource.LAINE,nblaine-1);
-			stockRessource.put(Ressource.BLE,nbble-1);
-			stockRessource.put(Ressource.MINERAIE,nbcaillou-1);
+			this.supprimerRessource(Ressource.LAINE, 1);
+			this.supprimerRessource(Ressource.BLE, 1);
+			this.supprimerRessource(Ressource.MINERAIE, 1);
 		}
 	}
 

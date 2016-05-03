@@ -211,7 +211,7 @@ public class EchangeController implements Initializable {
 			}
 			
 			if(choixJoueur.getValue().equals(("Port (3 ressources contre 1 ressource)"))){
-				//echangeAvecPortSpecifique(0);
+				echangeAvecPortUniversel();
 			}
 			if(choixJoueur.getValue().equals(("Port (2 argiles contre 1 ressource)"))){
 				echangeAvecPortSpecifique(Ressource.ARGILE);
@@ -284,6 +284,29 @@ public class EchangeController implements Initializable {
 		}
 		
 		String message = echangeOuArnaque(nbRessourcesEchangeables, "la banque");
+		
+		recuperationGainEchange(nbRessourcesEchangeables);
+		
+		//Actualisation de l'affichage
+		this.proxy.getJoueursController().majRessource();
+		serveur.getGestionnaireUI().diffuserGainRessource();
+		serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur()+message));
+	}
+	
+	private void echangeAvecPortUniversel() throws RemoteException{
+		int nbRessourcesEchangeables = 0;
+		String [] listeOffres = {"oBois", "oBle", "oArgile", "oMineraie", "oLaine"};
+		
+		for(String typeOffre : listeOffres){
+			if(offreDemande.get(typeOffre)>=3){
+				int nbRessEchangeableCourrant = offreDemande.get(typeOffre)/3;
+				nbRessourcesEchangeables += nbRessEchangeableCourrant;
+				int ressource = getTypeRessource(typeOffre);
+				proxy.getJoueur().supprimerRessource(ressource, 3*nbRessEchangeableCourrant);
+			}
+		}
+		
+		String message = echangeOuArnaque(nbRessourcesEchangeables, "un port");
 		
 		recuperationGainEchange(nbRessourcesEchangeables);
 		

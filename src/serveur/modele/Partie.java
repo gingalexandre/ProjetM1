@@ -118,6 +118,26 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	public Partie() throws RemoteException{};
 	
 	/**
+	 * @return la liste de tous les joueur
+	 */
+	public ArrayList<JoueurInterface> getTousLesJoueurs() throws RemoteException{
+		ArrayList<JoueurInterface> aRetourner = new ArrayList<JoueurInterface>();
+		if(this.joueur1 != null){
+			aRetourner.add(joueur1);
+		}
+		if(this.joueur2 != null){
+			aRetourner.add(joueur2);
+		}
+		if(this.joueur3 != null){
+			aRetourner.add(joueur3);
+		}
+		if(this.joueur4 != null){
+			aRetourner.add(joueur4);
+		}
+		return aRetourner;
+	}
+	
+	/**
 	 * Permet de récupérer un joueur participant à la partie
 	 * @return le joueur 1
 	 * @throws RemoteException

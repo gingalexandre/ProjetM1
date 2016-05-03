@@ -10,6 +10,7 @@ import serveur.bdd.modeleBDD.Sauvegarde;
 import serveur.modele.Joueur;
 import serveur.modele.Message;
 import serveur.modele.service.JoueurInterface;
+import serveur.modele.service.PartieInterface;
 import serveur.reseau.communicationClients.gestionnaire.GestionnaireBDD;
 import serveur.reseau.communicationClients.gestionnaire.GestionnairePartie;
 import serveur.reseau.communicationClients.gestionnaire.GestionnaireUI;
@@ -19,7 +20,7 @@ import serveur.reseau.communicationClients.service.GestionnaireUIInterface;
 import serveur.reseau.proxy.JoueurServeur;
 
 /**
- * Classe impl�mentant le serveur, qui communique avec les proxy
+ * Classe implémentant le serveur, qui communique avec les proxy
  * @author jerome
  */
 public class ServeurImpl extends UnicastRemoteObject implements Serveur {
@@ -65,36 +66,82 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	/**
 	 * Enregistre un joueur sur le serveur
 	 * @param nouveauJoueurServeur - joueur a ajouter
+	 * @param nom - nom du joueur
+	 * @param date - date de naissance du joueur
+	 * @return true si le joueur a été enregistré, false sinon
 	 * @throws RemoteException
 	 * @throws TooMuchPlayerException
 	 */
 	@Override
-	public void enregistrerJoueur(JoueurServeur nouveauJoueurServeur, String nom, Date date) throws RemoteException, TooMuchPlayerException{
+	public boolean enregistrerJoueur(JoueurServeur nouveauJoueurServeur, String nom, Date date) throws RemoteException, TooMuchPlayerException{
 		if(joueurServeurs.size() < nombre_max_joueurs){
-			JoueurInterface joueur = new Joueur(nom, date);
-			joueurServeurs.add(nouveauJoueurServeur);
-			switch(joueurServeurs.size()){
-				case 1:
-					joueur.setCouleur("rouge");
-					break;
-				case 2:
-					joueur.setCouleur("bleu");
-					break;
-				case 3:
-					joueur.setCouleur("vert");
-					break;
-				case 4:
-					joueur.setCouleur("orange");
-					break;
-				default: 
-					break;
+			if(this.gestionnairePartie.getPartie().isChargee()){
+				return enregistrerJoueurPartieChargee(nouveauJoueurServeur, nom);	
 			}
-			nouveauJoueurServeur.setJoueur(joueur);
-			envoyerJoueurAuGestionnaire(nouveauJoueurServeur);
+			else{
+				return enregistrerJoueurPartieNonChargee(nouveauJoueurServeur, nom, date);
+			}
 		}
 		else{
 			throw new TooMuchPlayerException("Connexion impossible. Il y a deja "+nombre_max_joueurs+" joueurs connectes sur le serveur.");
 		}
+	}
+
+	/**
+	 * Enregistre un joueur pour une partie chargée
+	 * @param nouveauJoueurServeur 
+	 * @param nom - nom du joueur 
+	 * @throws RemoteException
+	 */
+	private boolean enregistrerJoueurPartieChargee(JoueurServeur nouveauJoueurServeur, String nom) throws RemoteException {
+		ArrayList<JoueurInterface> listeJoueurs = this.gestionnairePartie.getPartie().getTousLesJoueurs();
+		JoueurInterface j = null;
+		boolean trouve = false;
+		for(JoueurInterface joueur : listeJoueurs){
+			if(nom.equals(joueur.getNomUtilisateur())){
+				trouve = true;
+				j = joueur;
+			}
+		}
+		if(trouve){
+			joueurServeurs.add(nouveauJoueurServeur);
+			nouveauJoueurServeur.setJoueur(j);
+			envoyerJoueurAuGestionnaire(nouveauJoueurServeur);
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	/**
+	 * Enregistre un joueur pour une partie non chargée
+	 * @param nouveauJoueurServeur
+	 * @param nom - nom du joueur
+	 * @param date
+	 * @throws RemoteException
+	 */
+	private boolean enregistrerJoueurPartieNonChargee(JoueurServeur nouveauJoueurServeur, String nom, Date date) throws RemoteException {
+		JoueurInterface joueur = new Joueur(nom, date);
+		joueurServeurs.add(nouveauJoueurServeur);
+		switch(joueurServeurs.size()){
+			case 1:
+				joueur.setCouleur("rouge");
+				break;
+			case 2:
+				joueur.setCouleur("bleu");
+				break;
+			case 3:
+				joueur.setCouleur("vert");
+				break;
+			case 4:
+				joueur.setCouleur("orange");
+				break;
+			default: 
+				break;
+		}
+		nouveauJoueurServeur.setJoueur(joueur);
+		envoyerJoueurAuGestionnaire(nouveauJoueurServeur);
+		return true;
 	}
 	
 	/**
@@ -221,5 +268,18 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 		this.joueurServeurs.remove(joueur);
 		this.getGestionnairePartie().supprimerJoueur(joueur);
 		this.getGestionnaireUI().supprimerJoueur(joueur);
+	}
+
+	/**
+	 * Charge la partie 
+	 * @param idPartie - id de la partie chargée
+	 * @throws InterruptedException 
+	 * @throws RemoteException 
+	 */
+	@Override
+	public void chargerPartie(Integer idPartie) throws RemoteException, InterruptedException {
+		this.gestionnaireBDD.chargerPartie(idPartie);
+		PartieInterface partieChargee = this.gestionnairePartie.recupererPartieChargee();
+		this.gestionnaireUI.setPlateau(partieChargee.getPlateau());
 	}
 }

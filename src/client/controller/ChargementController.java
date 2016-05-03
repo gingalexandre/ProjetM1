@@ -9,8 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import serveur.modele.Partie;
-import serveur.modele.service.PartieInterface;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
 
@@ -48,8 +46,6 @@ public class ChargementController implements Initializable{
 	 */
 	public void chargerPartie() throws RemoteException, InterruptedException {
 		Integer idPartie = listePartie.getValue();
-		serveur.getGestionnaireBDD().chargerPartie(idPartie);
-		PartieInterface partieChargee = serveur.getGestionnairePartie().recupererPartieChargee();
-		serveur.getGestionnaireUI().setPlateau(partieChargee.getPlateau());
+		serveur.chargerPartie(idPartie);
 	}
 }

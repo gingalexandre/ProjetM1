@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import exception.TooMuchPlayerException;
 import serveur.modele.service.JoueurInterface;
+import serveur.modele.service.PartieInterface;
 import serveur.reseau.communicationClients.service.GestionnaireBDDInterface;
 import serveur.reseau.communicationClients.service.GestionnairePartieInterface;
 import serveur.reseau.communicationClients.service.GestionnaireUIInterface;
@@ -32,12 +33,15 @@ public interface Serveur extends Remote{
 	JoueurServeur getJoueur(String nomJoueur) throws RemoteException;
 	
 	/**
-	 * Enregistre un joueur au serveur
-	 * @param communication
+	 * Enregistre un joueur sur le serveur
+	 * @param nouveauJoueurServeur - joueur a ajouter
+	 * @param nom - nom du joueur
+	 * @param date - date de naissance du joueur
+	 * @return true si le joueur a été enregistré, false sinon
 	 * @throws RemoteException
 	 * @throws TooMuchPlayerException
 	 */
-	void enregistrerJoueur(JoueurServeur joueurServeur, String nom, Date date) throws RemoteException, TooMuchPlayerException;
+	boolean enregistrerJoueur(JoueurServeur joueurServeur, String nom, Date date) throws RemoteException, TooMuchPlayerException;
 	
 	/**
 	 * Enregistre la partie
@@ -86,4 +90,10 @@ public interface Serveur extends Remote{
      * @throws RemoteException
      */
     void quitterPartie(JoueurInterface nomJoueur) throws RemoteException;
+
+	/**
+	 * Charge la partie 
+	 * @param idPartie - id de la partie chargée
+	 */
+	void chargerPartie(Integer idPartie) throws RemoteException, InterruptedException;
 }

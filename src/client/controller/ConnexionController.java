@@ -171,7 +171,7 @@ public class ConnexionController implements Initializable {
 	public void enregistrerJoueur(String nomJoueur, Date date) throws RemoteException, TooMuchPlayerException {
 		// Enregistrement du joueur sur le serveur
 		serveur.enregistrerJoueur(this.proxy, nomJoueur, date);
-		// Set le nom du joueur. Pour recuperer le joueur n'importe a (et donc
+		// Set le nom du joueur. Pour recuperer le joueur n'importe où (et donc
 		// ses attributs), passer par proxy.getJoueur()
 		this.proxy.getJoueur().setNomUtilisateur(nomJoueur);
 		this.proxy.getJoueur().setDateDeNaissance(date);
@@ -190,32 +190,38 @@ public class ConnexionController implements Initializable {
 	/**
 	 * Permet l'ouverture de la fenêtre permettant de choisir une partie à charger
 	 * @throws InterruptedException
+	 * @throws RemoteException 
 	 */
-	public void ouvrirFenetreChargerPartie() throws InterruptedException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/ChargementPartie.fxml"));
-		try {
-			boolean connexionOk = serveur.getGestionnaireBDD().verificationConnexion(nomUtilisateur.getText(),
-					Fonction.crypte(mdp.getText()));
-			if (connexionOk) {
-				nomJoueur = nomUtilisateur.getText();
-				pageChargementPartie = (Pane) loader.load();
-
-				ArrayList<Integer> listeIdPartieSauvegarde = serveur.getGestionnaireBDD()
-						.recupererPartieByName(nomUtilisateur.getText());
-				if (listeIdPartieSauvegarde != null && listeIdPartieSauvegarde.size() > 0) {
-					fenetreChargementPartie = new Stage();
-					fenetreChargementPartie.setTitle("Les Colons de Catanes");
-					Scene scene = new Scene(pageChargementPartie, 430, 500);
-					fenetreChargementPartie.setScene(scene);
-					fenetreChargementPartie.showAndWait();
+	public void ouvrirFenetreChargerPartie() throws InterruptedException, RemoteException {
+		if(!serveur.getGestionnairePartie().getPartie().isChargee()){
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/ChargementPartie.fxml"));
+			try {
+				boolean connexionOk = serveur.getGestionnaireBDD().verificationConnexion(nomUtilisateur.getText(),
+						Fonction.crypte(mdp.getText()));
+				if (connexionOk) {
+					nomJoueur = nomUtilisateur.getText();
+					pageChargementPartie = (Pane) loader.load();
+	
+					ArrayList<Integer> listeIdPartieSauvegarde = serveur.getGestionnaireBDD()
+							.recupererPartieByName(nomUtilisateur.getText());
+					if (listeIdPartieSauvegarde != null && listeIdPartieSauvegarde.size() > 0) {
+						fenetreChargementPartie = new Stage();
+						fenetreChargementPartie.setTitle("Les Colons de Catanes");
+						Scene scene = new Scene(pageChargementPartie, 430, 500);
+						fenetreChargementPartie.setScene(scene);
+						fenetreChargementPartie.showAndWait();
+					} else {
+						utilisateurErreur.setText("Erreur, aucune partie sauvegardée.");
+					}
 				} else {
-					utilisateurErreur.setText("Erreur, aucune partie sauvegardée.");
+					utilisateurErreur.setText("Erreur, utilisateur inconnu, inscrivez-vous.");
 				}
-			} else {
-				utilisateurErreur.setText("Erreur, utilisateur inconnu, inscrivez-vous.");
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		}
+		else{
+			utilisateurErreur.setText("Une partie chargée est déjà sur le serveur, vous ne pouvez pas en charger une autre.");
 		}
 	}
 }

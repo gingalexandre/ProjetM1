@@ -10,6 +10,11 @@ import serveur.modele.Ressource;
 public interface PartieInterface extends Remote {
 
 	/**
+	 * @return la liste de tous les joueur
+	 */
+	ArrayList<JoueurInterface> getTousLesJoueurs() throws RemoteException;
+	
+	/**
 	 * Permet de récupérer un joueur participant à la partie
 	 * @return le joueur 1
 	 * @throws RemoteException

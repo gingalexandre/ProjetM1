@@ -36,7 +36,6 @@ public class ChargementController implements Initializable{
 			e.printStackTrace();
 		}
 		listePartie.getItems().addAll(listeIdPartieSauvegarde);
-		
 	}
 	
 	/**

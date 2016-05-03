@@ -105,7 +105,7 @@ public class ConnexionController implements Initializable {
 	 */
 	@FXML
 	public void connexion() throws RemoteException, InterruptedException, TooMuchPlayerException {
-	//	if(!serveur.getGestionnairePartie().getPartie().isPartieCommence() || serveur.getGestionnairePartie().getPartie().isChargee()){ // La partie a pas commencé, le joueur peut se connecter tranquille
+		if(!serveur.getGestionnairePartie().getPartie().isPartieCommence()){ // La partie a pas commencé, le joueur peut se connecter tranquille
 			ArrayList<JoueurServeur> listeJoueurs = new ArrayList<JoueurServeur>();
 			boolean connexionOk = false;
 			try {
@@ -129,9 +129,9 @@ public class ConnexionController implements Initializable {
 					utilisateurErreur.setText("Erreur, utilisateur inconnu, inscrivez-vous.");
 				}
 			}
-		//}else{
-		//	utilisateurErreur.setText("Désolé ! La partie a déjà commencé.");
-		//}
+		}else{
+			utilisateurErreur.setText("Désolé ! La partie a déjà commencé.");
+		}
 	}
 
 	/**
@@ -170,11 +170,15 @@ public class ConnexionController implements Initializable {
 	 */
 	public void enregistrerJoueur(String nomJoueur, Date date) throws RemoteException, TooMuchPlayerException {
 		// Enregistrement du joueur sur le serveur
-		serveur.enregistrerJoueur(this.proxy, nomJoueur, date);
-		// Set le nom du joueur. Pour recuperer le joueur n'importe où (et donc
-		// ses attributs), passer par proxy.getJoueur()
-		this.proxy.getJoueur().setNomUtilisateur(nomJoueur);
-		this.proxy.getJoueur().setDateDeNaissance(date);
+		if(!serveur.enregistrerJoueur(this.proxy, nomJoueur, date)){
+			utilisateurErreur.setText("Vous ne faîtes pas partie de la partie chargée qui est en cours.");
+		}
+		else{
+			// Set le nom du joueur. Pour recuperer le joueur n'importe où (et donc
+			// ses attributs), passer par proxy.getJoueur()
+			this.proxy.getJoueur().setNomUtilisateur(nomJoueur);
+			this.proxy.getJoueur().setDateDeNaissance(date);
+		}
 	}
 
 	/**

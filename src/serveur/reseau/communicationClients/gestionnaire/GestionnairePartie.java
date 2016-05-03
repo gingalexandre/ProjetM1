@@ -150,6 +150,11 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 				tousJoueursPrets = false;
 			}
 		}
+		for(JoueurInterface joueur : this.partie.getTousLesJoueurs()){
+			if(!joueur.getPret()){
+				tousJoueursPrets = false;
+			}
+		}
 		// Tous les joueurs sont prets, la partie peut debuter
 		if(tousJoueursPrets && partie.getNombreJoueurs() >= 3){
 			commencerPartie();
@@ -296,6 +301,7 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	public PartieInterface recupererPartieChargee() throws RemoteException{
 		this.partie = Sauvegarde.getPartieChargee();
 		this.partie.setChargee(true);
+		this.partie.setPartieCommence(false);
 		enleverJoueursPrets();
 		return this.partie;
 	}

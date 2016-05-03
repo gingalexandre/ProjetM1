@@ -53,10 +53,19 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	private GestionnaireUIInterface gestionnaireUI;
 	
 	/**
+	 * Stocke la liste des couleurs
+	 */
+	private ArrayList<String> listeCouleurs = new ArrayList<String>();
+	
+	/**
 	 * Constructeur de la classe ServeurImpl
 	 * @throws RemoteException
 	 */
 	public ServeurImpl(int nombre_max_joueurs) throws RemoteException{
+		this.listeCouleurs.add("bleu");
+		this.listeCouleurs.add("vert");
+		this.listeCouleurs.add("orange");
+		this.listeCouleurs.add("rouge");
 		this.nombre_max_joueurs = nombre_max_joueurs;
 		gestionnaireBDD = new GestionnaireBDD();
 		gestionnaireUI = new GestionnaireUI();
@@ -123,21 +132,23 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	private boolean enregistrerJoueurPartieNonChargee(JoueurServeur nouveauJoueurServeur, String nom, Date date) throws RemoteException {
 		JoueurInterface joueur = new Joueur(nom, date);
 		joueurServeurs.add(nouveauJoueurServeur);
-		switch(joueurServeurs.size()){
-			case 1:
-				joueur.setCouleur("rouge");
-				break;
-			case 2:
-				joueur.setCouleur("bleu");
-				break;
-			case 3:
-				joueur.setCouleur("vert");
-				break;
-			case 4:
-				joueur.setCouleur("orange");
-				break;
-			default: 
-				break;
+		String couleur = this.listeCouleurs.get(0);
+		// Dans le cas où la couleur est rouge, seul le 4ème Joueur peut l'avoir
+		if(couleur.equals("rouge")){
+			if(this.listeCouleurs.size() == 4){
+				joueur.setCouleur(couleur);
+				this.listeCouleurs.remove(0);
+			}
+			else{
+				this.listeCouleurs.remove(0);
+				joueur.setCouleur(this.listeCouleurs.get(0));
+				this.listeCouleurs.remove(0);
+				this.listeCouleurs.add("rouge");
+			}
+		}
+		else{
+			joueur.setCouleur(this.listeCouleurs.get(0));
+			this.listeCouleurs.remove(0);
 		}
 		nouveauJoueurServeur.setJoueur(joueur);
 		envoyerJoueurAuGestionnaire(nouveauJoueurServeur);
@@ -231,7 +242,11 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	public void supprimerJoueur(JoueurInterface joueurASupprimer) throws RemoteException{
 		for(JoueurServeur js : joueurServeurs){
 			if(js.getJoueur().getNomUtilisateur().equals(joueurASupprimer.getNomUtilisateur())){
+				this.gestionnairePartie.supprimerJoueur(js);
+				this.listeCouleurs.add(js.getJoueur().getCouleur());
 				joueurServeurs.remove(js);
+				this.getGestionnairePartie().supprimerJoueur(js);
+				this.getGestionnaireUI().supprimerJoueur(js);
 				break;
 			}
 		}
@@ -265,6 +280,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 * @throws RemoteException
 	 */
 	private void supprimerJoueurQuitterPartie(JoueurServeur joueur) throws RemoteException{
+		this.listeCouleurs.add(joueur.getJoueur().getCouleur());
 		this.joueurServeurs.remove(joueur);
 		this.getGestionnairePartie().supprimerJoueur(joueur);
 		this.getGestionnaireUI().supprimerJoueur(joueur);

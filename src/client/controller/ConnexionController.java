@@ -145,12 +145,14 @@ public class ConnexionController implements Initializable {
 			gameFenetre.setTitle("Les Colons de Catanes");
 			Scene scene = new Scene(page, 0, 0);
 			gameFenetre.setScene(scene);
+			gameFenetre.setMaximized(true);
 			VuePrincipale.stagePrincipal.close();
 			gameFenetre.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent we) {
 					try {
 						serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur() + " s'est déconnecté de la partie"));
 						serveur.getGestionnaireUI().diffuserDepartJoueur(proxy.getJoueur());
+						System.exit(0);
 					} catch (RemoteException e) {
 						e.printStackTrace();
 					}

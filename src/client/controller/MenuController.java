@@ -646,6 +646,9 @@ public class MenuController implements Initializable {
 								serveur.getGestionnaireUI().diffuserPriseDeRoute(r, joueurCourrant);
 								int maRouteLaPlusLongue = p.calculerRouteLaPlusLongue(joueurCourrant);
 								joueurCourrant.construireRoute();
+								proxy.getJoueursController().majRessource();
+					    		serveur.getGestionnaireUI().diffuserGainRessource(); // A voir si on peut supprimer
+					    		serveur.getGestionnaireUI().diffuserGainCarteRessource();
 								serveur.getGestionnaireUI().diffuserMessage(new Message("La route la plus longue de "+joueurCourrant.getNomUtilisateur()+" est de "+maRouteLaPlusLongue+"."));
                                 if(maRouteLaPlusLongue>= LongueRoute.NB_ROUTE_MINIMAL){
                                     joueurCourrant.setTailleroutemax(maRouteLaPlusLongue);
@@ -786,6 +789,9 @@ public class MenuController implements Initializable {
 									VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
 									serveur.getGestionnaireUI().diffuserPriseDeVille(v, joueurCourrant);
 									joueurCourrant.faireAchat("Colonie");
+									proxy.getJoueursController().majRessource();
+						    		serveur.getGestionnaireUI().diffuserGainRessource(); // A voir si on peut supprimer
+						    		serveur.getGestionnaireUI().diffuserGainCarteRessource();
 									setButtons(false);
 									if(isInitTurn()){
 										setButtons(true,true,false);
@@ -956,9 +962,6 @@ public class MenuController implements Initializable {
     	//Vérification prealable
     	if (j.checkAchat("Colonie")){
     		demanderColonie(false);
-    		this.proxy.getJoueursController().majRessource();
-    		serveur.getGestionnaireUI().diffuserGainRessource();
-    		serveur.getGestionnaireUI().diffuserGainCarteRessource();
     	}
     	else {
     		popErreur("Vous ne pouvez pas contruire de colonie. Soit vous avez atteint la limite, soit vous n'avez pas les ressoruces");

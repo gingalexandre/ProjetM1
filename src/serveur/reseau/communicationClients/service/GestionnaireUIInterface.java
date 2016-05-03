@@ -135,6 +135,12 @@ public interface GestionnaireUIInterface extends Remote{
 	public void updateArmeePuissante() throws  RemoteException ;
 
 	/**
+	 * Permet la mise a jour de la carte route longue.
+	 * @throws RemoteException
+	 */
+	public void updateRouteLongue() throws  RemoteException;
+
+	/**
 	 * Permet de monopoliser une ressource
 	 * @param ressource_visee
 	 * @throws RemoteException

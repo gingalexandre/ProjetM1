@@ -330,6 +330,42 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
             }
         }
     }
+    /**
+     * permet de vérifier si le joueur a l'armée la plus puissante.
+     * @param joueur
+     * @throws RemoteException
+     */
+    public void verificationRouteLongue(JoueurInterface joueur) throws RemoteException {
+        int value = joueur.getTailleroutemax();
+        boolean hasgreatnumber = false;
+        int maxvaluefound = 0;
+        for (JoueurServeur js : joueursServeur) {
+            JoueurInterface ji = js.getJoueur();
+            if (!ji.getNomUtilisateur().equals(joueur.getNomUtilisateur())) {
+                if (maxvaluefound < ji.getTailleroutemax()) maxvaluefound = ji.getTailleroutemax();
+                if (value > maxvaluefound) {
+                    hasgreatnumber = true;
+                    if (ji.isRouteLaPlusLongue()) {
+                        ji.setPointVictoire(ji.getPointVictoire() - 2);
+                        ji.setArmeeLaPlusPuissante(false);
+                        for (JoueurServeur js2 : joueursServeur) {
+                            js.recevoirMessage(new Message(js2.getJoueur().getNomUtilisateur() + " a perdu la carte de la plus longue route. Il perd donc 2 points."));
+                        }
+                    }
+                } else {
+                    hasgreatnumber = false;
+                }
+            }
+        }
+        if (!joueur.isRouteLaPlusLongue() && hasgreatnumber) {
+            joueur.setRouteLaPlusLongue(true);
+            joueur.setPointVictoire(joueur.getPointVictoire() + 2);
+            for (JoueurServeur js : joueursServeur) {
+                js.recevoirMessage(new Message(joueur.getNomUtilisateur() + " a obtenu la carte de la route la plus longue avec une route longue de " + value + ". Il gagne 2 points de victoire."));
+            }
+        }
+    }
+
 
 	/**
 	 * Permet de récupérer la partie d'une partie chargée

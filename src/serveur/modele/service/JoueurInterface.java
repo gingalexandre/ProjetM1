@@ -342,4 +342,17 @@ public interface JoueurInterface extends Remote {
 	 * @throws RemoteException
 	 */
 	ArrayList<Integer> getPorts() throws RemoteException;
+
+	/**
+	 * Getter tailleroutemax pour savoir quelle est la longueur de la plus grande route du joueur
+	 * @return taille route max
+	 */
+	public int getTailleroutemax() throws RemoteException;
+
+	/**
+	 * Setter tailleroutemax pour mettre à jour la taille de la plus longue route.
+	 * @param value
+	 * @throws RemoteException
+	 */
+	public void setTailleroutemax(int value) throws RemoteException;
 }

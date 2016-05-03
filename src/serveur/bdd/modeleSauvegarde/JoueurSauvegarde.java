@@ -68,6 +68,16 @@ public class JoueurSauvegarde implements Serializable {
 	private int nbRoute = 15;
 
 	/**
+	 * Nombre de carte chavlier joué du joueur
+	 */
+	private int guerrier = 0;
+
+	/**
+	 * Nombre de carte chavlier joué du joueur
+	 */
+	private int tailleroutemax = 0;
+
+	/**
 	 * Stock de ressources du joueur
 	 */
 	private HashMap<Integer, Integer> stockRessource = new HashMap<>();
@@ -100,6 +110,8 @@ public class JoueurSauvegarde implements Serializable {
 		this.nbRoute = joueur.getNbRoute();
 		this.stockRessource = joueur.getStockRessource();
 		this.cartes = Fonctions.transformArrayCarteSauvegarde(joueur.getCartes());
+		this.guerrier=joueur.nbGuerrier();
+		this.tailleroutemax=joueur.getTailleroutemax();
 	}
 
 	/**
@@ -312,5 +324,23 @@ public class JoueurSauvegarde implements Serializable {
 	 */
 	public boolean equals(Object o) {
 		return o instanceof JoueurSauvegarde && ((JoueurSauvegarde) o).id == this.id;
+	}
+
+	/**
+	 * Getter tailleroutemax pour savoir quelle est la longueur de la plus grande route du joueur
+	 * @return taille route max
+	 */
+	public int getTailleroutemax() throws RemoteException{
+		return tailleroutemax;
+	}
+
+
+	/**
+	 * Retourne le nombre de guerrier jouer par un joueur.
+	 * @return
+	 * @throws RemoteException
+	 */
+	public int nbGuerrier() throws RemoteException {
+		return this.guerrier;
 	}
 }

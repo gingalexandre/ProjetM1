@@ -328,8 +328,18 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	 */
 	public void updateArmeePuissante() throws  RemoteException {
 		this.joueursController.updateArmeePuissante();
-	};
-	
+	}
+
+	/**
+	 * Permet la mise a jour de la carte armée puissate.
+	 * @throws RemoteException
+	 */
+	public void updateRouteLongue() throws  RemoteException {
+		this.joueursController.updateRouteLongue();
+	}
+
+
+
 	/**
 	 * Permet de désactiver/activer les boutons de construction d'un joueur
 	 * @param boo

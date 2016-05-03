@@ -126,6 +126,12 @@ public interface GestionnairePartieInterface extends Remote {
 	 * @throws RemoteException
      */
 	public void verificationArmeeForte(JoueurInterface joueur) throws RemoteException ;
+	/**
+	 * permet de vérifier si le joueur a la route la plus longue.
+	 * @param joueur
+	 * @throws RemoteException
+	 */
+	public void verificationRouteLongue(JoueurInterface joueur) throws RemoteException ;
 
 	/**
 	 * Permet de récupérer la partie d'une partie chargée

@@ -310,24 +310,6 @@ public class JoueursController implements Initializable {
 	/**
 	 * Mise a jour des points de victoire.
 	 */
-	public void majPointVictoire(JoueurInterface j) throws RemoteException {
-		String nomUtilisateur = j.getNomUtilisateur();
-		String pt_victoire = Integer.toString(j.getPointVictoire());
-		if (nomUtilisateur.equals(nomJoueur.getText())) {
-			Platform.runLater(() -> nbVictoire.setText(pt_victoire));
-		}
-		if (nomUtilisateur.equals(autreUnName.getText())) {
-			Platform.runLater(() -> nbVictoireJoueur1.setText(pt_victoire));
-		} else if (nomUtilisateur.equals(autreDeuxName.getText())) {
-			Platform.runLater(() -> nbVictoireJoueur2.setText(pt_victoire));
-		} else {
-			Platform.runLater(() -> nbVictoireJoueur3.setText(pt_victoire));
-		}
-	}
-
-	/**
-	 * Mise a jour des points de victoire.
-	 */
 	public void majPointVictoire() throws RemoteException {
 		Platform.runLater(() -> {
 			try {
@@ -368,7 +350,7 @@ public class JoueursController implements Initializable {
 	}
 
 	/**
-	 * Mise a jour des points de victoire.
+	 * Mise a jour des points de de l'armée puissante.
 	 */
 	public void updateArmeePuissante() throws RemoteException {
 		Platform.runLater(() -> {
@@ -405,6 +387,52 @@ public class JoueursController implements Initializable {
 					try {
 						if(ji.isArmeeLaPlusPuissante()) armeeforteJoueur3.setStyle(null);
 						if(!ji.isArmeeLaPlusPuissante()) armeeforteJoueur3.setStyle("-fx-opacity: 0.25");
+					} catch (RemoteException e) {
+						e.printStackTrace();
+					}
+				});
+			}
+		}
+	}
+
+	/**
+	 * Mise a jour des points de de l'armée puissante.
+	 */
+	public void updateRouteLongue() throws RemoteException {
+		Platform.runLater(() -> {
+			try {
+				if(joueur.isRouteLaPlusLongue()) routelongue.setStyle(null);
+				if(!joueur.isRouteLaPlusLongue()) routelongue.setStyle("-fx-opacity: 0.25");
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
+		String nomUtilisateur = "";
+		for (JoueurInterface ji:autresJoueurs) {
+			nomUtilisateur = ji.getNomUtilisateur();
+			if (nomUtilisateur.equals(autreUnName.getText())) {
+				Platform.runLater(() -> {
+					try {
+						if(ji.isRouteLaPlusLongue()) routelongueJoueur1.setStyle(null);
+						if(!ji.isRouteLaPlusLongue()) routelongueJoueur1.setStyle("-fx-opacity: 0.25");
+					} catch (RemoteException e) {
+						e.printStackTrace();
+					}
+				});
+			} else if (nomUtilisateur.equals(autreDeuxName.getText())) {
+				Platform.runLater(() -> {
+					try {
+						if(ji.isRouteLaPlusLongue()) routelongueJoueur2.setStyle(null);
+						if(!ji.isRouteLaPlusLongue()) routelongueJoueur2.setStyle("-fx-opacity: 0.25");
+					} catch (RemoteException e) {
+						e.printStackTrace();
+					}
+				});
+			} else {
+				Platform.runLater(() -> {
+					try {
+						if(ji.isRouteLaPlusLongue()) routelongueJoueur3.setStyle(null);
+						if(!ji.isRouteLaPlusLongue()) routelongueJoueur3.setStyle("-fx-opacity: 0.25");
 					} catch (RemoteException e) {
 						e.printStackTrace();
 					}

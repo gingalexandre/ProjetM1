@@ -43,6 +43,7 @@ import serveur.modele.Message;
 import serveur.modele.Plateau;
 import serveur.modele.Point;
 import serveur.modele.Ressource;
+import serveur.modele.carte.LongueRoute;
 import serveur.modele.service.CarteInterface;
 import serveur.modele.service.HexagoneInterface;
 import serveur.modele.service.JoueurInterface;
@@ -645,7 +646,13 @@ public class MenuController implements Initializable {
 								VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
 								serveur.getGestionnaireUI().diffuserPriseDeRoute(r, joueurCourrant);
 								int maRouteLaPlusLongue = p.calculerRouteLaPlusLongue(joueurCourrant);
-								serveur.getGestionnaireUI().diffuserMessage(new Message("La route la plus longue de "+joueurCourrant.getNomUtilisateur()+" est de "+maRouteLaPlusLongue));
+								serveur.getGestionnaireUI().diffuserMessage(new Message("La route la plus longue de "+joueurCourrant.getNomUtilisateur()+" est de "+maRouteLaPlusLongue+"."));
+                                if(maRouteLaPlusLongue>= LongueRoute.NB_ROUTE_MINIMAL){
+                                    joueurCourrant.setTailleroutemax(maRouteLaPlusLongue);
+                                    serveur.getGestionnairePartie().verificationRouteLongue(joueurCourrant);
+                                    serveur.getGestionnaireUI().updatePointVictoire();
+                                    serveur.getGestionnaireUI().updateRouteLongue();
+                                }
 								if(isInitTurn()){
 									setButtons(true,true,false);
 								}else{

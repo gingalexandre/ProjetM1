@@ -226,7 +226,7 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	}
 
 	/**
-	 * Permet la mise a jour de la carte armée puissate.
+	 * Permet la mise a jour de la carte armée puissante.
 	 * @throws RemoteException
 	 */
 	public void updateArmeePuissante() throws  RemoteException {
@@ -234,6 +234,17 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 			joueurServeur.updateArmeePuissante();
 		}
 	}
+
+	/**
+	 * Permet la mise a jour de la carte route longue.
+	 * @throws RemoteException
+	 */
+	public void updateRouteLongue() throws  RemoteException {
+		for (JoueurServeur joueurServeur : joueurServeurs) {
+			joueurServeur.updateRouteLongue();
+		}
+	}
+
 	/**
 	 * Permet de récupérer toutes les ressources d'un type pour monopoliser
 	 * @param ressource_visee

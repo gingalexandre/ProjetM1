@@ -158,4 +158,9 @@ public interface JoueurServeur extends Remote {
 	 */
 	void disableBoutonConstruction(boolean b) throws RemoteException;
 
+	/**
+	 * Permet la mise a jour de la carte route longue.
+	 * @throws RemoteException
+	 */
+	public void updateRouteLongue() throws  RemoteException;
 }

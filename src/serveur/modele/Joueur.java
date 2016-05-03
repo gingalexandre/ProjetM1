@@ -6,6 +6,7 @@
 package serveur.modele;
 
 import java.io.Serializable;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Date;
@@ -77,9 +78,14 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	private int nbRoute = 15;
 
 	/**
-	 * Nombre de routes du joueur
+	 * Nombre de carte chavlier joué du joueur
 	 */
 	private int guerrier = 0;
+
+	/**
+	 * Nombre de carte chavlier joué du joueur
+	 */
+	private int tailleroutemax = 0;
 
 	/**
 	 * Stock de ressources du joueur
@@ -166,6 +172,8 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		this.nbRoute = joueur.getNbRoute();
 		this.stockRessource = joueur.getStockRessource();
 		this.cartes = Fonctions.transformArrayCarte(joueur.getCartes());
+		this.guerrier=joueur.nbGuerrier();
+		this.tailleroutemax=joueur.getTailleroutemax();
 	}
 
 	/**
@@ -620,4 +628,22 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	public ArrayList<Integer> getPorts() throws RemoteException {
 		return Plateau.getPortsJoueur(this.nomUtilisateur);
 	}
+
+	/**
+	 * Getter tailleroutemax pour savoir quelle est la longueur de la plus grande route du joueur
+	 * @return taille route max
+	 */
+	public int getTailleroutemax() throws RemoteException{
+		return tailleroutemax;
+	}
+
+	/**
+	 * Setter tailleroutemax pour mettre à jour la taille de la plus longue route.
+	 * @param value
+	 * @throws RemoteException
+     */
+	public void setTailleroutemax(int value) throws RemoteException{
+		tailleroutemax=value;
+	}
+
 }

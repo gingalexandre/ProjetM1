@@ -14,7 +14,7 @@ public class LongueRoute extends Carte {
 	/**
      * Attribut : condition minimal requise.
      */
-    private static int NB_ROUTE_MINIMAL = 5;
+    public static int NB_ROUTE_MINIMAL = 5;
 
     /**
      * Constructeur

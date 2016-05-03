@@ -10,6 +10,7 @@ import client.commun.Fonction;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.AnchorPane;
@@ -311,134 +312,103 @@ public class JoueursController implements Initializable {
 	 * Mise a jour des points de victoire.
 	 */
 	public void majPointVictoire() throws RemoteException {
-		Platform.runLater(() -> {
-			try {
-				nbVictoire.setText(Integer.toString(joueur.getPointVictoire()));
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-		});
+		this.updatePointVictoire(joueur,nbVictoire);
 		String nomUtilisateur = "";
 		for (JoueurInterface ji:autresJoueurs) {
 			nomUtilisateur = ji.getNomUtilisateur();
 			if (nomUtilisateur.equals(autreUnName.getText())) {
-				Platform.runLater(() -> {
-					try {
-						nbVictoireJoueur1.setText(Integer.toString(ji.getPointVictoire()));
-					} catch (RemoteException e) {
-						e.printStackTrace();
-					}
-				});
+                this.updatePointVictoire(ji,nbVictoireJoueur1);
 			} else if (nomUtilisateur.equals(autreDeuxName.getText())) {
-				Platform.runLater(() -> {
-					try {
-						nbVictoireJoueur2.setText(Integer.toString(ji.getPointVictoire()));
-					} catch (RemoteException e) {
-						e.printStackTrace();
-					}
-				});
+                this.updatePointVictoire(ji,nbVictoireJoueur2);
 			} else {
-				Platform.runLater(() -> {
-					try {
-						nbVictoireJoueur3.setText(Integer.toString(ji.getPointVictoire()));
-					} catch (RemoteException e) {
-						e.printStackTrace();
-					}
-				});
+                this.updatePointVictoire(ji,nbVictoireJoueur3);
 			}
 		}
 	}
+
+    /**
+     * Subméthode pour éviter duplication de code.
+     * @param j
+     * @param label
+     */
+    private void updatePointVictoire(JoueurInterface j, Label label){
+        Platform.runLater(() -> {
+            try {
+                label.setText(Integer.toString(j.getPointVictoire()));
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
 	/**
 	 * Mise a jour des points de de l'armée puissante.
 	 */
 	public void updateArmeePuissante() throws RemoteException {
-		Platform.runLater(() -> {
-			try {
-				if(joueur.isArmeeLaPlusPuissante()) armeeforte.setStyle(null);
-				if(!joueur.isArmeeLaPlusPuissante()) armeeforte.setStyle("-fx-opacity: 0.25");
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-		});
+        this.updateArmeePuissante(joueur, armeeforte);
 		String nomUtilisateur = "";
 		for (JoueurInterface ji:autresJoueurs) {
 			nomUtilisateur = ji.getNomUtilisateur();
 			if (nomUtilisateur.equals(autreUnName.getText())) {
-				Platform.runLater(() -> {
-					try {
-						if(ji.isArmeeLaPlusPuissante()) armeeforteJoueur1.setStyle(null);
-						if(!ji.isArmeeLaPlusPuissante()) armeeforteJoueur1.setStyle("-fx-opacity: 0.25");
-					} catch (RemoteException e) {
-						e.printStackTrace();
-					}
-				});
+                this.updateArmeePuissante(ji, armeeforteJoueur1);
 			} else if (nomUtilisateur.equals(autreDeuxName.getText())) {
-				Platform.runLater(() -> {
-					try {
-						if(ji.isArmeeLaPlusPuissante()) armeeforteJoueur2.setStyle(null);
-						if(!ji.isArmeeLaPlusPuissante()) armeeforteJoueur2.setStyle("-fx-opacity: 0.25");
-					} catch (RemoteException e) {
-						e.printStackTrace();
-					}
-				});
+                this.updateArmeePuissante(ji, armeeforteJoueur2);
 			} else {
-				Platform.runLater(() -> {
-					try {
-						if(ji.isArmeeLaPlusPuissante()) armeeforteJoueur3.setStyle(null);
-						if(!ji.isArmeeLaPlusPuissante()) armeeforteJoueur3.setStyle("-fx-opacity: 0.25");
-					} catch (RemoteException e) {
-						e.printStackTrace();
-					}
-				});
+                this.updateArmeePuissante(ji, armeeforteJoueur3);
 			}
 		}
 	}
+
+    /**
+     * Subméthode pour éviter duplication de code.
+     * @param j
+     * @param node
+     */
+    private void updateArmeePuissante(JoueurInterface j, Node node){
+        Platform.runLater(() -> {
+            try {
+                if(j.isArmeeLaPlusPuissante()) node.setStyle(null);
+                if(!j.isArmeeLaPlusPuissante()) node.setStyle("-fx-opacity: 0.25");
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
 
 	/**
 	 * Mise a jour des points de de l'armée puissante.
 	 */
 	public void updateRouteLongue() throws RemoteException {
-		Platform.runLater(() -> {
-			try {
-				if(joueur.isRouteLaPlusLongue()) routelongue.setStyle(null);
-				if(!joueur.isRouteLaPlusLongue()) routelongue.setStyle("-fx-opacity: 0.25");
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-		});
+		this.updateRouteLongue(joueur, routelongue);
 		String nomUtilisateur = "";
 		for (JoueurInterface ji:autresJoueurs) {
 			nomUtilisateur = ji.getNomUtilisateur();
 			if (nomUtilisateur.equals(autreUnName.getText())) {
-				Platform.runLater(() -> {
-					try {
-						if(ji.isRouteLaPlusLongue()) routelongueJoueur1.setStyle(null);
-						if(!ji.isRouteLaPlusLongue()) routelongueJoueur1.setStyle("-fx-opacity: 0.25");
-					} catch (RemoteException e) {
-						e.printStackTrace();
-					}
-				});
+                this.updateRouteLongue(ji, routelongueJoueur1);
+
 			} else if (nomUtilisateur.equals(autreDeuxName.getText())) {
-				Platform.runLater(() -> {
-					try {
-						if(ji.isRouteLaPlusLongue()) routelongueJoueur2.setStyle(null);
-						if(!ji.isRouteLaPlusLongue()) routelongueJoueur2.setStyle("-fx-opacity: 0.25");
-					} catch (RemoteException e) {
-						e.printStackTrace();
-					}
-				});
+                this.updateRouteLongue(ji, routelongueJoueur2);
 			} else {
-				Platform.runLater(() -> {
-					try {
-						if(ji.isRouteLaPlusLongue()) routelongueJoueur3.setStyle(null);
-						if(!ji.isRouteLaPlusLongue()) routelongueJoueur3.setStyle("-fx-opacity: 0.25");
-					} catch (RemoteException e) {
-						e.printStackTrace();
-					}
-				});
+                this.updateRouteLongue(ji, routelongueJoueur3);
 			}
 		}
 	}
+
+    /**
+     * Subméthode pour éviter duplication de code.
+     * @param j
+     * @param node
+     */
+    private void updateRouteLongue(JoueurInterface j, Node node){
+        Platform.runLater(() -> {
+            try {
+                if(j.isRouteLaPlusLongue()) node.setStyle(null);
+                if(!j.isRouteLaPlusLongue()) node.setStyle("-fx-opacity: 0.25");
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
 }

@@ -102,6 +102,8 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	 */
 	boolean routeLaPlusLongue, armeeLaPlusPuissante = false;
 	
+	private int nbRouteGratuite;
+	
 	/**
 	 * Constructeur de joueur
 	 * Est appele lors de l'ajout d'un proxy sur le serveur
@@ -177,7 +179,7 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	}
 
 	/**
-	 * Permet d'initialiser des divers attributs d'un joueur
+	 * Permet d'initialiser les divers attributs d'un joueur
 	 * @throws RemoteException 
 	 */
 	private void initialisationAttributs() throws RemoteException{
@@ -189,6 +191,10 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		this.stockRessource.put(Ressource.ARGILE, 0);
 		this.stockRessource.put(Ressource.MINERAIE, 0);
 		this.stockRessource.put(Ressource.LAINE, 0);
+		this.nbColonie = 5;
+		this.nbRoute = 15;
+		this.nbVille = 4;
+		this.nbRouteGratuite = 0;	
 	}
 	
 	/** 
@@ -587,27 +593,73 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	}
 	
 	/**
-	 * Permet au joueur de construire une route
+	 * Decremente le nombre de Routes restantes du joueur
 	 * @throws RemoteException
 	 */
 	public void construireRoute()  throws RemoteException{
-
+		boolean initPhase = this.nbRoute>13 && (this.nbColonie+this.nbVille)>7;
+		this.nbRoute--;
+		if (!initPhase && nbRouteGratuite==0){
+			faireAchat("Route");
+		} else {
+			if (nbRouteGratuite>0) nbRouteGratuite--;
+		}
 	}
 
 	/**
-	 * Permet au joueur de construire une colonie
+	 * Decremente le nombre de Colonies restantes du joueur
 	 * @throws RemoteException
 	 */
 	public void construireColonie()  throws RemoteException{
-
+		boolean initPhase = this.nbRoute>13 && (this.nbColonie+this.nbVille)>7;
+		this.nbColonie--;
+		if (!initPhase) faireAchat("Colonie");
 	}
 
 	/**
-	 * Permet au joueur de construire une ville
+	 * Decremente le nombre de Villes restantes du joueur et incremente le nombre de Colonie
 	 * @throws RemoteException
 	 */
 	public void construireVille()  throws RemoteException{
+		this.nbColonie++;
+		this.nbVille--;
+		faireAchat("Ville");
+	}
 
+	/**
+	 *  Méthode permettant de decrementer les ressources pour un achat donner en parametre
+	 * @param str Objet acheter etant dans l'ensemble suivant {"Route" | "Ville" | "Colonie" | "Developpement"}
+	 */
+	public void faireAchat(String str) throws RemoteException{
+		int nbble = stockRessource.get(Ressource.BLE);
+		int nbcaillou = stockRessource.get(Ressource.MINERAIE);
+		int nblaine = stockRessource.get(Ressource.LAINE);
+		int nbbois = stockRessource.get(Ressource.BOIS);
+		int nbargile = stockRessource.get(Ressource.ARGILE);
+		switch (str){
+		case "Route":
+			// Bois + argile
+			stockRessource.put(Ressource.ARGILE,nbargile-1);
+			stockRessource.put(Ressource.BOIS,nbbois-1);
+			break;
+		case "Ville":
+			//2 blé 3 pierre
+			stockRessource.put(Ressource.BLE,nbble-2);
+			stockRessource.put(Ressource.MINERAIE,nbcaillou-3);
+			break;
+		case "Colonie":
+			//bois argile blé laine
+			stockRessource.put(Ressource.ARGILE,nbargile-1);
+			stockRessource.put(Ressource.BOIS,nbbois-1);
+			stockRessource.put(Ressource.BLE,nbble-1);
+			stockRessource.put(Ressource.LAINE,nblaine-1);
+			break;
+		case "Developpement":
+			//blé caillou laine
+			stockRessource.put(Ressource.LAINE,nblaine-1);
+			stockRessource.put(Ressource.BLE,nbble-1);
+			stockRessource.put(Ressource.MINERAIE,nbcaillou-1);
+		}
 	}
 
 	/**
@@ -645,5 +697,29 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	public void setTailleroutemax(int value) throws RemoteException{
 		tailleroutemax=value;
 	}
+	
+	/**
+	 * Méthode permettant de verifier les ressources du joueur pour effectuer un achat
+	 * @param str Objet que l'on veut acheter dans l'ensemble suivant {"Route" | "Ville" | "Colonie" | "Developpement"}
+	 */
+	public boolean checkAchat(String string) throws RemoteException {
+		// TODO Auto-generated method stub
+		switch (string){
+		case "Route":
+			// Bois + argile
+			return (getNbRoute()>0 && stockRessource.get(Ressource.ARGILE)>0 && stockRessource.get(Ressource.BOIS)>0 || (nbRouteGratuite>0));
+		case "Ville":
+			//2 blé 3 pierre
+			return getNbVille()>0 && stockRessource.get(Ressource.BLE)>1 && stockRessource.get(Ressource.MINERAIE)>2;
+		case "Colonie":
+			return getNbColonie()>0 && stockRessource.get(Ressource.BOIS)>0 && stockRessource.get(Ressource.BLE)>0 && stockRessource.get(Ressource.ARGILE)>0 && stockRessource.get(Ressource.LAINE)>0;
+			//bois argile blé laine
+		case "Developpement":
+			//blé caillou laine
+			return stockRessource.get(Ressource.BLE)>0 && stockRessource.get(Ressource.MINERAIE)>0 && stockRessource.get(Ressource.LAINE)>0;
+		}
+		return false;
+	}
+
 
 }

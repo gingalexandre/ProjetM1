@@ -355,4 +355,8 @@ public interface JoueurInterface extends Remote {
 	 * @throws RemoteException
 	 */
 	public void setTailleroutemax(int value) throws RemoteException;
+
+	boolean checkAchat(String string) throws RemoteException;
+
+	void faireAchat(String string) throws RemoteException;
 }

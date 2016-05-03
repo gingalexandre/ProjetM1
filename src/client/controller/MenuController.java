@@ -542,6 +542,7 @@ public class MenuController implements Initializable {
 	 */
 	public void demanderRoute(boolean initPhase, VilleInterface villeIgnored){
 		try{
+			setButtons(true);
 			PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
 			// INITIALISATION
 			// Etape 1 : Création d'une map avec chaque point qui associe la ville de cet emplacement
@@ -560,8 +561,6 @@ public class MenuController implements Initializable {
 					}
 				}
 			}
-			//System.out.println(b+" "+pointsDeRoutes.size());
-			//System.out.println("!");
 			// RECHERCHES DES ROUTES CONSTRUCTIBLES
 			HashMap<Polygon, RouteInterface> routesConstructibles = new HashMap<Polygon, RouteInterface>();
 			Group grp = new Group();
@@ -653,6 +652,7 @@ public class MenuController implements Initializable {
                                     serveur.getGestionnaireUI().updatePointVictoire();
                                     serveur.getGestionnaireUI().updateRouteLongue();
                                 }
+
 								if(isInitTurn()){
 									setButtons(true,true,false);
 								}else{
@@ -666,6 +666,7 @@ public class MenuController implements Initializable {
 					});
 				}
 			}
+			if (!initPhase && grp.getChildren().size()==0) setButtons(false);
 			Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(grp));
 		} catch(Exception e){
 			e.printStackTrace();
@@ -796,7 +797,6 @@ public class MenuController implements Initializable {
 												i++;
 											}
 										}
-										//System.out.println();
 										if (i == 0) maFirstColo=null;
 										demanderRoute(true,maFirstColo);
 										//if (maFirstColo != null) maFirstColo.setOQP(joueurCourrant);
@@ -857,14 +857,21 @@ public class MenuController implements Initializable {
 	 * Pioche de la carte.
 	 */
 	public void piocheCarte() throws RemoteException {
-		JoueurInterface joueur = proxy.getJoueur();
-
-		HashMap<Integer, Integer> stock_suffisant = joueur.getStockRessource();
-		//	if(stock_suffisant.get(Ressource.BLE)>=1 && stock_suffisant.get(Ressource.LAINE)>=1 && stock_suffisant.get(Ressource.MINERAIE)>=1){
-		CarteInterface carte = serveur.getGestionnairePartie().getPartie().piocheDeck();
-		//		joueur.supprimerRessource(Ressource.BLE,1);
-		//		joueur.supprimerRessource(Ressource.LAINE,1);
-		//		joueur.supprimerRessource(Ressource.MINERAIE,1);
+		//TODO tester si ressources sont suffisantes et les décrémentés.
+		JoueurInterface j = proxy.getJoueur();
+		CarteInterface carte;
+		if (j.checkAchat("Developpement")){
+			carte = serveur.getGestionnairePartie().getPartie().piocheDeck();
+			j.faireAchat("Developpement");
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Erreur détectée");
+			alert.setHeaderText("Attention vous avez essayé une action impossible.");
+			alert.setContentText("Vous ne pouvez pas piocher de carte. Vous n'avez pas les ressources");
+			alert.showAndWait();
+			return;
+		}
+		
 		if (carte != null) {
 			CarteInterface card = carte;
 			Platform.runLater(() -> {
@@ -925,13 +932,36 @@ public class MenuController implements Initializable {
 		alert.showAndWait();
 	}
 
-	@FXML
-	public void construireRoute() throws RemoteException{
-		demanderRoute(false, null);
-	}
 
-	@FXML
-	public void construireColonie() throws RemoteException{
-		demanderColonie(false);
-	}
+    @FXML
+    public void construireRoute() throws RemoteException{
+    	JoueurInterface j = proxy.getJoueur();
+    	// Verification préalable
+    	if (j.checkAchat("Route")){
+    		demanderRoute(false, null);
+    		this.proxy.getJoueursController().majRessource();
+    		serveur.getGestionnaireUI().diffuserGainRessource();
+    		serveur.getGestionnaireUI().diffuserGainCarteRessource();
+    	}else {
+    		popErreur("Vous ne pouvez pas contruire de routes. Soit vous avez atteint la limite, soit vous n'avez pas les ressources");
+	    	Alert alert = new Alert(Alert.AlertType.ERROR);
+	    }
+    }
+    
+    @FXML
+    public void construireColonie() throws RemoteException{
+    	JoueurInterface j = proxy.getJoueur();
+    	//Vérification prealable
+    	if (j.checkAchat("Colonie")){
+    		demanderColonie(false);
+    		this.proxy.getJoueursController().majRessource();
+    		serveur.getGestionnaireUI().diffuserGainRessource();
+    		serveur.getGestionnaireUI().diffuserGainCarteRessource();
+    
+    	}
+    	else {
+    		popErreur("Vous ne pouvez pas contruire de colonie. Soit vous avez atteint la limite, soit vous n'avez pas les ressoruces");
+    	}
+    }
+    
 }

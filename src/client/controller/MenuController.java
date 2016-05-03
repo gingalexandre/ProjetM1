@@ -84,7 +84,7 @@ public class MenuController implements Initializable {
 	 * Pour finir le tour
 	 */
 	@FXML
-	private Button boutonFinTour;
+	public Button boutonFinTour;
 
 	/**
 	 * Pour les échanges

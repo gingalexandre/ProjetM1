@@ -33,5 +33,6 @@ public class GameController implements Initializable{
         carteController = new CarteController(plateauController,menuController);
         menuController.setPlateauController(plateauController);
         menuController.setCarteController(carteController);
+        plateauController.setMenuController(menuController);
     }
 }

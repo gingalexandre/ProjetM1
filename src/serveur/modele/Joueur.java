@@ -608,7 +608,6 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	public void updateCarteJouable() throws RemoteException{
 		for (CarteInterface ci : this.getCartes()) {
 			ci.setUtilisable(true);
-			System.out.println(ci.getNom()+ "devient utilisable = "+ci.getUtilisable());
 		}
 	}
 }

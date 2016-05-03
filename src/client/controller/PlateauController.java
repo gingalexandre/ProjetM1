@@ -72,6 +72,11 @@ public class PlateauController implements Initializable{
 	 * Proxy avec le serveur
 	 */
 	private Proxy proxy;
+
+	/**
+	 * MenuController associé
+	 */
+	public MenuController menuController;
 	
 	/**
 	 * Méthode d'initialisation
@@ -121,6 +126,11 @@ public class PlateauController implements Initializable{
 	public void setPlateau(PlateauInterface plateau){
 		this.plateau = plateau;
 	}
+
+	/**
+	 * Méthode qui set le menu controller.
+	 */
+	public void setMenuController(MenuController mc){ this.menuController = mc; }
 	
 	/**
 	 * Dessine le plateau
@@ -184,7 +194,8 @@ public class PlateauController implements Initializable{
 	 * Permet l'action du voleur.
 	 */
 	public void doActionVoleur() throws RemoteException{
-		serveur.getGestionnaireUI().diffuserMessage(new Message ("Choisir la case de destination du Voleur"));
+		serveur.getGestionnaireUI().diffuserMessage(new Message ("Choisir la case de destination du Voleur."));
+		menuController.boutonFinTour.setDisable(true);
 		mainPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
 		{
 			@Override
@@ -201,6 +212,7 @@ public class PlateauController implements Initializable{
 							try {
 								serveur.getGestionnaireUI().diffuserVoleur(depart,i);
 								serveur.getGestionnaireUI().diffuserMessage(new Message ("Déplacement du voleur de la case : "+(depart+1)+" à la case "+(i+1)+"."));
+								menuController.boutonFinTour.setDisable(false);
 								mainPane.removeEventHandler(MouseEvent.MOUSE_CLICKED, this);
 							} catch (RemoteException e) {
 								e.printStackTrace();

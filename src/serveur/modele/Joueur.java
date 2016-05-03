@@ -722,4 +722,13 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	}
 
 
+	@Override
+	public void setNbRouteGratuite(int i) throws RemoteException {
+		// TODO Auto-generated method stub
+		this.setNbRouteGratuite(i);
+	}
+	
+	
+
+
 }

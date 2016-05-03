@@ -359,4 +359,6 @@ public interface JoueurInterface extends Remote {
 	boolean checkAchat(String string) throws RemoteException;
 
 	void faireAchat(String string) throws RemoteException;
+
+	void setNbRouteGratuite(int i) throws RemoteException;
 }

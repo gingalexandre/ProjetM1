@@ -97,6 +97,7 @@ public class CarteController {
         }
         if(ci.getNom().equals((new Route()).getNom())){
             serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne 2 routes à construire suite à l'usage de sa carte développement de type Route."));
+            player.setNbRouteGratuite(2);
 
         }
         return action;

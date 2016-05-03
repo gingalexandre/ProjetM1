@@ -158,17 +158,19 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 			}
 			serveur.envoyerNombreJoueursConnectes();
 		} else {
-			// Si c'était le tour du joueur qui part, on le termine et le jeu
-			// continu
-			if (serveur.getGestionnairePartie().getPartie().getJoueurTour().getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())) {
-				serveur.getGestionnairePartie().finirTour(nomJoueurSupprime);
+			// Si il reste plus de 1 joueur sur le serveur
+			if(serveur.getGestionnairePartie().getPartie().getNombreJoueurs() > 1){
+				// Si c'était le tour du joueur qui part, on le termine et le jeu continu
+				if (serveur.getGestionnairePartie().getPartie().getJoueurTour().getNomUtilisateur().equals(joueurSupprime.getNomUtilisateur())) {
+					serveur.getGestionnairePartie().finirTour(nomJoueurSupprime);
+				}
+				// Suppression du joueur
+				joueurServeurs.remove(joueurSupprime);
+				for (JoueurServeur js : joueurServeurs) {
+					js.suppressionJoueur(nomJoueurSupprime);
+				}
+				serveur.getGestionnairePartie().getPartie().setTour(serveur.getGestionnairePartie().getPartie().getTour() - 1);
 			}
-			// Suppression du joueur
-			joueurServeurs.remove(joueurSupprime);
-			for (JoueurServeur js : joueurServeurs) {
-				js.suppressionJoueur(nomJoueurSupprime);
-			}
-			serveur.getGestionnairePartie().getPartie().setTour(serveur.getGestionnairePartie().getPartie().getTour() - 1);
 		}
 		// Suppression complète du serveur
 		serveur.getGestionnairePartie().supprimerJoueur(joueurSupprime);

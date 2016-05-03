@@ -11,51 +11,21 @@ import serveur.modele.service.CarteInterface;
  *
  * @author Yohann Hugo
  */
-public class Monopole extends UnicastRemoteObject implements CarteInterface{
-	
-	private String nomCarte = "Carte Monopole";
-	
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	/**
-     * Attribut chemin vers la ressources image.
-     */
-    private static String CHEMIN = "/Ressources/cartes/carte_progres_monopole.png";
+public class Monopole extends Carte{
 
     /**
      * Constructeur
      */
     public Monopole() throws RemoteException {
-    }
-
-    public Monopole(CarteSauvegarde carte) throws RemoteException {
-		this.nomCarte = carte.getChemin();
-		this.CHEMIN = carte.getChemin();
-	}
-
-	/**
-     * Action provoquer lorsqu'un joueur utilise la carte de type de Monopole.
-     */
-    public void doAction() throws RemoteException {
-        /*
-         currentPlayer.getStockRessource().put(ressourceChoisie, currentPlayer.getStockRessource().get(ressourceChoisie)+quantite);
-         */
+        super("Carte Monopole","/Ressources/cartes/carte_progres_monopole.png",false);
     }
 
     /**
-     * Méthode de l'interface Carte qui permet de récupérer le chemin de la ressources image d'une carte.
-     *
-     * @return chemin de la ressource de l'image.
+     * Constructeur a partir d'une sauvegarde
+     * @param carte
      */
-    @Override
-    public String getCheminImage() throws RemoteException {
-        return CHEMIN;
-    }
-
-	@Override
-	public String getNom() throws RemoteException {
-		return this.nomCarte;
+    public Monopole(CarteSauvegarde carte) throws RemoteException {
+        super(carte.getNom(), carte.getChemin(), carte.getUtilisable());
 	}
+
 }

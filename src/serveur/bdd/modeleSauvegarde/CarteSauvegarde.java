@@ -27,6 +27,11 @@ public class CarteSauvegarde implements Serializable {
 	private String chemin;
 
 	/**
+	 * Chemin de la carte
+	 */
+	private boolean utilisable;
+
+	/**
 	 * Type de la carte
 	 */
 	private String type;
@@ -42,6 +47,7 @@ public class CarteSauvegarde implements Serializable {
 		super();
 		this.nom = carte.getNom();
 		this.chemin = carte.getCheminImage();
+		this.utilisable = carte.getUtilisable();
 
 		if (carte instanceof ArmeePuissante) {
 			this.type = "ArmeePuissante";
@@ -107,6 +113,22 @@ public class CarteSauvegarde implements Serializable {
 	 */
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	/**
+	 * Getter de l'utilisabilité de la carte
+	 * @return le boolean si utilisable ou non de la carte
+	 */
+	public boolean getUtilisable() {
+		return utilisable;
+	}
+
+	/**
+	 * de l'utilisabilité de la carte
+	 * @param value le nouveau boolean d'utilisabilité ou non
+	 */
+	public void setType(boolean value) {
+		this.utilisable = value;
 	}
 
 	public boolean equals(Object o) {

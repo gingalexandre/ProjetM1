@@ -30,7 +30,7 @@ public class GameController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        carteController = new CarteController(plateauController);
+        carteController = new CarteController(plateauController,menuController);
         menuController.setPlateauController(plateauController);
         menuController.setCarteController(carteController);
     }

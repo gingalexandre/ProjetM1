@@ -10,11 +10,7 @@ import serveur.modele.service.CarteInterface;
  * Classe représente la Carte de l'armee la plus puissante.
  * @author Yohann Hugo
  */
-public class ArmeePuissante extends UnicastRemoteObject implements CarteInterface {
-	
-	private String nomCarte = "Armée la plus puissante";
-	
-	private static final long serialVersionUID = 1L;
+public class ArmeePuissante extends Carte {
 
 	/**
      * Attribut : condition minimal requise.
@@ -22,43 +18,18 @@ public class ArmeePuissante extends UnicastRemoteObject implements CarteInterfac
     public static int NB_CHEVALIER_MINIMAL = 3;
 
     /**
-     * Attribut chemin vers la ressources image.
-     */
-    private static String CHEMIN = "/Ressources/cartes/armee_puissante.png";
-
-    /**
      * Constructeur
      */
     public ArmeePuissante() throws RemoteException {
-    }
-
-    public ArmeePuissante(CarteSauvegarde carte) throws RemoteException {
-		this.nomCarte = carte.getNom();
-		this.CHEMIN = carte.getChemin();
-	}
-
-	/**
-     * Action provoquer lorsqu'un joueur reçoit la carte d'armée la plus puissant.
-     */
-
-    public void doAction() throws RemoteException {
-    /*
-        currentPlayer.setPointVictoire(currentPlayer.getPointVictoire()+2);
-        f(Player!=null) Player.setPointVictoire(Player.getPointVictoire()-2);*/
+        super("Armée la plus puissante","/Ressources/cartes/armee_puissante.png",false);
     }
 
     /**
-     * Méthode de l'interface Carte qui permet de récupérer le chemin de la ressources image d'une carte.
-     *
-     * @return chemin de la ressource de l'image.
+     * Constructeur a partir d'une sauvegarde
+     * @param carte
      */
-    @Override
-    public String getCheminImage()throws RemoteException {
-        return CHEMIN;
-    }
-
-	@Override
-	public String getNom() throws RemoteException {
-		return this.nomCarte;
+    public ArmeePuissante(CarteSauvegarde carte) throws RemoteException {
+        super(carte.getNom(), carte.getChemin(), carte.getUtilisable());
 	}
+
 }

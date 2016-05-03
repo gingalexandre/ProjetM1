@@ -11,50 +11,21 @@ import serveur.modele.service.CarteInterface;
  *
  * @author Yohann Hugo
  */
-public class Chevalier extends UnicastRemoteObject implements CarteInterface{
+public class Chevalier extends Carte{
 	
-	private String nomCarte = "Carte Chevalier";
-	
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	/**
-     * Attribut chemin vers la ressources image.
-     */
-    private static String CHEMIN = "/Ressources/cartes/carte_chevalier.png";
-
     /**
      * Constructeur
      */
     public Chevalier() throws RemoteException {
-    }
-
-    public Chevalier(CarteSauvegarde carte) throws RemoteException {
-		this.nomCarte = carte.getNom();
-		this.CHEMIN = carte.getChemin();
-	}
-
-	/**
-     * Action provoquer lorsqu'un joueur utilise la carte de type de chevalier.
-     */
-
-    public void doAction() throws RemoteException {
-
+        super("Carte Chevalier","/Ressources/cartes/carte_chevalier.png",false);
     }
 
     /**
-     * Méthode de l'interface Carte qui permet de récupérer le chemin de la ressources image d'une carte.
-     *
-     * @return chemin de la ressource de l'image.
+     * Constructeur a partir d'une sauvegarde
+     * @param carte
      */
-    @Override
-    public String getCheminImage() throws RemoteException {
-        return CHEMIN;
-    }
-
-	@Override
-	public String getNom() throws RemoteException {
-		return this.nomCarte;
+    public Chevalier(CarteSauvegarde carte) throws RemoteException {
+        super(carte.getNom(), carte.getChemin(), carte.getUtilisable());
 	}
+
 }

@@ -11,49 +11,21 @@ import serveur.modele.service.CarteInterface;
  *
  * @author Yohann Hugo
  */
-public class Route extends UnicastRemoteObject implements CarteInterface {
-	
-	private String nomCarte = "Carte Route";
-	
-	private static final long serialVersionUID = 1L;
-	
-	/**
-     * Attribut chemin vers la ressources image.
-     */
-    private static String CHEMIN = "/Ressources/cartes/carte_progres_route.png";
+public class Route extends Carte {
 
     /**
      * Constructeur
      */
     public Route()throws RemoteException {
-    }
-
-    public Route(CarteSauvegarde carte) throws RemoteException {
-		this.nomCarte = carte.getNom();
-		this.CHEMIN = carte.getChemin();
-	}
-
-	/**
-     * Action provoquer lorsqu'un joueur utilise la carte de type de progrès construction.
-     */
-    public void doAction() throws RemoteException{
-        /*
-        currentPlayer.setNbRoute(currentPlayer.getNbRoute()+2);
-         */
+        super("Carte Route", "/Ressources/cartes/carte_progres_route.png", false);
     }
 
     /**
-     * Méthode de l'interface Carte qui permet de récupérer le chemin de la ressources image d'une carte.
-     *
-     * @return chemin de la ressource de l'image.
+     * Constructeur a partir d'une sauvegarde
+     * @param carte
      */
-    @Override
-    public String getCheminImage() throws RemoteException {
-        return CHEMIN;
-    }
-
-	@Override
-	public String getNom()throws RemoteException {
-		return this.nomCarte;
+    public Route(CarteSauvegarde carte) throws RemoteException {
+        super(carte.getNom(), carte.getChemin(), carte.getUtilisable());
 	}
+
 }

@@ -11,53 +11,21 @@ import serveur.modele.service.CarteInterface;
  *
  * @author Yohann Hugo
  */
-public class Victoire extends UnicastRemoteObject implements CarteInterface {
-
-	private String nomCarte = "Carte Victoire";
-	
-	private static final long serialVersionUID = 1L;
-	
-	/**
-     * Attribut chemin vers la ressources image.
-     */
-    private static String CHEMIN = "/Ressources/cartes/armee_puissante.png";
+public class Victoire extends Carte {
 
     /**
-     * Constructeur
+     * Constructeur simple
      */
     public Victoire()throws RemoteException{
+        super("Carte Victoire", "/Ressources/cartes/armee_puissante.png", false);
     }
     
     /**
-     * Constructeur
+     * Constructeur a partir d'une sauvegarde
      * @param carte 
      */
     public Victoire(CarteSauvegarde carte)throws RemoteException{
-    	this.nomCarte = carte.getNom();
-    	this.CHEMIN = carte.getChemin();
+        super(carte.getNom(), carte.getChemin(), carte.getUtilisable());
     }
 
-    /**
-     * Action provoquer lorsqu'un joueur utilise la carte de type de progrès victoire.
-     */
-    public void doAction() throws RemoteException{
-        /*
-        currentPlayer.setPointVictoire(currentPlayer.getPointVictoire()+2);
-         */
-    }
-
-    /**
-     * Méthode de l'interface Carte qui permet de récupérer le chemin de la ressources image d'une carte.
-     *
-     * @return chemin de la ressource de l'image.
-     */
-    @Override
-    public String getCheminImage()throws RemoteException {
-        return CHEMIN;
-    }
-
-	@Override
-	public String getNom()throws RemoteException {
-		return this.nomCarte;
-	}
 }

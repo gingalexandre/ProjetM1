@@ -3,6 +3,7 @@ package client.controller;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Menu;
 import serveur.modele.Message;
 import serveur.modele.Ressource;
 import serveur.modele.carte.*;
@@ -20,9 +21,14 @@ import java.util.Optional;
 public class CarteController {
 
     /**
-     * PlateauController pour répercuter les changements desus.
+     * PlateauController pour répercuter les changements sur le plateau.
      */
     public PlateauController plateauController;
+
+    /**
+     * MenuController pour déclencher la constructon des routes.
+     */
+    public MenuController menuController;
 
     /**
      * Proxy client
@@ -37,8 +43,9 @@ public class CarteController {
     /**
      * Constructeur
      */
-    public CarteController(PlateauController pc){
+    public CarteController(PlateauController pc, MenuController mc){
         plateauController=pc;
+        menuController=mc;
         proxy = ConnexionManager.getStaticProxy();
         try {
             proxy.setCarteController(this);
@@ -89,7 +96,8 @@ public class CarteController {
             }
         }
         if(ci.getNom().equals((new Route()).getNom())){
-            action=true;
+            serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne 2 routes à construire suite à l'usage de sa carte développement de type Route."));
+
         }
         return action;
     }
@@ -106,9 +114,8 @@ public class CarteController {
         ButtonType buttonLaine = new ButtonType("Laine");
         ButtonType buttonArgile = new ButtonType("Argile");
         ButtonType buttonMineraie = new ButtonType("Mineraie");
-        //ButtonType buttonCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-        alert.getButtonTypes().setAll(buttonBois, buttonBle, buttonLaine, buttonArgile,buttonMineraie/*,buttonCancel*/);
+        alert.getButtonTypes().setAll(buttonBois, buttonBle, buttonLaine, buttonArgile,buttonMineraie);
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == buttonBois){

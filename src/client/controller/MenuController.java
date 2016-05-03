@@ -823,11 +823,11 @@ public class MenuController implements Initializable {
 		JoueurInterface joueur = proxy.getJoueur();
 
 		HashMap<Integer, Integer> stock_suffisant = joueur.getStockRessource();
-		if(stock_suffisant.get(Ressource.BLE)>=1 && stock_suffisant.get(Ressource.LAINE)>=1 && stock_suffisant.get(Ressource.MINERAIE)>=1){
+	//	if(stock_suffisant.get(Ressource.BLE)>=1 && stock_suffisant.get(Ressource.LAINE)>=1 && stock_suffisant.get(Ressource.MINERAIE)>=1){
 			CarteInterface carte = serveur.getGestionnairePartie().getPartie().piocheDeck();
-			joueur.supprimerRessource(Ressource.BLE,1);
-			joueur.supprimerRessource(Ressource.LAINE,1);
-			joueur.supprimerRessource(Ressource.MINERAIE,1);
+	//		joueur.supprimerRessource(Ressource.BLE,1);
+	//		joueur.supprimerRessource(Ressource.LAINE,1);
+	//		joueur.supprimerRessource(Ressource.MINERAIE,1);
 			if (carte != null) {
 				CarteInterface card = carte;
 				Platform.runLater(() -> {
@@ -842,13 +842,13 @@ public class MenuController implements Initializable {
 			}else{
 				serveur.getGestionnaireUI().diffuserMessage(new Message("Le deck de carte développement est vide."));
 			}
-		}else{
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setTitle("Erreur détectée");
-			alert.setHeaderText("Attention vous avez essayé une action impossible.");
-			alert.setContentText("Vous n'avez pas assez de ressource pour acheter une carte développement.");
-			alert.showAndWait();
-		}
+	//	}else{
+	//		Alert alert = new Alert(Alert.AlertType.ERROR);
+	//		alert.setTitle("Erreur détectée");
+	//		alert.setHeaderText("Attention vous avez essayé une action impossible.");
+	//		alert.setContentText("Vous n'avez pas assez de ressource pour acheter une carte développement.");
+	//		alert.showAndWait();
+	//	}
 	}
 
 	/**

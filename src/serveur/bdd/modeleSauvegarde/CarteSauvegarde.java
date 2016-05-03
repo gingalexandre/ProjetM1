@@ -3,6 +3,8 @@ package serveur.bdd.modeleSauvegarde;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import serveur.modele.Route;
 import serveur.modele.carte.ArmeePuissante;
 import serveur.modele.carte.Chevalier;
@@ -127,6 +129,7 @@ public class CarteSauvegarde implements Serializable {
 	 * de l'utilisabilité de la carte
 	 * @param value le nouveau boolean d'utilisabilité ou non
 	 */
+	@JsonProperty("utilisable")
 	public void setType(boolean value) {
 		this.utilisable = value;
 	}

@@ -10,18 +10,20 @@ import serveur.commun.Fonctions;
 import serveur.modele.service.JoueurInterface;
 
 /**
- * Classe servant a convertir un JoueurInterface en JoueurSauvegarde pour la sauvegarde de l'objet
+ * Classe servant a convertir un JoueurInterface en JoueurSauvegarde pour la
+ * sauvegarde de l'objet
+ * 
  * @author Alexandre
  */
 public class JoueurSauvegarde implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Id du joueur
 	 */
 	private int id;
-	
+
 	/**
 	 * Compteur du joueur
 	 */
@@ -87,9 +89,19 @@ public class JoueurSauvegarde implements Serializable {
 	 */
 	private ArrayList<CarteSauvegarde> cartes = new ArrayList<CarteSauvegarde>();
 
+	private int nbRouteGratuite;
+
+	private int getGuerrier;
+
+	private int nbCartes;
+
+	private int tailleRouteMax;
+
 	/**
 	 * Constructeur
-	 * @param joueur - joueur à convertir
+	 * 
+	 * @param joueur
+	 *            - joueur à convertir
 	 * @throws RemoteException
 	 */
 
@@ -110,17 +122,24 @@ public class JoueurSauvegarde implements Serializable {
 		this.nbRoute = joueur.getNbRoute();
 		this.stockRessource = joueur.getStockRessource();
 		this.cartes = Fonctions.transformArrayCarteSauvegarde(joueur.getCartes());
-		this.guerrier=joueur.nbGuerrier();
-		this.tailleroutemax=joueur.getTailleroutemax();
+		this.guerrier = joueur.nbGuerrier();
+		this.tailleroutemax = joueur.getTailleroutemax();
+		this.nbRouteGratuite = joueur.getNbRouteGratuite();
+		this.getGuerrier = joueur.getGuerrier();
+		this.nbCartes = joueur.getNbCarte();
+		this.tailleRouteMax = joueur.getTailleroutemax();
+
 	}
 
 	/**
 	 * Constructeur vide pour la désérialisation
 	 */
-	public JoueurSauvegarde() {}
+	public JoueurSauvegarde() {
+	}
 
 	/**
 	 * Getter de l'Id
+	 * 
 	 * @return Integer
 	 */
 	public int getId() {
@@ -129,7 +148,9 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Setter de l'Id
-	 * @param id - nouvel id
+	 * 
+	 * @param id
+	 *            - nouvel id
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -137,6 +158,7 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Getter du compteur de joueur présent sur le serveur
+	 * 
 	 * @return Integer
 	 */
 	public static int getCompteurDeJoueur() {
@@ -145,6 +167,7 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Setter du compteur de joueur présent sur le serveur
+	 * 
 	 * @param compteurDeJoueur
 	 */
 	public static void setCompteurDeJoueur(int compteurDeJoueur) {
@@ -153,6 +176,7 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Getter du nom de l'utilisateur
+	 * 
 	 * @return String
 	 */
 	public String getNomUtilisateur() {
@@ -161,6 +185,7 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Setter du nom de l'utilisateur
+	 * 
 	 * @param nomUtilisateur
 	 */
 	public void setNomUtilisateur(String nomUtilisateur) {
@@ -169,6 +194,7 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Getter de la Date de Naissance du joueur
+	 * 
 	 * @return Date
 	 */
 	public Date getDateDeNaissance() {
@@ -177,7 +203,9 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Setter de la Date de Naissance du joueur
-	 * @param dateDeNaissance - nouvelle date de naissance
+	 * 
+	 * @param dateDeNaissance
+	 *            - nouvelle date de naissance
 	 */
 	public void setDateDeNaissance(Date dateDeNaissance) {
 		this.dateDeNaissance = dateDeNaissance;
@@ -185,6 +213,7 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Getter de la couleur du joueur
+	 * 
 	 * @return String
 	 */
 	public String getCouleur() {
@@ -193,6 +222,7 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Setter de la couleur du joueur
+	 * 
 	 * @param couleur
 	 */
 	public void setCouleur(String couleur) {
@@ -201,6 +231,7 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Getter du booléen pour voir si le joueur est prêt pour la partie
+	 * 
 	 * @return Booléen
 	 */
 	public boolean isPret() {
@@ -209,6 +240,7 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Setter du booléen pour voir si le joueur est prêt pour la partie
+	 * 
 	 * @param pret
 	 */
 	public void setPret(boolean pret) {
@@ -217,6 +249,7 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Getter du nombre de points de victoire du joueur
+	 * 
 	 * @return Integer
 	 */
 	public int getPointVictoire() {
@@ -225,6 +258,7 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Setter du nombre de points de victoire du joueur
+	 * 
 	 * @param pointVictoire
 	 */
 	public void setPointVictoire(int pointVictoire) {
@@ -233,6 +267,7 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Getter du nombre de Colonie du joueur
+	 * 
 	 * @return Integer
 	 */
 	public int getNbColonie() {
@@ -241,6 +276,7 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Setter du nombre de Colonie du joueur
+	 * 
 	 * @param nbColonie
 	 */
 	public void setNbColonie(int nbColonie) {
@@ -249,6 +285,7 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Getter du nombre de ville du joueur
+	 * 
 	 * @return Integer
 	 */
 	public int getNbVille() {
@@ -257,6 +294,7 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Setter du nombre de ville du joueur
+	 * 
 	 * @param nbVille
 	 */
 	public void setNbVille(int nbVille) {
@@ -265,6 +303,7 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Getter du nombre de route du joueur
+	 * 
 	 * @return Integer
 	 */
 	public int getNbRoute() {
@@ -273,6 +312,7 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Setter du nombre de route du joueur
+	 * 
 	 * @param nbRoute
 	 */
 	public void setNbRoute(int nbRoute) {
@@ -281,6 +321,7 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Getter du Serialversionuid
+	 * 
 	 * @return Long
 	 */
 	public static long getSerialversionuid() {
@@ -288,7 +329,9 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Getter de la map des ressources du joueur schéma de la map : <IdentifiantRessource, Nombre>
+	 * Getter de la map des ressources du joueur schéma de la map :
+	 * <IdentifiantRessource, Nombre>
+	 * 
 	 * @return HashMap<Integer, Integer>
 	 */
 	public HashMap<Integer, Integer> getStockRessource() {
@@ -296,7 +339,9 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Setter de la map des ressources du joueur schéma de la map : <IdentifiantRessource, Nombre>
+	 * Setter de la map des ressources du joueur schéma de la map :
+	 * <IdentifiantRessource, Nombre>
+	 * 
 	 * @param stockRessource
 	 */
 	public void setStockRessource(HashMap<Integer, Integer> stockRessource) {
@@ -305,6 +350,7 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Getter de la liste de carte du joueur
+	 * 
 	 * @return ArrayList<CarteInterface>
 	 */
 	public ArrayList<CarteSauvegarde> getCartes() {
@@ -313,6 +359,7 @@ public class JoueurSauvegarde implements Serializable {
 
 	/**
 	 * Setter de la liste de carte du joueur
+	 * 
 	 * @param cartes
 	 */
 	public void setCartes(ArrayList<CarteSauvegarde> cartes) {
@@ -327,20 +374,67 @@ public class JoueurSauvegarde implements Serializable {
 	}
 
 	/**
-	 * Getter tailleroutemax pour savoir quelle est la longueur de la plus grande route du joueur
+	 * Getter tailleroutemax pour savoir quelle est la longueur de la plus
+	 * grande route du joueur
+	 * 
 	 * @return taille route max
 	 */
-	public int getTailleroutemax() throws RemoteException{
+	public int getTailleroutemax() throws RemoteException {
 		return tailleroutemax;
 	}
 
-
 	/**
 	 * Retourne le nombre de guerrier jouer par un joueur.
+	 * 
 	 * @return
 	 * @throws RemoteException
 	 */
 	public int nbGuerrier() throws RemoteException {
 		return this.guerrier;
 	}
+
+	public int getGuerrier() {
+		return guerrier;
+	}
+
+	public void setGuerrier(int guerrier) {
+		this.guerrier = guerrier;
+	}
+
+	public int getNbRouteGratuite() {
+		return nbRouteGratuite;
+	}
+
+	public void setNbRouteGratuite(int nbRouteGratuite) {
+		this.nbRouteGratuite = nbRouteGratuite;
+	}
+
+	public int getGetGuerrier() {
+		return getGuerrier;
+	}
+
+	public void setGetGuerrier(int getGuerrier) {
+		this.getGuerrier = getGuerrier;
+	}
+
+	public int getNbCartes() {
+		return nbCartes;
+	}
+
+	public void setNbCartes(int nbCartes) {
+		this.nbCartes = nbCartes;
+	}
+
+	public int getTailleRouteMax() {
+		return tailleRouteMax;
+	}
+
+	public void setTailleRouteMax(int tailleRouteMax) {
+		this.tailleRouteMax = tailleRouteMax;
+	}
+
+	public void setTailleroutemax(int tailleroutemax) {
+		this.tailleroutemax = tailleroutemax;
+	}
+
 }

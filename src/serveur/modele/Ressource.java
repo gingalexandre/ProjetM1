@@ -8,6 +8,8 @@ package serveur.modele;
 import java.io.Serializable;
 import java.util.HashMap;
 
+import serveur.bdd.modeleSauvegarde.RessourceSauvegarde;
+
 /**
  *
  * @author Arthur
@@ -36,13 +38,27 @@ public class Ressource implements Serializable{
     public Ressource(){
         //Initialement 19 éléments par ressources
         stockBois.put(BOIS, 19);
-        stockBois.put(BLE, 19);
-        stockBois.put(LAINE, 19);
-        stockBois.put(ARGILE, 19);
-        stockBois.put(MINERAIE, 19);
+        stockBle.put(BLE, 19);
+        stockLaine.put(LAINE, 19);
+        stockArgile.put(ARGILE, 19);
+        stockMineraie.put(MINERAIE, 19);
     }
     
-    /**
+
+
+    
+    public Ressource(RessourceSauvegarde ressource) {
+    	stockBois = ressource.getStockBois();
+    	stockBle = ressource.getStockBle();
+    	stockLaine = ressource.getStockLaine();
+    	stockMineraie = ressource.getStockMineraie();
+    	stockArgile = ressource.getStockArgile();
+	}
+
+
+
+
+	/**
      * @return the stockBois
      */
     public static HashMap <Integer, Integer> getStockBois() {
@@ -110,5 +126,8 @@ public class Ressource implements Serializable{
      */
     public static void setStockMineraie(HashMap <Integer, Integer> aStockMineraie) {
         stockMineraie = aStockMineraie;
-    } 
+    }
+
+    
+    
 }

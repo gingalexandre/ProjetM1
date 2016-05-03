@@ -20,12 +20,14 @@ import serveur.bdd.modeleSauvegarde.HexagoneSauvegarde;
 import serveur.bdd.modeleSauvegarde.JetonSauvegarde;
 import serveur.bdd.modeleSauvegarde.JoueurSauvegarde;
 import serveur.bdd.modeleSauvegarde.PaquetSauvegarde;
+import serveur.bdd.modeleSauvegarde.RessourceSauvegarde;
 import serveur.bdd.modeleSauvegarde.RouteSauvegarde;
 import serveur.bdd.modeleSauvegarde.VilleSauvegarde;
 import serveur.modele.Hexagone;
 import serveur.modele.Jeton;
 import serveur.modele.Joueur;
 import serveur.modele.Point;
+import serveur.modele.Ressource;
 import serveur.modele.Route;
 import serveur.modele.Ville;
 import serveur.modele.carte.Paquet;
@@ -116,6 +118,17 @@ public class TestSauvegarde {
 		assertTrue(contenu != "");
 		PaquetSauvegarde p2 = objectMapper.readValue(contenu, PaquetSauvegarde.class);
 		assertTrue(p2.equals(pSauv));
+	}
+	
+	@Test
+	public void genererSauvegardeRessource() throws JsonGenerationException, JsonMappingException, IOException {
+		String contenu = "";
+		Ressource r = new Ressource();
+		RessourceSauvegarde rSauv = new RessourceSauvegarde(r);
+		contenu = objectMapper.writeValueAsString(rSauv);
+		assertTrue(contenu != "");	
+		RessourceSauvegarde rSauv2 = objectMapper.readValue(contenu, RessourceSauvegarde.class);
+		assertTrue(rSauv2.equals(rSauv));
 	}
 
 }

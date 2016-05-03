@@ -361,4 +361,17 @@ public interface JoueurInterface extends Remote {
 	void faireAchat(String string) throws RemoteException;
 
 	void setNbRouteGratuite(int i) throws RemoteException;
+
+	int getNbRouteGratuite() throws RemoteException;
+
+	void setNbCarte(int nbCarte) throws RemoteException;
+	
+	int getGuerrier() throws RemoteException;
+	
+	void setGuerrier(int guerrier) throws RemoteException;
+	
+	
+	
+	
+	
 }

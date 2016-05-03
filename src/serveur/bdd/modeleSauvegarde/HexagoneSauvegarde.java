@@ -4,16 +4,20 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import serveur.commun.Fonctions;
 import serveur.modele.Point;
 import serveur.modele.service.HexagoneInterface;
 
 /**
- * Classe servant a convertir un HexagoneInterface en HexagoneSauvegarde pour la sauvegarde de l'objet
+ * Classe servant a convertir un HexagoneInterface en HexagoneSauvegarde pour la
+ * sauvegarde de l'objet
+ * 
  * @author Alexandre
  */
 public class HexagoneSauvegarde implements Serializable {
-	
+
 	/**
 	 * Variable pour la sérialisation
 	 */
@@ -28,62 +32,62 @@ public class HexagoneSauvegarde implements Serializable {
 	 * Ressource que produit l'hexagone
 	 */
 	private int ressource;
-	
+
 	/**
 	 * Id de l'hexagone
 	 */
 	private int numero;
-	
+
 	/**
 	 * Tableau de ville adjacente à l'hexagone
 	 */
 	private ArrayList<VilleSauvegarde> villeAdj = new ArrayList<VilleSauvegarde>();
-	
+
 	/**
 	 * Booléen stockant le fait que le voleur est ou non placé sur l'hexagone
 	 */
 	public boolean VOLEUR = false;
-	
+
 	/**
 	 * Point a pour le tracé de l'hexagone
 	 */
 	private Point a;
-	
+
 	/**
 	 * Point b pour le tracé de l'hexagone
 	 */
 	private Point b;
-	
+
 	/**
 	 * Point c pour le tracé de l'hexagone
 	 */
 	private Point c;
-	
+
 	/**
 	 * Point d pour le tracé de l'hexagone
 	 */
 	private Point d;
-	
+
 	/**
 	 * Point e pour le tracé de l'hexagone
 	 */
 	private Point e;
-	
+
 	/**
 	 * Point f pour le tracé de l'hexagone
 	 */
 	private Point f;
-	
+
 	/**
 	 * Centre pour le placement du Jeton de l'hexagone
 	 */
 	private Point centre;
-	
+
 	/**
 	 * Type de l'hexagone
 	 */
 	private int type;
-	
+
 	/**
 	 * Jeton positionné sur l'hexagone
 	 */
@@ -91,7 +95,9 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Constructeur
-	 * @param hex - HexagoneInterface à convertir
+	 * 
+	 * @param hex
+	 *            - HexagoneInterface à convertir
 	 * @throws RemoteException
 	 */
 	public HexagoneSauvegarde(HexagoneInterface hex) throws RemoteException {
@@ -124,6 +130,7 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Getter de l'index de l'hexagone
+	 * 
 	 * @return l'index de l'hexagone
 	 */
 	public int getIndexHexagone() {
@@ -132,7 +139,9 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Setter de l'index de l'hexagone
-	 * @param indexHexagone - index de l'hexagone
+	 * 
+	 * @param indexHexagone
+	 *            - index de l'hexagone
 	 */
 	public void setIndexHexagone(int indexHexagone) {
 		this.indexHexagone = indexHexagone;
@@ -140,6 +149,7 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Getter de la ressource de l'hexagone
+	 * 
 	 * @return la ressource de l'hexagone
 	 */
 	public int getRessource() {
@@ -148,7 +158,9 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Setter de la Ressource de l'hexagone
-	 * @param ressource - ressource de l'hexagone
+	 * 
+	 * @param ressource
+	 *            - ressource de l'hexagone
 	 */
 	public void setRessource(int ressource) {
 		this.ressource = ressource;
@@ -156,6 +168,7 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Getter du numéro de l'hexagone
+	 * 
 	 * @return numéro de l'hexagone
 	 */
 	public int getNumero() {
@@ -164,7 +177,9 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Setter du numéro de l'hexagone
-	 * @param numero - numéro de l'hexagone
+	 * 
+	 * @param numero
+	 *            - numéro de l'hexagone
 	 */
 	public void setNumero(int numero) {
 		this.numero = numero;
@@ -172,6 +187,7 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Getter des villes adjacentes à l'hexagone
+	 * 
 	 * @return tableau de villes de l'hexagone
 	 */
 	public ArrayList<VilleSauvegarde> getVilleAdj() {
@@ -180,7 +196,9 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Setter des villes adjacentes à l'hexagone
-	 * @param villeAdj tableau de villes de l'hexagone
+	 * 
+	 * @param villeAdj
+	 *            tableau de villes de l'hexagone
 	 */
 	public void setVilleAdj(ArrayList<VilleSauvegarde> villeAdj) {
 		this.villeAdj = villeAdj;
@@ -188,6 +206,7 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Getter du booléen pour savoir si le voleur est sur l'hexagone
+	 * 
 	 * @return booléen
 	 */
 	public boolean isVOLEUR() {
@@ -196,14 +215,17 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Setter du booléen pour savoir si le voleur est sur l'hexagone
-	 * @param VOLEUR - booléen
+	 * 
+	 * @param VOLEUR
+	 *            - booléen
 	 */
 	public void setVOLEUR(boolean VOLEUR) {
 		this.VOLEUR = VOLEUR;
 	}
-	
+
 	/**
 	 * Getter du point A
+	 * 
 	 * @return Point
 	 */
 	public Point getA() {
@@ -212,6 +234,7 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Setter du point A
+	 * 
 	 * @param Point
 	 */
 	public void setA(Point a) {
@@ -220,6 +243,7 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Getter du point B
+	 * 
 	 * @return Point
 	 */
 	public Point getB() {
@@ -228,6 +252,7 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Setter du point B
+	 * 
 	 * @param Point
 	 */
 	public void setB(Point b) {
@@ -236,6 +261,7 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Getter du point C
+	 * 
 	 * @return Point
 	 */
 	public Point getC() {
@@ -244,6 +270,7 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Setter du point C
+	 * 
 	 * @param Point
 	 */
 	public void setC(Point c) {
@@ -252,6 +279,7 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Getter du point D
+	 * 
 	 * @return Point
 	 */
 	public Point getD() {
@@ -260,6 +288,7 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Setter du point D
+	 * 
 	 * @param Point
 	 */
 	public void setD(Point d) {
@@ -268,6 +297,7 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Getter du point E
+	 * 
 	 * @return Point
 	 */
 	public Point getE() {
@@ -276,6 +306,7 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Setter du point E
+	 * 
 	 * @param Point
 	 */
 	public void setE(Point e) {
@@ -284,6 +315,7 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Getter du point F
+	 * 
 	 * @return Point
 	 */
 	public Point getF() {
@@ -292,6 +324,7 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Setter du point F
+	 * 
 	 * @param Point
 	 */
 	public void setF(Point f) {
@@ -300,6 +333,7 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Getter du point Central
+	 * 
 	 * @return Point
 	 */
 	public Point getCentre() {
@@ -308,6 +342,7 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Setter du point Centre
+	 * 
 	 * @param Point
 	 */
 	public void setCentre(Point centre) {
@@ -316,6 +351,7 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Getter du Type de l'hexagone
+	 * 
 	 * @return int
 	 */
 	public int getType() {
@@ -324,14 +360,17 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Setter du Type de l'hexagone
+	 * 
 	 * @param int
 	 */
+	@JsonProperty("type")
 	public void setType(int type) {
 		this.type = type;
 	}
 
 	/**
 	 * Getter du Jeton
+	 * 
 	 * @return JetonSauvegarde
 	 */
 	public JetonSauvegarde getNumeroJeton() {
@@ -340,6 +379,7 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Setter du Jeton
+	 * 
 	 * @param JetonSauvegarde
 	 */
 	public void setNumeroJeton(JetonSauvegarde numeroJeton) {
@@ -348,6 +388,7 @@ public class HexagoneSauvegarde implements Serializable {
 
 	/**
 	 * Getter du Serialversionuid pour la sérialisation
+	 * 
 	 * @return long
 	 */
 	public static long getSerialversionuid() {

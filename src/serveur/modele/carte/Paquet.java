@@ -1,6 +1,7 @@
 package serveur.modele.carte;
 
 import java.rmi.RemoteException;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -66,8 +67,6 @@ public class Paquet implements serveur.modele.service.PaquetInterface {
     public Paquet() throws RemoteException {
         ap = new ArmeePuissante();
         lr = new LongueRoute();
-
-        int i = 0;
         int random_value = 0;
         while(i<NBCARTE){
             random_value = (int) Math.round(Math.random()* 25);
@@ -125,8 +124,12 @@ public class Paquet implements serveur.modele.service.PaquetInterface {
                 default:
                     break;
             }
-            i = deck.size();
+         
         }
+        for (int i =0;i<NBVICTOIRE;i++) deck.add(new Victoire());
+        for (int i =0;i<NBROUTE;i++) deck.add(new Route());
+        for (int i =0;i<NBMONOPOLE;i++) deck.add(new Monopole());
+        Collections.shuffle(deck);
     }
 
     /**

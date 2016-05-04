@@ -17,7 +17,7 @@ public class Victoire extends Carte {
      * Constructeur simple
      */
     public Victoire()throws RemoteException{
-        super("Carte Victoire", "/Ressources/cartes/armee_puissante.png", false);
+        super("Carte Victoire", "/Ressources/cartes/armee_puissante.png", true);
     }
     
     /**

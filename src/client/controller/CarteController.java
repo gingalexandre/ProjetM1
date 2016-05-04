@@ -58,37 +58,28 @@ public class CarteController {
 
     public boolean doActionCarte(CarteInterface ci) throws RemoteException {
         boolean action = false;
-        if(ci.getUtilisable() || (ci.getNom().equals((new Victoire()).getNom()))){
-            JoueurInterface player = proxy.getJoueur();
-            if(ci.getNom().equals((new Chevalier()).getNom())){
-                plateauController.doActionVoleur();
-                player.incrementeGuerrier();
-                int nbguerrier = player.nbGuerrier();
-                if(nbguerrier>=ArmeePuissante.NB_CHEVALIER_MINIMAL){
-                    serveur.getGestionnairePartie().verificationArmeeForte(player);
-                    serveur.getGestionnaireUI().updatePointVictoire();
-                    serveur.getGestionnaireUI().updateArmeePuissante();
-                }
-                serveur.getGestionnaireUI().diffuserMessage(new Message("La route la plus longue du Joueur :  "+player.getNomUtilisateur()+" est de "+nbguerrier+"."));
-                action = true;
-            }
-            if(ci.getNom().equals((new Victoire()).getNom())){
-                action = true;
-                player.setPointVictoire(player.getPointVictoire()+2);
+        JoueurInterface player = proxy.getJoueur();
+        if(ci.getNom().equals((new Chevalier()).getNom())){
+            plateauController.doActionVoleur();
+            player.incrementeGuerrier();
+            int nbguerrier = player.nbGuerrier();
+            if(nbguerrier>=ArmeePuissante.NB_CHEVALIER_MINIMAL){
+                serveur.getGestionnairePartie().verificationArmeeForte(player);
                 serveur.getGestionnaireUI().updatePointVictoire();
-                serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne 2 points de victoire suite à l'usage de sa carte développement."));
+                serveur.getGestionnaireUI().updateArmeePuissante();
             }
-            if(ci.getNom().equals((new Route()).getNom())){
-                serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne 2 routes à construire suite à l'usage de sa carte développement de type Route."));
-                player.setNbRouteGratuite(2);
-            }
-            return action;
-        }else{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur détectée");
-            alert.setHeaderText("Attention vous avez essayé une action impossible.");
-            alert.setContentText("Vous ne pouvez pas cette carte puisque vous venez de la pioché et que ce n'est pas une carte victoire.");
-            alert.showAndWait();
+            serveur.getGestionnaireUI().diffuserMessage(new Message("La route la plus longue du Joueur :  "+player.getNomUtilisateur()+" est de "+nbguerrier+"."));
+            action = true;
+        }
+        if(ci.getNom().equals((new Victoire()).getNom())){
+            action = true;
+            player.setPointVictoire(player.getPointVictoire()+2);
+            serveur.getGestionnaireUI().updatePointVictoire();
+            serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne 2 points de victoire suite à l'usage de sa carte développement."));
+        }
+        if(ci.getNom().equals((new Route()).getNom())){
+            serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne 2 routes à construire suite à l'usage de sa carte développement de type Route."));
+            player.setNbRouteGratuite(2);
         }
         return action;
     }

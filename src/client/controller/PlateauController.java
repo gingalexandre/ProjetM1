@@ -2,7 +2,7 @@ package client.controller;
 
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import client.view.VuePrincipale;
 import javafx.application.Platform;
@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,12 +19,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
-import serveur.modele.Jeton;
-import serveur.modele.Message;
-import serveur.modele.Route;
-import serveur.modele.Ville;
+import serveur.modele.*;
 import serveur.modele.service.HexagoneInterface;
+import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;
+import serveur.modele.service.VilleInterface;
 import serveur.reseau.proxy.Proxy;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
@@ -196,7 +196,7 @@ public class PlateauController implements Initializable{
 	public void doActionVoleur() throws RemoteException{
 		serveur.getGestionnaireUI().diffuserMessage(new Message ("Choisir la case de destination du Voleur."));
 		menuController.boutonFinTour.setDisable(true);
-		mainPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		mainPane.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>()
 		{
 			@Override
 			public void handle(MouseEvent event){
@@ -209,6 +209,7 @@ public class PlateauController implements Initializable{
 						Polygon polygon = new Polygon();
 						polygon.getPoints().addAll(hex.getPoints());
 						if(polygon.contains(point)){
+							defausseVoleur(hex);
 							try {
 								serveur.getGestionnaireUI().diffuserVoleur(depart,i);
 								serveur.getGestionnaireUI().diffuserMessage(new Message ("Déplacement du voleur de la case : "+(depart+1)+" à la case "+(i+1)+"."));
@@ -228,4 +229,60 @@ public class PlateauController implements Initializable{
 			}
 		});
 	}
+
+	/**
+	 * Defausse du volueur lorsqu'il arrive sur un hexagone.
+	 * @param hex
+	 * @throws RemoteException
+     */
+	private void defausseVoleur(HexagoneInterface hex) throws RemoteException{
+        JoueurInterface voleur = proxy.getJoueur();
+		ArrayList<VilleInterface> ville_adj = hex.getVilleAdj();
+		List<String> choices = new ArrayList<>();
+		for (VilleInterface vi : ville_adj) {
+			JoueurInterface ji = vi.getOqp();
+			if(ji != null && !ji.getNomUtilisateur().equals(voleur.getNomUtilisateur())){
+				choices.add(ji.getNomUtilisateur());
+			}
+		}
+		if(choices.size()==0) return;
+        String nameVoler = popUpChoix(choices);
+        if(nameVoler==null) return;
+        ArrayList<JoueurInterface> opposants = serveur.getGestionnairePartie().recupererAutresJoueurs(voleur);
+        JoueurInterface voler = null;
+        for (JoueurInterface ji : opposants) {
+            if(ji.getNomUtilisateur().equals(nameVoler)){
+                voler=ji;
+            }
+        }
+        if(voler==null) return;
+        if (voler.getNbCarte()<1) return ;
+        HashMap<Integer,Integer> stock = voler.getStockRessource();
+        List l = new LinkedList<Integer>();
+        for (Integer i : stock.keySet()){
+            for (int nb =0 ; nb<stock.get(i) ; nb++) l.add(i);
+        }
+        Collections.shuffle(l);
+        int ressource = (int) l.get((int)Math.random()*l.size());
+        voler.supprimerRessource(ressource,1);
+        voleur.ajoutRessource(ressource,1);
+        serveur.getGestionnaireUI().diffuserGainRessource();
+        serveur.getGestionnaireUI().diffuserGainCarteRessource();
+	}
+
+    /**
+     * Pop associée.
+     * @param choices
+     * @return
+     */
+    private String popUpChoix(List<String> choices){
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(choices.get(0),choices);
+        dialog.setTitle("Choix du joueur qui subit le vol");
+        dialog.setContentText("Choississez le joueur ciblé : ");
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            return result.get();
+        }
+        return null;
+    }
 }

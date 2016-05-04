@@ -44,6 +44,7 @@ import serveur.modele.Plateau;
 import serveur.modele.Point;
 import serveur.modele.Ressource;
 import serveur.modele.carte.LongueRoute;
+import serveur.modele.carte.Victoire;
 import serveur.modele.service.CarteInterface;
 import serveur.modele.service.HexagoneInterface;
 import serveur.modele.service.JoueurInterface;
@@ -61,115 +62,115 @@ import serveur.reseau.serveur.Serveur;
  */
 public class MenuController implements Initializable {
 
-    /**
-     * Attributs concernants les dés
-     */
-    private static final String numeroUn = "file:Ressources/des/dice1.png";
-    private static final String numeroDeux = "file:Ressources/des/dice2.png";
-    private static final String numeroTrois = "file:Ressources/des/dice3.png";
-    private static final String numeroQuatre = "file:Ressources/des/dice4.png";
-    private static final String numeroCinq = "file:Ressources/des/dice5.png";
-    private static final String numeroSix = "file:Ressources/des/dice6.png";
+	/**
+	 * Attributs concernants les dés
+	 */
+	private static final String numeroUn = "file:Ressources/des/dice1.png";
+	private static final String numeroDeux = "file:Ressources/des/dice2.png";
+	private static final String numeroTrois = "file:Ressources/des/dice3.png";
+	private static final String numeroQuatre = "file:Ressources/des/dice4.png";
+	private static final String numeroCinq = "file:Ressources/des/dice5.png";
+	private static final String numeroSix = "file:Ressources/des/dice6.png";
 
-    @FXML
-    private GridPane menuGridPane;
+	@FXML
+	private GridPane menuGridPane;
 
-    @FXML
-    private GridPane pretGridPane;
+	@FXML
+	private GridPane pretGridPane;
 
-    @FXML
-    private ImageView de1, de2;
+	@FXML
+	private ImageView de1, de2;
 
-    @FXML
-    private Button boutonDes;
+	@FXML
+	private Button boutonDes;
 
-    /**
-     * Pour finir le tour
-     */
-    @FXML
-    public Button boutonFinTour;
+	/**
+	 * Pour finir le tour
+	 */
+	@FXML
+	public Button boutonFinTour;
 
-    /**
-     * Pour les échanges
-     */
-    @FXML
-    private Button boutonEchange;
+	/**
+	 * Pour les échanges
+	 */
+	@FXML
+	private Button boutonEchange;
 
-    /**
-     * Bouton pour lancer l'action de piocher
-     */
-    @FXML
-    private Button boutonPioche;
+	/**
+	 * Bouton pour lancer l'action de piocher
+	 */
+	@FXML
+	private Button boutonPioche;
 
-    /**
-     * Bonton pour lancer l'action de la carte séléctionner en choice box.
-     */
-    @FXML
-    private Button boutonCarte;
+	/**
+	 * Bonton pour lancer l'action de la carte séléctionner en choice box.
+	 */
+	@FXML
+	private Button boutonCarte;
 
-    /**
-     * Pour la construction
-     */
-    @FXML
-    private Button boutonConstruireRoute, boutonConstruireColonie, boutonConstruireVille, boutonQuitter;
+	/**
+	 * Pour la construction
+	 */
+	@FXML
+	private Button boutonConstruireRoute, boutonConstruireColonie, boutonConstruireVille, boutonQuitter;
 
-    /**
-     * Pane popup
-     */
-    private Pane pagePopup = null;
+	/**
+	 * Pane popup
+	 */
+	private Pane pagePopup = null;
 
-    /**
-     * Diverses fenêtres
-     */
-    public static Stage fenetreEchange, fenetreProposition, fenetreVol;
+	/**
+	 * Diverses fenêtres
+	 */
+	public static Stage fenetreEchange, fenetreProposition, fenetreVol;
 
 
-    /**
-     * CarteController qui gère els actions des cartes
-     */
-    private CarteController carteController;
+	/**
+	 * CarteController qui gère els actions des cartes
+	 */
+	private CarteController carteController;
 
-    @FXML
-    private ChoiceBox<String> listeCarte;
+	@FXML
+	private ChoiceBox<String> listeCarte;
 
-    /**
-     * PlateauController qui reporte les actions affectant le platea.
-     */
-    private PlateauController pc;
+	/**
+	 * PlateauController qui reporte les actions affectant le platea.
+	 */
+	private PlateauController pc;
 
-    /**
-     * Serveur de jeu
-     */
-    private Serveur serveur;
+	/**
+	 * Serveur de jeu
+	 */
+	private Serveur serveur;
 
-    /**
-     * Proxy client
-     */
-    private Proxy proxy;
+	/**
+	 * Proxy client
+	 */
+	private Proxy proxy;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        serveur = ConnexionManager.getStaticServeur();
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		serveur = ConnexionManager.getStaticServeur();
 
-        //Initialisation des dés
-        de1.setImage(new Image(numeroSix));
-        de2.setImage(new Image(numeroSix));
+		//Initialisation des dés
+		de1.setImage(new Image(numeroSix));
+		de2.setImage(new Image(numeroSix));
 
-        //Initialisation de la liste de cartes
-        listeCarte.valueProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		//Initialisation de la liste de cartes
+		listeCarte.valueProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 
-            }
-        });
+			}
+		});
 
-        //Initialisation du proxy
-        proxy = ConnexionManager.getStaticProxy();
-        try {
-            proxy.setMenuController(this);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+		//Initialisation du proxy
+		proxy = ConnexionManager.getStaticProxy();
+		try {
+			proxy.setMenuController(this);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 		
 		/*
 		 * Dessin des routes / villes si la partie est chargée
@@ -178,8 +179,8 @@ public class MenuController implements Initializable {
 		try {
 			p = serveur.getGestionnairePartie().getPartie().getPlateau();
 			for(RouteInterface r : p.getRoutes()){
-			  	if(r.getOqp() != null){
-			  		dessinerRoute(r, r.getOqp());
+				if(r.getOqp() != null){
+					dessinerRoute(r, r.getOqp());
 				}
 			}
 			for(VilleInterface v : p.getVilles()){
@@ -202,11 +203,11 @@ public class MenuController implements Initializable {
 			pagePopup = (Pane) loader.load();
 			fenetreEchange = new Stage();
 			fenetreEchange.setTitle("Les Colons de Catanes");
-		    Scene scene = new Scene(pagePopup,430,500);
-		    fenetreEchange.initModality(Modality.WINDOW_MODAL);
-		    fenetreEchange.initOwner(ConnexionController.gameFenetre.getScene().getWindow());
-		    fenetreEchange.setScene(scene);
-		    fenetreEchange.showAndWait();
+			Scene scene = new Scene(pagePopup,430,500);
+			fenetreEchange.initModality(Modality.WINDOW_MODAL);
+			fenetreEchange.initOwner(ConnexionController.gameFenetre.getScene().getWindow());
+			fenetreEchange.setScene(scene);
+			fenetreEchange.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -482,11 +483,11 @@ public class MenuController implements Initializable {
 				fenetreProposition = new Stage();
 				fenetreProposition.setTitle("Les Colons de Catanes");
 
-			    Scene scene = new Scene(pagePopup,430,500);
-			    fenetreProposition.initModality(Modality.WINDOW_MODAL);
-			    fenetreProposition.initOwner(ConnexionController.gameFenetre.getScene().getWindow());
-			    fenetreProposition.setScene(scene);
-			    fenetreProposition.showAndWait();
+				Scene scene = new Scene(pagePopup,430,500);
+				fenetreProposition.initModality(Modality.WINDOW_MODAL);
+				fenetreProposition.initOwner(ConnexionController.gameFenetre.getScene().getWindow());
+				fenetreProposition.setScene(scene);
+				fenetreProposition.showAndWait();
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -507,14 +508,14 @@ public class MenuController implements Initializable {
 
 				VolController controller = loader.getController();
 				controller.setValeursText(maxRessource);
-				fenetreVol = new Stage();				
+				fenetreVol = new Stage();
 				fenetreVol.setTitle("Les Colons de Catanes");
-			    Scene scene = new Scene(pagePopup,430,500);
-			    fenetreVol.setScene(scene);
-			    fenetreVol.initStyle(StageStyle.UNDECORATED);
-			    fenetreVol.initModality(Modality.WINDOW_MODAL);
-			    fenetreVol.initOwner(ConnexionController.gameFenetre.getScene().getWindow());
-			    fenetreVol.showAndWait();
+				Scene scene = new Scene(pagePopup,430,500);
+				fenetreVol.setScene(scene);
+				fenetreVol.initStyle(StageStyle.UNDECORATED);
+				fenetreVol.initModality(Modality.WINDOW_MODAL);
+				fenetreVol.initOwner(ConnexionController.gameFenetre.getScene().getWindow());
+				fenetreVol.showAndWait();
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -647,15 +648,15 @@ public class MenuController implements Initializable {
 								int maRouteLaPlusLongue = p.calculerRouteLaPlusLongue(joueurCourrant);
 								joueurCourrant.construireRoute();
 								proxy.getJoueursController().majRessource();
-					    		serveur.getGestionnaireUI().diffuserGainRessource(); // A voir si on peut supprimer
-					    		serveur.getGestionnaireUI().diffuserGainCarteRessource();
+								serveur.getGestionnaireUI().diffuserGainRessource(); // A voir si on peut supprimer
+								serveur.getGestionnaireUI().diffuserGainCarteRessource();
 								serveur.getGestionnaireUI().diffuserMessage(new Message("La route la plus longue de "+joueurCourrant.getNomUtilisateur()+" est de "+maRouteLaPlusLongue+"."));
-                                if(maRouteLaPlusLongue>= LongueRoute.NB_ROUTE_MINIMAL){
-                                    joueurCourrant.setTailleroutemax(maRouteLaPlusLongue);
-                                    serveur.getGestionnairePartie().verificationRouteLongue(joueurCourrant);
-                                    serveur.getGestionnaireUI().updatePointVictoire();
-                                    serveur.getGestionnaireUI().updateRouteLongue();
-                                }
+								if(maRouteLaPlusLongue>= LongueRoute.NB_ROUTE_MINIMAL){
+									joueurCourrant.setTailleroutemax(maRouteLaPlusLongue);
+									serveur.getGestionnairePartie().verificationRouteLongue(joueurCourrant);
+									serveur.getGestionnaireUI().updatePointVictoire();
+									serveur.getGestionnaireUI().updateRouteLongue();
+								}
 								if(isInitTurn()){
 									setButtons(true,true,false);
 								}else{
@@ -789,8 +790,8 @@ public class MenuController implements Initializable {
 									serveur.getGestionnaireUI().diffuserPriseDeVille(v, joueurCourrant);
 									joueurCourrant.construireColonie();
 									proxy.getJoueursController().majRessource();
-						    		serveur.getGestionnaireUI().diffuserGainRessource(); // A voir si on peut supprimer
-						    		serveur.getGestionnaireUI().diffuserGainCarteRessource();
+									serveur.getGestionnaireUI().diffuserGainRessource(); // A voir si on peut supprimer
+									serveur.getGestionnaireUI().diffuserGainCarteRessource();
 									setButtons(false);
 									if(isInitTurn()){
 										setButtons(true,true,false);
@@ -878,7 +879,7 @@ public class MenuController implements Initializable {
 			alert.showAndWait();
 			return;
 		}
-		
+
 		if (carte != null) {
 			CarteInterface card = carte;
 			Platform.runLater(() -> {
@@ -905,27 +906,27 @@ public class MenuController implements Initializable {
 		if(index != -1){
 			CarteInterface carte = joueur.getCarte(index);
 			if (carte != null) {
-				if(carte.getUtilisable()){
-					serveur.getGestionnaireUI().diffuserMessage(new Message(joueur.getNomUtilisateur()+" joue la carte de développement: " + carte.getNom()+"."));
-					boolean action = carteController.doActionCarte(carte);;
-					if(action == true){
+				if (carte.getUtilisable()) {
+					serveur.getGestionnaireUI().diffuserMessage(new Message(joueur.getNomUtilisateur() + " joue la carte de développement: " + carte.getNom() + "."));
+					boolean action = carteController.doActionCarte(carte);
+					if (action == true) {
 						listeCarte.getItems().remove(index);
 						joueur.removeCarte(index);
-					}else{
+					} else {
 						popErreur("Action annulée ou non valide.");
 					}
-				}else{
-					popErreur("Cette carte vient d'être piochée et ne peut être jouée avant le tour suivant.");
+				} else {
+					popErreur("Vous ne pouvez pas cette carte puisque vous venez de la pioché et que ce n'est pas une carte victoire.");
 				}
-			}else{
+			} else {
 				popErreur("Veuillez séléctionner une carte dans le menu déroulant avant d'essayer de la jouer.");
 			}
 		}else{
 			popErreur("Aucune carte séléctionnée.");
 		}
 		disableBoutonConstruction(false);
-
 	}
+
 
 	public void popErreur(String m){
 		Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -936,31 +937,31 @@ public class MenuController implements Initializable {
 	}
 
 
-    @FXML
-    public void construireRoute() throws RemoteException{
-    	JoueurInterface j = proxy.getJoueur();
-    	// Verification préalable
-    	if (j.checkAchat("Route")){
-    		demanderRoute(false, null);
-    		this.proxy.getJoueursController().majRessource();
-    		serveur.getGestionnaireUI().diffuserGainRessource();
-    		serveur.getGestionnaireUI().diffuserGainCarteRessource();
-    	}else {
-    		popErreur("Vous ne pouvez pas contruire de routes. Soit vous avez atteint la limite, soit vous n'avez pas les ressources");
-	    	Alert alert = new Alert(Alert.AlertType.ERROR);
-	    }
-    }
-    
-    @FXML
-    public void construireColonie() throws RemoteException{
-    	JoueurInterface j = proxy.getJoueur();
-    	//Vérification prealable
-    	if (j.checkAchat("Colonie")){
-    		demanderColonie(false);
-    	}
-    	else {
-    		popErreur("Vous ne pouvez pas contruire de colonie. Soit vous avez atteint la limite, soit vous n'avez pas les ressoruces");
-    	}
-    }
+	@FXML
+	public void construireRoute() throws RemoteException{
+		JoueurInterface j = proxy.getJoueur();
+		// Verification préalable
+		if (j.checkAchat("Route")){
+			demanderRoute(false, null);
+			this.proxy.getJoueursController().majRessource();
+			serveur.getGestionnaireUI().diffuserGainRessource();
+			serveur.getGestionnaireUI().diffuserGainCarteRessource();
+		}else {
+			popErreur("Vous ne pouvez pas contruire de routes. Soit vous avez atteint la limite, soit vous n'avez pas les ressources");
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+		}
+	}
+
+	@FXML
+	public void construireColonie() throws RemoteException{
+		JoueurInterface j = proxy.getJoueur();
+		//Vérification prealable
+		if (j.checkAchat("Colonie")){
+			demanderColonie(false);
+		}
+		else {
+			popErreur("Vous ne pouvez pas contruire de colonie. Soit vous avez atteint la limite, soit vous n'avez pas les ressoruces");
+		}
+	}
 
 }

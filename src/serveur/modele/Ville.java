@@ -195,4 +195,10 @@ public class Ville extends UnicastRemoteObject implements VilleInterface {
 		this.port = ressource;
 	}
 
+	@Override
+	public void devientUneVille() throws RemoteException {
+		// TODO Auto-generated method stub
+		colonieVille = true;
+	}
+
 }

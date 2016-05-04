@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.rmi.UnmarshalException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -38,13 +40,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import serveur.commun.Fonctions;
 import serveur.modele.Des;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
 import serveur.modele.Point;
 import serveur.modele.Ressource;
 import serveur.modele.carte.LongueRoute;
-import serveur.modele.carte.Victoire;
 import serveur.modele.service.CarteInterface;
 import serveur.modele.service.HexagoneInterface;
 import serveur.modele.service.JoueurInterface;
@@ -441,11 +443,13 @@ public class MenuController implements Initializable {
 					if(v!=null && v.getOqp()!=null){
 						//Si c'est une ville
 						if(v.isVille()){
-							v.getOqp().ajoutRessource(ressource, 2);
+							//v.getOqp().ajoutRessource(ressource, 2);
+							v.getOqp().ajoutRessource(ressource, 10);
 						}
 						//Si c'est une colonie
 						else{
-							v.getOqp().ajoutRessource(ressource, 1);
+							//v.getOqp().ajoutRessource(ressource, 1);
+							v.getOqp().ajoutRessource(ressource, 10);
 						}
 					}
 				}
@@ -641,7 +645,7 @@ public class MenuController implements Initializable {
 						public void handle(MouseEvent me){
 							try {
 								rectangle.setFill(Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
-								((Group)VuePrincipale.paneUsed.getChildren().get(3)).getChildren().add(rectangle);
+								Platform.runLater(() -> ((Group)VuePrincipale.paneUsed.getChildren().get(3)).getChildren().add(rectangle));
 								routesConstructibles.get(rectangle).setOQP(joueurCourrant);
 								VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
 								serveur.getGestionnaireUI().diffuserPriseDeRoute(r, joueurCourrant);
@@ -785,6 +789,8 @@ public class MenuController implements Initializable {
 								// TODO Auto-generated method stub
 								try {
 									v.setOQP(joueurCourrant);
+									joueurCourrant.ajouterPointVictoire();
+									serveur.getGestionnaireUI().updatePointVictoire();
 									c.setFill(Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
 									VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
 									serveur.getGestionnaireUI().diffuserPriseDeVille(v, joueurCourrant);
@@ -800,14 +806,14 @@ public class MenuController implements Initializable {
 										int i = 0;
 										for (VilleInterface v : p.getVilles()){
 											if (v.getOqp()!=null && v.getOqp().equals(joueurCourrant) && !v.getEmplacement().equals(maColo)){
-												//v.setOQP(null);
+												//v.setOQP(null);//ICI
 												maFirstColo = v;
 												i++;
 											}
 										}
 										if (i == 0) maFirstColo=null;
 										demanderRoute(true,maFirstColo);
-										//if (maFirstColo != null) maFirstColo.setOQP(joueurCourrant);
+										//if (maFirstColo != null) maFirstColo.setOQP(joueurCourrant); //ET LA
 									}
 								} catch (RemoteException e) {
 									// TODO Auto-generated catch block
@@ -835,10 +841,27 @@ public class MenuController implements Initializable {
 	public void dessinerVille(VilleInterface v, JoueurInterface joueurCourrant) {
 		// TODO Auto-generated method stub
 		try {
-			double x = v.getEmplacement().getX();
-			double y = v.getEmplacement().getY();
-			Circle c = new Circle(x,y,Plateau.SIZE/5,Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
-			Platform.runLater(() -> ((Group)VuePrincipale.paneUsed.getChildren().get(3)).getChildren().add(c));
+			System.out.println(v.getOqp()+" "+joueurCourrant.getNomUtilisateur());
+			if (!v.isVille()){
+				double x = v.getEmplacement().getX();
+				double y = v.getEmplacement().getY();
+				Circle c = new Circle(x,y,Plateau.SIZE/5,Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
+				Platform.runLater(() -> ((Group)VuePrincipale.paneUsed.getChildren().get(3)).getChildren().add(c));
+			} else {
+				Point centre = v.getEmplacement();
+				int size = Plateau.SIZE/5;
+				Point2D a = new Point2D(centre.getX(), centre.getY()-2*size);
+				Point2D b = new Point2D(centre.getX()-1.75*size, centre.getY()+size);
+				Point2D c = new Point2D(centre.getX()+1.75*size, centre.getY()+size);
+				Polygon poly = new Polygon();
+				List<Point2D> points = new ArrayList<Point2D>();
+				points.add(a);
+				points.add(b);
+				points.add(c);
+				poly.getPoints().addAll(a.getX(),a.getY(),b.getX(),b.getY(),c.getX(),c.getY());
+				poly.setFill(Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
+				Platform.runLater(() -> ((Group)VuePrincipale.paneUsed.getChildren().get(3)).getChildren().add(poly));
+			}
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -872,11 +895,7 @@ public class MenuController implements Initializable {
 			carte = serveur.getGestionnairePartie().getPartie().piocheDeck();
 			j.faireAchat("Developpement");
 		} else {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setTitle("Erreur détectée");
-			alert.setHeaderText("Attention vous avez essayé une action impossible.");
-			alert.setContentText("Vous ne pouvez pas piocher de carte. Vous n'avez pas les ressources");
-			alert.showAndWait();
+			popErreur("Vous ne pouvez pas piocher de carte. Vous n'avez pas les ressources");
 			return;
 		}
 
@@ -948,7 +967,6 @@ public class MenuController implements Initializable {
 			serveur.getGestionnaireUI().diffuserGainCarteRessource();
 		}else {
 			popErreur("Vous ne pouvez pas contruire de routes. Soit vous avez atteint la limite, soit vous n'avez pas les ressources");
-			Alert alert = new Alert(Alert.AlertType.ERROR);
 		}
 	}
 
@@ -960,8 +978,83 @@ public class MenuController implements Initializable {
 			demanderColonie(false);
 		}
 		else {
-			popErreur("Vous ne pouvez pas contruire de colonie. Soit vous avez atteint la limite, soit vous n'avez pas les ressoruces");
+			popErreur("Vous ne pouvez pas contruire de colonie. Soit vous avez atteint la limite, soit vous n'avez pas les ressources");
 		}
+	}
+	
+	public void demanderVille() throws RemoteException{
+		JoueurInterface j = proxy.getJoueur();
+		List<VilleInterface> villesconstructible = new ArrayList<VilleInterface>();
+		PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
+		Group grp = new Group();
+		for (VilleInterface v : p.getVilles()){
+			System.out.println(v.getOqp());
+			boolean b1 ; 
+			boolean b2 = false; 
+			boolean b3 = false;
+			b1 = v.getOqp()!=null;
+			if (b1 && v.getOqp().equals(j)) b2= true;
+			b3 = v.isVille();
+			System.out.println(b1+" "+b2+" "+b3);
+			if  (v.getOqp()!=null && v.getOqp().equals(j) && !v.isVille()){
+				// Dessiner le triangle;
+				Point centre = v.getEmplacement();
+				int size = Plateau.SIZE/5;
+				Point2D a = new Point2D(centre.getX(), centre.getY()-2*size);
+				Point2D b = new Point2D(centre.getX()-1.75*size, centre.getY()+size);
+				Point2D c = new Point2D(centre.getX()+1.75*size, centre.getY()+size);
+				Polygon poly = new Polygon();
+				List<Point2D> points = new ArrayList<Point2D>();
+				points.add(a);
+				points.add(b);
+				points.add(c);
+				poly.getPoints().addAll(a.getX(),a.getY(),b.getX(),b.getY(),c.getX(),c.getY());
+				poly.setFill(Color.WHITE);
+				poly.setOnMousePressed(new EventHandler<MouseEvent>(){
+
+					@Override
+					public void handle(MouseEvent event) {
+						// TODO Auto-generated method stub
+						try {
+							v.devientUneVille();
+							j.faireAchat("Ville");
+							j.ajouterPointVictoire();
+							serveur.getGestionnaireUI().updatePointVictoire();
+							proxy.getJoueursController().majRessource();
+							serveur.getGestionnaireUI().diffuserGainRessource(); // A voir si on peut supprimer
+							serveur.getGestionnaireUI().diffuserGainCarteRessource();
+							serveur.getGestionnaireUI().diffuserPriseDeVille(v, j);
+							VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
+							setButtons(true,true,false);
+						} catch (RemoteException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					}
+
+				});
+				grp.getChildren().add(poly);
+			}
+		}
+		if (grp.getChildren().size()<1){
+			setButtons(true,true,false);
+			return;
+		} else {
+			Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(grp));
+		}
+	}
+	
+	public void construireVille() throws RemoteException{
+		JoueurInterface j = proxy.getJoueur();
+		//Vérification prealable
+		if (j.checkAchat("Ville")){
+			demanderVille();
+		}
+		else {
+			popErreur("Vous ne pouvez pas contruire de Ville. Soit vous avez atteint la limite, soit vous n'avez pas les ressources");
+		}
+			
 	}
 
 }

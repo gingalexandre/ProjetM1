@@ -254,6 +254,10 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 				default:
 					this.type = DistributeurType.getInstance().donnerType();
 				}
+				if (this.numeroJeton != null) {
+					this.numero = this.numeroJeton.getNumeroJeton();
+				}
+				setRessourceByType();
 			}
 		}
 	}

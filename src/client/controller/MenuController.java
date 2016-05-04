@@ -536,7 +536,6 @@ public class MenuController implements Initializable {
 				serveur.getGestionnairePartie().diffuserDisableBoutonEchangeAvantApresVoleur(true);
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});

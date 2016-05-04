@@ -102,6 +102,8 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	boolean routeLaPlusLongue, armeeLaPlusPuissante = false;
 
 	private int nbRouteGratuite;
+	
+	private boolean estVole = false;
 
 	/**
 	 * Constructeur de joueur Est appele lors de l'ajout d'un proxy sur le
@@ -855,6 +857,16 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 
 	public void setCartes(ArrayList<CarteInterface> cartes) throws RemoteException {
 		this.cartes = cartes;
+	}
+
+	@Override
+	public boolean getEstVole() throws RemoteException {
+		return this.estVole;
+	}
+
+	@Override
+	public void setEstVole(boolean b) throws RemoteException {
+		this.estVole = b;
 	}
 
 }

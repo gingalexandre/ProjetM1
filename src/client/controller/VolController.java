@@ -160,6 +160,11 @@ public class VolController implements Initializable {
 				isValide = false;
 			}
 			
+			//Vérification si un reste est supérieur à une valeur de ressource actuelle
+			if((argile > proxy.getJoueur().getStockRessource().get(Ressource.ARGILE))||(bois > proxy.getJoueur().getStockRessource().get(Ressource.BOIS))||(ble > proxy.getJoueur().getStockRessource().get(Ressource.BLE))||(mineraie > proxy.getJoueur().getStockRessource().get(Ressource.MINERAIE))||(laine > proxy.getJoueur().getStockRessource().get(Ressource.LAINE))){
+				isValide = false;
+			}
+			
 			//Vérification pour que le joueur garde la moitier de ces ressources (maxRessource)
 			if((argile+bois+ble+mineraie+laine)!=maxRessource){
 				isValide = false;

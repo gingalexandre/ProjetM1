@@ -110,4 +110,9 @@ public interface Serveur extends Remote{
 	 * @param idPartie - id de la partie chargée
 	 */
 	void chargerPartie(Integer idPartie) throws RemoteException, InterruptedException;
+
+	/**
+	 * Créer les gestionnaires
+	 */
+	void creerGestionnaireUIetPartie() throws RemoteException;
 }

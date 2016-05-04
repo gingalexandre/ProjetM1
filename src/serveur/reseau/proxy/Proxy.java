@@ -291,9 +291,6 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 		if (menuController.isInitTurn()){
 			this.menuController.demanderColonie(true);
 		}
-		else {
-			//La partie est en cours ;)
-		}
 	}
 
 	/**

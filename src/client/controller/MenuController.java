@@ -761,67 +761,68 @@ public class MenuController implements Initializable {
 	 */
 	public void demanderColonie(boolean depart){
 		try {
-			setButtons(true);
-			Serveur serveur = ConnexionManager.getStaticServeur();
-			PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
-			JoueurInterface joueurCourrant = proxy.getJoueur();
-			// Recuperation de la liste des villes
-			HashMap<Point,VilleInterface> toutesLesVilles = new HashMap<Point,VilleInterface>();
-			for(VilleInterface v : p.getVilles()){
-				toutesLesVilles.put(v.getEmplacement(), v);
-			}
-			//Création du groupe pour ajouter les villes potentiel
-			Group g = new Group();
-			if (depart) {
-				for (VilleInterface v : p.getVilles()){
-					if (v.estLibre(null, p.getVilles())){
-						// Si pas ressorti, possibles exception (infixable)
-						double x = v.getEmplacement().getX();
-						double y = v.getEmplacement().getY();
-						Circle c = new Circle(x,y,Plateau.SIZE/5,Color.WHITE);
-						c.setOnMousePressed(new EventHandler<MouseEvent>(){
-
-							@Override
-							public void handle(MouseEvent event) {
-								// TODO Auto-generated method stub
-								try {
-									v.setOQP(joueurCourrant);
-									c.setFill(Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
-									VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
-									serveur.getGestionnaireUI().diffuserPriseDeVille(v, joueurCourrant);
-									joueurCourrant.construireColonie();
-									proxy.getJoueursController().majRessource();
-									serveur.getGestionnaireUI().diffuserGainRessource(); // A voir si on peut supprimer
-									serveur.getGestionnaireUI().diffuserGainCarteRessource();
-									setButtons(false);
-									if(isInitTurn()){
-										setButtons(true,true,false);
-										Point maColo = new Point(c.getCenterX(),c.getCenterY());
-										VilleInterface maFirstColo = null;
-										int i = 0;
-										for (VilleInterface v : p.getVilles()){
-											if (v.getOqp()!=null && v.getOqp().equals(joueurCourrant) && !v.getEmplacement().equals(maColo)){
-												//v.setOQP(null);
-												maFirstColo = v;
-												i++;
+			if(!this.serveur.getGestionnairePartie().getPartie().isChargee()){
+				setButtons(true);
+				PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
+				JoueurInterface joueurCourrant = proxy.getJoueur();
+				// Recuperation de la liste des villes
+				HashMap<Point,VilleInterface> toutesLesVilles = new HashMap<Point,VilleInterface>();
+				for(VilleInterface v : p.getVilles()){
+					toutesLesVilles.put(v.getEmplacement(), v);
+				}
+				//Création du groupe pour ajouter les villes potentiel
+				Group g = new Group();
+				if (depart) {
+					for (VilleInterface v : p.getVilles()){
+						if (v.estLibre(null, p.getVilles())){
+							// Si pas ressorti, possibles exception (infixable)
+							double x = v.getEmplacement().getX();
+							double y = v.getEmplacement().getY();
+							Circle c = new Circle(x,y,Plateau.SIZE/5,Color.WHITE);
+							c.setOnMousePressed(new EventHandler<MouseEvent>(){
+	
+								@Override
+								public void handle(MouseEvent event) {
+									// TODO Auto-generated method stub
+									try {
+										v.setOQP(joueurCourrant);
+										c.setFill(Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
+										VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
+										serveur.getGestionnaireUI().diffuserPriseDeVille(v, joueurCourrant);
+										joueurCourrant.construireColonie();
+										proxy.getJoueursController().majRessource();
+										serveur.getGestionnaireUI().diffuserGainRessource(); // A voir si on peut supprimer
+										serveur.getGestionnaireUI().diffuserGainCarteRessource();
+										setButtons(false);
+										if(isInitTurn()){
+											setButtons(true,true,false);
+											Point maColo = new Point(c.getCenterX(),c.getCenterY());
+											VilleInterface maFirstColo = null;
+											int i = 0;
+											for (VilleInterface v : p.getVilles()){
+												if (v.getOqp()!=null && v.getOqp().equals(joueurCourrant) && !v.getEmplacement().equals(maColo)){
+													//v.setOQP(null);
+													maFirstColo = v;
+													i++;
+												}
 											}
+											if (i == 0) maFirstColo=null;
+											demanderRoute(true,maFirstColo);
+											//if (maFirstColo != null) maFirstColo.setOQP(joueurCourrant);
 										}
-										if (i == 0) maFirstColo=null;
-										demanderRoute(true,maFirstColo);
-										//if (maFirstColo != null) maFirstColo.setOQP(joueurCourrant);
+									} catch (RemoteException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
 									}
-								} catch (RemoteException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
 								}
-							}
-
-						});
-						Platform.runLater( () -> g.getChildren().add(c));
+	
+							});
+							Platform.runLater( () -> g.getChildren().add(c));
+						}
 					}
 				}
+				Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(g));
 			}
-			Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(g));
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

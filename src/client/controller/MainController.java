@@ -11,13 +11,14 @@ import serveur.reseau.serveur.ConnexionManager;
  * @author jerome
  */
 public class MainController implements Initializable{
-	
+
 	/** 
 	 * Méthode d'initialisation
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// Connexion au serveur
-		ConnexionManager.getInstance();		
+        System.out.println("Initilaize Main Controller");
+		ConnexionManager.getInstance();
 	}
 }

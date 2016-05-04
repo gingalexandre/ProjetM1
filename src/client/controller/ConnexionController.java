@@ -247,7 +247,7 @@ public class ConnexionController implements Initializable {
 	 * @throws RemoteException 
 	 */
 	public void ouvrirFenetreChargerPartie() throws InterruptedException, RemoteException {
-		if(!serveur.getGestionnairePartie().getPartie().isChargee()){
+		if(serveur.getGestionnairePartie() == null || !serveur.getGestionnairePartie().getPartie().isPartieCommence()){
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/ChargementPartie.fxml"));
 			try {
 				boolean connexionOk = serveur.getGestionnaireBDD().verificationConnexion(nomUtilisateur.getText(),

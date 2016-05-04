@@ -146,4 +146,6 @@ public interface GestionnaireUIInterface extends Remote{
 	 * @throws RemoteException
 	 */
 	public int monopole(int ressource_visee) throws RemoteException;
+
+	void diffuserDisableBoutonEchange(boolean b) throws RemoteException;
 }

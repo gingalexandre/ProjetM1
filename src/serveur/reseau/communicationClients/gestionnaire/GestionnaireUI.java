@@ -260,4 +260,11 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 		}
 		return value;
 	}
+
+	@Override
+	public void diffuserDisableBoutonEchange(boolean b) throws RemoteException {
+		for (JoueurServeur joueurServeur : joueurServeurs) {
+			joueurServeur.disableBoutonEchange(b);
+		}
+	}
 }

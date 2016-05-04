@@ -153,13 +153,12 @@ public class ConnexionController implements Initializable {
 						serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur() + " s'est déconnecté de la partie"));
 						serveur.getGestionnaireUI().diffuserDepartJoueur(proxy.getJoueur());
 						System.exit(0);
-					} catch (RemoteException e) {
-						e.printStackTrace();
+					} catch (Exception e) {
+						System.exit(0);
 					}
 				}
 			});
 			gameFenetre.showAndWait();
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

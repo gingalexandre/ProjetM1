@@ -61,6 +61,16 @@ public class VilleSauvegarde implements Serializable {
 	 * Unité du gain que la ville confère au joueur
 	 */
 	private int gain;
+	
+	/**
+	 * Si c'est un port 0 sinon -1
+	 */
+	private int port1;
+
+	/**
+	 * Si c'est une colonie
+	 */
+	private boolean colonieVille;
 
 	/**
 	 * Constructeur
@@ -75,6 +85,8 @@ public class VilleSauvegarde implements Serializable {
 		this.ville_adj3 = ville.getVille_adj3();
 		this.route_adj1 = new RouteSauvegarde(ville.getRoute_adj1());
 		this.route_adj2 = new RouteSauvegarde(ville.getRoute_adj2());
+		this.colonieVille = ville.isColonie();
+		this.port1 = ville.isPort();
 		// Dans le cas où la dernière est null suite aux contraintes du plateau
 		if (ville.getRoute_adj3() != null) {
 			this.route_adj3 = new RouteSauvegarde(ville.getRoute_adj3());
@@ -212,7 +224,7 @@ public class VilleSauvegarde implements Serializable {
 	 * Getter du propriétaire de la ville
 	 * @return le propriétaire de la ville
 	 */
-	public JoueurSauvegarde getville() {
+	public JoueurSauvegarde getVille() {
 		return ville;
 	}
 
@@ -220,7 +232,7 @@ public class VilleSauvegarde implements Serializable {
 	 * Setter du propriétaire de la ville
 	 * @param ville - nouveau propriétaire
 	 */
-	public void setville(JoueurSauvegarde ville) {
+	public void setVille(JoueurSauvegarde ville) {
 		this.ville = ville;
 	}
 
@@ -239,6 +251,26 @@ public class VilleSauvegarde implements Serializable {
 	public void setGain(int gain) {
 		this.gain = gain;
 	}
+	
+	
+
+	public int getPort1() {
+		return port1;
+	}
+
+	public void setPort1(int port1) {
+		this.port1 = port1;
+	}
+
+	public boolean isColonieVille() {
+		return colonieVille;
+	}
+
+	public void setColonieVille(boolean colonieVille) {
+		this.colonieVille = colonieVille;
+	}
+
+	
 
 	/**
 	 * Méthode equals

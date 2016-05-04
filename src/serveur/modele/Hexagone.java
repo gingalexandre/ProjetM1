@@ -48,7 +48,7 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 	public final static int PRAIRIE = 5;
 
 	public final static int DESERT = 6;
-	
+
 	/**
 	 * Boolean indiquant si le voleur se trouve sur l'hexagone
 	 */
@@ -65,12 +65,13 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 	private int type;
 
 	/**
-	 * Jeton correspondant 
+	 * Jeton correspondant
 	 */
 	private Jeton numeroJeton;
 
 	/**
 	 * Constructeur de la classe Hexagone
+	 * 
 	 * @param indexHexagone
 	 * @param a
 	 * @param b
@@ -81,7 +82,8 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 	 * @param type
 	 * @throws RemoteException
 	 */
-	public Hexagone(int indexHexagone, Point a, Point b, Point c, Point d, Point e, Point f, int type) throws RemoteException {
+	public Hexagone(int indexHexagone, Point a, Point b, Point c, Point d, Point e, Point f, int type)
+			throws RemoteException {
 		super();
 		this.indexHexagone = indexHexagone;
 		this.a = a;
@@ -95,6 +97,7 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 
 	/**
 	 * Constructeur pour la sauvegarde
+	 * 
 	 * @param hex
 	 * @throws RemoteException
 	 */
@@ -117,13 +120,18 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 			this.numeroJeton = null;
 		}
 	}
-	
+
 	/**
 	 * Constructeur de la classe Hexagone
-	 * @param xCentre - coordonnées en abscisse du centre
-	 * @param yCentre - coordonnées en ordonnée du centre
-	 * @param size - taille de l'hexagone
-	 * @param indexHexagone - index de l'hexagone
+	 * 
+	 * @param xCentre
+	 *            - coordonnées en abscisse du centre
+	 * @param yCentre
+	 *            - coordonnées en ordonnée du centre
+	 * @param size
+	 *            - taille de l'hexagone
+	 * @param indexHexagone
+	 *            - index de l'hexagone
 	 * @throws RemoteException
 	 */
 	public Hexagone(double xCentre, double yCentre, double size, int indexHexagone) throws RemoteException {
@@ -154,19 +162,108 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 		centre = new Point(xCentre, yCentre);
 
 		this.indexHexagone = indexHexagone;
-
-		if (this.indexHexagone != 9) {
-			this.type = DistributeurType.getInstance().donnerType();
-			this.numeroJeton = new Jeton(this);
-			this.numero = this.numeroJeton.getNumeroJeton();
-			setRessourceByType();
-		} else {
-			this.type = Hexagone.DESERT;
-			VOLEUR = true;
+		if (Plateau.getDifficulte() != null) {
+			if (Plateau.getDifficulte().equals("Expert")) {
+				if (this.indexHexagone != 9) {
+					this.type = DistributeurType.getInstance().donnerType();
+					this.numeroJeton = new Jeton(this);
+					this.numero = this.numeroJeton.getNumeroJeton();
+					setRessourceByType();
+				} else {
+					this.type = Hexagone.DESERT;
+					VOLEUR = true;
+				}
+			} else {
+				switch (this.indexHexagone) {
+				case 0:
+					this.type = FORET;
+					this.numeroJeton = new Jeton(this, 6);
+					break;
+				case 1:
+					this.type = PRAIRIE;
+					this.numeroJeton = new Jeton(this, 3);
+					break;
+				case 2:
+					this.type = PRAIRIE;
+					this.numeroJeton = new Jeton(this, 8);
+					break;
+				case 3:
+					this.type = CHAMPS;
+					this.numeroJeton = new Jeton(this, 2);
+					break;
+				case 4:
+					this.type = MONTAGNE;
+					this.numeroJeton = new Jeton(this, 4);
+					break;
+				case 5:
+					this.type = CHAMPS;
+					this.numeroJeton = new Jeton(this, 5);
+					break;
+				case 6:
+					this.type = FORET;
+					this.numeroJeton = new Jeton(this, 10);
+					break;
+				case 7:
+					this.type = FORET;
+					this.numeroJeton = new Jeton(this, 5);
+					break;
+				case 8:
+					this.type = CARRIERE;
+					this.numeroJeton = new Jeton(this, 9);
+					break;
+				case 9:
+					this.type = DESERT;
+					this.VOLEUR = true;
+					break;
+				case 10:
+					this.type = MONTAGNE;
+					this.numeroJeton = new Jeton(this, 6);
+					break;
+				case 11:
+					this.type = CHAMPS;
+					this.numeroJeton = new Jeton(this, 9);
+					break;
+				case 12:
+					this.type = CHAMPS;
+					this.numeroJeton = new Jeton(this, 10);
+					break;
+				case 13:
+					this.type = MONTAGNE;
+					this.numeroJeton = new Jeton(this, 11);
+					break;
+				case 14:
+					this.type = FORET;
+					this.numeroJeton = new Jeton(this, 3);
+					break;
+				case 15:
+					this.type = PRAIRIE;
+					this.numeroJeton = new Jeton(this, 12);
+					break;
+				case 16:
+					this.type = CARRIERE;
+					this.numeroJeton = new Jeton(this, 8);
+					break;
+				case 17:
+					this.type = PRAIRIE;
+					this.numeroJeton = new Jeton(this, 4);
+					break;
+				case 18:
+					this.type = CARRIERE;
+					this.numeroJeton = new Jeton(this, 11);
+					break;
+				default:
+					this.type = DistributeurType.getInstance().donnerType();
+				}
+				if (this.numeroJeton != null) {
+					this.numero = this.numeroJeton.getNumeroJeton();
+				}
+				setRessourceByType();
+			}
 		}
 	}
-	
-	public Hexagone() throws RemoteException{}
+
+	public Hexagone() throws RemoteException {
+	}
 
 	/**
 	 * @return le point A
@@ -175,7 +272,7 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 	public Point getA() {
 		return a;
 	}
-	
+
 	/**
 	 * @return le point B
 	 * @throws RemoteException
@@ -199,7 +296,7 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 	public Point getD() {
 		return d;
 	}
-	
+
 	/**
 	 * @return le point E
 	 * @throws RemoteException
@@ -317,13 +414,14 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 	}
 
 	/**
-	 * @param VOLEUR - true si le voleur est sur l'hexagone, false sinon 
+	 * @param VOLEUR
+	 *            - true si le voleur est sur l'hexagone, false sinon
 	 * @throws RemoteException
 	 */
 	public void setVOLEUR(boolean VOLEUR) {
 		this.VOLEUR = VOLEUR;
 	}
-	
+
 	/**
 	 * @return le numéro du jeton
 	 */
@@ -418,13 +516,13 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 		result = prime * result + ((villeAdj == null) ? 0 : villeAdj.hashCode());
 		return result;
 	}
-	
+
 	public String toString() {
 		return "Hexagone [indexHexagone=" + indexHexagone + ", ressource=" + ressource + ", numero=" + numero
 				+ ", villeAdj=" + villeAdj + ", a=" + a + ", b=" + b + ", c=" + c + ", d=" + d + ", e=" + e + ", f=" + f
 				+ ", type=" + type + "]";
 	}
-	
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}

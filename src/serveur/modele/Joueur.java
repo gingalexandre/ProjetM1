@@ -90,7 +90,7 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	/**
 	 * Stock de ressources du joueur
 	 */
-	private HashMap<Integer, Integer> stockRessource = new HashMap<>();
+	private HashMap<Integer, Integer> stockRessource;
 
 	/**
 	 * Cartes du joueur

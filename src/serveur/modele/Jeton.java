@@ -43,12 +43,22 @@ public class Jeton extends UnicastRemoteObject implements JetonInterface {
 	public Jeton() throws RemoteException{}
 	
 	/**
-	 * Constructeur de la classe Jeton
+	 * Constructeur de la classe Jeton pour plateau expert
 	 * @param hexagone
 	 * @throws RemoteException
 	 */
 	public Jeton(Hexagone hexagone) throws RemoteException{
 		numeroJeton = DistributeurJeton.getInstance().donnerJeton();
+		emplacement = hexagone.getCentre();
+	}
+	
+	/**
+	 * Constructeur pour la plateau débutant
+	 * @param hexagone
+	 * @param numeroJeton
+	 */
+	public Jeton(Hexagone hexagone, int numeroJeton) throws RemoteException{
+		this.numeroJeton = numeroJeton;
 		emplacement = hexagone.getCentre();
 	}
 	

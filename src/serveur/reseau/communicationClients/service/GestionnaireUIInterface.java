@@ -145,5 +145,5 @@ public interface GestionnaireUIInterface extends Remote{
 	 * @param ressource_visee
 	 * @throws RemoteException
 	 */
-	public int monopole(int ressource_visee) throws  RemoteException ;
+	public int monopole(int ressource_visee) throws RemoteException;
 }

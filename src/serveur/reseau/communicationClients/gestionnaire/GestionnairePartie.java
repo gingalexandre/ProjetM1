@@ -39,14 +39,8 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 
 	/**
 	 * Constructeur de la classe GestionnairePartie
-<<<<<<< HEAD
 	 * @param plateauInterface - plateau de jeu
-=======
-	 * 
 	 * @param plateauInterface
-	 * @param plateau
-	 *            - plateau de jeu
->>>>>>> GestionDesAchats
 	 */
 	public GestionnairePartie(PlateauInterface plateauInterface) throws RemoteException {
 		this.partie = new Partie(plateauInterface);
@@ -55,7 +49,6 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 
 	/**
 	 * Permet d'obtenir la partie
-	 * 
 	 * @return la partie
 	 */
 	public PartieInterface getPartie() throws RemoteException {
@@ -64,9 +57,7 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 
 	/**
 	 * Enregistre un nouveau JoueurInterface dans la liste des joueurs
-	 * 
-	 * @param nouveauJoueurServeur
-	 *            - JoueurInterface a enregistrer
+	 * @param nouveauJoueurServeur - JoueurInterface a enregistrer
 	 */
 	public void enregistrerJoueur(JoueurServeur nouveauJoueurServeur) {
 		joueursServeur.add(nouveauJoueurServeur);
@@ -86,9 +77,7 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	}
 
 	/**
-	 * Methode qui renvoie la liste des joueurs mis a part le JoueurInterface
-	 * indique en parametre
-	 * 
+	 * Methode qui renvoie la liste des joueurs mis a part le JoueurInterface indique en parametre
 	 * @param joueurQuiAppelle
 	 * @return la liste des autres joueurs connect�s sur le serveur
 	 * @throws RemoteException
@@ -131,7 +120,6 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 
 	/**
 	 * Réactive les boutons d'un joueur
-	 * 
 	 * @throws RemoteException
 	 */
 	public void enableBoutons(JoueurInterface j) throws RemoteException {
@@ -144,7 +132,6 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 
 	/**
 	 * Met un JoueurInterface a pret
-	 * 
 	 * @param joueur
 	 * @throws RemoteException
 	 */
@@ -156,7 +143,6 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	/**
 	 * Verifie si tous les joueurs connectes sur le serveur sont prets a jouer.
 	 * Si ils le sont tous, la partie commence.
-	 * 
 	 * @throws RemoteException
 	 */
 	public void verifierJoueursPrets() throws RemoteException {
@@ -243,9 +229,7 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 				joueurServeur.recevoirMessage(new Message(nomJoueurActuel + " a terminé son tour." + "\nC'est à "
 						+ joueurTour.getNomUtilisateur() + " de jouer."));
 			}
-			if (this.premierePhasePartie) { // Si on est dans la première phase,
-											// on affiche les colonies/route à
-											// construire
+			if (this.premierePhasePartie && !this.getPartie().isChargee()) { // Si on est dans la première phase,// on affiche les colonies/route à// construire
 				lancerProchainTour(joueurTour);
 			}
 		} else { // La partie est terminée
@@ -292,16 +276,14 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 			for(JoueurServeur joueurServeur : joueursServeur) {
 				if(joueurServeur.getJoueur().getNomUtilisateur().equals(joueurTour.getNomUtilisateur())){
 					joueurServeur.lancerTour();
-				}
-			}	
+				}	
+			}
 		}
 	}
 
 	/**
 	 * Permet de savoir si on est encore dans la première phase de la partie
-	 * 
-	 * @return true si on est encore dans la première phase de la partie, false
-	 *         sinon
+	 * @return true si on est encore dans la première phase de la partie, false sinon
 	 */
 	@Override
 	public boolean isPremierePhasePartie() throws RemoteException {

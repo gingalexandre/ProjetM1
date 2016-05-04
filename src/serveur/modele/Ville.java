@@ -54,6 +54,8 @@ public class Ville extends UnicastRemoteObject implements VilleInterface {
 		this.ville_adj3 = ville.getVille_adj3();
 		this.route_adj1 = new Route(ville.getRoute_adj1());
 		this.route_adj2 = new Route(ville.getRoute_adj2());
+		this.colonieVille = ville.isColonieVille();
+		this.port = ville.getPort1();
 		// Dans le cas où la dernière est null suite aux contraintes du plateau
 		if (ville.getRoute_adj3() != null) {
 			this.route_adj3 = new Route(ville.getRoute_adj3());
@@ -61,8 +63,8 @@ public class Ville extends UnicastRemoteObject implements VilleInterface {
 		else{
 			this.route_adj3 = null;
 		}
-		if (ville.getville() != null) {
-			this.oqp = new Joueur(ville.getville());
+		if (ville.getVille() != null) {
+			this.oqp = new Joueur(ville.getVille());
 		} else {
 			this.oqp = null;
 		}
@@ -156,7 +158,7 @@ public class Ville extends UnicastRemoteObject implements VilleInterface {
 		return gain;
 	}
 
-	public boolean isVille() {
+	public boolean isColonie() {
 		return colonieVille;
 	}
 
@@ -195,4 +197,19 @@ public class Ville extends UnicastRemoteObject implements VilleInterface {
 		this.port = ressource;
 	}
 
+	public boolean isColonieVille()  throws RemoteException{
+		return colonieVille;
+	}
+
+	public void setColonieVille(boolean colonieVille) {
+		this.colonieVille = colonieVille;
+	}
+
+	public int getPort()  throws RemoteException {
+		return port;
+	}
+	
+	
+
+	
 }

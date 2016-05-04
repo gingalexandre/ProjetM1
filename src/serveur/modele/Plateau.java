@@ -34,6 +34,8 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 	private ArrayList<RouteInterface> routes;
 
 	private ArrayList<JetonInterface> jetons;
+	
+	public static String difficulte = "Expert";
 
 	public static final int SIZE = 60;
 
@@ -53,8 +55,24 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 		Plateau.villes = Fonctions.transformArrayVille(plateauCourant.getVilles());
 		this.routes = Fonctions.transformArrayRoute(plateauCourant.getRoutes());
 		this.jetons = Fonctions.transformArrayJeton(plateauCourant.getJetons());
+		difficulte = plateauCourant.getDifficulte();
 	}
 
+	/**
+	 * @return la difficulté du plateau
+	 */
+	public static String getDifficulte() {
+		return difficulte;
+	}
+
+	/**
+	 * Permet d'indiquer la difficulté du plateau
+	 * @param difficulte
+	 */
+	public static void setDifficulte(String difficulte) {
+		Plateau.difficulte = difficulte;
+	}
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}

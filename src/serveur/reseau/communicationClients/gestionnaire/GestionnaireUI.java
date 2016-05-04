@@ -107,7 +107,6 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	 */
 	public void diffuserMessage(Message message) throws RemoteException {
 		for (JoueurServeur joueurServeur : joueurServeurs) {
-			System.out.println(joueurServeur.getJoueur().getNomUtilisateur());
 			joueurServeur.recevoirMessage(message);
 		}
 	}

@@ -6,7 +6,6 @@
 package serveur.modele;
 
 import java.io.Serializable;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Date;
@@ -190,6 +189,7 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 		compteurDeJoueur++;
 		this.id = compteurDeJoueur;
 		this.setPointVictoire(0);
+		this.stockRessource = new HashMap<Integer, Integer>();
 		this.stockRessource.put(Ressource.BOIS, 0);
 		this.stockRessource.put(Ressource.BLE, 0);
 		this.stockRessource.put(Ressource.ARGILE, 0);
@@ -480,7 +480,14 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	 * @throws RemoteException
 	 */
 	public void ajoutRessource(int typeRessource, int value) throws RemoteException {
-		this.stockRessource.put(typeRessource, this.stockRessource.get(typeRessource) + value);
+		System.out.println(this.stockRessource.keySet());
+		System.out.println(this.stockRessource.keySet().size());
+		if(this.stockRessource.keySet() != null){
+			this.stockRessource.put(typeRessource, this.stockRessource.get(typeRessource) + value);
+		}
+		else{
+			this.stockRessource.put(typeRessource, value);
+		}
 	}
 
 	/**

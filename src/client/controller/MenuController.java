@@ -128,7 +128,7 @@ public class MenuController implements Initializable {
 
 
 	/**
-	 * CarteController qui gère els actions des cartes
+	 * CarteController qui gère les actions des cartes
 	 */
 	private CarteController carteController;
 
@@ -641,37 +641,38 @@ public class MenuController implements Initializable {
 					rectangle.setFill(Color.WHITE);
 					Platform.runLater(() -> grp.getChildren().add(rectangle));
 					routesConstructibles.put(rectangle, r);
-					rectangle.setOnMousePressed(new EventHandler<MouseEvent>() {
-						public void handle(MouseEvent me){
-							try {
-								rectangle.setFill(Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
-								Platform.runLater(() -> ((Group)VuePrincipale.paneUsed.getChildren().get(3)).getChildren().add(rectangle));
-								routesConstructibles.get(rectangle).setOQP(joueurCourrant);
-								VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
-								serveur.getGestionnaireUI().diffuserPriseDeRoute(r, joueurCourrant);
-								int maRouteLaPlusLongue = p.calculerRouteLaPlusLongue(joueurCourrant);
-								joueurCourrant.construireRoute();
-								proxy.getJoueursController().majRessource();
-								serveur.getGestionnaireUI().diffuserGainRessource(); // A voir si on peut supprimer
-								serveur.getGestionnaireUI().diffuserGainCarteRessource();
-								serveur.getGestionnaireUI().diffuserMessage(new Message("La route la plus longue de "+joueurCourrant.getNomUtilisateur()+" est de "+maRouteLaPlusLongue+"."));
-								if(maRouteLaPlusLongue>= LongueRoute.NB_ROUTE_MINIMAL){
-									joueurCourrant.setTailleroutemax(maRouteLaPlusLongue);
-									serveur.getGestionnairePartie().verificationRouteLongue(joueurCourrant);
-									serveur.getGestionnaireUI().updatePointVictoire();
-									serveur.getGestionnaireUI().updateRouteLongue();
-								}
-								if(isInitTurn()){
-									setButtons(true,true,false);
-								}else{
-									setButtons(false);
-								}
-							} catch (RemoteException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}
-					});
+                    rectangle.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>(){
+                        public void handle(MouseEvent me){
+                            try {
+                                rectangle.setFill(Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
+                                Platform.runLater(() -> ((Group)VuePrincipale.paneUsed.getChildren().get(3)).getChildren().add(rectangle));
+                                routesConstructibles.get(rectangle).setOQP(joueurCourrant);
+                                VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
+                                serveur.getGestionnaireUI().diffuserPriseDeRoute(r, joueurCourrant);
+                                int maRouteLaPlusLongue = p.calculerRouteLaPlusLongue(joueurCourrant);
+                                joueurCourrant.construireRoute();
+                                proxy.getJoueursController().majRessource();
+                                serveur.getGestionnaireUI().diffuserGainRessource(); // A voir si on peut supprimer
+                                serveur.getGestionnaireUI().diffuserGainCarteRessource();
+                                serveur.getGestionnaireUI().diffuserMessage(new Message("La route la plus longue de "+joueurCourrant.getNomUtilisateur()+" est de "+maRouteLaPlusLongue+"."));
+                                if(maRouteLaPlusLongue>= LongueRoute.NB_ROUTE_MINIMAL){
+                                    joueurCourrant.setTailleroutemax(maRouteLaPlusLongue);
+                                    serveur.getGestionnairePartie().verificationRouteLongue(joueurCourrant);
+                                    serveur.getGestionnaireUI().updatePointVictoire();
+                                    serveur.getGestionnaireUI().updateRouteLongue();
+                                }
+                                rectangle.removeEventHandler(MouseEvent.MOUSE_PRESSED, this);
+                                if(isInitTurn()){
+                                    setButtons(true,true,false);
+                                }else{
+                                    setButtons(false);
+                                }
+                            } catch (RemoteException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                    });
 				}
 			}
 			if (!initPhase && grp.getChildren().size()==0) setButtons(false);
@@ -930,6 +931,10 @@ public class MenuController implements Initializable {
 					if (action == true) {
 						listeCarte.getItems().remove(index);
 						joueur.removeCarte(index);
+                        if(joueur.getNbRouteGratuite()>0){
+                            boutonConstruireRoute.setDisable(false);
+                            boutonFinTour.setDisable(true);
+                        }
 					} else {
 						popErreur("Action annulée ou non valide.");
 					}
@@ -959,14 +964,16 @@ public class MenuController implements Initializable {
 	public void construireRoute() throws RemoteException{
 		JoueurInterface j = proxy.getJoueur();
 		// Verification préalable
-		if (j.checkAchat("Route")){
+        System.out.println(j.getNbRouteGratuite());
+		if (/*j.checkAchat("Route") || */j.getNbRouteGratuite()>0){
 			demanderRoute(false, null);
 			this.proxy.getJoueursController().majRessource();
 			serveur.getGestionnaireUI().diffuserGainRessource();
 			serveur.getGestionnaireUI().diffuserGainCarteRessource();
 		}else {
 			popErreur("Vous ne pouvez pas contruire de routes. Soit vous avez atteint la limite, soit vous n'avez pas les ressources");
-		}
+		    boutonConstruireRoute.setDisable(true);
+        }
 	}
 
 	@FXML

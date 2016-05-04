@@ -67,68 +67,11 @@ public class Paquet implements serveur.modele.service.PaquetInterface {
     public Paquet() throws RemoteException {
         ap = new ArmeePuissante();
         lr = new LongueRoute();
-        int random_value = 0;
-        while(i<NBCARTE){
-            random_value = (int) Math.round(Math.random()* 25);
-            switch(random_value){
-                case 0:
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                case 5:
-                case 6:
-                case 7:
-                case 8:
-                case 9:
-                case 10:
-                case 11:
-                case 12:
-                case 13:
-                    if(NBCHEVALIER>0){
-                        deck.add(i, new Chevalier());
-                        NBCHEVALIER--;
-                    }
-                    break;
-                case 14:
-                case 15:
-                    if(NBINVENTION>0){
-                        deck.add(i, new Invention());
-                        NBINVENTION--;
-                    }
-                    break;
-                case 16:
-                case 17:
-                    if(NBMONOPOLE>0){
-                        deck.add(i, new Monopole());
-                        NBMONOPOLE--;
-                    }
-                    break;
-                case 18:
-                case 19:
-                case 20:
-                case 21:
-                case 22:
-                    if(NBVICTOIRE>0){
-                        deck.add(i, new Victoire());
-                        NBVICTOIRE--;
-                    }
-                    break;
-                case 23:
-                case 24:
-                    if(NBROUTE>0){
-                        deck.add(i, new Route());
-                        NBROUTE--;
-                    }
-                    break;
-                default:
-                    break;
-            }
-         
-        }
-        for (int i =0;i<NBVICTOIRE;i++) deck.add(new Victoire());
-        for (int i =0;i<NBROUTE;i++) deck.add(new Route());
-        for (int i =0;i<NBMONOPOLE;i++) deck.add(new Monopole());
+        for (int i=0;i<NBVICTOIRE;i++) deck.add(new Victoire());
+        for (int i=0;i<NBROUTE;i++) deck.add(new Route());
+        for (int i=0;i<NBMONOPOLE;i++) deck.add(new Monopole());
+        for (int i=0;i<NBCHEVALIER;i++) deck.add(new Chevalier());
+        for (int i=0;i<NBINVENTION;i++) deck.add(new Invention());
         Collections.shuffle(deck);
     }
 

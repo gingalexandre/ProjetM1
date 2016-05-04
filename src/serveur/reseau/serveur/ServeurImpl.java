@@ -58,6 +58,8 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 */
 	private ArrayList<String> listeCouleurs = new ArrayList<String>();
 	
+	private boolean chargee = false;
+	
 	/**
 	 * Constructeur de la classe ServeurImpl
 	 * @throws RemoteException
@@ -110,7 +112,9 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	public boolean enregistrerJoueur(JoueurServeur nouveauJoueurServeur, String nomJoueur, Date date, int nbJoueurs, String difficulte) throws RemoteException, TooMuchPlayerException {
 		this.nombre_max_joueurs = nbJoueurs;
 		this.gestionnaireUI = new GestionnaireUI(difficulte);
-		this.gestionnairePartie = new GestionnairePartie(this.gestionnaireUI.getPlateau());
+		if(!chargee){
+			this.gestionnairePartie = new GestionnairePartie(this.gestionnaireUI.getPlateau());
+		}
 		return enregistrerJoueur(nouveauJoueurServeur, nomJoueur, date);
 	}
 	
@@ -311,8 +315,19 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 */
 	@Override
 	public void chargerPartie(Integer idPartie) throws RemoteException, InterruptedException {
+		chargee = true;
 		this.gestionnaireBDD.chargerPartie(idPartie);
 		PartieInterface partieChargee = this.gestionnairePartie.recupererPartieChargee();
 		this.gestionnaireUI.setPlateau(partieChargee.getPlateau());
+	}
+
+	/** 
+	 * Crée les gestionnaires
+	 * @throws RemoteException 
+	 */
+	@Override
+	public void creerGestionnaireUIetPartie() throws RemoteException {
+		this.gestionnaireUI = new GestionnaireUI("Débutant");
+		this.gestionnairePartie = new GestionnairePartie(this.gestionnaireUI.getPlateau());
 	}
 }

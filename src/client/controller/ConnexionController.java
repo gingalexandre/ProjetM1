@@ -260,6 +260,7 @@ public class ConnexionController implements Initializable {
 							.recupererPartieByName(nomUtilisateur.getText());
 					if (listeIdPartieSauvegarde != null && listeIdPartieSauvegarde.size() > 0) {
 						boutonParamètresPartie.setVisible(false);
+						serveur.creerGestionnaireUIetPartie();
 						
 						fenetreChargementPartie = new Stage();
 						fenetreChargementPartie.setTitle("Les Colons de Catanes");

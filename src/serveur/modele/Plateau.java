@@ -36,7 +36,7 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 
 	private ArrayList<JetonInterface> jetons;
 	
-	public static String difficulte;
+	public static String difficulte = "Expert";
 
 	public static final int SIZE = 60;
 

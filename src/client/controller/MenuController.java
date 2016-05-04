@@ -535,7 +535,6 @@ public class MenuController implements Initializable {
 				serveur.getGestionnaireUI().diffuserDisableBoutonEchange(true);
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});

@@ -205,16 +205,49 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 		}
 	}
 
+	
+	/**
+	 * Verifie si tous les joueurs ont fini de se faire voler
+	 * @throws RemoteException
+	 */
+	
+	public boolean verifierJoueursVoleurFini() throws RemoteException {
+		for (JoueurServeur joueurServeur : joueursServeur) {
+			if (joueurServeur.getJoueur().getEstVole()) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * Désactive/active les boutons Echange des autres joueurs
+	 * @param desactive
+	 * @throws RemoteException
+	 */
+
+	public void diffuserDisableBoutonEchangeAvantApresVoleur(boolean desactiveActive) throws RemoteException {
+		for (JoueurServeur joueurServeur : joueursServeur) {
+			if(desactiveActive){
+				joueurServeur.disableBoutonEchange(desactiveActive);
+			}
+			else if(verifierJoueursVoleurFini()){
+				if(this.partie.getJoueurActuel().getNomUtilisateur().equals(joueurServeur.getJoueur().getNomUtilisateur())){
+					joueurServeur.disableBoutonEchange(false);
+				}
+			}
+		}
+		
+	}
+
+
 	/**
 	 * Finit le tour d'un joueur et renvoie le joueur suivant
 	 * 
 	 * @throws RemoteException
 	 */
 	public void finirTour(String nomJoueurActuel) throws RemoteException {
-		if (!partieTerminee(this.partie.getJoueurTour())) { // La partie n'est
-															// pas terminée, on
-															// passe au tour
-															// suivant
+		if (!partieTerminee(this.partie.getJoueurTour())) { // La partie n'est pas terminée, on passe au tour suivant
 			// Passage au tour suivant
 			partie.incrementeTour();
 
@@ -229,7 +262,7 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 				joueurServeur.recevoirMessage(new Message(nomJoueurActuel + " a terminé son tour." + "\nC'est à "
 						+ joueurTour.getNomUtilisateur() + " de jouer."));
 			}
-			if (this.premierePhasePartie && !this.getPartie().isChargee()) { // Si on est dans la première phase,// on affiche les colonies/route à// construire
+			if (this.premierePhasePartie && !this.getPartie().isChargee()) { // Si on est dans la première phase, on affiche les colonies/route à construire
 				lancerProchainTour(joueurTour);
 			}
 		} else { // La partie est terminée
@@ -247,11 +280,8 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	}
 
 	/**
-	 * Indique si la partie est terminée (le joueur a 10 ou plus points de
-	 * victoire)
-	 * 
-	 * @param joueurTour
-	 *            - joueur actuel
+	 * Indique si la partie est terminée (le joueur a 10 ou plus points de victoire)
+	 * @param joueurTour - joueur actuel
 	 * @return true si la partie est terminée, false sinon
 	 * @throws RemoteException
 	 */

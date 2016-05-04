@@ -164,6 +164,13 @@ public interface PartieInterface extends Remote {
 	JoueurInterface getJoueurTour() throws RemoteException;
 
 	/**
+	 * Renvoie le jeu qui joue en ce moment
+	 * @return
+	 * @throws RemoteException
+	 */
+	JoueurInterface getJoueurActuel() throws RemoteException;
+	
+	/**
 	 * Récupération d'un joueur en fonction de sa couleur
 	 * @param couleur
 	 * @return le joueur grâce à sa couleur

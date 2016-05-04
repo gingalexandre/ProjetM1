@@ -125,7 +125,16 @@ public class JoueursController implements Initializable {
 	 */
 
 	public void majRessource() throws RemoteException {
-		HashMap<Integer, Integer> stockJoueur = proxy.getJoueur().getStockRessource();
+		System.out.println(proxy.getJoueur().getNomUtilisateur());
+		System.out.println(proxy.getJoueur());
+		HashMap<Integer, Integer> stockJoueur = serveur.getGestionnairePartie().getPartie().getJoueurByName(proxy.getJoueur().getNomUtilisateur()).getStockRessource();
+		/*System.out.println(proxy.getJoueur().getNomUtilisateur());
+		System.out.println("ARGILE " + stockJoueur.get(Ressource.ARGILE));
+		System.out.println("BOIS " + stockJoueur.get(Ressource.BOIS));
+		System.out.println("BLE " + stockJoueur.get(Ressource.BLE));
+		System.out.println("MINERAIE " + stockJoueur.get(Ressource.MINERAIE));
+		System.out.println("LAINE " + stockJoueur.get(Ressource.LAINE));*/
+		System.out.println("--------------------------------");
 		Platform.runLater(() -> {
 			this.nbArgile.setText("" + stockJoueur.get(Ressource.ARGILE));
 			this.nbBle.setText("" + stockJoueur.get(Ressource.BLE));

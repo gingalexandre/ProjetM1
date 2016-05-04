@@ -480,14 +480,7 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	 * @throws RemoteException
 	 */
 	public void ajoutRessource(int typeRessource, int value) throws RemoteException {
-		System.out.println(this.stockRessource.keySet());
-		System.out.println(this.stockRessource.keySet().size());
-		if(this.stockRessource.keySet() != null){
 			this.stockRessource.put(typeRessource, this.stockRessource.get(typeRessource) + value);
-		}
-		else{
-			this.stockRessource.put(typeRessource, value);
-		}
 	}
 
 	/**

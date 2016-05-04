@@ -1,5 +1,6 @@
 package serveur.modele.service;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import serveur.modele.carte.LongueRoute;
 /**
  * Created by Marinthe Jérôme on 28/04/2016.
  */
-public interface PaquetInterface {
+public interface PaquetInterface extends Remote {
 	
 	/**
      * Méthode permettant de piocher la première carte du paquet.
@@ -32,7 +33,7 @@ public interface PaquetInterface {
      * Getter carte spécial longue route
      * @retun lr carte sépciale longue route
      */
-    LongueRoute getLr() throws RemoteException;
+    CarteInterface getLr() throws RemoteException;
 
     /**
      * Setter carte spécial longue route
@@ -43,7 +44,7 @@ public interface PaquetInterface {
      * Getter carte spécial armée puissante
      * @retun lr carte sépciale armée puissante
      */
-    ArmeePuissante getAp() throws RemoteException;
+    CarteInterface getAp() throws RemoteException;
 
     /**
      * Setter carte spécial armée puissante

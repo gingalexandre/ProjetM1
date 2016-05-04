@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import exception.TooMuchPlayerException;
 import serveur.modele.Partie;
 import serveur.modele.service.JoueurInterface;
+import serveur.modele.service.PaquetInterface;
 import serveur.modele.service.PartieInterface;
 import serveur.reseau.proxy.JoueurServeur;
 
@@ -138,4 +139,8 @@ public interface GestionnairePartieInterface extends Remote {
 	 * @return 
 	 */
 	PartieInterface recupererPartieChargee() throws RemoteException;
+
+	PaquetInterface getDeck()throws RemoteException;
+
+	void setPartie(PartieInterface partieChargee) throws RemoteException;
 }

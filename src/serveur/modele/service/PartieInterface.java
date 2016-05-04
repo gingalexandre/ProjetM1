@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import serveur.modele.Ressource;
+import serveur.modele.carte.Paquet;
 
 public interface PartieInterface extends Remote {
 
@@ -243,4 +244,6 @@ public interface PartieInterface extends Remote {
 	 * @throws RemoteException
      */
 	public CarteInterface piocheDeck() throws RemoteException;
+
+	PaquetInterface getDeck() throws RemoteException;
 }

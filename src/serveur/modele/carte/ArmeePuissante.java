@@ -1,16 +1,15 @@
 package serveur.modele.carte;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
 import serveur.bdd.modeleSauvegarde.CarteSauvegarde;
-import serveur.modele.service.CarteInterface;
 
 /**
  * Classe représente la Carte de l'armee la plus puissante.
  * @author Yohann Hugo
  */
-public class ArmeePuissante extends Carte {
+public class ArmeePuissante extends Carte implements Serializable{
 
 	/**
      * Attribut : condition minimal requise.

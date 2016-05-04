@@ -1,5 +1,6 @@
 package serveur.modele.carte;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -9,7 +10,7 @@ import serveur.modele.service.CarteInterface;
 /**
  * @auhtor Yohann Hugo
  */
-public class LongueRoute extends Carte {
+public class LongueRoute extends Carte implements Serializable{
 
 	/**
      * Attribut : condition minimal requise.

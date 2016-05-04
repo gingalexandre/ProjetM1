@@ -11,7 +11,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import serveur.commun.Fonctions;
 import serveur.modele.Plateau;
-import serveur.modele.Ressource;
+import serveur.modele.carte.Paquet;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PartieInterface;
 import serveur.reseau.proxy.JoueurServeur;
@@ -74,6 +74,8 @@ public class PartieSauvegarde implements Serializable {
 	 * Ressource
 	 */
 	private RessourceSauvegarde ressource;
+	
+	private PaquetSauvegarde deck;
 
 	/**
 	 * Constructeur
@@ -83,6 +85,7 @@ public class PartieSauvegarde implements Serializable {
 	public PartieSauvegarde(boolean t) throws RemoteException {
 		this.plateauCourant = new PlateauSauvegarde(recupererPlateau());
 		Serveur serveur = ConnexionManager.getStaticServeur();
+		this.deck = new PaquetSauvegarde(serveur.getGestionnairePartie().getPartie().getDeck());
 		
 		this.ressource = new RessourceSauvegarde(serveur.getGestionnairePartie().getPartie().getRessources());
 		this.isPartieCommence = serveur.getGestionnairePartie().getPartie().isPartieCommence();
@@ -307,5 +310,15 @@ public class PartieSauvegarde implements Serializable {
 	public void setRessource(RessourceSauvegarde ressource) {
 		this.ressource = ressource;
 	}
+
+	public PaquetSauvegarde getDeck() {
+		return deck;
+	}
+
+	public void setDeck(PaquetSauvegarde deck) {
+		this.deck = deck;
+	}
+	
+	
 
 }

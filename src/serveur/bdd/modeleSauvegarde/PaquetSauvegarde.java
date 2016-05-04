@@ -6,6 +6,8 @@ import java.util.List;
 
 import serveur.commun.Fonctions;
 import serveur.modele.carte.Paquet;
+import serveur.modele.service.CarteInterface;
+import serveur.modele.service.PaquetInterface;
 
 public class PaquetSauvegarde {
 
@@ -37,6 +39,12 @@ public class PaquetSauvegarde {
 	}
 
 	public PaquetSauvegarde() {}
+
+	public PaquetSauvegarde(PaquetInterface paquet) throws RemoteException {
+		this.ap = new CarteSauvegarde(paquet.getAp());
+		this.lr = new CarteSauvegarde(paquet.getLr());
+		this.deck = Fonctions.transformArrayCarte(paquet.getDeck());
+	}
 
 	/**
 	 * Getter de l'armée la plus puissante

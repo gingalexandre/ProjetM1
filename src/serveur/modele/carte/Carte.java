@@ -1,14 +1,15 @@
 package serveur.modele.carte;
 
-import serveur.modele.service.CarteInterface;
-
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+
+import serveur.modele.service.CarteInterface;
 
 /**
  * Created by Yohann Hugo on 03/05/2016.
  */
-public class Carte extends UnicastRemoteObject implements CarteInterface {
+public class Carte extends UnicastRemoteObject implements CarteInterface, Serializable {
 
     /**
      * Attribut du nom de la carte.

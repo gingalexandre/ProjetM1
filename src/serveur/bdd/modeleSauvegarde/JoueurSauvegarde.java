@@ -96,6 +96,8 @@ public class JoueurSauvegarde implements Serializable {
 	private int nbCartes;
 
 	private int tailleRouteMax;
+	
+	private boolean estVole;
 
 	/**
 	 * Constructeur
@@ -128,6 +130,7 @@ public class JoueurSauvegarde implements Serializable {
 		this.getGuerrier = joueur.getGuerrier();
 		this.nbCartes = joueur.getNbCarte();
 		this.tailleRouteMax = joueur.getTailleroutemax();
+		this.estVole = joueur.getEstVole();
 
 	}
 
@@ -436,5 +439,15 @@ public class JoueurSauvegarde implements Serializable {
 	public void setTailleroutemax(int tailleroutemax) {
 		this.tailleroutemax = tailleroutemax;
 	}
+
+	public boolean getEstVole() {
+		return estVole;
+	}
+
+	public void setEstVole(boolean estVole) {
+		this.estVole = estVole;
+	}
+	
+	
 
 }

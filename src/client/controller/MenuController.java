@@ -462,7 +462,8 @@ public class MenuController implements Initializable {
 						}
 						//Si c'est une colonie
 						else{
-							joueur.ajoutRessource(ressource, 1);
+							//joueur.ajoutRessource(ressource, 1);
+							joueur.ajoutRessource(ressource, 10);
 						}
 					}
 				}

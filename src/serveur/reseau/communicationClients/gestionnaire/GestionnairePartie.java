@@ -10,6 +10,7 @@ import serveur.bdd.modeleBDD.Statistiques;
 import serveur.modele.Message;
 import serveur.modele.Partie;
 import serveur.modele.service.JoueurInterface;
+import serveur.modele.service.PaquetInterface;
 import serveur.modele.service.PartieInterface;
 import serveur.modele.service.PlateauInterface;
 import serveur.reseau.communicationClients.service.GestionnairePartieInterface;
@@ -418,6 +419,7 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 		this.partie.setChargee(true);
 		this.partie.setPartieCommence(false);
 		enleverJoueursPrets();
+		this.partie.setDeck(Sauvegarde.getPartieChargee().getDeck());
 		return this.partie;
 	}
 
@@ -432,6 +434,20 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 		if(this.partie.getJoueur4() != null){
 			this.partie.getJoueur4().setPret(false);
 		}
+	}
+	
+	public PaquetInterface getDeck() throws RemoteException{
+		return this.partie.getDeck();
+	}
+	
+	public void setDeck(PaquetInterface deck) throws RemoteException{
+		this.partie.setDeck(deck);
+	}
+
+	@Override
+	public void setPartie(PartieInterface partieChargee) throws RemoteException {
+		this.partie.setDeck(partieChargee.getDeck());
+		
 	}
 	
 }

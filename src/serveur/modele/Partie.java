@@ -78,7 +78,7 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	/**
 	 * Deck de carte de la partie;
 	 */
-	private PaquetInterface deck;
+	private Paquet deck;
 
 	/**
 	 * Constructeur de la classe Partie
@@ -114,6 +114,7 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 		this.plateau = Plateau.getInstance();
 		this.partieCommence = true;
 		this.ressources = new Ressource(p.getRessource());
+		this.deck = new Paquet(p.getDeck());
 	}
 	
 	public Partie() throws RemoteException{};
@@ -519,5 +520,13 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
      */
 	public CarteInterface piocheDeck() throws RemoteException{
 		return this.deck.pioche();
+	}
+	
+	public PaquetInterface getDeck() throws RemoteException{
+		return this.deck;
+	}
+
+	public void setDeck(PaquetInterface deck2) {
+		this.deck = (Paquet) deck2;
 	}
 }

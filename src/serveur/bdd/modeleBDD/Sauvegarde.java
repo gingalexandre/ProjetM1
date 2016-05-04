@@ -22,8 +22,6 @@ import serveur.modele.Plateau;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
 
-// METTRE DANS LA METHODE A LA FIN POUR DISTRIBUER LES DONNÉES SAUVEGARDÉES AUX JOUEURS
-
 /**
  * Classe permettant la sauvegarde de la partie
  * 

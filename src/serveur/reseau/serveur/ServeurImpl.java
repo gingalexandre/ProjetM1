@@ -319,6 +319,7 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 		this.gestionnaireBDD.chargerPartie(idPartie);
 		PartieInterface partieChargee = this.gestionnairePartie.recupererPartieChargee();
 		this.gestionnaireUI.setPlateau(partieChargee.getPlateau());
+
 	}
 
 	/** 

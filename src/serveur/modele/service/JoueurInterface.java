@@ -369,7 +369,10 @@ public interface JoueurInterface extends Remote {
 	int getGuerrier() throws RemoteException;
 	
 	void setGuerrier(int guerrier) throws RemoteException;
+
+	boolean getEstVole() throws RemoteException;
 	
+	void setEstVole(boolean estVole) throws RemoteException ;
 	
 	
 	

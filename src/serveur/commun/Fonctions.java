@@ -314,4 +314,18 @@ public class Fonctions {
 		System.out.println(res.size());
 		return res;
 	}
+	
+	public static LinkedList<CarteInterface> transformListCarteSauvegarde(List<CarteSauvegarde> cartes) {
+		LinkedList<CarteInterface> res = new LinkedList<CarteInterface>();
+		for (CarteSauvegarde carte : cartes) {
+
+			try {
+				res.add(Fonctions.addCarte(carte));
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return res;
+	}
 }

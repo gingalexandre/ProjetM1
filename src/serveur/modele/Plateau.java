@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import client.controller.PlateauController;
 import serveur.bdd.modeleSauvegarde.PlateauSauvegarde;
 import serveur.commun.Fonctions;
 import serveur.modele.service.HexagoneInterface;
@@ -56,6 +55,7 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 		Plateau.villes = Fonctions.transformArrayVille(plateauCourant.getVilles());
 		this.routes = Fonctions.transformArrayRoute(plateauCourant.getRoutes());
 		this.jetons = Fonctions.transformArrayJeton(plateauCourant.getJetons());
+		difficulte = plateauCourant.getDifficulte();
 	}
 
 	/**

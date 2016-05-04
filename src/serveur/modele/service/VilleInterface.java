@@ -89,7 +89,7 @@ public interface VilleInterface extends Remote{
 	 * @return si la colonie est une ville
 	 * @throws RemoteException
 	 */
-	boolean isVille() throws RemoteException;
+	boolean isColonie() throws RemoteException;
 	
 	/**
 	 * Ajouter une route à une ville
@@ -110,5 +110,6 @@ public interface VilleInterface extends Remote{
 	void setPort() throws RemoteException;
 
 	void setPort(int ressource) throws RemoteException;
+	
 
 }

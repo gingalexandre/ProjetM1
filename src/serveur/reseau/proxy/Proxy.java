@@ -62,8 +62,6 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 	 * Joueur associe au proxy
 	 */
 	private JoueurInterface joueur;
-	
-	private int nbJoueurVole;
 
 	public Proxy() throws RemoteException {}
 
@@ -372,16 +370,7 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 
 	@Override
 	public void disableBoutonEchange(boolean b) throws RemoteException {
-		if(b){
-			this.nbJoueurVole++;
-			this.menuController.disableBoutonEchange(b);
-		}
-		else{
-			this.nbJoueurVole--;
-			if(this.nbJoueurVole==0){
-				this.menuController.disableBoutonEchange(b);
-			}
-		}
+		this.menuController.disableBoutonEchange(b);
 	}
 
 	/**

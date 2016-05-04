@@ -789,7 +789,7 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	 * Méthode permettant de verifier les ressources du joueur pour effectuer un
 	 * achat
 	 * 
-	 * @param str
+	 * @param string
 	 *            Objet que l'on veut acheter dans l'ensemble suivant {"Route" |
 	 *            "Ville" | "Colonie" | "Developpement"}
 	 */
@@ -820,8 +820,7 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 
 	@Override
 	public void setNbRouteGratuite(int i) throws RemoteException {
-		// TODO Auto-generated method stub
-		this.setNbRouteGratuite(i);
+		nbRouteGratuite=i;
 	}
 
 	public static int getCompteurDeJoueur() throws RemoteException {

@@ -246,7 +246,7 @@ public class PlateauController implements Initializable{
 		for (VilleInterface vi : ville_adj) {
 			JoueurInterface ji = vi.getOqp();
 			if(ji != null && !ji.getNomUtilisateur().equals(voleur.getNomUtilisateur())){
-				choices.add(ji.getNomUtilisateur());
+				if(!choices.contains(ji.getNomUtilisateur()))choices.add(ji.getNomUtilisateur());
 			}
 		}
 		if(choices.size()==0) return true;

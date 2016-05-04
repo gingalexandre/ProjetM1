@@ -926,7 +926,6 @@ public class MenuController implements Initializable {
 			CarteInterface carte = joueur.getCarte(index);
 			if (carte != null) {
 				if (carte.getUtilisable()) {
-					serveur.getGestionnaireUI().diffuserMessage(new Message(joueur.getNomUtilisateur() + " joue la carte de développement: " + carte.getNom() + "."));
 					boolean action = carteController.doActionCarte(carte);
 					if (action == true) {
 						listeCarte.getItems().remove(index);
@@ -935,7 +934,7 @@ public class MenuController implements Initializable {
 						popErreur("Action annulée ou non valide.");
 					}
 				} else {
-					popErreur("Vous ne pouvez pas cette carte puisque vous venez de la pioché et que ce n'est pas une carte victoire.");
+					popErreur("Vous ne pouvez pas cette carte puisque vous venez de la piocher et que ce n'est pas une carte victoire.");
 				}
 			} else {
 				popErreur("Veuillez séléctionner une carte dans le menu déroulant avant d'essayer de la jouer.");

@@ -247,6 +247,22 @@ public class MenuController implements Initializable {
 		return serveur.getGestionnairePartie().isPremierePhasePartie();
 	}
 
+	public void setButtonsAfterLancerDes() throws RemoteException{
+		Platform.runLater(() -> {
+			boutonEchange.setDisable(false);
+			boutonFinTour.setDisable(false);
+			try {
+				disableBoutonConstruction(false);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			listeCarte.setDisable(false);
+			boutonPioche.setDisable(false);
+			boutonCarte.setDisable(false);
+			this.boutonDes.setDisable(true);
+		});
+	}
 	/**
 	 * Méthode de désactivation/réactivation des boutons
 	 */
@@ -345,7 +361,6 @@ public class MenuController implements Initializable {
 	 * notifierLancerDes()
 	 */
 	public void lancerDes() throws RemoteException {
-		boutonDes.setDisable(true);
 		Des des = new Des();
 		Integer[] resultats = des.lancerDes();
 
@@ -374,7 +389,7 @@ public class MenuController implements Initializable {
 				serveur.getGestionnaireUI().envoyerVol(moitierRessource, serveur.getJoueur(nom));
 			}
 		}
-		disableBoutonConstruction(false);
+		setButtonsAfterLancerDes();
 	}
 
 	/**
@@ -660,8 +675,6 @@ public class MenuController implements Initializable {
 								}
 								if(isInitTurn()){
 									setButtons(true,true,false);
-								}else{
-									setButtons(false);
 								}
 							} catch (RemoteException e) {
 								// TODO Auto-generated catch block
@@ -968,6 +981,10 @@ public class MenuController implements Initializable {
 
 	public void disableBoutonEchange(boolean b) {
 		this.boutonEchange.setDisable(b);
+	}
+
+	public void setBoutonLancerDes(boolean b) {
+		this.boutonDes.setDisable(b);
 	}
 
 }

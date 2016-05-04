@@ -125,7 +125,7 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 	public void enableBoutons(JoueurInterface j) throws RemoteException {
 		for (JoueurServeur joueurServeur : joueursServeur) {
 			if (joueurServeur.getJoueur().getNomUtilisateur().equals(j.getNomUtilisateur())) {
-				joueurServeur.setButtons(false);
+				joueurServeur.setButtonLancerDes(false);
 			}
 		}
 	}

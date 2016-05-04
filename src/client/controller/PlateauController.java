@@ -77,7 +77,7 @@ public class PlateauController implements Initializable{
 	 * MenuController associé
 	 */
 	public MenuController menuController;
-	
+
 	/**
 	 * Méthode d'initialisation
      */

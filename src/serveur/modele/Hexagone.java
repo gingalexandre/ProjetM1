@@ -155,14 +155,98 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 
 		this.indexHexagone = indexHexagone;
 
-		if (this.indexHexagone != 9) {
-			this.type = DistributeurType.getInstance().donnerType();
-			this.numeroJeton = new Jeton(this);
-			this.numero = this.numeroJeton.getNumeroJeton();
-			setRessourceByType();
-		} else {
-			this.type = Hexagone.DESERT;
-			VOLEUR = true;
+		if(Plateau.getDifficulte().equals("Expert")){
+			if (this.indexHexagone != 9) {
+				this.type = DistributeurType.getInstance().donnerType();
+				this.numeroJeton = new Jeton(this);
+				this.numero = this.numeroJeton.getNumeroJeton();
+				setRessourceByType();
+			} else {
+				this.type = Hexagone.DESERT;
+				VOLEUR = true;
+			}
+		}	
+		else{
+			switch(this.indexHexagone){
+			case 0:
+				this.type = FORET;
+				this.numeroJeton = new Jeton(this, 6);
+				break;
+			case 1:
+				this.type = PRAIRIE;
+				this.numeroJeton = new Jeton(this, 3);
+				break;
+			case 2:
+				this.type = PRAIRIE;
+				this.numeroJeton = new Jeton(this, 8);
+				break;
+			case 3:	
+				this.type = CHAMPS;
+				this.numeroJeton = new Jeton(this, 2);
+				break;
+			case 4:
+				this.type = MONTAGNE;
+				this.numeroJeton = new Jeton(this, 4);
+				break;
+			case 5:
+				this.type = CHAMPS;
+				this.numeroJeton = new Jeton(this, 5);
+				break;
+			case 6: 
+				this.type = FORET;
+				this.numeroJeton = new Jeton(this, 10);
+				break;
+			case 7:
+				this.type = FORET;
+				this.numeroJeton = new Jeton(this, 5);
+				break;
+			case 8:
+				this.type = CARRIERE;
+				this.numeroJeton = new Jeton(this, 9);
+				break;
+			case 9:
+				this.type = DESERT;
+				this.VOLEUR = true;
+				break;
+			case 10:
+				this.type = MONTAGNE;
+				this.numeroJeton = new Jeton(this, 6);
+				break;
+			case 11:
+				this.type = CHAMPS;
+				this.numeroJeton = new Jeton(this, 9);
+				break;
+			case 12:
+				this.type = CHAMPS;
+				this.numeroJeton = new Jeton(this, 10);
+				break;
+			case 13:
+				this.type = MONTAGNE;
+				this.numeroJeton = new Jeton(this, 11);
+				break;
+			case 14:
+				this.type = FORET;
+				this.numeroJeton = new Jeton(this, 3);
+				break;
+			case 15:
+				this.type = PRAIRIE;
+				this.numeroJeton = new Jeton(this, 12);
+				break;
+			case 16:
+				this.type = CARRIERE;
+				this.numeroJeton = new Jeton(this, 8);
+				break;
+			case 17:
+				this.type = PRAIRIE;
+				this.numeroJeton = new Jeton(this, 4);
+				break;
+			case 18:
+				this.type = CARRIERE;
+				this.numeroJeton = new Jeton(this, 11);
+				break;
+			default:
+				 this.type = DistributeurType.getInstance().donnerType();
+			}
 		}
 	}
 	

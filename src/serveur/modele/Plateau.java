@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import client.controller.PlateauController;
 import serveur.bdd.modeleSauvegarde.PlateauSauvegarde;
 import serveur.commun.Fonctions;
 import serveur.modele.service.HexagoneInterface;
@@ -34,6 +35,8 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 	private ArrayList<RouteInterface> routes;
 
 	private ArrayList<JetonInterface> jetons;
+	
+	public static String difficulte;
 
 	public static final int SIZE = 60;
 
@@ -55,6 +58,21 @@ public class Plateau extends UnicastRemoteObject implements PlateauInterface {
 		this.jetons = Fonctions.transformArrayJeton(plateauCourant.getJetons());
 	}
 
+	/**
+	 * @return la difficulté du plateau
+	 */
+	public static String getDifficulte() {
+		return difficulte;
+	}
+
+	/**
+	 * Permet d'indiquer la difficulté du plateau
+	 * @param difficulte
+	 */
+	public static void setDifficulte(String difficulte) {
+		Plateau.difficulte = difficulte;
+	}
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}

@@ -46,7 +46,7 @@ public class HexagoneSauvegarde implements Serializable {
 	/**
 	 * Booléen stockant le fait que le voleur est ou non placé sur l'hexagone
 	 */
-	public boolean VOLEUR = false;
+	public boolean VOLEUR ;
 
 	/**
 	 * Point a pour le tracé de l'hexagone

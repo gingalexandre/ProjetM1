@@ -115,6 +115,7 @@ public class TestSauvegarde {
 		String contenu = "";
 		PaquetSauvegarde pSauv = new PaquetSauvegarde(paquet);
 		contenu = objectMapper.writeValueAsString(pSauv);
+		System.out.println(contenu);
 		assertTrue(contenu != "");
 		PaquetSauvegarde p2 = objectMapper.readValue(contenu, PaquetSauvegarde.class);
 		assertTrue(p2.equals(pSauv));

@@ -34,13 +34,16 @@ import serveur.reseau.proxy.JoueurServeur;
 
 /**
  * Classe permettant de stocker les fonctions communes aux autres classes
+ * 
  * @author Alexandre
  */
-public class Fonctions{
-	
+public class Fonctions {
+
 	/**
 	 * Méthode permettant de crypter un String en entrée
-	 * @param entree - string à crypter
+	 * 
+	 * @param entree
+	 *            - string à crypter
 	 * @return le string crypté
 	 */
 	public static String crypte(String entree) {
@@ -55,12 +58,16 @@ public class Fonctions{
 	}
 
 	/**
-	 * Méthode permettant de convertir une ArrayList<HexagoneInterface> en ArrayList<HexagoneSauvegarde>
-	 * @param hexagones ArrayList<HexagoneInterface>
+	 * Méthode permettant de convertir une ArrayList<HexagoneInterface> en
+	 * ArrayList<HexagoneSauvegarde>
+	 * 
+	 * @param hexagones
+	 *            ArrayList<HexagoneInterface>
 	 * @return ArrayList<HexagoneSauvegarde>
 	 * @throws RemoteException
 	 */
-	public static ArrayList<HexagoneSauvegarde> transformArrayHexagoneSauvegarde(ArrayList<HexagoneInterface> hexagones) throws RemoteException {
+	public static ArrayList<HexagoneSauvegarde> transformArrayHexagoneSauvegarde(ArrayList<HexagoneInterface> hexagones)
+			throws RemoteException {
 		ArrayList<HexagoneSauvegarde> res = new ArrayList<HexagoneSauvegarde>();
 		for (HexagoneInterface hexagone : hexagones) {
 			res.add(new HexagoneSauvegarde(hexagone));
@@ -69,26 +76,34 @@ public class Fonctions{
 	}
 
 	/**
-	 * Méthode permettant de convertir une ArrayList<VilleInterface> en ArrayList<VilleSauvegarde>
-	 * @param hexagones ArrayList<VilleInterface>
+	 * Méthode permettant de convertir une ArrayList<VilleInterface> en
+	 * ArrayList<VilleSauvegarde>
+	 * 
+	 * @param hexagones
+	 *            ArrayList<VilleInterface>
 	 * @return ArrayList<VilleSauvegarde>
 	 * @throws RemoteException
 	 */
-	public static ArrayList<VilleSauvegarde> transformArrayVilleSauvegarde(ArrayList<VilleInterface> villes) throws RemoteException {
+	public static ArrayList<VilleSauvegarde> transformArrayVilleSauvegarde(ArrayList<VilleInterface> villes)
+			throws RemoteException {
 		ArrayList<VilleSauvegarde> res = new ArrayList<VilleSauvegarde>();
-		for (VilleInterface ville : villes){
+		for (VilleInterface ville : villes) {
 			res.add(new VilleSauvegarde(ville));
 		}
 		return res;
 	}
 
 	/**
-	 * Méthode permettant de convertir une ArrayList<RouteInterface> en ArrayList<RouteSauvegarde>
-	 * @param hexagones ArrayList<RouteInterface>
+	 * Méthode permettant de convertir une ArrayList<RouteInterface> en
+	 * ArrayList<RouteSauvegarde>
+	 * 
+	 * @param hexagones
+	 *            ArrayList<RouteInterface>
 	 * @return ArrayList<RouteSauvegarde>
 	 * @throws RemoteException
 	 */
-	public static ArrayList<RouteSauvegarde> transformArrayRouteSauvegarde(ArrayList<RouteInterface> routes) throws RemoteException {
+	public static ArrayList<RouteSauvegarde> transformArrayRouteSauvegarde(ArrayList<RouteInterface> routes)
+			throws RemoteException {
 		ArrayList<RouteSauvegarde> res = new ArrayList<RouteSauvegarde>();
 		for (RouteInterface route : routes) {
 			res.add(new RouteSauvegarde(route));
@@ -97,12 +112,16 @@ public class Fonctions{
 	}
 
 	/**
-	 * Méthode permettant de convertir une ArrayList<JetonInterface> en ArrayList<JetonSauvegarde>
-	 * @param hexagones ArrayList<JetonInterface>
+	 * Méthode permettant de convertir une ArrayList<JetonInterface> en
+	 * ArrayList<JetonSauvegarde>
+	 * 
+	 * @param hexagones
+	 *            ArrayList<JetonInterface>
 	 * @return ArrayList<JetonSauvegarde>
 	 * @throws RemoteException
 	 */
-	public static ArrayList<JetonSauvegarde> transformArrayJetonSauvegarde(ArrayList<JetonInterface> jetons) throws RemoteException {
+	public static ArrayList<JetonSauvegarde> transformArrayJetonSauvegarde(ArrayList<JetonInterface> jetons)
+			throws RemoteException {
 		ArrayList<JetonSauvegarde> res = new ArrayList<JetonSauvegarde>();
 		for (JetonInterface jeton : jetons) {
 			if (jeton != null) {
@@ -115,12 +134,16 @@ public class Fonctions{
 	}
 
 	/**
-	 * Méthode permettant de convertir une ArrayList<JetonSauvegarde> en ArrayList<JetonInterface>
-	 * @param hexagones ArrayList<JetonSauvegarde>
+	 * Méthode permettant de convertir une ArrayList<JetonSauvegarde> en
+	 * ArrayList<JetonInterface>
+	 * 
+	 * @param hexagones
+	 *            ArrayList<JetonSauvegarde>
 	 * @return ArrayList<JetonInterface>
 	 * @throws RemoteException
 	 */
-	public static ArrayList<JetonInterface> transformArrayJeton(ArrayList<JetonSauvegarde> jetons) throws RemoteException {
+	public static ArrayList<JetonInterface> transformArrayJeton(ArrayList<JetonSauvegarde> jetons)
+			throws RemoteException {
 		ArrayList<JetonInterface> res = new ArrayList<JetonInterface>();
 		for (JetonSauvegarde jeton : jetons) {
 			if (jeton != null) {
@@ -133,12 +156,16 @@ public class Fonctions{
 	}
 
 	/**
-	 * Méthode permettant de convertir une ArrayList<HexagoneSauvegarde> en ArrayList<HexagoneSauvegarde>
-	 * @param hexagones ArrayList<HexagoneSauvegarde>
+	 * Méthode permettant de convertir une ArrayList<HexagoneSauvegarde> en
+	 * ArrayList<HexagoneSauvegarde>
+	 * 
+	 * @param hexagones
+	 *            ArrayList<HexagoneSauvegarde>
 	 * @return ArrayList<HexagoneInterface>
 	 * @throws RemoteException
 	 */
-	public static ArrayList<HexagoneInterface> transformArrayHexagone(ArrayList<HexagoneSauvegarde> hexagones) throws RemoteException {
+	public static ArrayList<HexagoneInterface> transformArrayHexagone(ArrayList<HexagoneSauvegarde> hexagones)
+			throws RemoteException {
 		ArrayList<HexagoneInterface> res = new ArrayList<HexagoneInterface>();
 		for (HexagoneSauvegarde hexagone : hexagones) {
 			res.add(new Hexagone(hexagone));
@@ -147,12 +174,16 @@ public class Fonctions{
 	}
 
 	/**
-	 * Méthode permettant de convertir une ArrayList<VilleSauvegarde> en ArrayList<VilleSauvegarde>
-	 * @param villes ArrayList<VilleSauvegarde>
+	 * Méthode permettant de convertir une ArrayList<VilleSauvegarde> en
+	 * ArrayList<VilleSauvegarde>
+	 * 
+	 * @param villes
+	 *            ArrayList<VilleSauvegarde>
 	 * @return ArrayList<VilleInterface>
 	 * @throws RemoteException
 	 */
-	public static ArrayList<VilleInterface> transformArrayVille(ArrayList<VilleSauvegarde> villes) throws RemoteException {
+	public static ArrayList<VilleInterface> transformArrayVille(ArrayList<VilleSauvegarde> villes)
+			throws RemoteException {
 		ArrayList<VilleInterface> res = new ArrayList<VilleInterface>();
 		for (VilleSauvegarde ville : villes) {
 			if (ville != null) {
@@ -163,12 +194,16 @@ public class Fonctions{
 	}
 
 	/**
-	 * Méthode permettant de convertir une ArrayList<RouteSauvegarde> en ArrayList<RouteSauvegarde>
-	 * @param routes ArrayList<RouteSauvegarde>
+	 * Méthode permettant de convertir une ArrayList<RouteSauvegarde> en
+	 * ArrayList<RouteSauvegarde>
+	 * 
+	 * @param routes
+	 *            ArrayList<RouteSauvegarde>
 	 * @return ArrayList<RouteInterface>
 	 * @throws RemoteException
 	 */
-	public static ArrayList<RouteInterface> transformArrayRoute(ArrayList<RouteSauvegarde> routes) throws RemoteException {
+	public static ArrayList<RouteInterface> transformArrayRoute(ArrayList<RouteSauvegarde> routes)
+			throws RemoteException {
 		ArrayList<RouteInterface> res = new ArrayList<RouteInterface>();
 		for (RouteSauvegarde route : routes) {
 			res.add(new Route(route));
@@ -177,12 +212,16 @@ public class Fonctions{
 	}
 
 	/**
-	 * Méthode permettant de convertir une ArrayList<JoueurSauvegarde> en ArrayList<JoueurInterface>
-	 * @param joueurs ArrayList<JoueurSauvegarde>
+	 * Méthode permettant de convertir une ArrayList<JoueurSauvegarde> en
+	 * ArrayList<JoueurInterface>
+	 * 
+	 * @param joueurs
+	 *            ArrayList<JoueurSauvegarde>
 	 * @return ArrayList<JoueurInterface>
 	 * @throws RemoteException
 	 */
-	public static ArrayList<JoueurInterface> transformArrayJoueur(ArrayList<JoueurSauvegarde> joueurs) throws RemoteException {
+	public static ArrayList<JoueurInterface> transformArrayJoueur(ArrayList<JoueurSauvegarde> joueurs)
+			throws RemoteException {
 		ArrayList<JoueurInterface> res = new ArrayList<JoueurInterface>();
 		for (JoueurSauvegarde joueur : joueurs) {
 			res.add(new Joueur(joueur));
@@ -191,26 +230,34 @@ public class Fonctions{
 	}
 
 	/**
-	 * Méthode permettant de convertir une ArrayList<JoueurServeur> en ArrayList <JoueurSauvegarde>
-	 * @param joueursServeur ArrayList<JoueurServeur>
+	 * Méthode permettant de convertir une ArrayList<JoueurServeur> en ArrayList
+	 * <JoueurSauvegarde>
+	 * 
+	 * @param joueursServeur
+	 *            ArrayList<JoueurServeur>
 	 * @return ArrayList<JoueurSauvegarde>
 	 * @throws RemoteException
 	 */
-	public static ArrayList<JoueurSauvegarde> transformArrayJoueurSauvegarde(ArrayList<JoueurServeur> joueursServeur) throws RemoteException {
+	public static ArrayList<JoueurSauvegarde> transformArrayJoueurSauvegarde(ArrayList<JoueurServeur> joueursServeur)
+			throws RemoteException {
 		ArrayList<JoueurSauvegarde> res = new ArrayList<JoueurSauvegarde>();
 		for (JoueurServeur js : joueursServeur) {
 			res.add(new JoueurSauvegarde(js.getJoueur()));
 		}
 		return res;
 	}
-	
+
 	/**
-	 * Méthode permettant de convertir une ArrayList<JoueurServeur> en ArrayList<JoueurSauvegarde>
-	 * @param joueursServeur ArrayList<JoueurServeur>
+	 * Méthode permettant de convertir une ArrayList<JoueurServeur> en ArrayList
+	 * <JoueurSauvegarde>
+	 * 
+	 * @param joueursServeur
+	 *            ArrayList<JoueurServeur>
 	 * @return ArrayList<JoueurSauvegarde>
 	 * @throws RemoteException
 	 */
-	public static ArrayList<CarteSauvegarde> transformArrayCarteSauvegarde(ArrayList<CarteInterface> cartesServeur) throws RemoteException {
+	public static ArrayList<CarteSauvegarde> transformArrayCarteSauvegarde(ArrayList<CarteInterface> cartesServeur)
+			throws RemoteException {
 		ArrayList<CarteSauvegarde> res = new ArrayList<CarteSauvegarde>();
 		for (CarteInterface carte : cartesServeur) {
 			res.add(new CarteSauvegarde(carte));
@@ -231,30 +278,26 @@ public class Fonctions{
 	}
 
 	public static CarteInterface addCarte(CarteSauvegarde carte) throws RemoteException {
-		if (carte.getType().equals("ArmeePuissante")){
-		return new ArmeePuissante(carte);	
+		if (carte.getType() != null) {
+			if (carte.getType().equals("ArmeePuissante")) {
+				return new ArmeePuissante(carte);
+			} else if (carte.getType().equals("Chevalier")) {
+				return new Chevalier(carte);
+			} else if (carte.getType().equals("Invention")) {
+				return new Invention(carte);
+			} else if (carte.getType().equals("LongueRoute")) {
+				return new LongueRoute(carte);
+			} else if (carte.getType().equals("Monopole")) {
+				return new Monopole(carte);
+			} else if (carte.getType().equals("Route")) {
+				return new serveur.modele.carte.Route(carte);
+			} else if (carte.getType().equals("Victoire")) {
+				return new Victoire(carte);
+			} else {
+				return null;
+			}
 		}
-		else if (carte.getType().equals("Chevalier")){
-			return new Chevalier(carte);
-		}
-		else if (carte.getType().equals("Invention")){
-			return new Invention(carte);
-		}
-		else if (carte.getType().equals("LongueRoute")){
-			return new LongueRoute(carte);
-		}
-		else if (carte.getType().equals("Monopole")){
-			return new Monopole(carte);
-		}
-		else if (carte.getType().equals("Route")){
-			return new serveur.modele.carte.Route(carte);
-		}
-		else if (carte.getType().equals("Victoire")){
-			return new Victoire(carte);
-		}
-		else{
-			return null;
-		}
+		return null;
 	}
 
 	public static LinkedList<CarteSauvegarde> transformArrayCarte(List<CarteInterface> cartes) {
@@ -268,6 +311,7 @@ public class Fonctions{
 				e.printStackTrace();
 			}
 		}
+		System.out.println(res.size());
 		return res;
 	}
 }

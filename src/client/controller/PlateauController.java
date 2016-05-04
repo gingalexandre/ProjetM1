@@ -209,15 +209,18 @@ public class PlateauController implements Initializable{
 						Polygon polygon = new Polygon();
 						polygon.getPoints().addAll(hex.getPoints());
 						if(polygon.contains(point)){
-							defausseVoleur(hex);
-							try {
-								serveur.getGestionnaireUI().diffuserVoleur(depart,i);
-								serveur.getGestionnaireUI().diffuserMessage(new Message ("Déplacement du voleur de la case : "+(depart+1)+" à la case "+(i+1)+"."));
-								menuController.boutonFinTour.setDisable(false);
-								mainPane.removeEventHandler(MouseEvent.MOUSE_PRESSED, this);
-							} catch (RemoteException e) {
-								e.printStackTrace();
-							}
+							if(defausseVoleur(hex)){
+                                try {
+                                    serveur.getGestionnaireUI().diffuserVoleur(depart,i);
+                                    serveur.getGestionnaireUI().diffuserMessage(new Message ("Déplacement du voleur de la case : "+(depart+1)+" à la case "+(i+1)+"."));
+                                    menuController.boutonFinTour.setDisable(false);
+                                    mainPane.removeEventHandler(MouseEvent.MOUSE_PRESSED, this);
+                                } catch (RemoteException e) {
+                                    e.printStackTrace();
+                                }
+                            }else{
+                                event.consume();
+                            }
 							break;
 						}else{
 							i++;
@@ -235,19 +238,19 @@ public class PlateauController implements Initializable{
 	 * @param hex
 	 * @throws RemoteException
      */
-	private void defausseVoleur(HexagoneInterface hex) throws RemoteException{
+	private boolean defausseVoleur(HexagoneInterface hex) throws RemoteException{
         JoueurInterface voleur = proxy.getJoueur();
 		ArrayList<VilleInterface> ville_adj = hex.getVilleAdj();
 		List<String> choices = new ArrayList<>();
 		for (VilleInterface vi : ville_adj) {
 			JoueurInterface ji = vi.getOqp();
 			if(ji != null && !ji.getNomUtilisateur().equals(voleur.getNomUtilisateur())){
-				choices.add(ji.getNomUtilisateur());
+				if(!choices.contains(ji.getNomUtilisateur())) choices.add(ji.getNomUtilisateur());
 			}
 		}
-		if(choices.size()==0) return;
+		if(choices.size()==0) return false;
         String nameVoler = popUpChoix(choices);
-        if(nameVoler==null) return;
+        if(nameVoler==null) return false;
         ArrayList<JoueurInterface> opposants = serveur.getGestionnairePartie().recupererAutresJoueurs(voleur);
         JoueurInterface voler = null;
         for (JoueurInterface ji : opposants) {
@@ -255,8 +258,8 @@ public class PlateauController implements Initializable{
                 voler=ji;
             }
         }
-        if(voler==null) return;
-        if (voler.getNbCarte()<1) return ;
+        if(voler==null) return false;
+        if (voler.getNbCarte()<1) return false;
         HashMap<Integer,Integer> stock = voler.getStockRessource();
         List l = new LinkedList<Integer>();
         for (Integer i : stock.keySet()){
@@ -268,6 +271,7 @@ public class PlateauController implements Initializable{
         voleur.ajoutRessource(ressource,1);
         serveur.getGestionnaireUI().diffuserGainRessource();
         serveur.getGestionnaireUI().diffuserGainCarteRessource();
+        return true;
 	}
 
     /**

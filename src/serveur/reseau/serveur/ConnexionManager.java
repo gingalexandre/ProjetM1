@@ -34,13 +34,11 @@ public class ConnexionManager {
 	 * Constructeur privé se connectant au serveur
 	 */
 	private ConnexionManager(){
-        System.out.println("Connexion Manager Entry!");
 		String serveurURL = "rmi://127.0.0.1:42000/serveur";
 		try {
 			this.serveur = (Serveur) Naming.lookup(serveurURL);
 			this.proxy = new Proxy();
 		} catch (Exception e) {
-		    System.out.println("Connexion Manager Exception Entry");
             VuePrincipale.stagePrincipal.close();
         }
 	}

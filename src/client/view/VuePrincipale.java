@@ -22,7 +22,6 @@ public class VuePrincipale extends Application{
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-		System.out.println("BEFORE VUE PRINCIPALE");
 		FXMLLoader preloader = new FXMLLoader(getClass().getResource("fxml/Accueil.fxml"));
 		
 		Parent root = preloader.load();
@@ -34,6 +33,5 @@ public class VuePrincipale extends Application{
         stage.setMaximized(true);
         stagePrincipal = stage;
         stage.show();
-		System.out.println("AFTER VUE PRINCIPALE");
 	}	
 }

@@ -18,6 +18,7 @@ import serveur.reseau.communicationClients.service.GestionnaireBDDInterface;
 import serveur.reseau.communicationClients.service.GestionnairePartieInterface;
 import serveur.reseau.communicationClients.service.GestionnaireUIInterface;
 import serveur.reseau.proxy.JoueurServeur;
+import serveur.reseau.proxy.Proxy;
 
 /**
  * Classe implémentant le serveur, qui communique avec les proxy
@@ -68,8 +69,6 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 		this.listeCouleurs.add("rouge");
 		this.nombre_max_joueurs = nombre_max_joueurs;
 		gestionnaireBDD = new GestionnaireBDD();
-		gestionnaireUI = new GestionnaireUI();
-		gestionnairePartie = new GestionnairePartie(this.gestionnaireUI.getPlateau());
 	}
 	
 	/**
@@ -96,6 +95,27 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 		}
 	}
 
+	/**
+	 * Enregistre le PREMIER joueur sur le serveur
+	 * @param nouveauJoueurServeur - joueur a ajouter
+	 * @param nom - nom du joueur
+	 * @param date - date de naissance du joueur
+	 * @param nbJoueurs - nombre de joueurs max de la partie
+	 * @param difficulte - difficulté de la partie
+	 * @return true si le joueur a été enregistré, false sinon
+	 * @throws RemoteException
+	 * @throws TooMuchPlayerException
+	 */
+	@Override
+	public boolean enregistrerJoueur(JoueurServeur nouveauJoueurServeur, String nomJoueur, Date date, int nbJoueurs, String difficulte) throws RemoteException, TooMuchPlayerException {
+		System.out.println("yolo");
+		this.nombre_max_joueurs = nbJoueurs;
+		gestionnaireUI = new GestionnaireUI(difficulte);
+		gestionnairePartie = new GestionnairePartie(this.gestionnaireUI.getPlateau());
+		
+		return enregistrerJoueur(nouveauJoueurServeur, nomJoueur, date);
+	}
+	
 	/**
 	 * Enregistre un joueur pour une partie chargée
 	 * @param nouveauJoueurServeur 

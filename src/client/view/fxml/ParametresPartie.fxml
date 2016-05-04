@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="200.0" maxWidth="300.0" minHeight="200.0" minWidth="300.0" prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.ParametresController">
+   <children>
+      <ComboBox onAction="#changeJoueurs" fx:id="comboBoxJoueurs" layoutX="75.0" layoutY="43.0" prefWidth="150.0" />
+      <ComboBox onAction="#changeDifficulte" fx:id="comboBoxDifficulte" layoutX="75.0" layoutY="110.0" prefWidth="150.0" />
+      <Label layoutX="75.0" layoutY="16.0" text="Nombre de joueurs maximum" />
+      <Label layoutX="98.0" layoutY="85.0" text="Difficulté de la partie" />
+   	  <Button fx:id="boutonValider" layoutX="102.0" layoutY="157.0" mnemonicParsing="false" onAction="#valider" prefHeight="25.0" prefWidth="97.0" text="Valider" />
+   </children> 
+</Pane>

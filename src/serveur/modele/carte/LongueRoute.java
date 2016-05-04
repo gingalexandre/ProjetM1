@@ -7,7 +7,7 @@ import serveur.bdd.modeleSauvegarde.CarteSauvegarde;
 import serveur.modele.service.CarteInterface;
 
 /**
- * @auhtor Yohann Hugo
+ * @author Yohann Hugo
  */
 public class LongueRoute extends Carte {
 
@@ -18,6 +18,7 @@ public class LongueRoute extends Carte {
 
     /**
      * Constructeur
+     * @throws RemoteException Exception dû a RMI
      */
     public LongueRoute() throws RemoteException {
         super( "Plus longue route","/Ressources/cartes/longue_route.png",false);
@@ -25,7 +26,8 @@ public class LongueRoute extends Carte {
 
     /**
      * Constructeur a partir d'une sauvegarde
-     * @param carte
+     * @param carte Carte que l'on souhaite restaurer
+     * @throws RemoteException Exception dû a RMI
      */
     public LongueRoute(CarteSauvegarde carte) throws RemoteException {
         super(carte.getNom(), carte.getChemin(), carte.getUtilisable());

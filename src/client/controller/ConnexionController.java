@@ -38,7 +38,7 @@ public class ConnexionController implements Initializable {
 	private PasswordField mdp;
 
 	@FXML
-	private Button connexion, boutonChargementPartie, boutonParamètresPartie;
+	private Button connexion, boutonChargementPartie, boutonParametresPartie;
 
 	@FXML
 	private Label utilisateurErreur;
@@ -95,7 +95,7 @@ public class ConnexionController implements Initializable {
 			if(serveur.getGestionnairePartie() != null){
 				if(serveur.getGestionnairePartie().getPartie().getNombreJoueurs() >= 1){
 					boutonChargementPartie.setVisible(false);
-					boutonParamètresPartie.setVisible(false);
+					boutonParametresPartie.setVisible(false);
 					premierJoueur = false;
 				}
 			}
@@ -259,7 +259,7 @@ public class ConnexionController implements Initializable {
 					ArrayList<Integer> listeIdPartieSauvegarde = serveur.getGestionnaireBDD()
 							.recupererPartieByName(nomUtilisateur.getText());
 					if (listeIdPartieSauvegarde != null && listeIdPartieSauvegarde.size() > 0) {
-						boutonParamètresPartie.setVisible(false);
+						boutonParametresPartie.setVisible(false);
 						
 						fenetreChargementPartie = new Stage();
 						fenetreChargementPartie.setTitle("Les Colons de Catanes");

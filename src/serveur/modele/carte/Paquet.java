@@ -16,11 +16,6 @@ import serveur.modele.service.CarteInterface;
 public class Paquet implements serveur.modele.service.PaquetInterface {
 
     /**
-     * Attribut NBCARTE pour le nombre de carte totale dans le paquet.
-     */
-    private static int NBCARTE = 25;
-
-    /**
      * Attribut NBCHEVALIER pour le nombre de carte de type chevalier dans le paquet.
      */
     private static int NBCHEVALIER = 14;
@@ -63,6 +58,7 @@ public class Paquet implements serveur.modele.service.PaquetInterface {
 
     /**
      * Constructeur du paquet.
+     * @throws RemoteException
      */
     public Paquet() throws RemoteException {
         ap = new ArmeePuissante();
@@ -78,6 +74,7 @@ public class Paquet implements serveur.modele.service.PaquetInterface {
     /**
      * Méthode permettant de piocher la première carte du paquet.
      * @return piochee une carte.
+     * @throws RemoteException
      */
     @Override
     public CarteInterface pioche() throws RemoteException {
@@ -88,8 +85,9 @@ public class Paquet implements serveur.modele.service.PaquetInterface {
     }
 
     /**
-     * Getter deck
-     * @retun deck la liste des cartes
+     * Getter de l'attibut deck
+     * @return La liste des cartes
+     * @throws RemoteException
      */
     @Override
     public List<CarteInterface> getDeck() throws RemoteException {
@@ -98,6 +96,7 @@ public class Paquet implements serveur.modele.service.PaquetInterface {
 
     /**
      * Setter deck
+     * @throws RemoteException
      */
     @Override
     public void setDeck(List<CarteInterface> deck) throws RemoteException {
@@ -105,8 +104,9 @@ public class Paquet implements serveur.modele.service.PaquetInterface {
     }
 
     /**
-     * Getter carte spécial longue route
-     * @retun lr carte sépciale longue route
+     * Getter de la carte "Route la plus longue"
+     * @return La carte spéciale "Route la plus longue"
+     * @throws RemoteException
      */
     @Override
     public LongueRoute getLr() throws RemoteException {
@@ -115,6 +115,7 @@ public class Paquet implements serveur.modele.service.PaquetInterface {
 
     /**
      * Setter carte spécial longue route
+     * @throws RemoteException
      */
     @Override
     public void setLr(LongueRoute lr) throws RemoteException {
@@ -123,7 +124,8 @@ public class Paquet implements serveur.modele.service.PaquetInterface {
 
     /**
      * Getter carte spécial armée puissante
-     * @retun lr carte sépciale armée puissante
+     * @return lr carte sépciale armée puissante
+     * @throws RemoteException
      */
     @Override
     public ArmeePuissante getAp() throws RemoteException {
@@ -132,6 +134,8 @@ public class Paquet implements serveur.modele.service.PaquetInterface {
 
     /**
      * Setter carte spécial armée puissante
+     * @param ap ArmeePuissante 
+     * @throws RemoteException
      */
     @Override
     public void setAp(ArmeePuissante ap) throws RemoteException {

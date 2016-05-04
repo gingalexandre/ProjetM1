@@ -4,6 +4,9 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import client.view.VuePageAccueil;
+import client.view.VuePrincipale;
+import javafx.scene.control.Alert;
 import serveur.reseau.proxy.Proxy;
 
 /**
@@ -31,17 +34,15 @@ public class ConnexionManager {
 	 * Constructeur privé se connectant au serveur
 	 */
 	private ConnexionManager(){
+        System.out.println("Connexion Manager Entry!");
 		String serveurURL = "rmi://127.0.0.1:42000/serveur";
 		try {
 			this.serveur = (Serveur) Naming.lookup(serveurURL);
 			this.proxy = new Proxy();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		} catch (NotBoundException e) {
-			e.printStackTrace();
-		}
+		} catch (Exception e) {
+		    System.out.println("Connexion Manager Exception Entry");
+            VuePrincipale.stagePrincipal.close();
+        }
 	}
 
 	/**

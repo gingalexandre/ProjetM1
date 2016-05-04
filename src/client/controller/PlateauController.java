@@ -214,7 +214,7 @@ public class PlateauController implements Initializable{
 								serveur.getGestionnaireUI().diffuserVoleur(depart,i);
 								serveur.getGestionnaireUI().diffuserMessage(new Message ("Déplacement du voleur de la case : "+(depart+1)+" à la case "+(i+1)+"."));
 								menuController.boutonFinTour.setDisable(false);
-								mainPane.removeEventHandler(MouseEvent.MOUSE_CLICKED, this);
+								mainPane.removeEventHandler(MouseEvent.MOUSE_PRESSED, this);
 							} catch (RemoteException e) {
 								e.printStackTrace();
 							}

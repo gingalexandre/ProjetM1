@@ -384,6 +384,11 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 		}
 	}
 
+	/**
+	 * Désactive/active le bouton de lancer de dés
+	 * @param b
+	 * @throws RemoteException
+	 */
 	@Override
 	public void setButtonLancerDes(boolean b) throws RemoteException {
 		this.menuController.setBoutonLancerDes(b);

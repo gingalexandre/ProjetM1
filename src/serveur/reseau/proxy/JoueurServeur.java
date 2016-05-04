@@ -164,7 +164,17 @@ public interface JoueurServeur extends Remote {
 	 */
 	public void updateRouteLongue() throws  RemoteException;
 
+	/**
+	 * Désactive/active les boutons Echange des autres joueurs
+	 * @param b
+	 * @throws RemoteException
+	 */
 	void disableBoutonEchange(boolean b) throws RemoteException;
 
+	/**
+	 * Désactive/active le bouton de lancer de dés
+	 * @param b
+	 * @throws RemoteException
+	 */
 	void setButtonLancerDes(boolean b) throws RemoteException;
 }

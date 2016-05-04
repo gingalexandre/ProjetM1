@@ -905,6 +905,10 @@ public class MenuController implements Initializable {
 					e.printStackTrace();
 				}
 			});
+			//Actualisation de l'affichage
+			this.proxy.getJoueursController().majRessource();
+			serveur.getGestionnaireUI().diffuserGainRessource();
+			
 			serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur() + " a acheté une carte développement."));
 		}else{
 			serveur.getGestionnaireUI().diffuserMessage(new Message("Le deck de carte développement est vide."));

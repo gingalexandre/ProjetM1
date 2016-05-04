@@ -147,5 +147,10 @@ public interface GestionnaireUIInterface extends Remote{
 	 */
 	public int monopole(int ressource_visee) throws RemoteException;
 
+	/**
+	 * Désactive/active les boutons Echange des autres joueurs
+	 * @param b
+	 * @throws RemoteException
+	 */
 	void diffuserDisableBoutonEchange(boolean b) throws RemoteException;
 }

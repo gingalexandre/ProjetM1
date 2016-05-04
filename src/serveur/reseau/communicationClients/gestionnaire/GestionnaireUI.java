@@ -261,5 +261,15 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 		return value;
 	}
 
-	
+	/**
+	 * Désactive/active les boutons Echange des autres joueurs
+	 * @param b
+	 * @throws RemoteException
+	 */
+	@Override
+	public void diffuserDisableBoutonEchange(boolean b) throws RemoteException {
+		for (JoueurServeur joueurServeur : joueurServeurs) {
+			joueurServeur.disableBoutonEchange(b);
+		}
+	}
 }

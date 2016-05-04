@@ -451,16 +451,18 @@ public class MenuController implements Initializable {
 			// Recuperation des Hexagones concernés
 			if (h.getNumero()==caseConsernee && !h.getVOLEUR()){
 				int ressource = h.getRessource();
+				
 				// Don de ressources a chacune des Villes/Colonies adjacentes de cet Hexagone
 				for(VilleInterface v : h.getVilleAdj()){
 					if(v!=null && v.getOqp()!=null){
+						JoueurInterface joueur = serveur.getGestionnairePartie().getPartie().getJoueurByName(v.getOqp().getNomUtilisateur());
 						//Si c'est une ville
 						if(v.isColonie()){
-							v.getOqp().ajoutRessource(ressource, 2);
+							joueur.ajoutRessource(ressource, 2);
 						}
 						//Si c'est une colonie
 						else{
-							v.getOqp().ajoutRessource(ressource, 1);
+							joueur.ajoutRessource(ressource, 1);
 						}
 					}
 				}
@@ -468,7 +470,6 @@ public class MenuController implements Initializable {
 		}
 
 		//Actualisation de l'affichage
-		this.proxy.getJoueursController().majRessource();
 		serveur.getGestionnaireUI().diffuserGainRessource();
 		serveur.getGestionnaireUI().diffuserGainCarteRessource();
 	}
@@ -515,9 +516,7 @@ public class MenuController implements Initializable {
 	 * Méthode pour permettre le lancement de la popup de vol et laisser VolController prendre le relais pour les méthodes 
 	 *
 	 */
-	public void ouvrirVol(int maxRessource) throws RemoteException{
-		proxy.getJoueur().setEstVole(true);
-		
+	public void ouvrirVol(int maxRessource) {
 		Platform.runLater(() -> {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Vol.fxml"));
 			try {
@@ -533,7 +532,7 @@ public class MenuController implements Initializable {
 				fenetreVol.initModality(Modality.WINDOW_MODAL);
 				fenetreVol.initOwner(ConnexionController.gameFenetre.getScene().getWindow());
 				fenetreVol.showAndWait();
-				serveur.getGestionnairePartie().diffuserDisableBoutonEchangeAvantApresVoleur(true);
+				serveur.getGestionnaireUI().diffuserDisableBoutonEchange(true);
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

@@ -131,11 +131,8 @@ public class VolController implements Initializable {
 			//Fermeture de la fenêtre
 			MenuController.fenetreVol.close();
 			
-			//Le joueur n'est plus volé
-			proxy.getJoueur().setEstVole(false);
-			
 			//Réactiver le bouton d'échange chez les autres joueurs
-			serveur.getGestionnairePartie().diffuserDisableBoutonEchangeAvantApresVoleur(false);
+			serveur.getGestionnaireUI().diffuserDisableBoutonEchange(false);
 		}
 		else{
 			this.message.setText("Saisie invalide ou nombre de ressource différent de "+this.maxRessource);

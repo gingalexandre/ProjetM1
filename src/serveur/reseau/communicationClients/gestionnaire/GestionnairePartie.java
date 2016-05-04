@@ -14,8 +14,6 @@ import serveur.modele.service.PartieInterface;
 import serveur.modele.service.PlateauInterface;
 import serveur.reseau.communicationClients.service.GestionnairePartieInterface;
 import serveur.reseau.proxy.JoueurServeur;
-import serveur.reseau.serveur.ConnexionManager;
-import serveur.reseau.serveur.Serveur;
 
 /**
  * Classe qui s'occupe des echanges concernant la partie entre les clients et le
@@ -166,7 +164,7 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 			commencerPartie();
 		}
 	}
-	
+
 	/**
 	 * Commence la partie
 	 * 
@@ -205,40 +203,6 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 				joueurServeur.setButtons(true);
 			}
 		}
-	}
-	
-	/**
-	 * Verifie si tous les joueurs ont fini de se faire voler
-	 * @throws RemoteException
-	 */
-	public boolean verifierJoueursVoleurFini() throws RemoteException {
-		for (JoueurServeur joueurServeur : joueursServeur) {
-			if (joueurServeur.getJoueur().getEstVole()) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	/**
-	 * Désactive/active les boutons Echange des autres joueurs
-	 * @param desactive
-	 * @throws RemoteException
-	 */
-	@Override
-	public void diffuserDisableBoutonEchangeAvantApresVoleur(boolean desactiveActive) throws RemoteException {
-		for (JoueurServeur joueurServeur : joueursServeur) {
-			if(desactiveActive){
-				joueurServeur.disableBoutonEchange(desactiveActive);
-			}
-			else if(verifierJoueursVoleurFini()){
-				if(getPartie().getJoueurTour().equals(joueurServeur)){
-					joueurServeur.disableBoutonEchange(desactiveActive);
-				}
-			}
-			
-		}
-		
 	}
 
 	/**

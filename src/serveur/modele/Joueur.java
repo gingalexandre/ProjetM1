@@ -102,8 +102,6 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	boolean routeLaPlusLongue, armeeLaPlusPuissante = false;
 
 	private int nbRouteGratuite;
-	
-	private boolean estVole = false;
 
 	/**
 	 * Constructeur de joueur Est appele lors de l'ajout d'un proxy sur le
@@ -482,12 +480,7 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	 * @throws RemoteException
 	 */
 	public void ajoutRessource(int typeRessource, int value) throws RemoteException {
-		if(this.stockRessource.keySet() != null){
 			this.stockRessource.put(typeRessource, this.stockRessource.get(typeRessource) + value);
-		}
-		else{
-			this.stockRessource.put(typeRessource, value);
-		}
 	}
 
 	/**
@@ -855,16 +848,6 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 
 	public void setCartes(ArrayList<CarteInterface> cartes) throws RemoteException {
 		this.cartes = cartes;
-	}
-
-	@Override
-	public boolean getEstVole() throws RemoteException {
-		return this.estVole;
-	}
-
-	@Override
-	public void setEstVole(boolean b) throws RemoteException {
-		this.estVole = b;
 	}
 
 }

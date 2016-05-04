@@ -15,11 +15,11 @@ public class VuePageAccueil extends Application{
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-		FXMLLoader preloader = new FXMLLoader(getClass().getResource("fxml/PageAccueil.fxml"));		
-		Parent root = preloader.load();		
+		FXMLLoader preloader = new FXMLLoader(getClass().getResource("fxml/PageAccueil.fxml"));
+		Parent root = preloader.load();
         scene = new Scene(root,925,715);
         stage.setTitle("Les Colons de Catanes");
-        stage.setScene(scene);         
+        stage.setScene(scene);
         stagePrincipal = stage;
         stagePrincipal.setResizable(false);
         stage.show();

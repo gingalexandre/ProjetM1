@@ -516,6 +516,7 @@ public class MenuController implements Initializable {
 				fenetreVol.initModality(Modality.WINDOW_MODAL);
 				fenetreVol.initOwner(ConnexionController.gameFenetre.getScene().getWindow());
 				fenetreVol.showAndWait();
+				serveur.getGestionnaireUI().diffuserDisableBoutonEchange(true);
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -963,6 +964,10 @@ public class MenuController implements Initializable {
 		else {
 			popErreur("Vous ne pouvez pas contruire de colonie. Soit vous avez atteint la limite, soit vous n'avez pas les ressoruces");
 		}
+	}
+
+	public void disableBoutonEchange(boolean b) {
+		this.boutonEchange.setDisable(b);
 	}
 
 }

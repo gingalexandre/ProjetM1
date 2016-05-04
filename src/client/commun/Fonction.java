@@ -95,7 +95,7 @@ public class Fonction {
 			case "rouge":
 				return Color.RED;
 			case "bleu":
-				return Color.BLUE;
+				return Color.DEEPSKYBLUE;
 			case "vert":
 				return Color.GREEN;
 			case "orange":
@@ -115,7 +115,7 @@ public class Fonction {
 			case "rouge":
 				return "rgb(255,0,0,0.5)";
 			case "bleu":
-				return "rgb(0,0,255,0.5)";
+				return "rgb(0,178,238,0.5)";
 			case "vert":
 				return "rgb(0,255,0,0.5)";
 			case "orange":

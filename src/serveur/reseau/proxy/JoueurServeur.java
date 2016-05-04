@@ -163,4 +163,6 @@ public interface JoueurServeur extends Remote {
 	 * @throws RemoteException
 	 */
 	public void updateRouteLongue() throws  RemoteException;
+
+	void disableBoutonEchange(boolean b) throws RemoteException;
 }

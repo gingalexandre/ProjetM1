@@ -74,6 +74,21 @@ public class VolController implements Initializable {
 	public void setValeursText(int maxRessources) throws RemoteException{
 		this.maxRessource = maxRessources;
 		this.message.setText("Vous ne pouvez garder que "+maxRessources+" ressources...");
+		if(proxy.getJoueur().getStockRessource().get(Ressource.ARGILE)==0){
+			this.resteArgile.setDisable(true);
+		}
+		if(proxy.getJoueur().getStockRessource().get(Ressource.BOIS)==0){
+			this.resteBois.setDisable(true);	
+		}
+		if(proxy.getJoueur().getStockRessource().get(Ressource.BLE)==0){
+			this.resteBle.setDisable(true);
+		}
+		if(proxy.getJoueur().getStockRessource().get(Ressource.LAINE)==0){
+			this.resteLaine.setDisable(true);
+		}
+		if(proxy.getJoueur().getStockRessource().get(Ressource.MINERAIE)==0){
+			this.resteMineraie.setDisable(true);
+		}
 		this.resteArgile.setText(""+proxy.getJoueur().getStockRessource().get(Ressource.ARGILE));
 		this.resteBois.setText(""+proxy.getJoueur().getStockRessource().get(Ressource.BOIS));
 		this.resteBle.setText(""+proxy.getJoueur().getStockRessource().get(Ressource.BLE));
@@ -115,6 +130,9 @@ public class VolController implements Initializable {
 			
 			//Fermeture de la fenêtre
 			MenuController.fenetreVol.close();
+			
+			//Réactiver le bouton d'échange chez les autres joueurs
+			serveur.getGestionnaireUI().diffuserDisableBoutonEchange(false);
 		}
 		else{
 			this.message.setText("Saisie invalide ou nombre de ressource différent de "+this.maxRessource);

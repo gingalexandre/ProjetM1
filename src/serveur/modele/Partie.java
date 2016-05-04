@@ -113,7 +113,7 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 		Plateau.getInstance().creerNouveauPlateau(p.getPlateauCourant());
 		this.plateau = Plateau.getInstance();
 		this.partieCommence = true;
-		this.ressources = p.getRessource();
+		this.ressources = new Ressource(p.getRessource());
 	}
 	
 	public Partie() throws RemoteException{};

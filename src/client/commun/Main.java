@@ -1,9 +1,9 @@
 package client.commun;
 
-import client.view.VuePrincipale;
+import client.view.VuePageAccueil;
 
 public class Main {
 	public static void main(String[] args){
-		VuePrincipale.launch(VuePrincipale.class);
+		VuePageAccueil.launch(VuePageAccueil.class);
 	}
 }

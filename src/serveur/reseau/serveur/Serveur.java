@@ -12,6 +12,7 @@ import serveur.reseau.communicationClients.service.GestionnaireBDDInterface;
 import serveur.reseau.communicationClients.service.GestionnairePartieInterface;
 import serveur.reseau.communicationClients.service.GestionnaireUIInterface;
 import serveur.reseau.proxy.JoueurServeur;
+import serveur.reseau.proxy.Proxy;
 
 /**
  * Classe principale pour les communications entre client et serveur
@@ -42,6 +43,19 @@ public interface Serveur extends Remote{
 	 * @throws TooMuchPlayerException
 	 */
 	boolean enregistrerJoueur(JoueurServeur joueurServeur, String nom, Date date) throws RemoteException, TooMuchPlayerException;
+	
+	/**
+	 * Enregistre un joueur sur le serveur
+	 * @param nouveauJoueurServeur - joueur a ajouter
+	 * @param nom - nom du joueur
+	 * @param date - date de naissance du joueur
+	 * @param nbJoueurs - nombre de joueurs max de la partie
+	 * @param difficulte - difficulté de la partie
+	 * @return true si le joueur a été enregistré, false sinon
+	 * @throws RemoteException
+	 * @throws TooMuchPlayerException
+	 */
+	boolean enregistrerJoueur(JoueurServeur joueurServeur, String nomJoueur, Date date, int nbJoueurs, String difficulte) throws RemoteException, TooMuchPlayerException;
 	
 	/**
 	 * Enregistre la partie

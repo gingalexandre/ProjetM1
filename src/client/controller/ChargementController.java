@@ -15,10 +15,10 @@ import serveur.reseau.serveur.Serveur;
 public class ChargementController implements Initializable{
 	
 	@FXML
-	ComboBox<Integer> listePartie;
+	public ComboBox<Integer> listePartie;
 	
 	@FXML
-	Button boutonChargerPartie;
+	public Button boutonChargementPartie;
 	
 	/**
 	 * Serveur de jeu

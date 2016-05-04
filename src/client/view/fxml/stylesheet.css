@@ -69,3 +69,25 @@
     -fx-background-size: 100% 100%;
     -fx-background-position: center center;
 }
+
+.PanePageAccueil{
+	-fx-background-image: url(../../../../Ressources/autres/background.png);
+	-fx-background-repeat: stretch;
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+}
+
+.LogoPageAccueil{
+	-fx-background-image: url(../../../../Ressources/autres/logo.png);
+	-fx-background-repeat: stretch;
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+}
+
+.buttonJouer{
+	-fx-alignement: center;
+}
+
+.buttonRegles{
+	-fx-alignement: center;
+}

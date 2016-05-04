@@ -17,6 +17,7 @@ import org.codehaus.jackson.map.SerializationConfig;
 import serveur.bdd.modeleSauvegarde.PartieSauvegarde;
 import serveur.commun.Fonctions;
 import serveur.modele.Joueur;
+import serveur.modele.Message;
 import serveur.modele.Plateau;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
@@ -25,29 +26,31 @@ import serveur.reseau.serveur.Serveur;
 
 /**
  * Classe permettant la sauvegarde de la partie
+ * 
  * @author Alexandre
  */
 public class Sauvegarde {
-	
+
 	/**
 	 * Joueur courant
 	 */
 	private static Joueur currentJoueur = null;
-	
+
 	/**
 	 * Objet permettant la sérialisation
 	 */
 	private static ObjectMapper objectMapper = new ObjectMapper().setVisibility(JsonMethod.FIELD, Visibility.ANY);;
-	
+
 	/**
 	 * Objet représentatant le fichier de sortie
 	 */
 	private static File jsonOutputFile;
-	
+
 	private static serveur.modele.Partie partieChargee;
 
 	/**
 	 * Constructeur de la partie
+	 * 
 	 * @throws RemoteException
 	 */
 	public Sauvegarde() throws RemoteException {
@@ -86,6 +89,8 @@ public class Sauvegarde {
 				Partie partie = Partie.getPartieByPath(path);
 				Serveur serveur = ConnexionManager.getStaticServeur();
 				serveur.getGestionnairePartie().getPartie().setId(partie.getIdPartie());
+				serveur.getGestionnaireUI().diffuserMessage(new Message(
+						partieASauvegarder.getJoueurActuel().getNomUtilisateur() + " vient de sauvegarder la partie."));
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (InterruptedException e) {
@@ -97,8 +102,11 @@ public class Sauvegarde {
 
 	/**
 	 * Méthode permettant d'écrire la Partie dans un fichier au format JSON
-	 * @param partieASauvegarder - partie que l'on souhaite sauvegarder
-	 * @param path - chemin où le fichier va se trouver
+	 * 
+	 * @param partieASauvegarder
+	 *            - partie que l'on souhaite sauvegarder
+	 * @param path
+	 *            - chemin où le fichier va se trouver
 	 */
 	public void sauvegarderPartie(PartieSauvegarde partieASauvegarder, String path) {
 		try {
@@ -113,6 +121,7 @@ public class Sauvegarde {
 
 	/**
 	 * Getter du Joueur Courant
+	 * 
 	 * @return Joueur
 	 */
 	public static Joueur getCurrentJoueur() {
@@ -121,7 +130,9 @@ public class Sauvegarde {
 
 	/**
 	 * Setter du Joueur Courant
-	 * @param currentJoueur - joueur courrant
+	 * 
+	 * @param currentJoueur
+	 *            - joueur courrant
 	 */
 	public static void setCurrentJoueur(Joueur currentJoueur) {
 		Sauvegarde.currentJoueur = currentJoueur;
@@ -129,6 +140,7 @@ public class Sauvegarde {
 
 	/**
 	 * Getter de l'objet permettant la sérialisation
+	 * 
 	 * @return ObjectMapper
 	 */
 	public ObjectMapper getObjectMapper() {
@@ -137,7 +149,9 @@ public class Sauvegarde {
 
 	/**
 	 * Setter de l'objet permettant la sérialisation
-	 * @param ObjectMapper - objectMapper
+	 * 
+	 * @param ObjectMapper
+	 *            - objectMapper
 	 */
 	public void setObjectMapper(ObjectMapper objectMapper) {
 		Sauvegarde.objectMapper = objectMapper;
@@ -145,6 +159,7 @@ public class Sauvegarde {
 
 	/**
 	 * Getter de l'objet représentant le fichier de sortie
+	 * 
 	 * @return File
 	 */
 	public File getJsonOutputFile() {
@@ -153,39 +168,40 @@ public class Sauvegarde {
 
 	/**
 	 * Setter de l'objet représentant le fichier de sortie
-	 * @param File - jsonOutputFile
+	 * 
+	 * @param File
+	 *            - jsonOutputFile
 	 */
 	public void setJsonOutputFile(File jsonOutputFile) {
 		Sauvegarde.jsonOutputFile = jsonOutputFile;
 	}
-	
+
 	/**
 	 * Méthode a appeler pour désérialiser
 	 */
-	public static void chargerPartie(int id){
+	public static void chargerPartie(int id) {
 		try {
 			Partie partieSauvegarde = Partie.getById(id);
-			InputStream flux=new FileInputStream(partieSauvegarde.getPath()); 
-			InputStreamReader lecture=new InputStreamReader(flux);
-			BufferedReader buff=new BufferedReader(lecture);
+			InputStream flux = new FileInputStream(partieSauvegarde.getPath());
+			InputStreamReader lecture = new InputStreamReader(flux);
+			BufferedReader buff = new BufferedReader(lecture);
 			StringBuffer json = new StringBuffer();
 			String ligne;
 			// Lecture du contenu
-			while ((ligne=buff.readLine())!=null){
+			while ((ligne = buff.readLine()) != null) {
 				json.append(ligne);
 			}
-			buff.close(); 
+			buff.close();
 			String res = new String(json);
 			// Déserialisation
 			PartieSauvegarde partieACharger = PartieSauvegarde.deserialiser(res);
 			partieChargee = new serveur.modele.Partie(partieACharger);
-		}
-		catch (Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public static serveur.modele.Partie getPartieChargee(){
+
+	public static serveur.modele.Partie getPartieChargee() {
 		return partieChargee;
 	}
 }

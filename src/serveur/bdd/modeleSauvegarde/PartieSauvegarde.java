@@ -73,7 +73,7 @@ public class PartieSauvegarde implements Serializable {
 	/**
 	 * Ressource
 	 */
-	private Ressource ressource;
+	private RessourceSauvegarde ressource;
 
 	/**
 	 * Constructeur
@@ -83,7 +83,8 @@ public class PartieSauvegarde implements Serializable {
 	public PartieSauvegarde(boolean t) throws RemoteException {
 		this.plateauCourant = new PlateauSauvegarde(recupererPlateau());
 		Serveur serveur = ConnexionManager.getStaticServeur();
-		this.ressource = serveur.getGestionnairePartie().getPartie().getRessources();
+		
+		this.ressource = new RessourceSauvegarde(serveur.getGestionnairePartie().getPartie().getRessources());
 		this.isPartieCommence = serveur.getGestionnairePartie().getPartie().isPartieCommence();
 		this.tour = serveur.getGestionnairePartie().getPartie().getTour();
 		this.tourGlobal = serveur.getGestionnairePartie().getPartie().getCompteurTourGlobal();
@@ -291,9 +292,9 @@ public class PartieSauvegarde implements Serializable {
 	/**
 	 * Getter de Ressource
 	 * 
-	 * @return Ressource
+	 * @return RessourceSauvegarde
 	 */
-	public Ressource getRessource() {
+	public RessourceSauvegarde getRessource() {
 		return ressource;
 	}
 
@@ -301,9 +302,9 @@ public class PartieSauvegarde implements Serializable {
 	 * Setter de Ressource
 	 * 
 	 * @param ressource
-	 *            Ressource
+	 *            RessourceSauvegarde
 	 */
-	public void setRessource(Ressource ressource) {
+	public void setRessource(RessourceSauvegarde ressource) {
 		this.ressource = ressource;
 	}
 

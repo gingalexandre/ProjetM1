@@ -440,7 +440,7 @@ public class MenuController implements Initializable {
 				for(VilleInterface v : h.getVilleAdj()){
 					if(v!=null && v.getOqp()!=null){
 						//Si c'est une ville
-						if(v.isVille()){
+						if(v.isColonie()){
 							v.getOqp().ajoutRessource(ressource, 2);
 						}
 						//Si c'est une colonie

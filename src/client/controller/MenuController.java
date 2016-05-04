@@ -47,6 +47,7 @@ import serveur.modele.Plateau;
 import serveur.modele.Point;
 import serveur.modele.Ressource;
 import serveur.modele.carte.LongueRoute;
+import serveur.modele.carte.Victoire;
 import serveur.modele.service.CarteInterface;
 import serveur.modele.service.HexagoneInterface;
 import serveur.modele.service.JoueurInterface;
@@ -889,28 +890,26 @@ public class MenuController implements Initializable {
 	 * Pioche de la carte.
 	 */
 	public void piocheCarte() throws RemoteException {
-		//TODO tester si ressources sont suffisantes et les décrémentés.
 		JoueurInterface j = proxy.getJoueur();
 		CarteInterface carte;
 		if (j.checkAchat("Developpement")){
 			carte = serveur.getGestionnairePartie().getPartie().piocheDeck();
-			j.faireAchat("Developpement");
 		} else {
 			popErreur("Vous ne pouvez pas piocher de carte. Vous n'avez pas les ressources");
 			return;
 		}
-
 		if (carte != null) {
 			CarteInterface card = carte;
+            j.faireAchat("Developpement");
 			Platform.runLater(() -> {
 				try {
 					listeCarte.getItems().add(card.getNom());
-					proxy.getJoueur().addCarte(carte);
+					j.addCarte(carte);
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				}
 			});
-			serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur() + " a acheté une carte développement."));
+			serveur.getGestionnaireUI().diffuserMessage(new Message(j.getNomUtilisateur() + " a acheté une carte développement."));
 		}else{
 			serveur.getGestionnaireUI().diffuserMessage(new Message("Le deck de carte développement est vide."));
 		}
@@ -926,6 +925,7 @@ public class MenuController implements Initializable {
 		if(index != -1){
 			CarteInterface carte = joueur.getCarte(index);
 			if (carte != null) {
+                if(carte.getNom().equals(new Victoire().getNom())) carte.setUtilisable(true);
 				if (carte.getUtilisable()) {
 					boolean action = carteController.doActionCarte(carte);
 					if (action == true) {
@@ -964,8 +964,7 @@ public class MenuController implements Initializable {
 	public void construireRoute() throws RemoteException{
 		JoueurInterface j = proxy.getJoueur();
 		// Verification préalable
-        System.out.println(j.getNbRouteGratuite());
-		if (/*j.checkAchat("Route") || */j.getNbRouteGratuite()>0){
+		if (j.checkAchat("Route") || j.getNbRouteGratuite()>0){
 			demanderRoute(false, null);
 			this.proxy.getJoueursController().majRessource();
 			serveur.getGestionnaireUI().diffuserGainRessource();

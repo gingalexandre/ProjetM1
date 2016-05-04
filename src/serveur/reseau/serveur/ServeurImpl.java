@@ -108,7 +108,6 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 */
 	@Override
 	public boolean enregistrerJoueur(JoueurServeur nouveauJoueurServeur, String nomJoueur, Date date, int nbJoueurs, String difficulte) throws RemoteException, TooMuchPlayerException {
-		System.out.println("yolo");
 		this.nombre_max_joueurs = nbJoueurs;
 		gestionnaireUI = new GestionnaireUI(difficulte);
 		gestionnairePartie = new GestionnairePartie(this.gestionnaireUI.getPlateau());
@@ -160,7 +159,6 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 				this.listeCouleurs.remove(0);
 			}
 			else{
-				this.listeCouleurs.remove(0);
 				joueur.setCouleur(this.listeCouleurs.get(0));
 				this.listeCouleurs.remove(0);
 				this.listeCouleurs.add("rouge");

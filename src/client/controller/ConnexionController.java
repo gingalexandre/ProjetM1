@@ -201,7 +201,6 @@ public class ConnexionController implements Initializable {
 	 * @throws TooMuchPlayerException
 	 */
 	public void enregistrerJoueur(String nomJoueur, Date date) throws RemoteException, TooMuchPlayerException {
-		System.out.println(proxy);
 		if(!serveur.enregistrerJoueur(this.proxy, nomJoueur, date)){
 			utilisateurErreur.setText("Vous ne faîtes pas partie de la partie chargée qui est en cours.");
 		}

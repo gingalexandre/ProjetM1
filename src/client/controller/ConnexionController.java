@@ -213,7 +213,7 @@ public class ConnexionController implements Initializable {
 					if (listeIdPartieSauvegarde != null && listeIdPartieSauvegarde.size() > 0) {
 						fenetreChargementPartie = new Stage();
 						fenetreChargementPartie.setTitle("Les Colons de Catanes");
-						Scene scene = new Scene(pageChargementPartie, 430, 500);
+						Scene scene = new Scene(pageChargementPartie, 370, 200);
 						fenetreChargementPartie.setScene(scene);
 						fenetreChargementPartie.showAndWait();
 					} else {

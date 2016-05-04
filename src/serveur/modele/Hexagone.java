@@ -112,6 +112,7 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 		this.type = hex.getType();
 		this.centre = hex.getCentre();
 		this.numero = hex.getNumero();
+		this.ressource = hex.getRessource();
 		this.villeAdj = Fonctions.transformArrayVille(hex.getVilleAdj());
 		this.VOLEUR = hex.isVOLEUR();
 		if (hex.getNumeroJeton() != null) {

@@ -37,7 +37,13 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	/**
 	 * Constructeur de la classe GestionnaireUI
 	 */
-	public GestionnaireUI() throws RemoteException {
+	public GestionnaireUI(String difficulte) throws RemoteException {
+		if(difficulte.equals("Expert")){
+
+		}
+		else{
+
+		}
 		this.plateau = Plateau.getInstance();
 	}
 

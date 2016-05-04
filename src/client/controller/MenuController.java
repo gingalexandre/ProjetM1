@@ -516,7 +516,9 @@ public class MenuController implements Initializable {
 	 * Méthode pour permettre le lancement de la popup de vol et laisser VolController prendre le relais pour les méthodes 
 	 *
 	 */
-	public void ouvrirVol(int maxRessource) {
+	public void ouvrirVol(int maxRessource) throws RemoteException{
+		proxy.getJoueur().setEstVole(true);
+		
 		Platform.runLater(() -> {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/Vol.fxml"));
 			try {
@@ -532,10 +534,9 @@ public class MenuController implements Initializable {
 				fenetreVol.initModality(Modality.WINDOW_MODAL);
 				fenetreVol.initOwner(ConnexionController.gameFenetre.getScene().getWindow());
 				fenetreVol.showAndWait();
-				serveur.getGestionnaireUI().diffuserDisableBoutonEchange(true);
+				serveur.getGestionnairePartie().diffuserDisableBoutonEchangeAvantApresVoleur(true);
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});

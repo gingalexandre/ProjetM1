@@ -138,4 +138,8 @@ public interface GestionnairePartieInterface extends Remote {
 	 * @return 
 	 */
 	PartieInterface recupererPartieChargee() throws RemoteException;
+
+	boolean verifierJoueursVoleurFini() throws RemoteException;
+
+	void diffuserDisableBoutonEchangeAvantApresVoleur(boolean desactiveActive) throws RemoteException;
 }

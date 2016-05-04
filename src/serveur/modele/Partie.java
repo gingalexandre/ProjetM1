@@ -353,6 +353,15 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	}
 	
 	/**
+	 * Renvoie le jeu qui joue en ce moment
+	 * @return
+	 * @throws RemoteException
+	 */
+	public JoueurInterface getJoueurActuel() throws RemoteException{
+		return ordreJeu.get(tour-1);
+	}
+	
+	/**
 	 * Récupération d'un joueur en fonction de sa couleur
 	 * @param couleur
 	 * @return le joueur grâce à sa couleur

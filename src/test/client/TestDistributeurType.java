@@ -25,7 +25,6 @@ public class TestDistributeurType {
 		int nbPrairie = 0;
 		int nbForet = 0;
 		for (int id = 0; id < distributeur.getTerritoiredispo().size(); id++) {
-			System.out.println(distributeur.getTerritoiredispo().size());
 			switch (distributeur.getTerritoiredispo().get(id)) {
 			case 1:
 				nbForet++;
@@ -46,7 +45,6 @@ public class TestDistributeurType {
 				break;
 			}
 		}
-		System.out.println(nbForet);
 		assertTrue(nbForet == NBTUILEMAX);
 		assertTrue(nbChamps == NBTUILEMAX);
 		assertTrue(nbCarriere == NBTUILEMIN);

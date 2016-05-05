@@ -900,6 +900,7 @@ public class MenuController implements Initializable {
             j.faireAchat("Developpement");
 			Platform.runLater(() -> {
 				try {
+					carte.setUtilisable(false);
 					listeCarte.getItems().add(carte.getNom());
 					j.addCarte(carte);
 				} catch (RemoteException e) {

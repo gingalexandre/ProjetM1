@@ -30,6 +30,7 @@ public class DistributeurType {
 		territoiredispo.add(Hexagone.CHAMPS);
 		territoiredispo.add(Hexagone.FORET);
 		territoiredispo.add(Hexagone.PRAIRIE);
+		territoiredispo.add(Hexagone.DESERT);
 	}
 	
 	/**

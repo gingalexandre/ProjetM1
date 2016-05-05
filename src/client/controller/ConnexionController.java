@@ -21,6 +21,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import serveur.modele.Message;
@@ -289,10 +290,11 @@ public class ConnexionController implements Initializable {
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/ParametresPartie.fxml"));
 		pageParametresPartie = (Pane) loader.load();
-		
 		fenetreParametres = new Stage();
 		fenetreParametres.setTitle("Paramètres de la partie");
 		Scene scene = new Scene(pageParametresPartie, 300, 200);
+		fenetreParametres.initModality(Modality.WINDOW_MODAL);
+		fenetreParametres.initOwner(VuePrincipale.scene.getWindow());
 		fenetreParametres.setScene(scene);
 		fenetreParametres.showAndWait();
 	}

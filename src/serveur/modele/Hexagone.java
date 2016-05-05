@@ -165,13 +165,12 @@ public class Hexagone extends UnicastRemoteObject implements HexagoneInterface {
 		this.indexHexagone = indexHexagone;
 		if (Plateau.getDifficulte() != null) {
 			if (Plateau.getDifficulte().equals("Expert")) {
-				if (this.indexHexagone != 9) {
-					this.type = DistributeurType.getInstance().donnerType();
+				this.type = DistributeurType.getInstance().donnerType();
+				if(this.type != Hexagone.DESERT){
 					this.numeroJeton = new Jeton(this);
 					this.numero = this.numeroJeton.getNumeroJeton();
 					setRessourceByType();
 				} else {
-					this.type = Hexagone.DESERT;
 					VOLEUR = true;
 				}
 			} else {

@@ -38,7 +38,7 @@ public class ConnexionController implements Initializable {
 	private PasswordField mdp;
 
 	@FXML
-	private Button connexion, boutonChargementPartie, boutonParamètresPartie;
+	private Button connexion, boutonChargementPartie, boutonParametresPartie;
 
 	@FXML
 	private Label utilisateurErreur;
@@ -94,7 +94,7 @@ public class ConnexionController implements Initializable {
 		try {
 			if(serveur.incrementerNbConnexions() > 1){
 				boutonChargementPartie.setVisible(false);
-				boutonParamètresPartie.setVisible(false);
+				boutonParametresPartie.setVisible(false);
 				connexion.setText("Rejoindre la partie");
 				premierJoueur = false;
 			}
@@ -258,7 +258,7 @@ public class ConnexionController implements Initializable {
 					ArrayList<Integer> listeIdPartieSauvegarde = serveur.getGestionnaireBDD()
 							.recupererPartieByName(nomUtilisateur.getText());
 					if (listeIdPartieSauvegarde != null && listeIdPartieSauvegarde.size() > 0) {
-						boutonParamètresPartie.setVisible(false);
+						boutonParametresPartie.setVisible(false);
 						boutonChargementPartie.setVisible(false);
 						
 						serveur.creerGestionnaireUIetPartie();

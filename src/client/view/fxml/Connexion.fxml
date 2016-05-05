@@ -29,6 +29,6 @@
 		<PasswordField fx:id="mdp" layoutX="2.0" layoutY="197.0" onAction="#onEnter" prefHeight="37.0" prefWidth="596.0" />
 		<Button fx:id="connexion" layoutX="175.0" layoutY="250.0" mnemonicParsing="false" onAction="#connexion" prefHeight="27.0" prefWidth="254.0" text="Se connecter" />
       <Button fx:id="boutonChargementPartie" layoutX="428.0" layoutY="355.0" mnemonicParsing="false" onAction="#ouvrirFenetreChargerPartie" prefHeight="31.0" prefWidth="158.0" text="Charger une partie" />
-      <Button fx:id="boutonParamètresPartie" layoutX="428.0" layoutY="314.0" mnemonicParsing="false" onAction="#ouvrirFenetreParametresPartie" prefHeight="31.0" prefWidth="158.0" text="Paramètres partie" />
+      <Button fx:id="boutonParametresPartie" layoutX="428.0" layoutY="314.0" mnemonicParsing="false" onAction="#ouvrirFenetreParametresPartie" prefHeight="31.0" prefWidth="158.0" text="Paramètres partie" />
 	</children>
 </Pane>

@@ -794,11 +794,13 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	 * Méthode permettant de verifier les ressources du joueur pour effectuer un
 	 * achat
 	 * 
-	 * @param str
+	 * @param string
 	 *            Objet que l'on veut acheter dans l'ensemble suivant {"Route" |
 	 *            "Ville" | "Colonie" | "Developpement"}
 	 */
 	public boolean checkAchat(String string) throws RemoteException {
+		return true;
+		/*
 		// TODO Auto-generated method stub
 		switch (string) {
 		case "Route":
@@ -818,13 +820,12 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 			return stockRessource.get(Ressource.BLE) > 0 && stockRessource.get(Ressource.MINERAIE) > 0
 					&& stockRessource.get(Ressource.LAINE) > 0;
 		}
-		return false;
+		return false;*/
 	}
 
 	@Override
 	public void setNbRouteGratuite(int i) throws RemoteException {
-		// TODO Auto-generated method stub
-		this.setNbRouteGratuite(i);
+		nbRouteGratuite=i;
 	}
 
 	public static int getCompteurDeJoueur() throws RemoteException {

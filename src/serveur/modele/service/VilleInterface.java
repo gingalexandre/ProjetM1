@@ -112,4 +112,6 @@ public interface VilleInterface extends Remote{
 	void setPort(int ressource) throws RemoteException;
 	
 
+	void devientUneVille() throws RemoteException;
+
 }

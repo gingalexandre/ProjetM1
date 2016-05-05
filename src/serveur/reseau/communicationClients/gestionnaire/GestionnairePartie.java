@@ -260,8 +260,7 @@ public class GestionnairePartie extends UnicastRemoteObject implements Gestionna
 
 			// Diffusion message
 			for (JoueurServeur joueurServeur : joueursServeur) {
-				joueurServeur.recevoirMessage(new Message(nomJoueurActuel + " a terminé son tour." + "\nC'est à "
-						+ joueurTour.getNomUtilisateur() + " de jouer."));
+				joueurServeur.recevoirMessage(new Message("C'est à " + joueurTour.getNomUtilisateur() + " de jouer."));
 			}
 			if (this.premierePhasePartie && !this.getPartie().isChargee()) { // Si on est dans la première phase, on affiche les colonies/route à construire
 				lancerProchainTour(joueurTour);

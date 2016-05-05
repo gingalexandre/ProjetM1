@@ -10,6 +10,8 @@ import serveur.modele.Message;
 import serveur.modele.Ressource;
 import serveur.modele.carte.ArmeePuissante;
 import serveur.modele.carte.Chevalier;
+import serveur.modele.carte.Invention;
+import serveur.modele.carte.Monopole;
 import serveur.modele.carte.Route;
 import serveur.modele.carte.Victoire;
 import serveur.modele.service.CarteInterface;
@@ -71,24 +73,44 @@ public class CarteController {
                 serveur.getGestionnaireUI().updatePointVictoire();
                 serveur.getGestionnaireUI().updateArmeePuissante();
             }
-            serveur.getGestionnaireUI().diffuserMessage(new Message("La route la plus longue du Joueur :  "+player.getNomUtilisateur()+" est de "+nbguerrier+"."));
+            serveur.getGestionnaireUI().diffuserMessage(new Message("Le joueur :  "+player.getNomUtilisateur()+" dispose de "+nbguerrier+" guerrier(s) suite à l'usage de sa carte développement Chevalier."));
             action = true;
         }
         if(ci.getNom().equals((new Victoire()).getNom())){
             action = true;
-            player.setPointVictoire(player.getPointVictoire()+2);
+            player.ajouterPointVictoire();
             serveur.getGestionnaireUI().updatePointVictoire();
-            serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne 2 points de victoire suite à l'usage de sa carte développement."));
+            serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne 1 point de victoire suite à l'usage de sa carte développement de type Victoire."));
+        }
+        if(ci.getNom().equals((new Invention()).getNom())){
+            int ressource_cible = popChoixRessource("Carte Invention","Les cartes de développement de type Invention permettent de gagner +2 dans une ressource.");
+            if(ressource_cible != -1){
+                action = true;
+                player.ajoutRessource(ressource_cible,2);
+                proxy.getJoueursController().majRessource();
+                serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne 2 de "+nameRessource(ressource_cible)+" suite à l'usage de sa carte développement de type Invention."));
+            }
+        }
+        if(ci.getNom().equals((new Monopole()).getNom())){
+            int ressource_cible = popChoixRessource("Carte Monopole","Les cartes de développement de type Monopole permettent d'obtenir le monopole d'une ressource en volant les réserves de celle-ci aux autres joueurs.");
+            if(ressource_cible != -1){
+                action = true;
+                int before = player.getStockRessource().get(ressource_cible);
+                int total = serveur.getGestionnaireUI().monopole(ressource_cible);
+                player.ajoutRessource(ressource_cible,total);
+                serveur.getGestionnaireUI().diffuserGainRessource();
+                serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne "+(total-before)+" de "+nameRessource(ressource_cible)+" suite à l'usage de sa carte développement de type Monopole."));
+            }
         }
         if(ci.getNom().equals((new Route()).getNom())){
             serveur.getGestionnaireUI().diffuserMessage(new Message(player.getNomUtilisateur()+" gagne 2 routes à construire suite à l'usage de sa carte développement de type Route."));
             player.setNbRouteGratuite(2);
+            action=true;
         }
         return action;
     }
 
     private int popChoixRessource(String messagehead,String messagetext){
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(messagehead);
         alert.setHeaderText(messagetext);

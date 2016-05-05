@@ -209,7 +209,10 @@ public class Ville extends UnicastRemoteObject implements VilleInterface {
 		return port;
 	}
 	
-	
+	@Override
+	public void devientUneVille() throws RemoteException {
+		// TODO Auto-generated method stub
+		colonieVille = true;
+	}
 
-	
 }

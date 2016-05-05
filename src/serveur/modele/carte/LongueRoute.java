@@ -6,7 +6,7 @@ import java.rmi.RemoteException;
 import serveur.bdd.modeleSauvegarde.CarteSauvegarde;
 
 /**
- * @auhtor Yohann Hugo
+ * @author Yohann Hugo
  */
 public class LongueRoute extends Carte implements Serializable{
 
@@ -17,6 +17,7 @@ public class LongueRoute extends Carte implements Serializable{
 
     /**
      * Constructeur
+     * @throws RemoteException Exception dû a RMI
      */
     public LongueRoute() throws RemoteException {
         super( "Plus longue route","/Ressources/cartes/longue_route.png",false);
@@ -24,7 +25,8 @@ public class LongueRoute extends Carte implements Serializable{
 
     /**
      * Constructeur a partir d'une sauvegarde
-     * @param carte
+     * @param carte Carte que l'on souhaite restaurer
+     * @throws RemoteException Exception dû a RMI
      */
     public LongueRoute(CarteSauvegarde carte) throws RemoteException {
         super(carte.getNom(), carte.getChemin(), carte.getUtilisable());

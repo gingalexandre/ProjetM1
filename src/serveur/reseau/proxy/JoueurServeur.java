@@ -105,7 +105,7 @@ public interface JoueurServeur extends Remote {
 	 * @param joueurCourrant - joueur en question
 	 * @throws RemoteException
 	 */
-	void recevoirPriseDeVille(VilleInterface v, JoueurInterface joueurCourrant)throws RemoteException;
+	void recevoirPriseDeVille(VilleInterface v, JoueurInterface joueurCourrant) throws RemoteException;
 
 	/**
 	 * Permet de recevoir le gain d'une ressource

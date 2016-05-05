@@ -259,7 +259,6 @@ public class MenuController implements Initializable {
 				e.printStackTrace();
 			}
 			listeCarte.setDisable(false);
-			boutonPioche.setDisable(false);
 			boutonCarte.setDisable(false);
 			this.boutonDes.setDisable(true);
 		});
@@ -280,7 +279,6 @@ public class MenuController implements Initializable {
 					e.printStackTrace();
 				}
 				listeCarte.setDisable(boo[0]);
-				boutonPioche.setDisable(boo[0]);
 				boutonCarte.setDisable(boo[0]);
 			});
 		}
@@ -296,7 +294,6 @@ public class MenuController implements Initializable {
 					e.printStackTrace();
 				}
 				listeCarte.setDisable(boo[0]);
-				boutonPioche.setDisable(boo[0]);
 				boutonCarte.setDisable(boo[0]);
 			});
 		}
@@ -311,37 +308,21 @@ public class MenuController implements Initializable {
 
 	public void disableBoutonConstruction(boolean boo) throws RemoteException{
 		//vérification possibilité construction
-		if(peutConstruireRoute()){
+		JoueurInterface j = proxy.getJoueur();
+		if(j.checkAchat("Route")){
 			Platform.runLater(() -> boutonConstruireRoute.setDisable(boo));
 		}
-		if(peutConstruireColonie()){
+		if(j.checkAchat("Colonie")){
 			Platform.runLater(() -> boutonConstruireColonie.setDisable(boo));
 		}
-		if(peutConstruireVille()){
+		if(j.checkAchat("Ville")){
 			Platform.runLater(() -> boutonConstruireVille.setDisable(boo));
 		}
+		if(j.checkAchat("Developpement")){
+			Platform.runLater(() -> boutonPioche.setDisable(boo));
+		}
 	}
 
-	public boolean peutConstruireRoute() throws RemoteException {
-		if((proxy.getJoueur().getStockRessource().get(Ressource.ARGILE)>=1)&&(proxy.getJoueur().getStockRessource().get(Ressource.BOIS)>=1)){
-			return true;
-		}
-		return false;
-	}
-
-	public boolean peutConstruireColonie() throws RemoteException {
-		if((proxy.getJoueur().getStockRessource().get(Ressource.ARGILE)>=1)&&(proxy.getJoueur().getStockRessource().get(Ressource.BOIS)>=1)&&(proxy.getJoueur().getStockRessource().get(Ressource.BLE)>=1)&&(proxy.getJoueur().getStockRessource().get(Ressource.LAINE)>=1)){
-			return true;
-		}
-		return false;
-	}
-
-	public boolean peutConstruireVille() throws RemoteException {
-		if((proxy.getJoueur().getStockRessource().get(Ressource.BLE)>=2)&&(proxy.getJoueur().getStockRessource().get(Ressource.MINERAIE)>=3)){
-			return true;
-		}
-		return false;
-	}
 
 	/**
 	 * Fait apparaitre le bouton pour quitter la partie

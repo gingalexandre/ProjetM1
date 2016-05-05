@@ -790,10 +790,8 @@ public class MenuController implements Initializable {
 				//Création du groupe pour ajouter les villes potentiel
 				Group g = new Group();
 				if (depart) {
-					int existe = 0;
 					for (VilleInterface v : p.getVilles()){
 						if (v.estLibre(null, p.getVilles())){
-							existe++;
 							// Si pas ressorti, possibles exception (infixable)
 							double x = v.getEmplacement().getX();
 							double y = v.getEmplacement().getY();
@@ -841,7 +839,6 @@ public class MenuController implements Initializable {
 							Platform.runLater( () -> g.getChildren().add(c));
 						}
 					}
-					if(existe==0) return;
 				}
 				if (g.getChildren().size()>0) {
 					Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(g));

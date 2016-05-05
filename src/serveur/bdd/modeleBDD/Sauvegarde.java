@@ -15,10 +15,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
 
 import serveur.bdd.modeleSauvegarde.PartieSauvegarde;
-import serveur.commun.Fonctions;
 import serveur.modele.Joueur;
 import serveur.modele.Message;
-import serveur.modele.Plateau;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
 

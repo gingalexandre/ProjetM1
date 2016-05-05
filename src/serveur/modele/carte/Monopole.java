@@ -1,10 +1,8 @@
 package serveur.modele.carte;
 
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
 import serveur.bdd.modeleSauvegarde.CarteSauvegarde;
-import serveur.modele.service.CarteInterface;
 
 /**
  * Carte de Monopole d'une ressource. Le joueur reçoit toutes les cartes d'un type choisi des autres joueurs.

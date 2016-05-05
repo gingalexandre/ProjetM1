@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import serveur.modele.Point;
-import serveur.modele.Route;
 
 public interface RouteInterface extends Remote{
 

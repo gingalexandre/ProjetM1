@@ -5,7 +5,6 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import exception.TooMuchPlayerException;
-import serveur.modele.Partie;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PaquetInterface;
 import serveur.modele.service.PartieInterface;

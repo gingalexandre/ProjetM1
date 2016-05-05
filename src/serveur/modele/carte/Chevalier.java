@@ -1,10 +1,8 @@
 package serveur.modele.carte;
 
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
 import serveur.bdd.modeleSauvegarde.CarteSauvegarde;
-import serveur.modele.service.CarteInterface;
 
 /**
  * Carte chevalier du jeu : ces cartes permettent de déplacer le voleur d'une case à l'autre.

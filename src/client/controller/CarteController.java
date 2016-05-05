@@ -1,19 +1,22 @@
 package client.controller;
 
 
+import java.rmi.RemoteException;
+import java.util.Optional;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Menu;
 import serveur.modele.Message;
 import serveur.modele.Ressource;
-import serveur.modele.carte.*;
+import serveur.modele.carte.ArmeePuissante;
+import serveur.modele.carte.Chevalier;
+import serveur.modele.carte.Route;
+import serveur.modele.carte.Victoire;
 import serveur.modele.service.CarteInterface;
 import serveur.modele.service.JoueurInterface;
 import serveur.reseau.proxy.Proxy;
 import serveur.reseau.serveur.ConnexionManager;
 import serveur.reseau.serveur.Serveur;
-import java.rmi.RemoteException;
-import java.util.Optional;
 
 /**
  * Created by Yohann Hugo on 30/04/2016.

@@ -6,7 +6,6 @@ import java.util.List;
 
 import serveur.commun.Fonctions;
 import serveur.modele.carte.Paquet;
-import serveur.modele.service.CarteInterface;
 import serveur.modele.service.PaquetInterface;
 
 public class PaquetSauvegarde {

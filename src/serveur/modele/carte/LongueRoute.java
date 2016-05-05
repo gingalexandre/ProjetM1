@@ -2,10 +2,8 @@ package serveur.modele.carte;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
 import serveur.bdd.modeleSauvegarde.CarteSauvegarde;
-import serveur.modele.service.CarteInterface;
 
 /**
  * @auhtor Yohann Hugo

@@ -7,12 +7,10 @@ import java.util.ArrayList;
 
 import exception.TooMuchPlayerException;
 import serveur.modele.service.JoueurInterface;
-import serveur.modele.service.PartieInterface;
 import serveur.reseau.communicationClients.service.GestionnaireBDDInterface;
 import serveur.reseau.communicationClients.service.GestionnairePartieInterface;
 import serveur.reseau.communicationClients.service.GestionnaireUIInterface;
 import serveur.reseau.proxy.JoueurServeur;
-import serveur.reseau.proxy.Proxy;
 
 /**
  * Classe principale pour les communications entre client et serveur

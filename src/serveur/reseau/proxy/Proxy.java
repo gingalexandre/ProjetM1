@@ -5,9 +5,20 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import client.controller.*;
+import client.controller.CarteController;
+import client.controller.ChatController;
+import client.controller.EchangeController;
+import client.controller.JoueursController;
+import client.controller.MenuController;
+import client.controller.PlateauController;
+import client.controller.PropositionController;
+import client.controller.ReglesController;
+import client.controller.VolController;
 import serveur.modele.Message;
-import serveur.modele.service.*;
+import serveur.modele.service.JoueurInterface;
+import serveur.modele.service.PlateauInterface;
+import serveur.modele.service.RouteInterface;
+import serveur.modele.service.VilleInterface;
 
 public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 

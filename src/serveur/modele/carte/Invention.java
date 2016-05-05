@@ -1,10 +1,8 @@
 package serveur.modele.carte;
 
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
 import serveur.bdd.modeleSauvegarde.CarteSauvegarde;
-import serveur.modele.service.CarteInterface;
 
 /**
  * Carte d'innovation : ces cartes permettent d'obtenir deux d'une ressource.

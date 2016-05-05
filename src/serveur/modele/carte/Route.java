@@ -1,10 +1,8 @@
 package serveur.modele.carte;
 
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
 import serveur.bdd.modeleSauvegarde.CarteSauvegarde;
-import serveur.modele.service.CarteInterface;
 
 /**
  *Carte construction qui permettent de gagner de façon permanente deux routes au joueur jouant la classe.

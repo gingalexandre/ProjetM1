@@ -11,7 +11,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import serveur.commun.Fonctions;
 import serveur.modele.Plateau;
-import serveur.modele.carte.Paquet;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PartieInterface;
 import serveur.reseau.proxy.JoueurServeur;

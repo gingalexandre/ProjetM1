@@ -44,7 +44,6 @@ import serveur.modele.Plateau;
 import serveur.modele.Point;
 import serveur.modele.Ressource;
 import serveur.modele.carte.LongueRoute;
-import serveur.modele.carte.Victoire;
 import serveur.modele.service.CarteInterface;
 import serveur.modele.service.HexagoneInterface;
 import serveur.modele.service.JoueurInterface;

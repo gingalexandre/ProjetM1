@@ -2,7 +2,13 @@ package client.controller;
 
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
 import client.view.VuePrincipale;
 import javafx.application.Platform;
@@ -19,7 +25,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
-import serveur.modele.*;
+import serveur.modele.Jeton;
+import serveur.modele.Message;
+import serveur.modele.Route;
+import serveur.modele.Ville;
 import serveur.modele.service.HexagoneInterface;
 import serveur.modele.service.JoueurInterface;
 import serveur.modele.service.PlateauInterface;

@@ -1,12 +1,6 @@
-package serveur.reseau.serveur;import java.net.MalformedURLException;
+package serveur.reseau.serveur;import java.rmi.Naming;
 
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-
-import client.view.VuePageAccueil;
 import client.view.VuePrincipale;
-import javafx.scene.control.Alert;
 import serveur.reseau.proxy.Proxy;
 
 /**

@@ -18,7 +18,6 @@ import serveur.reseau.communicationClients.service.GestionnaireBDDInterface;
 import serveur.reseau.communicationClients.service.GestionnairePartieInterface;
 import serveur.reseau.communicationClients.service.GestionnaireUIInterface;
 import serveur.reseau.proxy.JoueurServeur;
-import serveur.reseau.proxy.Proxy;
 
 /**
  * Classe implémentant le serveur, qui communique avec les proxy

@@ -92,12 +92,11 @@ public class ConnexionController implements Initializable {
 		serveur = ConnexionManager.getStaticServeur();
 		proxy = ConnexionManager.getStaticProxy();
 		try {
-			if(serveur.getGestionnairePartie() != null){
-				if(serveur.getGestionnairePartie().getPartie().getNombreJoueurs() >= 1){
-					boutonChargementPartie.setVisible(false);
-					boutonParamètresPartie.setVisible(false);
-					premierJoueur = false;
-				}
+			if(serveur.incrementerNbConnexions() > 1){
+				boutonChargementPartie.setVisible(false);
+				boutonParamètresPartie.setVisible(false);
+				connexion.setText("Rejoindre la partie");
+				premierJoueur = false;
 			}
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -260,6 +259,8 @@ public class ConnexionController implements Initializable {
 							.recupererPartieByName(nomUtilisateur.getText());
 					if (listeIdPartieSauvegarde != null && listeIdPartieSauvegarde.size() > 0) {
 						boutonParamètresPartie.setVisible(false);
+						boutonChargementPartie.setVisible(false);
+						
 						serveur.creerGestionnaireUIetPartie();
 						
 						fenetreChargementPartie = new Stage();

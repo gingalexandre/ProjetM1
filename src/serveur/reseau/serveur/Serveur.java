@@ -115,4 +115,16 @@ public interface Serveur extends Remote{
 	 * Créer les gestionnaires
 	 */
 	void creerGestionnaireUIetPartie() throws RemoteException;
+	
+	/**
+	 * Incrémente le nombre de joueurs qui se sont connectés au serveur
+	 * @return
+	 */
+	int incrementerNbConnexions() throws RemoteException;
+	
+	/**
+	 * Decrémente le nombre de joueurs qui se sont connectés au serveur
+	 * @return
+	 */
+	int decrementeNbConnexions() throws RemoteException;
 }

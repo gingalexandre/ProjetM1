@@ -431,18 +431,27 @@ public class Partie extends UnicastRemoteObject implements Serializable, PartieI
 	 */
 	public HashMap<String, Integer> getNomJoueursVoles() throws RemoteException{
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		int nb;
 		if (this.joueur1.getNbCarte()>7) {
-			map.put(this.joueur1.getNomUtilisateur(), this.joueur1.getNbCarte()/2);
+			nb =  this.joueur1.getNbCarte();
+			if (nb%2==1)nb++;
+			map.put(this.joueur1.getNomUtilisateur(), nb/2);
 		}
 		if (this.joueur2.getNbCarte()>7) {
-			map.put(this.joueur2.getNomUtilisateur(), this.joueur2.getNbCarte()/2);
+			nb =  this.joueur2.getNbCarte();
+			if (nb%2==1)nb++;
+			map.put(this.joueur2.getNomUtilisateur(), nb/2);
 		}
 		if (this.joueur3.getNbCarte()>7) {
-			map.put(this.joueur3.getNomUtilisateur(), this.joueur3.getNbCarte()/2);
+			nb =  this.joueur3.getNbCarte();
+			if (nb%2==1)nb++;
+			map.put(this.joueur3.getNomUtilisateur(), nb/2);
 		}
 		if(this.joueur4 != null){
 			if (this.joueur4.getNbCarte()>7) {
-				map.put(this.joueur4.getNomUtilisateur(), this.joueur4.getNbCarte()/2);
+				nb =  this.joueur4.getNbCarte();
+				if (nb%2==1)nb++;
+				map.put(this.joueur4.getNomUtilisateur(), nb/2);
 			}
 		}
 		return map;

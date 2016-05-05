@@ -28,6 +28,8 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	 * Plateau de jeu
 	 */
 	private PlateauInterface plateau;
+	
+	private int nbvol;
 
 	/**
 	 * Contient la liste des joueurs connectés au serveur
@@ -216,6 +218,7 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	 * @throws RemoteException
 	 */
 	public void envoyerVol(int ressourcesMax, JoueurServeur j) throws RemoteException {
+		nbvol++;
 		j.envoyerVol(ressourcesMax);
 	}
 
@@ -271,6 +274,20 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 	public void diffuserDisableBoutonEchange(boolean b) throws RemoteException {
 		for (JoueurServeur joueurServeur : joueurServeurs) {
 			joueurServeur.disableBoutonEchange(b);
+		}
+	}
+
+	@Override
+	public void decrementerVol() throws RemoteException {
+		// TODO Auto-generated method stub
+		nbvol--;
+		if (nbvol == 0) {
+			JoueurInterface j = ConnexionManager.getStaticServeur().getGestionnairePartie().getPartie().getJoueurActuel();
+			for (JoueurServeur js : joueurServeurs) {
+				if (js.getJoueur().getNomUtilisateur().equals(j.getNomUtilisateur())){
+					js.doActionVoleur();
+				}
+			}
 		}
 	}
 }

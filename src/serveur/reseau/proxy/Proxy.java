@@ -394,4 +394,14 @@ public class Proxy extends UnicastRemoteObject implements JoueurServeur {
 		this.menuController.setBoutonLancerDes(b);
 	}
 
+	@Override
+	public void setButtonsAfterLancerDes() throws RemoteException {
+		// TODO Auto-generated method stub
+		this.menuController.setButtonsAfterLancerDes();
+	}
+	
+	public void doActionVoleur() throws RemoteException{
+		this.plateauController.doActionVoleur();
+	}
+
 }

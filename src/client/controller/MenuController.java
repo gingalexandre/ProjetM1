@@ -378,10 +378,11 @@ public class MenuController implements Initializable {
 		}
 		if(des_val != 7){
 			extractionRessources(resultats);
+			setButtonsAfterLancerDes();
 		}else{
-			pc.doActionVoleur();
+			setBoutonLancerDes(true);
 			HashMap<String, Integer> listeJoueursVoles = serveur.getGestionnairePartie().getPartie().getNomJoueursVoles();
-
+			serveur.getGestionnaireUI().diffuserDisableBoutonEchange(true); // LA 
 			Set<String> cles = listeJoueursVoles.keySet();
 			Iterator<String> it = cles.iterator();
 			while (it.hasNext()){
@@ -389,8 +390,9 @@ public class MenuController implements Initializable {
 				Integer moitierRessource = listeJoueursVoles.get(nom);
 				serveur.getGestionnaireUI().envoyerVol(moitierRessource, serveur.getJoueur(nom));
 			}
+			if (cles.size()==0) pc.doActionVoleur();
 		}
-		setButtonsAfterLancerDes();
+		//setButtonsAfterLancerDes();
 	}
 
 	/**
@@ -533,7 +535,7 @@ public class MenuController implements Initializable {
 				fenetreVol.initModality(Modality.WINDOW_MODAL);
 				fenetreVol.initOwner(ConnexionController.gameFenetre.getScene().getWindow());
 				fenetreVol.showAndWait();
-				serveur.getGestionnaireUI().diffuserDisableBoutonEchange(true);
+				serveur.getGestionnaireUI().decrementerVol();
 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -546,6 +548,7 @@ public class MenuController implements Initializable {
 	 * @throws RemoteException
 	 */
 	public void finirLeTour() throws RemoteException{
+		if(pc.mainPane.getOnMousePressed()!=null) pc.mainPane.removeEventHandler(MouseEvent.MOUSE_PRESSED, pc.mainPane.getOnMousePressed());
 		String nomJoueurActuel = proxy.getJoueur().getNomUtilisateur();
 		this.setButtons(true);
 
@@ -919,6 +922,7 @@ public class MenuController implements Initializable {
             j.faireAchat("Developpement");
 			Platform.runLater(() -> {
 				try {
+					carte.setUtilisable(false);
 					listeCarte.getItems().add(carte.getNom());
 					j.addCarte(carte);
 				} catch (RemoteException e) {

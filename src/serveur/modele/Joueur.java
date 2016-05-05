@@ -799,9 +799,6 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 	 *            "Ville" | "Colonie" | "Developpement"}
 	 */
 	public boolean checkAchat(String string) throws RemoteException {
-		return true;
-		/*
-		// TODO Auto-generated method stub
 		switch (string) {
 		case "Route":
 			// Bois + argile
@@ -820,7 +817,7 @@ public class Joueur extends UnicastRemoteObject implements JoueurInterface, Seri
 			return stockRessource.get(Ressource.BLE) > 0 && stockRessource.get(Ressource.MINERAIE) > 0
 					&& stockRessource.get(Ressource.LAINE) > 0;
 		}
-		return false;*/
+		return false;
 	}
 
 	@Override

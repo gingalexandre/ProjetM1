@@ -655,7 +655,9 @@ public class MenuController implements Initializable {
 					rectangle.setFill(Color.WHITE);
 					Platform.runLater(() -> grp.getChildren().add(rectangle));
 					routesConstructibles.put(rectangle, r);
-					rectangle.setOnMousePressed(new EventHandler<MouseEvent>() {
+
+					rectangle.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>()
+					{
 						public void handle(MouseEvent me){
 							try {
 								rectangle.setFill(Fonction.getCouleurFromString(joueurCourrant.getCouleur()));
@@ -675,6 +677,7 @@ public class MenuController implements Initializable {
 									serveur.getGestionnaireUI().updatePointVictoire();
 									serveur.getGestionnaireUI().updateRouteLongue();
 								}
+								rectangle.removeEventHandler(MouseEvent.MOUSE_PRESSED, this);
 								if(isInitTurn()){
 									setButtons(true,true,false);
 								}
@@ -805,6 +808,8 @@ public class MenuController implements Initializable {
 										VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
 										serveur.getGestionnaireUI().diffuserPriseDeVille(v, joueurCourrant);
 										joueurCourrant.construireColonie();
+										joueurCourrant.ajouterPointVictoire();
+										serveur.getGestionnaireUI().updatePointVictoire();
 										proxy.getJoueursController().majRessource();
 										serveur.getGestionnaireUI().diffuserGainRessource(); // A voir si on peut supprimer
 										serveur.getGestionnaireUI().diffuserGainCarteRessource();
@@ -932,11 +937,11 @@ public class MenuController implements Initializable {
 	public void jouerCarte() throws RemoteException {
 		int index = listeCarte.getSelectionModel().getSelectedIndex();
 		JoueurInterface joueur = proxy.getJoueur();
+		CarteInterface carte;
 		if(index != -1){
-			CarteInterface carte = joueur.getCarte(index);
+			carte = joueur.getCarte(index);
 			if (carte != null) {
-                //if(carte.getNom().equals(new Victoire().getNom())) carte.setUtilisable(true);
-				if (carte.getUtilisable()) {
+				if (carte.getUtilisable() || carte.getNom().equals((new Victoire()).getNom())) {
 					boolean action = carteController.doActionCarte(carte);
 					if (action == true) {
 						listeCarte.getItems().remove(index);
@@ -951,7 +956,6 @@ public class MenuController implements Initializable {
 				} else {
 					popErreur("Vous ne pouvez pas cette carte puisque vous venez de la piocher et que ce n'est pas une carte victoire.");
 				}
-				carte= null;
 			} else {
 				popErreur("Veuillez séléctionner une carte dans le menu déroulant avant d'essayer de la jouer.");
 			}

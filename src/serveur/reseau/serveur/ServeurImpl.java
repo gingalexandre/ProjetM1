@@ -71,13 +71,12 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 * Constructeur de la classe ServeurImpl
 	 * @throws RemoteException
 	 */
-	public ServeurImpl(int nombre_max_joueurs) throws RemoteException{
+	public ServeurImpl() throws RemoteException{
 		compteurNbConnexion = 0;
 		this.listeCouleurs.add("bleu");
 		this.listeCouleurs.add("vert");
 		this.listeCouleurs.add("orange");
 		this.listeCouleurs.add("rouge");
-		this.nombre_max_joueurs = nombre_max_joueurs;
 		gestionnaireBDD = new GestionnaireBDD();
 	}
 	

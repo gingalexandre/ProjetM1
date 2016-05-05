@@ -15,10 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -125,7 +122,7 @@ public class ConnexionController implements Initializable {
 	 * @throws TooMuchPlayerException
 	 */
 	@FXML
-	public void connexion() throws RemoteException, InterruptedException, TooMuchPlayerException {
+	public void connexion() throws RemoteException, InterruptedException {
 		boolean gestionnairePartieNull = false;
 		if(serveur.getGestionnairePartie() == null){
 			gestionnairePartieNull = true;
@@ -149,13 +146,21 @@ public class ConnexionController implements Initializable {
 				if (connexionOk) {
 					nomJoueur = nomUtilisateur.getText();
 					dateNaissance = serveur.getGestionnaireBDD().getDateNaissanceUtilisateur(nomJoueur);
-					if(!premierJoueur){ // C'est pas le premier joueur
-						enregistrerJoueur(nomJoueur, dateNaissance);
+					try {
+						if (!premierJoueur) { // C'est pas le premier joueur
+							enregistrerJoueur(nomJoueur, dateNaissance);
+						} else { // C'est le premier joueur
+							enregistrerJoueur(nomJoueur, dateNaissance, ParametresController.nbJoueurs, ParametresController.difficulte);
+						}
+						lancerJeu();
+					}catch (TooMuchPlayerException e){
+						Alert alert = new Alert(Alert.AlertType.ERROR);
+						alert.setTitle("Erreur!");
+						alert.setHeaderText("Une erreur a été détéctée.");
+						alert.setContentText("Il y a déjà le nombre de joueur requis... désolé ce sera pour une prochaine !");
+
+						alert.showAndWait();
 					}
-					else{ // C'est le premier joueur
-						enregistrerJoueur(nomJoueur, dateNaissance, ParametresController.nbJoueurs, ParametresController.difficulte);
-					}
-					lancerJeu();
 				} else {
 					utilisateurErreur.setText("Erreur, utilisateur inconnu, inscrivez-vous.");
 				}

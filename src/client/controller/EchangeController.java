@@ -171,7 +171,6 @@ public class EchangeController implements Initializable {
 			this.offreDemande.put("oLaine",Integer.parseInt(offreLaine.getText()));
 		}
 		catch(Exception e){
-			e.printStackTrace();
 			message.setText("Invalide !");
 		}
 	}

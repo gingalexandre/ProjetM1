@@ -211,7 +211,6 @@ public class MenuController implements Initializable {
 			fenetreEchange.setScene(scene);
 			fenetreEchange.showAndWait();
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -791,8 +790,10 @@ public class MenuController implements Initializable {
 				//Création du groupe pour ajouter les villes potentiel
 				Group g = new Group();
 				if (depart) {
+					int existe = 0;
 					for (VilleInterface v : p.getVilles()){
 						if (v.estLibre(null, p.getVilles())){
+							existe++;
 							// Si pas ressorti, possibles exception (infixable)
 							double x = v.getEmplacement().getX();
 							double y = v.getEmplacement().getY();
@@ -840,6 +841,7 @@ public class MenuController implements Initializable {
 							Platform.runLater( () -> g.getChildren().add(c));
 						}
 					}
+					if(existe==0) return;
 				}
 				Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(g));
 			}
@@ -909,6 +911,7 @@ public class MenuController implements Initializable {
 			carte = serveur.getGestionnairePartie().getPartie().piocheDeck();
 		} else {
 			popErreur("Vous ne pouvez pas piocher de carte. Vous n'avez pas les ressources");
+			boutonPioche.setDisable(true);
 			return;
 		}
 		if (carte != null) {
@@ -999,6 +1002,7 @@ public class MenuController implements Initializable {
 		}
 		else {
 			popErreur("Vous ne pouvez pas contruire de colonie. Soit vous avez atteint la limite, soit vous n'avez pas les ressources");
+			boutonConstruireVille.setDisable(true);
 		}
 	}
 	
@@ -1008,14 +1012,12 @@ public class MenuController implements Initializable {
 		PlateauInterface p = serveur.getGestionnairePartie().getPartie().getPlateau();
 		Group grp = new Group();
 		for (VilleInterface v : p.getVilles()){
-			System.out.println(v.getOqp());
 			boolean b1 ; 
 			boolean b2 = false; 
 			boolean b3 = false;
 			b1 = v.getOqp()!=null;
 			if (b1 && v.getOqp().equals(j)) b2= true;
 			b3 = v.isColonie();
-			System.out.println(b1+" "+b2+" "+b3);
 			if  (v.getOqp()!=null && v.getOqp().equals(j) && !v.isColonie()){
 				// Dessiner le triangle;
 				Point centre = v.getEmplacement();
@@ -1073,6 +1075,7 @@ public class MenuController implements Initializable {
 		}
 		else {
 			popErreur("Vous ne pouvez pas contruire de Ville. Soit vous avez atteint la limite, soit vous n'avez pas les ressources");
+			boutonConstruireVille.setDisable(true);
 		}
 			
 	}

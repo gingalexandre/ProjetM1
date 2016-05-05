@@ -311,7 +311,6 @@ public class Fonctions {
 				e.printStackTrace();
 			}
 		}
-		System.out.println(res.size());
 		return res;
 	}
 	

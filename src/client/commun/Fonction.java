@@ -79,7 +79,6 @@ public class Fonction {
 				sc.close();
 			} catch (Exception e) {
 				sc.close();
-				System.out.println("Entrée invalide !");
 			}
 		}
 		return res;

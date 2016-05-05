@@ -843,7 +843,6 @@ public class MenuController implements Initializable {
 	public void dessinerVille(VilleInterface v, JoueurInterface joueurCourrant) {
 		// TODO Auto-generated method stub
 		try {
-			System.out.println(v.getOqp()+" "+joueurCourrant.getNomUtilisateur());
 			if (!v.isVille()){
 				double x = v.getEmplacement().getX();
 				double y = v.getEmplacement().getY();

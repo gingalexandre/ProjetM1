@@ -52,6 +52,7 @@ public class Sauvegarde {
 	public Sauvegarde() throws RemoteException {
 		PartieSauvegarde partieASauvegarder = new PartieSauvegarde(true);
 		Partie partieActuelle = null;
+		Serveur serveur = ConnexionManager.getStaticServeur();
 		try {
 			// Recherche si la partie existe déjà
 			partieActuelle = Partie.getById(partieASauvegarder.getIdPartie());
@@ -83,15 +84,15 @@ public class Sauvegarde {
 				this.sauvegarderPartie(partieASauvegarder, path);
 				// Récupération de l'id de la partie nouvellement insérée
 				Partie partie = Partie.getPartieByPath(path);
-				Serveur serveur = ConnexionManager.getStaticServeur();
+				
 				serveur.getGestionnairePartie().getPartie().setId(partie.getIdPartie());
-				serveur.getGestionnaireUI().diffuserMessage(new Message(
-						partieASauvegarder.getJoueurActuel().getNomUtilisateur() + " vient de sauvegarder la partie."));
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			serveur.getGestionnaireUI().diffuserMessage(new Message("La partie vient d'être sauvegardée."));
+			
 		}
 
 	}
@@ -109,7 +110,7 @@ public class Sauvegarde {
 			jsonOutputFile = new File(path);
 			objectMapper.enable(SerializationConfig.Feature.INDENT_OUTPUT);
 			objectMapper.writeValue(new FileOutputStream(path), partieASauvegarder);
-
+				
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

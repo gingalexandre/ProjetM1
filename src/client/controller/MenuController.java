@@ -310,13 +310,13 @@ public class MenuController implements Initializable {
 	public void disableBoutonConstruction(boolean boo) throws RemoteException{
 		//vérification possibilité construction
 		if(peutConstruireRoute()){
-			boutonConstruireRoute.setDisable(boo);
+			Platform.runLater(() -> boutonConstruireRoute.setDisable(boo));
 		}
 		if(peutConstruireColonie()){
-			boutonConstruireColonie.setDisable(boo);
+			Platform.runLater(() -> boutonConstruireColonie.setDisable(boo));
 		}
 		if(peutConstruireVille()){
-			boutonConstruireVille.setDisable(boo);
+			Platform.runLater(() -> boutonConstruireVille.setDisable(boo));
 		}
 	}
 
@@ -461,8 +461,7 @@ public class MenuController implements Initializable {
 						}
 						//Si c'est une colonie
 						else{
-							//joueur.ajoutRessource(ressource, 1);
-							joueur.ajoutRessource(ressource, 10);
+							joueur.ajoutRessource(ressource, 1);
 						}
 					}
 				}
@@ -984,11 +983,11 @@ public class MenuController implements Initializable {
 	}
 
 	public void disableBoutonEchange(boolean b) {
-		this.boutonEchange.setDisable(b);
+		Platform.runLater(() -> this.boutonEchange.setDisable(b));
 	}
 
 	public void setBoutonLancerDes(boolean b) {
-		this.boutonDes.setDisable(b);
+		Platform.runLater(() -> this.boutonDes.setDisable(b));
 	}
 
 }

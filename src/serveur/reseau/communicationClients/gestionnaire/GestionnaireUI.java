@@ -172,6 +172,7 @@ public class GestionnaireUI extends UnicastRemoteObject implements GestionnaireU
 				}
 				serveur.getGestionnairePartie().getPartie().setTour(serveur.getGestionnairePartie().getPartie().getTour() - 1);
 			}
+			serveur.getGestionnaireBDD().getUpdateStatistiques(0, joueurSupprime.getNomUtilisateur());
 		}
 		// Suppression complète du serveur
 		serveur.getGestionnairePartie().supprimerJoueur(joueurSupprime);

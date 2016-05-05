@@ -843,7 +843,11 @@ public class MenuController implements Initializable {
 					}
 					if(existe==0) return;
 				}
-				Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(g));
+				if (g.getChildren().size()>0) {
+					Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(g));
+				} else {
+					setButtons(false);
+				}
 			}
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block

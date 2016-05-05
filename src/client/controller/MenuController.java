@@ -688,7 +688,7 @@ public class MenuController implements Initializable {
 					});
 				}
 			}
-			if (!initPhase && grp.getChildren().size()==0) setButtons(false);
+			if (!initPhase && grp.getChildren().size()==0) setButtonsAfterLancerDes();
 			Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(grp));
 		} catch(Exception e){
 			e.printStackTrace();
@@ -812,7 +812,7 @@ public class MenuController implements Initializable {
 										proxy.getJoueursController().majRessource();
 										serveur.getGestionnaireUI().diffuserGainRessource(); // A voir si on peut supprimer
 										serveur.getGestionnaireUI().diffuserGainCarteRessource();
-										setButtons(false);
+										setButtonsAfterLancerDes();
 										if(isInitTurn()){
 											setButtons(true,true,false);
 											Point maColo = new Point(c.getCenterX(),c.getCenterY());
@@ -843,7 +843,7 @@ public class MenuController implements Initializable {
 				if (g.getChildren().size()>0) {
 					Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(g));
 				} else {
-					setButtons(false);
+					setButtonsAfterLancerDes();
 				}
 			}
 		} catch (RemoteException e) {
@@ -1048,7 +1048,7 @@ public class MenuController implements Initializable {
 							serveur.getGestionnaireUI().diffuserGainCarteRessource();
 							serveur.getGestionnaireUI().diffuserPriseDeVille(v, j);
 							VuePrincipale.paneUsed.getChildren().remove(VuePrincipale.paneUsed.getChildren().size()-1);
-							setButtons(true,true,false);
+							setButtonsAfterLancerDes();
 						} catch (RemoteException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -1061,7 +1061,7 @@ public class MenuController implements Initializable {
 			}
 		}
 		if (grp.getChildren().size()<1){
-			setButtons(true,true,false);
+			setButtonsAfterLancerDes();
 			return;
 		} else {
 			Platform.runLater(() -> VuePrincipale.paneUsed.getChildren().add(grp));

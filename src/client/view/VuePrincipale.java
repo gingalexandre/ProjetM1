@@ -1,6 +1,7 @@
 package client.view;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,6 +9,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import serveur.modele.Message;
+import serveur.reseau.serveur.ConnexionManager;
+import serveur.reseau.serveur.Serveur;
 
 /**
  * 
@@ -32,6 +37,18 @@ public class VuePrincipale extends Application{
         stage.setScene(scene);   
         stage.setMaximized(true);
         stagePrincipal = stage;
+        
+        Serveur serveur = ConnexionManager.getStaticServeur();
+        stagePrincipal.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			public void handle(WindowEvent we) {
+				try {
+					serveur.decrementeNbConnexions();
+					System.exit(0);
+				} catch (Exception e) {
+					System.exit(0);
+				}
+			}
+		});
         stage.show();
 	}	
 }

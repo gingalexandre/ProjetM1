@@ -58,13 +58,22 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	 */
 	private ArrayList<String> listeCouleurs = new ArrayList<String>();
 	
+	/**
+	 * Indique si la partie est chargée ou non
+	 */
 	private boolean chargee = false;
+	
+	/**
+	 * Compte le nombre de connexions au serveur
+	 */
+	private int compteurNbConnexion;
 	
 	/**
 	 * Constructeur de la classe ServeurImpl
 	 * @throws RemoteException
 	 */
 	public ServeurImpl(int nombre_max_joueurs) throws RemoteException{
+		compteurNbConnexion = 0;
 		this.listeCouleurs.add("bleu");
 		this.listeCouleurs.add("vert");
 		this.listeCouleurs.add("orange");
@@ -330,5 +339,25 @@ public class ServeurImpl extends UnicastRemoteObject implements Serveur {
 	public void creerGestionnaireUIetPartie() throws RemoteException {
 		this.gestionnaireUI = new GestionnaireUI("Débutant");
 		this.gestionnairePartie = new GestionnairePartie(this.gestionnaireUI.getPlateau());
+	}
+
+	/**
+	 * Incrémente le nombre de joueurs qui se sont connectés au serveur
+	 * @return
+	 */
+	@Override
+	public int incrementerNbConnexions() throws RemoteException {
+		this.compteurNbConnexion++;
+		return this.compteurNbConnexion;
+	}
+
+	/**
+	 * Décremente le nombre de joueurs qui se sont connectés au serveur
+	 * @return
+	 */
+	@Override
+	public int decrementeNbConnexions() throws RemoteException {
+		this.compteurNbConnexion--;
+		return compteurNbConnexion;
 	}
 }

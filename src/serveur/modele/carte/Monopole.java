@@ -15,7 +15,7 @@ public class Monopole extends Carte{
      * Constructeur
      */
     public Monopole() throws RemoteException {
-        super("Carte Monopole","/Ressources/cartes/carte_progres_monopole.png",false);
+        super("Carte Monopole","/cartes/carte_progres_monopole.png",false);
     }
 
     /**

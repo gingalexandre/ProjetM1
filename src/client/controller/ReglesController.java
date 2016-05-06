@@ -57,8 +57,7 @@ public class ReglesController implements Initializable{
 	
 	public void afficherRegles(){
 		VuePrincipale v= new VuePrincipale();
-		String path = new java.io.File("" ).getAbsolutePath(); 
-		v.getHostServices().showDocument("file://"+ path + "/rules.pdf");
+		v.getHostServices().showDocument(getClass().getResource("/rules.pdf").toExternalForm());
 	}
 	
 	@FXML

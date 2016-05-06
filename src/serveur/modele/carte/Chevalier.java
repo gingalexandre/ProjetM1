@@ -15,7 +15,7 @@ public class Chevalier extends Carte{
      * Constructeur
      */
     public Chevalier() throws RemoteException {
-        super("Carte Chevalier","/Ressources/cartes/carte_chevalier.png",false);
+        super("Carte Chevalier","/cartes/carte_chevalier.png",false);
     }
 
     /**

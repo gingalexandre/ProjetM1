@@ -29,8 +29,7 @@ public class VuePrincipale extends Application{
 		Parent root = preloader.load();
 		
         scene = new Scene(root,0,0);
-
-        stage.setTitle("Les Colons de Catanes");
+    	stage.setTitle("Les Colons de Catanes");
         stage.setScene(scene);   
         stage.setMaximized(true);
         stagePrincipal = stage;

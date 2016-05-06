@@ -1,0 +1,93 @@
+#constructionrules{
+    -fx-background-image: url(/autres/regles_construction.png);
+    -fx-background-repeat: stretch;
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+}
+#imageBle{
+    -fx-background-image: url(/ressources/ressource_ble.png);
+    -fx-background-repeat: stretch;
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+}
+#imageBois{
+    -fx-background-image: url(/ressources/ressource_bois.png);
+    -fx-background-repeat: stretch;
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+}
+#imageLaine{
+    -fx-background-image: url(/ressources/ressource_laine.png);
+    -fx-background-repeat: stretch;
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+}
+#imageArgile{
+    -fx-background-image: url(/ressources/ressource_argile.png);
+    -fx-background-repeat: stretch;
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+}
+#imageCaillou{
+    -fx-background-image: url(/ressources/ressource_mineraie.png);
+    -fx-background-repeat: stretch;
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+}
+
+.imageVictoire{
+    -fx-background-image: url(/autres/points_victoire.png);
+    -fx-background-repeat: stretch;
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+}
+
+.imageRoute{
+    -fx-background-image: url(/autres/routes.png);
+    -fx-background-repeat: stretch;
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+}
+
+.imageSoldat{
+    -fx-background-image: url(/autres/soldats.png);
+    -fx-background-repeat: stretch;
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+}
+
+.imageCarte{
+     -fx-background-image: url(/autres/carte_icon.png);
+     -fx-background-repeat: stretch;
+     -fx-background-size: 100% 100%;
+     -fx-background-position: center center;
+ }
+
+#imageMer{
+    -fx-background-image: url(/cases/mer.png);
+    -fx-background-repeat: stretch;
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+}
+
+.PanePageAccueil{
+	-fx-background-image: url(/autres/background.png);
+	-fx-background-repeat: stretch;
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+}
+
+.LogoPageAccueil{
+	-fx-background-image: url(/autres/logo.png);
+	-fx-background-repeat: stretch;
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+}
+
+.buttonJouer{
+	-fx-alignement: center;
+}
+
+.buttonRegles{
+	-fx-alignement: center;
+}

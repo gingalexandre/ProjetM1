@@ -15,7 +15,7 @@ public class Route extends Carte {
      * Constructeur
      */
     public Route()throws RemoteException {
-        super("Carte Route", "/Ressources/cartes/carte_progres_route.png", false);
+        super("Carte Route", "/cartes/carte_progres_route.png", false);
     }
 
     /**

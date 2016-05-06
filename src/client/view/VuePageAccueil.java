@@ -18,6 +18,10 @@ public class VuePageAccueil extends Application{
 		FXMLLoader preloader = new FXMLLoader(getClass().getResource("fxml/PageAccueil.fxml"));
 		Parent root = preloader.load();
         scene = new Scene(root,925,715);
+        scene.getStylesheets().clear();
+		scene.getStylesheets()
+				.add(getClass().getResource("/client/view/fxml/stylesheet.css").toExternalForm());
+
         stage.setTitle("Les Colons de Catanes");
         stage.setScene(scene);
         stagePrincipal = stage;

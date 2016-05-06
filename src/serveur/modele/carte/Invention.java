@@ -15,7 +15,7 @@ public class Invention extends Carte {
      * Constructeur
      */
     public Invention() throws RemoteException {
-        super("Carte Invention","/Ressources/cartes/carte_progres_invention.png",false);
+        super("Carte Invention","/cartes/carte_progres_invention.png",false);
     }
 
     /**

@@ -1,5 +1,8 @@
 package client.controller;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -15,60 +18,70 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class PageAccueilController implements Initializable{
+public class PageAccueilController implements Initializable {
 
-    @FXML
-    public Pane panePageAccueil;
+	@FXML
+	public Pane panePageAccueil;
 
-    @FXML
-    public Button boutonJouer, boutonRegles, boutonQuitter;
+	@FXML
+	public Button boutonJouer, boutonRegles, boutonQuitter;
 
-    @FXML
-    public ImageView imageCatan;
+	@FXML
+	public ImageView imageCatan;
 
-    private static final String cheminImage = "file:Ressources/autres/logo.png";
+	private static final String cheminImage = "/autres/logo.png";
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        imageCatan.setImage(new Image(cheminImage));
-        Platform.setImplicitExit(false);
-    }
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		panePageAccueil.getStylesheets().clear();
+		panePageAccueil.getStylesheets()
+				.add(getClass().getResource("/client/view/fxml/stylesheet.css").toExternalForm());
 
-    /**
-     * Se déclenche lors d'un clic sur le boutton boutonJouer
-     */
-    @FXML
-    public void jouer(){
-        Platform.runLater(() -> {
-            try {
-                VuePageAccueil.stagePrincipal.close();
-                new VuePrincipale().start(new Stage());
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Erreur!");
-                alert.setHeaderText("Attention : ");
-                alert.setContentText("Le serveur de jeu est indisponible.");
-                alert.showAndWait();
-                VuePageAccueil.stagePrincipal.show();
-            }
-        });
-    }
+		imageCatan.setImage(new Image(getClass().getResourceAsStream(cheminImage)));
+		Platform.setImplicitExit(false);
+	}
 
-    /**
-     * Se déclenche lors d'un clic sur le boutton boutonRegles
-     */
-    @FXML
-    public void regles(){
-        VuePrincipale v= new VuePrincipale();
-        String path = new java.io.File("" ).getAbsolutePath();
-        v.getHostServices().showDocument("file://"+ path + "/rules.pdf");
-    }
+	/**
+	 * Se déclenche lors d'un clic sur le boutton boutonJouer
+	 */
+	@FXML
+	public void jouer() {
+		Platform.runLater(() -> {
+			try {
+				VuePageAccueil.stagePrincipal.close();
+				new VuePrincipale().start(new Stage());
+			} catch (Exception e) {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setTitle("Erreur!");
+				alert.setHeaderText("Attention : ");
+				alert.setContentText("Le serveur de jeu est indisponible.");
+				alert.showAndWait();
+				VuePageAccueil.stagePrincipal.show();
+			}
+		});
+	}
 
-    /**
-     * Se déclenche lors d'un clic sur le boutton boutonQuitter
-     */
-    @FXML
-    public void quitter(){
-        System.exit(0);
-    }
+	/**
+	 * Se déclenche lors d'un clic sur le boutton boutonRegles
+	 */
+	@FXML
+	public void regles() {
+		VuePrincipale v = new VuePrincipale();
+		
+		try {
+			Desktop.getDesktop().open(new File(getClass().getResource("/rules.pdf").getPath()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+	/**
+	 * Se déclenche lors d'un clic sur le boutton boutonQuitter
+	 */
+	@FXML
+	public void quitter() {
+		System.exit(0);
+	}
 }

@@ -42,12 +42,12 @@ public class ConnexionController implements Initializable {
 	private Label utilisateurErreur;
 
 	private Pane page = null;
-	
+
 	/**
 	 * Fenêtre de chargement de la partie
 	 */
 	private Pane pageChargementPartie = null;
-	
+
 	/**
 	 * Fenêtre de chargement de la partie
 	 */
@@ -77,20 +77,20 @@ public class ConnexionController implements Initializable {
 	 * Nom du joueur
 	 */
 	public static String nomJoueur;
-	
+
 	/**
 	 * Indique si le joueur est le premier joueur sur le serveur
 	 */
 	private boolean premierJoueur = true;
 
-	/** 
+	/**
 	 * Méthodes d'initialisation
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
 		serveur = ConnexionManager.getStaticServeur();
 		proxy = ConnexionManager.getStaticProxy();
 		try {
-			if(serveur.incrementerNbConnexions() > 1){
+			if (serveur.incrementerNbConnexions() > 1) {
 				boutonChargementPartie.setVisible(false);
 				boutonParametresPartie.setVisible(false);
 				connexion.setText("Rejoindre la partie");
@@ -103,7 +103,9 @@ public class ConnexionController implements Initializable {
 
 	/**
 	 * Permet de savoir si un joueur est déjà présent sur la partie
-	 * @param liste de tous les joueurs connectés dans la partie
+	 * 
+	 * @param liste
+	 *            de tous les joueurs connectés dans la partie
 	 * @return vrai si le joueur est présent, faux sinon
 	 * @throws RemoteException
 	 */
@@ -117,24 +119,38 @@ public class ConnexionController implements Initializable {
 	}
 
 	/**
-	 * Méthode vérifiant la connexion. Si elle fonctionne, alors la méthode lance le jeu
+	 * Méthode vérifiant la connexion. Si elle fonctionne, alors la méthode
+	 * lance le jeu
+	 * 
 	 * @throws RemoteException
 	 * @throws TooMuchPlayerException
 	 */
 	@FXML
 	public void connexion() throws RemoteException, InterruptedException {
 		boolean gestionnairePartieNull = false;
-		if(serveur.getGestionnairePartie() == null){
+		if (serveur.getGestionnairePartie() == null) {
 			gestionnairePartieNull = true;
 		}
-		if(serveur.getGestionnairePartie() == null || !serveur.getGestionnairePartie().getPartie().isPartieCommence()){ // La partie a pas commencé, le joueur peut se connecter tranquille
+		if (serveur.getGestionnairePartie() == null
+				|| !serveur.getGestionnairePartie().getPartie().isPartieCommence()) { // La
+																						// partie
+																						// a
+																						// pas
+																						// commencé,
+																						// le
+																						// joueur
+																						// peut
+																						// se
+																						// connecter
+																						// tranquille
 			ArrayList<JoueurServeur> listeJoueurs = new ArrayList<JoueurServeur>();
 			boolean connexionOk = false;
 			try {
-				if(!gestionnairePartieNull){
+				if (!gestionnairePartieNull) {
 					listeJoueurs = serveur.getGestionnairePartie().recupererTousLesJoueurs();
 				}
-				connexionOk = serveur.getGestionnaireBDD().verificationConnexion(nomUtilisateur.getText(), Fonction.crypte(mdp.getText()));
+				connexionOk = serveur.getGestionnaireBDD().verificationConnexion(nomUtilisateur.getText(),
+						Fonction.crypte(mdp.getText()));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -150,14 +166,16 @@ public class ConnexionController implements Initializable {
 						if (!premierJoueur) { // C'est pas le premier joueur
 							enregistrerJoueur(nomJoueur, dateNaissance);
 						} else { // C'est le premier joueur
-							enregistrerJoueur(nomJoueur, dateNaissance, ParametresController.nbJoueurs, ParametresController.difficulte);
+							enregistrerJoueur(nomJoueur, dateNaissance, ParametresController.nbJoueurs,
+									ParametresController.difficulte);
 						}
 						lancerJeu();
-					}catch (TooMuchPlayerException e){
+					} catch (TooMuchPlayerException e) {
 						Alert alert = new Alert(Alert.AlertType.ERROR);
 						alert.setTitle("Erreur!");
 						alert.setHeaderText("Une erreur a été détéctée.");
-						alert.setContentText("Il y a déjà le nombre de joueur requis... désolé ce sera pour une prochaine !");
+						alert.setContentText(
+								"Il y a déjà le nombre de joueur requis... désolé ce sera pour une prochaine !");
 
 						alert.showAndWait();
 					}
@@ -165,7 +183,7 @@ public class ConnexionController implements Initializable {
 					utilisateurErreur.setText("Erreur, utilisateur inconnu, inscrivez-vous.");
 				}
 			}
-		}else{
+		} else {
 			utilisateurErreur.setText("Désolé ! La partie a déjà commencé.");
 		}
 	}
@@ -183,10 +201,14 @@ public class ConnexionController implements Initializable {
 			gameFenetre.setScene(scene);
 			gameFenetre.setMaximized(true);
 			VuePrincipale.stagePrincipal.close();
+			scene.getStylesheets().clear();
+			scene.getStylesheets().add(getClass().getResource("/client/view/fxml/stylesheet.css").toExternalForm());
+
 			gameFenetre.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				public void handle(WindowEvent we) {
 					try {
-						serveur.getGestionnaireUI().diffuserMessage(new Message(proxy.getJoueur().getNomUtilisateur() + " s'est déconnecté de la partie"));
+						serveur.getGestionnaireUI().diffuserMessage(
+								new Message(proxy.getJoueur().getNomUtilisateur() + " s'est déconnecté de la partie"));
 						serveur.getGestionnaireUI().diffuserDepartJoueur(proxy.getJoueur());
 						System.exit(0);
 					} catch (Exception e) {
@@ -202,22 +224,24 @@ public class ConnexionController implements Initializable {
 
 	/**
 	 * Appel la méthode du serveur pour enregistrer le joueur
+	 * 
 	 * @throws RemoteException
 	 * @throws TooMuchPlayerException
 	 */
 	public void enregistrerJoueur(String nomJoueur, Date date) throws RemoteException, TooMuchPlayerException {
-		if(!serveur.enregistrerJoueur(this.proxy, nomJoueur, date)){
+		if (!serveur.enregistrerJoueur(this.proxy, nomJoueur, date)) {
 			utilisateurErreur.setText("Vous ne faîtes pas partie de la partie chargée qui est en cours.");
-		}
-		else{
-			// Set le nom du joueur. Pour recuperer le joueur n'importe où (et donc ses attributs), passer par proxy.getJoueur()
+		} else {
+			// Set le nom du joueur. Pour recuperer le joueur n'importe où (et
+			// donc ses attributs), passer par proxy.getJoueur()
 			this.proxy.getJoueur().setNomUtilisateur(nomJoueur);
 			this.proxy.getJoueur().setDateDeNaissance(date);
 		}
 	}
-	
+
 	/**
 	 * Méthode appelée que lors de la connexion du PREMIER joueur de la partie
+	 * 
 	 * @param nomJoueur
 	 * @param date
 	 * @param nbJoueurs
@@ -225,19 +249,22 @@ public class ConnexionController implements Initializable {
 	 * @throws RemoteException
 	 * @throws TooMuchPlayerException
 	 */
-	public void enregistrerJoueur(String nomJoueur, Date date, int nbJoueurs, String difficulte) throws RemoteException, TooMuchPlayerException {
-		if(!serveur.enregistrerJoueur(this.proxy, nomJoueur, date, nbJoueurs, difficulte)){
+	public void enregistrerJoueur(String nomJoueur, Date date, int nbJoueurs, String difficulte)
+			throws RemoteException, TooMuchPlayerException {
+		if (!serveur.enregistrerJoueur(this.proxy, nomJoueur, date, nbJoueurs, difficulte)) {
 			utilisateurErreur.setText("Vous ne faîtes pas partie de la partie chargée qui est en cours.");
-		}
-		else{
-			// Set le nom du joueur. Pour recuperer le joueur n'importe où (et donc ses attributs), passer par proxy.getJoueur()
+		} else {
+			// Set le nom du joueur. Pour recuperer le joueur n'importe où (et
+			// donc ses attributs), passer par proxy.getJoueur()
 			this.proxy.getJoueur().setNomUtilisateur(nomJoueur);
 			this.proxy.getJoueur().setDateDeNaissance(date);
 		}
 	}
-	
+
 	/**
-	 * Se lance quand l'utilisateur appuie sur entrée lorsqu'il se trouve dans le PasswordField
+	 * Se lance quand l'utilisateur appuie sur entrée lorsqu'il se trouve dans
+	 * le PasswordField
+	 * 
 	 * @throws RemoteException
 	 * @throws InterruptedException
 	 * @throws TooMuchPlayerException
@@ -247,12 +274,15 @@ public class ConnexionController implements Initializable {
 	}
 
 	/**
-	 * Permet l'ouverture de la fenêtre permettant de choisir une partie à charger
+	 * Permet l'ouverture de la fenêtre permettant de choisir une partie à
+	 * charger
+	 * 
 	 * @throws InterruptedException
-	 * @throws RemoteException 
+	 * @throws RemoteException
 	 */
 	public void ouvrirFenetreChargerPartie() throws InterruptedException, RemoteException {
-		if(serveur.getGestionnairePartie() == null || !serveur.getGestionnairePartie().getPartie().isPartieCommence()){
+		if (serveur.getGestionnairePartie() == null
+				|| !serveur.getGestionnairePartie().getPartie().isPartieCommence()) {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/ChargementPartie.fxml"));
 			try {
 				boolean connexionOk = serveur.getGestionnaireBDD().verificationConnexion(nomUtilisateur.getText(),
@@ -260,15 +290,15 @@ public class ConnexionController implements Initializable {
 				if (connexionOk) {
 					nomJoueur = nomUtilisateur.getText();
 					pageChargementPartie = (Pane) loader.load();
-	
+
 					ArrayList<Integer> listeIdPartieSauvegarde = serveur.getGestionnaireBDD()
 							.recupererPartieByName(nomUtilisateur.getText());
 					if (listeIdPartieSauvegarde != null && listeIdPartieSauvegarde.size() > 0) {
 						boutonParametresPartie.setVisible(false);
 						boutonChargementPartie.setVisible(false);
-						
+
 						serveur.creerGestionnaireUIetPartie();
-						
+
 						fenetreChargementPartie = new Stage();
 						fenetreChargementPartie.setTitle("Les Colons de Catanes");
 						Scene scene = new Scene(pageChargementPartie, 370, 200);
@@ -283,16 +313,16 @@ public class ConnexionController implements Initializable {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
-		else{
-			utilisateurErreur.setText("Une partie chargée est déjà sur le serveur, vous ne pouvez pas en charger une autre.");
+		} else {
+			utilisateurErreur
+					.setText("Une partie chargée est déjà sur le serveur, vous ne pouvez pas en charger une autre.");
 		}
 	}
-	
+
 	@FXML
-	public void ouvrirFenetreParametresPartie() throws IOException{
+	public void ouvrirFenetreParametresPartie() throws IOException {
 		boutonChargementPartie.setVisible(false);
-		
+
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/client/view/fxml/ParametresPartie.fxml"));
 		pageParametresPartie = (Pane) loader.load();
 		fenetreParametres = new Stage();

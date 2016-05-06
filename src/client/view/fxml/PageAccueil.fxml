@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane fx:id="panePageAccueil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="925.0" styleClass="PanePageAccueil" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.PageAccueilController">
+<Pane fx:id="panePageAccueil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="925.0" styleClass="PanePageAccueil" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.PageAccueilController">
 	<children> 
 	  <Button fx:id="boutonRegles" layoutX="403.0" layoutY="408.0" mnemonicParsing="false" onAction="#jouer" prefHeight="27.0" prefWidth="119.0" text="Jouer" />
       <Button fx:id="boutonJouer" layoutX="403.0" layoutY="452.0" mnemonicParsing="false" onAction="#regles" prefHeight="25.0" prefWidth="119.0" text="Règles" />

@@ -20,7 +20,7 @@ public class LongueRoute extends Carte implements Serializable{
      * @throws RemoteException Exception dû a RMI
      */
     public LongueRoute() throws RemoteException {
-        super( "Plus longue route","/Ressources/cartes/longue_route.png",false);
+        super( "Plus longue route","/cartes/longue_route.png",false);
     }
 
     /**

@@ -15,12 +15,12 @@ public class VueHexagone extends Polygon {
 	
 	public HexagoneInterface hexagone;
 	
-	public final static String carriere 	= "file:Ressources/cases/carriere.png";
-	public final static String champs 		= "file:Ressources/cases/champs.png";
-	public final static String foret		= "file:Ressources/cases/foret.png";
-	public final static String montagne 	= "file:Ressources/cases/montagne.png";
-	public final static String prairie		= "file:Ressources/cases/plaine.png";
-	public final static String dunevoleur 	= "file:Ressources/cases/dune.png"; 
+	public final static String carriere 	= "/cases/carriere.png";
+	public final static String champs 		= "/cases/champs.png";
+	public final static String foret		= "/cases/foret.png";
+	public final static String montagne 	= "/cases/montagne.png";
+	public final static String prairie		= "/cases/plaine.png";
+	public final static String dunevoleur 	= "/cases/dune.png"; 
 	
 	public VueHexagone(HexagoneInterface hexagone) throws RemoteException {
 		super();
@@ -37,17 +37,17 @@ public class VueHexagone extends Polygon {
 	public Paint getPaint(int id){
 		switch(id){
 		case Hexagone.CARRIERE:
-			return new ImagePattern(new Image(carriere));
+			return new ImagePattern(new Image(getClass().getResource(carriere).toExternalForm()));
 		case Hexagone.CHAMPS:
-			return new ImagePattern(new Image(champs));
+			return new ImagePattern(new Image(getClass().getResource(champs).toExternalForm()));
 		case Hexagone.FORET:
-			return new ImagePattern(new Image(foret));
+			return new ImagePattern(new Image(getClass().getResource(foret).toExternalForm()));
 		case Hexagone.MONTAGNE:
-			return new ImagePattern(new Image(montagne));
+			return new ImagePattern(new Image(getClass().getResource(montagne).toExternalForm()));
 		case Hexagone.PRAIRIE:
-			return new ImagePattern(new Image(prairie));
+			return new ImagePattern(new Image(getClass().getResource(prairie).toExternalForm()));
 		case Hexagone.DESERT:
-			return new ImagePattern(new Image(dunevoleur));
+			return new ImagePattern(new Image(getClass().getResource(dunevoleur).toExternalForm()));
 		}
 		return null;
 		

@@ -66,12 +66,9 @@ public class PageAccueilController implements Initializable {
 	 */
 	@FXML
 	public void regles() {
-		VuePrincipale v = new VuePrincipale();
-		
 		try {
 			Desktop.getDesktop().open(new File(getClass().getResource("/rules.pdf").getPath()));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

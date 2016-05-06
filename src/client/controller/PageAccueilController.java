@@ -2,7 +2,6 @@ package client.controller;
 
 import java.awt.Desktop;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -66,11 +65,8 @@ public class PageAccueilController implements Initializable {
 	 */
 	@FXML
 	public void regles() {
-		try {
-			Desktop.getDesktop().open(new File(getClass().getResource("/rules.pdf").getPath()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		VuePrincipale v = new VuePrincipale();
+		v.getHostServices().showDocument(getClass().getResource("/rules.pdf").toExternalForm());
 	}
 
 

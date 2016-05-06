@@ -1,12 +1,11 @@
 package client.controller;
 
-import java.awt.Desktop;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
+import client.view.VuePrincipale;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -57,11 +56,9 @@ public class ReglesController implements Initializable{
 	}
 	
 	public void afficherRegles(){
-		try {
-			Desktop.getDesktop().open(new File(getClass().getResource("/rules.pdf").getPath()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		VuePrincipale v = new VuePrincipale();
+		v.getHostServices().showDocument(getClass().getResource("/rules.pdf").toExternalForm());
+	
 	}
 	
 	@FXML

@@ -177,4 +177,8 @@ public interface JoueurServeur extends Remote {
 	 * @throws RemoteException
 	 */
 	void setButtonLancerDes(boolean b) throws RemoteException;
+
+	void setButtonsAfterLancerDes() throws RemoteException;
+
+	void doActionVoleur() throws RemoteException;
 }

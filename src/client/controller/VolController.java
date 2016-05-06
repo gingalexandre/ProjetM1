@@ -131,8 +131,8 @@ public class VolController implements Initializable {
 			//Fermeture de la fenêtre
 			MenuController.fenetreVol.close();
 			
-			//Réactiver le bouton d'échange chez les autres joueurs
-			serveur.getGestionnaireUI().diffuserDisableBoutonEchange(false);
+			//Réactiver le bouton d'échange chez les autres joueurs NON C'EST PAS LEUR TOUR!!!
+			//serveur.getGestionnaireUI().diffuserDisableBoutonEchange(false);
 		}
 		else{
 			this.message.setText("Saisie invalide ou nombre de ressource différent de "+this.maxRessource);

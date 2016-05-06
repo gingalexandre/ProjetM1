@@ -153,4 +153,6 @@ public interface GestionnaireUIInterface extends Remote{
 	 * @throws RemoteException
 	 */
 	void diffuserDisableBoutonEchange(boolean b) throws RemoteException;
+
+	void decrementerVol() throws RemoteException;
 }

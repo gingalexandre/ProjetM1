@@ -8,10 +8,10 @@
 fx:controller="client.controller.MainController">
   
   <children>
-  	<fx:include source="Connexion.fxml" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+  	<fx:include source="/client/view/fxml/Connexion.fxml" GridPane.columnIndex="0" GridPane.rowIndex="0" />
   </children>
   <children>
-  	<fx:include source="Inscription.fxml" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+  	<fx:include source="/client/view/fxml/Inscription.fxml" GridPane.columnIndex="1" GridPane.rowIndex="0" />
   </children>
   
   <columnConstraints>

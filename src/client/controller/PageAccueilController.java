@@ -56,6 +56,7 @@ public class PageAccueilController implements Initializable {
 				alert.setContentText("Le serveur de jeu est indisponible.");
 				alert.showAndWait();
 				VuePageAccueil.stagePrincipal.show();
+				e.printStackTrace();
 			}
 		});
 	}

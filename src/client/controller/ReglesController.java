@@ -46,6 +46,7 @@ public class ReglesController implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//Initialisation du proxy
+		
 		proxy = ConnexionManager.getStaticProxy();
 		try {
 			proxy.setReglesController(this);

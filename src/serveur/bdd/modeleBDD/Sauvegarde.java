@@ -108,6 +108,11 @@ public class Sauvegarde {
 	public void sauvegarderPartie(PartieSauvegarde partieASauvegarder, String path) {
 		try {
 			jsonOutputFile = new File(path);
+			String pathDossier = new java.io.File("").getAbsolutePath() + "/sauvegardes/";
+			File testDossier = new File(pathDossier);
+			if(!testDossier.exists()){
+				testDossier.mkdirs();
+			}
 			objectMapper.enable(SerializationConfig.Feature.INDENT_OUTPUT);
 			objectMapper.writeValue(new FileOutputStream(path), partieASauvegarder);
 				

@@ -15,7 +15,7 @@ public class VuePageAccueil extends Application{
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-		FXMLLoader preloader = new FXMLLoader(getClass().getResource("fxml/PageAccueil.fxml"));
+		FXMLLoader preloader = new FXMLLoader(getClass().getResource("/client/view/fxml/PageAccueil.fxml"));
 		Parent root = preloader.load();
         scene = new Scene(root,925,715);
         scene.getStylesheets().clear();

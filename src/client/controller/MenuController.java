@@ -67,12 +67,12 @@ public class MenuController implements Initializable {
 	/**
 	 * Attributs concernants les dés
 	 */
-	private static final String numeroUn = "file:Ressources/des/dice1.png";
-	private static final String numeroDeux = "file:Ressources/des/dice2.png";
-	private static final String numeroTrois = "file:Ressources/des/dice3.png";
-	private static final String numeroQuatre = "file:Ressources/des/dice4.png";
-	private static final String numeroCinq = "file:Ressources/des/dice5.png";
-	private static final String numeroSix = "file:Ressources/des/dice6.png";
+	private static final String numeroUn = "/des/dice1.png";
+	private static final String numeroDeux = "/des/dice2.png";
+	private static final String numeroTrois = "/des/dice3.png";
+	private static final String numeroQuatre = "/des/dice4.png";
+	private static final String numeroCinq = "/des/dice5.png";
+	private static final String numeroSix = "/des/dice6.png";
 
 	@FXML
 	private GridPane menuGridPane;
@@ -155,8 +155,8 @@ public class MenuController implements Initializable {
 		serveur = ConnexionManager.getStaticServeur();
 
 		//Initialisation des dés
-		de1.setImage(new Image(numeroSix));
-		de2.setImage(new Image(numeroSix));
+		de1.setImage(new Image(getClass().getResourceAsStream(numeroSix)));
+		de2.setImage(new Image(getClass().getResourceAsStream(numeroSix)));
 
 		//Initialisation de la liste de cartes
 		listeCarte.valueProperty().addListener(new ChangeListener<String>() {
@@ -211,6 +211,7 @@ public class MenuController implements Initializable {
 			fenetreEchange.setScene(scene);
 			fenetreEchange.showAndWait();
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -348,8 +349,8 @@ public class MenuController implements Initializable {
 
 		animateDes();
 		// Modification des images
-		de1.setImage(new Image(distribuerDes(resultats[0])));
-		de2.setImage(new Image(distribuerDes(resultats[1])));
+		de1.setImage(new Image(getClass().getResourceAsStream(distribuerDes(resultats[0]))));
+		de2.setImage(new Image(getClass().getResourceAsStream(distribuerDes(resultats[1]))));
 
 		notifierLancerDes(resultats);
 

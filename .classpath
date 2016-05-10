@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="src/|Maquette/|Rapport/|sauvegardes/|Ressources/|Ressources/" kind="src" path=""/>
 	<classpathentry kind="src" path="Ressources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="sqlite-jdbc-3.8.11.2.jar"/>
 	<classpathentry kind="lib" path="jackson-all-1.9.0.jar"/>
+	<classpathentry kind="lib" path="/Users/Alexandre/Desktop/workspace/ProjetM1/sqlite-jdbc-3.8.11.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

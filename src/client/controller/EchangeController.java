@@ -70,11 +70,11 @@ public class EchangeController implements Initializable {
 			e.printStackTrace();
 		}
 		
-		imgLaine.setImage(new Image("file:Ressources/ressources/ressource_laine.png"));
-		imgBois.setImage(new Image("file:Ressources/ressources/ressource_Bois.png"));
-		imgMineraie.setImage(new Image("file:Ressources/ressources/ressource_Mineraie.png"));
-		imgArgile.setImage(new Image("file:Ressources/ressources/ressource_Argile.png"));
-		imgBle.setImage(new Image("file:Ressources/ressources/ressource_Ble.png"));
+		imgLaine.setImage(new Image(getClass().getResource("/cases/ressourceLaine.png").toExternalForm()));
+		imgBois.setImage(new Image(getClass().getResource("/cases/ressourceBois.png").toExternalForm()));
+		imgMineraie.setImage(new Image(getClass().getResource("/cases/ressourceMineraie.png").toExternalForm()));
+		imgArgile.setImage(new Image(getClass().getResource("/cases/ressourceArgile.png").toExternalForm()));
+		imgBle.setImage(new Image(getClass().getResource("/cases/ressourceBle.png").toExternalForm()));
 		
 		demandeArgile.setText("0");
 		demandeBle.setText("0");

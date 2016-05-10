@@ -147,7 +147,7 @@ public class PlateauController implements Initializable{
 	 */
 	public void dessinerPlateau() {
 		//Dessin du fond
-		Image img = new Image("file:Ressources/cases/mer.png");
+		Image img = new Image(getClass().getResource("/cases/mer.png").toExternalForm());
 		ImageView imgView = new ImageView(img);
 		imgView.setFitHeight(725);
 		imgView.setFitWidth(650);

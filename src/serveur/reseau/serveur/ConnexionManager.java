@@ -28,6 +28,8 @@ public class ConnexionManager {
 	 * Constructeur privé se connectant au serveur
 	 */
 	private ConnexionManager(){
+		System.setProperty("java.security.policy", "./security.policy");
+		System.setSecurityManager(new SecurityManager());
 		String serveurURL = "rmi://127.0.0.1:42000/serveur";
 		try {
 			this.serveur = (Serveur) Naming.lookup(serveurURL);

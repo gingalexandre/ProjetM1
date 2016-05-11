@@ -57,6 +57,8 @@ public class ConnexionController implements Initializable {
 	 * Serveur de jeu
 	 */
 	private Serveur serveur;
+	
+	
 
 	/**
 	 * Proxy du joueur
@@ -97,7 +99,7 @@ public class ConnexionController implements Initializable {
 				premierJoueur = false;
 			}
 		} catch (RemoteException e) {
-			e.printStackTrace();
+
 		}
 	}
 

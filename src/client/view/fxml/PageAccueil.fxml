@@ -4,11 +4,15 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.TextField?>
 
 <Pane fx:id="panePageAccueil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="925.0" styleClass="PanePageAccueil" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.PageAccueilController">
 	<children> 
+	
+	
 	  <Button fx:id="boutonRegles" layoutX="403.0" layoutY="408.0" mnemonicParsing="false" onAction="#jouer" prefHeight="27.0" prefWidth="119.0" text="Jouer" />
       <Button fx:id="boutonJouer" layoutX="403.0" layoutY="452.0" mnemonicParsing="false" onAction="#regles" prefHeight="25.0" prefWidth="119.0" text="Règles" />
+      <TextField fx:id="ipServeur" promptText="Veuillez entrer l'adresse IP du Serveur" layoutX="170.0" layoutY="350" prefHeight="37.0" prefWidth="596.0" />
       <Button fx:id="boutonQuitter" layoutX="403.0" layoutY="496.0" mnemonicParsing="false" onAction="#quitter" prefHeight="25.0" prefWidth="119.0" text="Quitter" />
       <ImageView fx:id="imageCatan" fitHeight="174.0" fitWidth="353.0" layoutX="286.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true" />
       <Label layoutX="773.0" layoutY="688.0" text="Powered by StackOverflow" />

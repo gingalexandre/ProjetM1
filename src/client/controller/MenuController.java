@@ -44,7 +44,6 @@ import serveur.modele.Des;
 import serveur.modele.Message;
 import serveur.modele.Plateau;
 import serveur.modele.Point;
-import serveur.modele.Ressource;
 import serveur.modele.carte.LongueRoute;
 import serveur.modele.carte.Victoire;
 import serveur.modele.service.CarteInterface;

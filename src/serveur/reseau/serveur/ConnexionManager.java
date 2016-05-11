@@ -1,5 +1,7 @@
 package serveur.reseau.serveur;import java.rmi.Naming;
 
+import client.controller.ConnexionController;
+import client.controller.PageAccueilController;
 import client.view.VuePrincipale;
 import serveur.reseau.proxy.Proxy;
 
@@ -30,7 +32,7 @@ public class ConnexionManager {
 	private ConnexionManager(){
 		System.setProperty("java.security.policy", "./security.policy");
 		System.setSecurityManager(new SecurityManager());
-		String serveurURL = "rmi://127.0.0.1:42000/serveur";
+		String serveurURL = "rmi://"+PageAccueilController.ipServeurConnexion+":42000/serveur";
 		try {
 			this.serveur = (Serveur) Naming.lookup(serveurURL);
 			this.proxy = new Proxy();
